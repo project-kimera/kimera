@@ -4,7 +4,11 @@ namespace Kimera.Data.Entities
 {
     public class Plugin
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+
+        public Guid SystemId { get; set; }
+
+        public Guid PackageMetadata { get; set; }
 
         public string Name { get; set; }
 
@@ -14,9 +18,6 @@ namespace Kimera.Data.Entities
 
         public string Version { get; set; }
 
-        public Plugin(Guid id)
-        {
-            Id = id;
-        }
+        public virtual PackageMetadata PackageMetadataNavigation { get; set; }
     }
 }

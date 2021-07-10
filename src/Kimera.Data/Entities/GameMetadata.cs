@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace Kimera.Data.Entities
 {
     public class GameMetadata
     {
-        public Game Game { get; set; }
+        public int Id { get; set; }
+
+        public Guid SystemId { get; set; }
+
+        public Guid Game { get; set; }
 
         public string Name { get; set; }
 
@@ -20,12 +22,14 @@ namespace Kimera.Data.Entities
 
         public string Tags { get; set; } // It should be separated by comma.
 
-        public virtual ICollection<CultureInfo> SupportedLanguages { get; set; } = new List<CultureInfo>();
+        public string SupportedLanguages { get; set; }  // It should be separated by comma.
 
-        public virtual Version Version { get; set; }
+        public Version Version { get; set; }
 
         public string ThumbnailUrl { get; set; }
 
         public string HomepageUrl { get; set; }
+
+        public virtual Game GameNavigation { get; set; }
     }
 }

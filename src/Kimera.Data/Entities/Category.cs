@@ -8,22 +8,12 @@ namespace Kimera.Data.Entities
     /// </summary>
     public class Category
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+
+        public Guid SystemId { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<Guid> Games { get; private set; } = new List<Guid>();
-
-        public Category(Guid id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
-
-        public Category(Guid id, Guid parentId, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+        public virtual ICollection<CategorySubscription> CategorySubscription { get; set; } = new HashSet<CategorySubscription>();
     }
 }

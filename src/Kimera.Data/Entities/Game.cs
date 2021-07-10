@@ -1,15 +1,18 @@
 ﻿using Kimera.Data.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Kimera.Data.Entities
 {
     public class Game
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public GameMetadata GameMetadata { get; set; }
+        public Guid SystemId { get; set; }
 
-        public PackageMetadata PackageMetadata { get; set; }
+        public Guid GameMetadata { get; set; }
+
+        public Guid PackageMetadata { get; set; }
 
         public PackageStatus PackageStatus { get; set; }
 
@@ -25,10 +28,10 @@ namespace Kimera.Data.Entities
 
         public DateTime LastTime { get; set; }
 
-        public Game(Guid id, PackageStatus packageStatus)
-        {
-            Id = id;
-            PackageStatus = packageStatus;
-        }
+        public virtual GameMetadata GameMetadataNavigation { get; set; }
+
+        public virtual PackageMetadata PackageMetadataNavigation { get; set; }
+
+        public virtual ICollection<CategorySubscription> CategorySubscription { get; set; } = new HashSet<CategorySubscription>();
     }
 }
