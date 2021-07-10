@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Kimera.Styles"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    x:Class="Kimera.Styles.WindowBaseStyles">
+    <Style x:Key="MainWindowBaseStyle" TargetType="Window">
+        <EventSetter Event="Loaded" Handler="OnLoaded"/>
+
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome 
+                    ResizeBorderThickness="10" 
+                    CaptionHeight="40"
+                    CornerRadius="0" 
+                    GlassFrameThickness="0.5"/>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="False"/>
+
+        <Setter Property="WindowState" Value="Normal"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <!--Non-client area border-->
+                    <Border>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Maximized">
+                                        <Setter Property="BorderThickness" Value="6"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <!--Client area-->
+                        <Grid Background="{DynamicResource MaterialDesignBackground}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Title bar area-->
+                            <Grid Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource MaterialDesignCardBackground}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="32"/>
+                                        <ColumnDefinition Width="32"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Background="{DynamicResource MaterialDesignSelection}"
+                                                      HorizontalAlignment="Center" Width="24" Height="24" WindowChrome.IsHitTestVisibleInChrome="True"
+                                                      IsChecked="{Binding Topmost, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                        <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
+                                    </ToggleButton>
+
+                                    <Button Grid.Column="2" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                        <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
+                                    </Button>
+
+                                    <Button Grid.Column="3" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                        <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
+                                    </Button>
+
+                                    <Button Grid.Column="4" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                        <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            <!--Window content-->
+                            <Grid x:Name="Content" Grid.Row="0" Grid.RowSpan="3">
+                                <ContentPresenter/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
