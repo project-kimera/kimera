@@ -24,6 +24,18 @@ namespace Kimera.Data.Entities
 
         public string SupportedLanguages { get; set; }  // It should be separated by comma.
 
+        public double StarRate { get; set; }
+
+        public string Memo { get; set; }
+
+        public int PlayTime { get; set; }
+
+        public bool IsCompleted { get; set; }
+
+        public DateTime FirstTime { get; set; }
+
+        public DateTime LastTime { get; set; }
+
         public Version Version { get; set; }
 
         public string ThumbnailUrl { get; set; }

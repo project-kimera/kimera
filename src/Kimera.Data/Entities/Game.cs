@@ -16,18 +16,6 @@ namespace Kimera.Data.Entities
 
         public PackageStatus PackageStatus { get; set; }
 
-        public double StarRate { get; set; }
-
-        public string Memo { get; set; }
-
-        public int PlayTime { get; set; }
-
-        public bool IsCompleted { get; set; }
-
-        public DateTime FirstTime { get; set; }
-
-        public DateTime LastTime { get; set; }
-
         public virtual GameMetadata GameMetadataNavigation { get; set; }
 
         public virtual PackageMetadata PackageMetadataNavigation { get; set; }
