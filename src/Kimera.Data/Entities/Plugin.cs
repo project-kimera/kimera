@@ -16,7 +16,7 @@ namespace Kimera.Data.Entities
 
         public string Copyright { get; set; }
 
-        public string Version { get; set; }
+        public Version Version { get; set; }
 
         public virtual PackageMetadata PackageMetadataNavigation { get; set; }
     }
