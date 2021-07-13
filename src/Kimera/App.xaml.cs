@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.AntiDPI;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -19,6 +20,7 @@ namespace Kimera
         {
             base.OnStartup(e);
             SetLanguageResources();
+            new AntiDPIHelper().WriteResources(@"E:\");
         }
 
         private void SetLanguageResources()

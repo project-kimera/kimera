@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kimera.AntiDPI\Kimera.AntiDPI.csproj" />
     <ProjectReference Include="..\Kimera.Data\Kimera.Data.csproj" />
   </ItemGroup>
 

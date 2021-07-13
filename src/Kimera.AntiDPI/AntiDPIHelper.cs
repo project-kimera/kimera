@@ -10,7 +10,7 @@ namespace Kimera.AntiDPI
 {
     public class AntiDPIHelper : IDisposable
     {
-        private void WriteResources(string directory)
+        public void WriteResources(string directory)
         {
             if (!Directory.Exists(directory))
             {
@@ -22,10 +22,63 @@ namespace Kimera.AntiDPI
             string winDivert32SysPath = Path.Combine(directory, "WinDivert32.sys");
             string winDivert64SysPath = Path.Combine(directory, "WinDivert64.sys");
 
+            if (File.Exists(goodbyedpiPath))
+            {
+                File.Delete(goodbyedpiPath);
+            }
+
+            if (File.Exists(winDivertDllPath))
+            {
+                File.Delete(winDivertDllPath);
+            }
+
+            if (File.Exists(winDivert32SysPath))
+            {
+                File.Delete(winDivert32SysPath);
+            }
+
+            if (File.Exists(winDivert64SysPath))
+            {
+                File.Delete(winDivert64SysPath);
+            }
+
             if (Environment.Is64BitOperatingSystem)
             {
                 Assembly currentAssembly = Assembly.GetExecutingAssembly();
-                // TODO: Write the files. 
+
+                using (FileStream stream = new FileStream(goodbyedpiPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.goodbyedpi.exe").CopyTo(stream);
+                }
+
+                using (FileStream stream = new FileStream(winDivertDllPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.WinDivert.dll").CopyTo(stream);
+                }
+
+                using (FileStream stream = new FileStream(winDivert64SysPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.WinDivert64.sys").CopyTo(stream);
+                }
+            }
+            else
+            {
+                Assembly currentAssembly = Assembly.GetExecutingAssembly();
+
+                using (FileStream stream = new FileStream(goodbyedpiPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.goodbyedpi.exe").CopyTo(stream);
+                }
+
+                using (FileStream stream = new FileStream(winDivertDllPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.WinDivert.dll").CopyTo(stream);
+                }
+
+                using (FileStream stream = new FileStream(winDivert32SysPath, FileMode.CreateNew))
+                {
+                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.WinDivert32.sys").CopyTo(stream);
+                }
             }
         }
 

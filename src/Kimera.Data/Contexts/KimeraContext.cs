@@ -15,8 +15,6 @@ namespace Kimera.Data.Contexts
 
         public virtual DbSet<PackageMetadata> PackageMetadata { get; set; }
 
-        public virtual DbSet<Plugin> Plugin { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>(entity =>
