@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Kimera.Abstractions\Kimera.Abstractions.csproj" />
     <ProjectReference Include="..\Kimera.Data\Kimera.Data.csproj" />
   </ItemGroup>
 

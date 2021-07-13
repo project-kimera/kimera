@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\x64\goodbyedpi.exe" />
+    <None Remove="Resources\x64\WinDivert.dll" />
+    <None Remove="Resources\x64\WinDivert64.sys" />
+    <None Remove="Resources\x86\goodbyedpi.exe" />
+    <None Remove="Resources\x86\WinDivert.dll" />
+    <None Remove="Resources\x86\WinDivert32.sys" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\x64\goodbyedpi.exe" />
+    <EmbeddedResource Include="Resources\x64\WinDivert.dll" />
+    <EmbeddedResource Include="Resources\x64\WinDivert64.sys" />
+    <EmbeddedResource Include="Resources\x86\goodbyedpi.exe" />
+    <EmbeddedResource Include="Resources\x86\WinDivert.dll" />
+    <EmbeddedResource Include="Resources\x86\WinDivert32.sys" />
+  </ItemGroup>
+
+</Project>

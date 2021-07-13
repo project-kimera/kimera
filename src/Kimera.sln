@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera", "Kimera\Kimera.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.Data", "Kimera.Data\Kimera.Data.csproj", "{F66FA8AA-80F1-4932-BC3C-78BBEF617496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kimera.Abstractions", "Kimera.Abstractions\Kimera.Abstractions.csproj", "{614BD5EB-60B6-419A-8CB1-C3FFA2199E7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kimera.AntiDPI", "Kimera.AntiDPI\Kimera.AntiDPI.csproj", "{84E94E53-F194-459B-B111-D8DD7C905366}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Release|Any CPU.Build.0 = Release|Any CPU
-		{614BD5EB-60B6-419A-8CB1-C3FFA2199E7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{614BD5EB-60B6-419A-8CB1-C3FFA2199E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{614BD5EB-60B6-419A-8CB1-C3FFA2199E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{614BD5EB-60B6-419A-8CB1-C3FFA2199E7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84E94E53-F194-459B-B111-D8DD7C905366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84E94E53-F194-459B-B111-D8DD7C905366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84E94E53-F194-459B-B111-D8DD7C905366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84E94E53-F194-459B-B111-D8DD7C905366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -98,23 +98,6 @@ namespace Kimera.Data.Contexts
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("FK_PackageMetadata_Game");
 
-                entity.HasOne(d => d.PackageManagerNavigation)
-                    .WithOne(p => p.PackageMetadataNavigation)
-                    .HasPrincipalKey<PackageMetadata>(p => p.PackageManager)
-                    .HasForeignKey<Plugin>(d => d.PackageMetadata)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_PackageMetadata_PackageManager");
-            });
-
-            modelBuilder.Entity<Plugin>(entity =>
-            {
-                entity.HasIndex(e => e.SystemId)
-                    .HasDatabaseName("IX_Plugin")
-                    .IsUnique();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("TEXT");
             });
         }
     }
