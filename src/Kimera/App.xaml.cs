@@ -1,4 +1,5 @@
 ﻿using Kimera.AntiDPI;
+using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,13 +17,22 @@ namespace Kimera
     /// </summary>
     public partial class App : Application
     {
+        private bool _debugMode = true;
+
         private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            SetLanguageResources();
-            StartAntiDPI();
+            if (!PrivilegeUtility.IsAdministrator() && !_debugMode)
+            {
+                PrivilegeUtility.RunAsAdiministrator();
+            }
+            else
+            {
+                SetLanguageResources();
+                StartAntiDPI();
+                base.OnStartup(e);
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -62,7 +72,7 @@ namespace Kimera
             }
             catch
             {
-                MessageBox.Show("Failed to start the AntiDPI.", "Kimera");
+                MessageBox.Show("Failed to start the AntiDPI.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -74,7 +84,7 @@ namespace Kimera
             }
             catch
             {
-                MessageBox.Show("Failed to stop the AntiDPI.", "Kimera");
+                MessageBox.Show("Failed to stop the AntiDPI.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
