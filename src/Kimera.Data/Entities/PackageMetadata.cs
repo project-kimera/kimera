@@ -10,8 +10,12 @@ namespace Kimera.Data.Entities
 
         public Guid Game { get; set; }
 
-        public virtual Game GameNavigation { get; set; }
+        public ICollection<IndexedFilePath> Components { get; set; } = new HashSet<IndexedFilePath>();
 
-        public virtual ICollection<Setting> Settings { get; set; } = new HashSet<Setting>();
+        public string EntryPointFilePath { get; set; }
+
+        public string Arguments { get; set; }
+
+        public virtual Game GameNavigation { get; set; }
     }
 }

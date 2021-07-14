@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace Kimera.Utilities
 {
-    public static class PrivilegeUtility
+    public static class PrivilegeManager
     {
         public static bool IsAdministrator()
         {

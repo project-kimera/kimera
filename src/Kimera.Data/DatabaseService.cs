@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kimera.Data
 {
-    internal class DatabaseService : IDisposable
+    public class DatabaseService : IDisposable
     {
         private KimeraContext _data;
         private DbContextOptions _lastOptions;

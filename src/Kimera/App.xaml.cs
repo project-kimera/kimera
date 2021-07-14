@@ -23,9 +23,9 @@ namespace Kimera
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (!PrivilegeUtility.IsAdministrator() && !_debugMode)
+            if (!PrivilegeManager.IsAdministrator() && !_debugMode)
             {
-                PrivilegeUtility.RunAsAdiministrator();
+                PrivilegeManager.RunAsAdiministrator();
             }
             else
             {

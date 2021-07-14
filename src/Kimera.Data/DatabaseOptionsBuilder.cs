@@ -2,7 +2,7 @@
 
 namespace Kimera.Data
 {
-    internal class DatabaseOptionsBuilder
+    public class DatabaseOptionsBuilder
     {
         private static DbContextOptionsBuilder _builder;
 
