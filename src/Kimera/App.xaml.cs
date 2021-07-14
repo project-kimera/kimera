@@ -16,11 +16,19 @@ namespace Kimera
     /// </summary>
     public partial class App : Application
     {
+        private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             SetLanguageResources();
-            new AntiDPIHelper().WriteResources(@"E:\");
+            StartAntiDPI();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            StopAntiDPI();
+            base.OnExit(e);
         }
 
         private void SetLanguageResources()
@@ -39,6 +47,35 @@ namespace Kimera
                     break;
             }
             this.Resources.MergedDictionaries.Add(dict);
+        }
+
+        private void StartAntiDPI()
+        {
+            try
+            {
+                if (!_antiDPI.CheckResources())
+                {
+                    _antiDPI.EnsureResources();
+                }
+
+                _antiDPI.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Failed to start the AntiDPI.", "Kimera");
+            }
+        }
+
+        private void StopAntiDPI()
+        {
+            try
+            {
+                _antiDPI.Stop();
+            }
+            catch
+            {
+                MessageBox.Show("Failed to stop the AntiDPI.", "Kimera");
+            }
         }
     }
 }

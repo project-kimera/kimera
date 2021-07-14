@@ -44,7 +44,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="필터">
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="새로고침">
                             <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Refresh"/>
                         </Button>
 
