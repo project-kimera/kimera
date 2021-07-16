@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kimera"
         mc:Ignorable="d"
-        Title="DialogWindow" Height="450" Width="800">
+        Style="{StaticResource FixedDialogWindowStyle}"
+        Title="FixedWindow" Height="450" Width="800">
     <Grid>
         
     </Grid>

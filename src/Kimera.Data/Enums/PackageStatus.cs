@@ -2,8 +2,10 @@
 {
     public enum PackageStatus
     {
-        NonPlayable,
-        NeedProcessing,
+        Compressed,
+        FileNotFound,
+        DataNotFound,
+        Exception,
         Playable
     }
 }

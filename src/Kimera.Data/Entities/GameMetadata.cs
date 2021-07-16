@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.Data.Enums;
+using System;
 
 namespace Kimera.Data.Entities
 {
@@ -16,7 +17,7 @@ namespace Kimera.Data.Entities
 
         public string Creator { get; set; }
 
-        public string AdmittedAge { get; set; }
+        public Age AdmittedAge { get; set; }
 
         public string Genres { get; set; } // It should be separated by comma.
 
@@ -24,7 +25,7 @@ namespace Kimera.Data.Entities
 
         public string SupportedLanguages { get; set; }  // It should be separated by comma.
 
-        public double StarRate { get; set; }
+        public double Score { get; set; }
 
         public string Memo { get; set; }
 
