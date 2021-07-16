@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Kimera.Styles"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    x:Class="Kimera.Styles.WindowBaseStyles">
-    <Style x:Key="MainWindowBaseStyle" TargetType="Window">
+                    x:Class="Kimera.Styles.WindowStyles">
+    <Style x:Key="StripedWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">
@@ -96,7 +96,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SizableDialogWindowStyle" TargetType="Window">
+    <Style x:Key="SizableDialogWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">
@@ -181,7 +181,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="FixedDialogWindowStyle" TargetType="Window">
+    <Style x:Key="FixedDialogWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">

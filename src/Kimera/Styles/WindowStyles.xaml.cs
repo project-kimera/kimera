@@ -11,7 +11,7 @@ namespace Kimera.Styles
     /// <summary>
     /// MaterialWindow에 대한 상호작용 논리를 제공합니다.
     /// </summary>
-    public partial class WindowBaseStyles : ResourceDictionary
+    public partial class WindowStyles : ResourceDictionary
     {
         #region ::Fields & Properties::
 
@@ -21,7 +21,7 @@ namespace Kimera.Styles
 
         #region ::Constructors::
 
-        public WindowBaseStyles()
+        public WindowStyles()
         {
 
         }

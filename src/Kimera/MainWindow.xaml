@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Kimera"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Style="{StaticResource MainWindowBaseStyle}"
+        Style="{StaticResource StripedWindow}"
         Title="MainWindow" Height="800" Width="1200" MinHeight="550" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -50,14 +50,6 @@
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
                         <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="라이브러리" />
-                    </StackPanel>
-                </Button>
-
-                <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
-                        WindowChrome.IsHitTestVisibleInChrome="True" Click="OnManageClick">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="Tools"/>
-                        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="관리" />
                     </StackPanel>
                 </Button>
 

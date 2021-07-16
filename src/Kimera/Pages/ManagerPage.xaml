@@ -13,14 +13,21 @@
         <materialDesign:Card Margin="10" UniformCornerRadius="4" materialDesign:ShadowAssist.ShadowDepth="Depth0">
             <Grid>
                 <TabControl Style="{StaticResource MaterialDesignTabControl}">
-                    <TabItem Header="게임">
+                    <TabItem >
+                        <TabItem.Header>
+                            <materialDesign:PackIcon Kind="GamepadVariantOutline"/>
+                        </TabItem.Header>
                         
                     </TabItem>
-                    <TabItem Header="카테고리">
-
+                    <TabItem >
+                        <TabItem.Header>
+                            <materialDesign:PackIcon Kind="Tools"/>
+                        </TabItem.Header>
                     </TabItem>
-                    <TabItem Header="플러그인">
-
+                    <TabItem >
+                        <TabItem.Header>
+                            <materialDesign:PackIcon Kind="SettingsOutline"/>
+                        </TabItem.Header>
                     </TabItem>
                 </TabControl>
             </Grid>
