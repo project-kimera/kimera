@@ -31,8 +31,6 @@ namespace Kimera.Helpers
 
         public static LibraryPage LibraryPage { get; set; } = new LibraryPage();
 
-        public static ManagerPage ManagerPage { get; set; } = new ManagerPage();
-
         public static SettingsPage SettingsPage { get; set; } = new SettingsPage();
 
         private Frame _shellFrame;

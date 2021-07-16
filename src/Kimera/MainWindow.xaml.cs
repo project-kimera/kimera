@@ -24,12 +24,6 @@ namespace Kimera
             navigationHelper.NavigateTo(NavigationHelper.LibraryPage);
         }
 
-        private void OnManageClick(object sender, RoutedEventArgs e)
-        {
-            var navigationHelper = NavigationHelper.Instance;
-            navigationHelper.NavigateTo(NavigationHelper.ManagerPage);
-        }
-
         private void OnSettingsClick(object sender, RoutedEventArgs e)
         {
             var navigationHelper = NavigationHelper.Instance;

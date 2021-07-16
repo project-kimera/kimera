@@ -71,7 +71,7 @@
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                        <materialDesign:PopupBox Margin="6 0 6 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="파일로 추가">
+                        <materialDesign:PopupBox Margin="6 0 6 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="파일 추가">
                             <materialDesign:PopupBox.ToggleContent>
                                 <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FilePlusOutline"/>
                             </materialDesign:PopupBox.ToggleContent>
@@ -86,7 +86,7 @@
                                 <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FolderAddOutline"/>
                             </materialDesign:PopupBox.ToggleContent>
                             <StackPanel>
-                                <Button Content="다중 파일 추가" />
+                                <Button Content="여러 파일 추가" />
                                 <Button Content="폴더 추가" />
                             </StackPanel>
                         </materialDesign:PopupBox>
