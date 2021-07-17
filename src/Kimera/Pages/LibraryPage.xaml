@@ -76,8 +76,8 @@
                                 <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FilePlusOutline"/>
                             </materialDesign:PopupBox.ToggleContent>
                             <StackPanel>
-                                <Button Content="실행 파일 추가" />
-                                <Button Content="압축 파일 추가" />
+                                <Button Content="실행 파일 추가" Command="{Binding ShowAddExecutableFileCommand}"/>
+                                <Button Content="압축 파일 추가" Command="{Binding ShowAddArchiveFileCommand}"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
 
@@ -86,8 +86,8 @@
                                 <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FolderAddOutline"/>
                             </materialDesign:PopupBox.ToggleContent>
                             <StackPanel>
-                                <Button Content="여러 파일 추가" />
-                                <Button Content="폴더 추가" />
+                                <Button Content="여러 파일 추가" Command="{Binding ShowAddMultipleFileCommand}"/>
+                                <Button Content="폴더 추가" Command="{Binding ShowAddFolderCommand}"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </StackPanel>

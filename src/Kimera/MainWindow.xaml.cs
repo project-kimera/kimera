@@ -1,5 +1,6 @@
 ﻿using Kimera.Helpers;
 using Kimera.Pages;
+using Kimera.ViewModels;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -13,21 +14,9 @@ namespace Kimera
         public MainWindow()
         {
             InitializeComponent();
-            var navigationHelper = NavigationHelper.Instance;
-            navigationHelper.InitializeFrame(ContentFrame);
-            navigationHelper.NavigateTo(NavigationHelper.LibraryPage);
-        }
 
-        private void OnLibraryClick(object sender, RoutedEventArgs e)
-        {
-            var navigationHelper = NavigationHelper.Instance;
-            navigationHelper.NavigateTo(NavigationHelper.LibraryPage);
-        }
-
-        private void OnSettingsClick(object sender, RoutedEventArgs e)
-        {
-            var navigationHelper = NavigationHelper.Instance;
-            navigationHelper.NavigateTo(NavigationHelper.SettingsPage);
+            MainViewModel viewModel = new MainViewModel(ContentFrame);
+            this.DataContext = viewModel;
         }
     }
 }

@@ -19,15 +19,6 @@ namespace Kimera.Styles
 
         #endregion
 
-        #region ::Constructors::
-
-        public WindowStyles()
-        {
-
-        }
-
-        #endregion
-
         #region ::Methods::
 
         private void LimitWindowSize()
@@ -45,7 +36,16 @@ namespace Kimera.Styles
         {
             if (_window == null || _window != null)
             {
-                _window = System.Windows.Application.Current.MainWindow;
+                WindowCollection windows = System.Windows.Application.Current.Windows;
+                
+                foreach (Window window in windows)
+                {
+                    if (window.IsActive == true)
+                    {
+                        _window = window;
+                    }
+                }
+
                 return true;
             }
             else
@@ -58,7 +58,7 @@ namespace Kimera.Styles
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            LimitWindowSize();
+
         }
 
         private void OnMinimize(object sender, RoutedEventArgs e)

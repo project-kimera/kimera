@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Kimera"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Style="{StaticResource StripedWindow}"
-        Title="MainWindow" Height="800" Width="1200" MinHeight="550" MinWidth="800">
+        Style="{StaticResource KimeraStripedWindow}"
+        Title="Kimera" Height="800" Width="1200" MinHeight="550" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
@@ -46,7 +46,7 @@
             <!--Action Buttons-->
             <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
                 <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
-                        WindowChrome.IsHitTestVisibleInChrome="True" Click="OnLibraryClick">
+                        WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
                         <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="라이브러리" />
@@ -54,7 +54,7 @@
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
-                        WindowChrome.IsHitTestVisibleInChrome="True" Click="OnSettingsClick">
+                        WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToSettingsCommand}">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>
                         <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="설정" />

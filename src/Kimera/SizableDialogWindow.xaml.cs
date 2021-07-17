@@ -15,13 +15,14 @@ using System.Windows.Shapes;
 namespace Kimera
 {
     /// <summary>
-    /// DialogWindow.xaml에 대한 상호 작용 논리
+    /// SizableDialogWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class DialogWindow : Window
+    public partial class SizableDialogWindow : Window
     {
-        public DialogWindow()
+        public SizableDialogWindow(Page page)
         {
             InitializeComponent();
+            ContentFrame.Content = page;
         }
     }
 }

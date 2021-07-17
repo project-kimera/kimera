@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Kimera.Styles"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     x:Class="Kimera.Styles.WindowStyles">
-    <Style x:Key="StripedWindow" TargetType="Window">
+    <Style x:Key="KimeraStripedWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">
@@ -71,15 +71,15 @@
                                         <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
                                     </ToggleButton>
 
-                                    <Button Grid.Column="2" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                    <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                         <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
                                     </Button>
 
-                                    <Button Grid.Column="3" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                    <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
                                         <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
                                     </Button>
 
-                                    <Button Grid.Column="4" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                    <Button Grid.Column="4" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                         <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
                                     </Button>
                                 </Grid>
@@ -96,7 +96,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SizableDialogWindow" TargetType="Window">
+    <Style x:Key="KimeraSizableDialogWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">
@@ -157,15 +157,15 @@
                                     <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
                                 </ToggleButton>
 
-                                <Button Grid.Column="2" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="3" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
                                     <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="4" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="4" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
                                 </Button>
                             </Grid>
@@ -181,7 +181,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="FixedDialogWindow" TargetType="Window">
+    <Style x:Key="KimeraFixedDialogWindow" TargetType="Window">
         <EventSetter Event="Loaded" Handler="OnLoaded"/>
 
         <Setter Property="WindowChrome.WindowChrome">
@@ -242,11 +242,11 @@
                                     <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
                                 </ToggleButton>
 
-                                <Button Grid.Column="2" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="4" Style="{StaticResource CommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="4" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
                                 </Button>
                             </Grid>
