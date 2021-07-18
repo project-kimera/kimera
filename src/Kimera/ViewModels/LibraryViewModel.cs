@@ -30,8 +30,8 @@ namespace Kimera.ViewModels
         {
             FixedDialogWindow dialog = new FixedDialogWindow(new AddExecutableFileDialog());
             dialog.Title = "실행 파일 추가";
-            dialog.Width = 600;
-            dialog.Height = 400;
+            dialog.Width = 800;
+            dialog.Height = 550;
             dialog.ShowDialog();
         }
 

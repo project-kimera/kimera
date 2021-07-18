@@ -4,11 +4,95 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kimera.Dialogs"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+      xmlns:model="clr-namespace:MaterialDesignExtensions.Model;assembly=MaterialDesignExtensions"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddExecutableFileDialog">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="20 0 0 0" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="실행 파일로 추가하기" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="게임의 실행 파일(*.exe)을(를) 통해 새로운 게임을 등록합니다." />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="20 20 20 10">
+                    <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Text="실행 파일 설정" />
+
+                    <Grid Margin="0 10 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="파일 경로" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Executable File Path" materialDesign:TransitionAssist.DisableTransitions="True" />
+                        <Button Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="10 0 0 0" Content="..." />
+                    </Grid>
+
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="명령줄 인수" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Commandline Arguments" materialDesign:TransitionAssist.DisableTransitions="True" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="20 10 20 20">
+                    <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Text="메타데이터 설정" />
+
+                    <RadioButton Margin="0 16 0 0" Style="{StaticResource MaterialDesignRadioButton}" Content="DLSite에서 자동으로 메타데이터 받아오기"/>
+
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="제품 코드" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="DLSite Product Code" materialDesign:TransitionAssist.DisableTransitions="True" />
+                    </Grid>
+
+                    <Separator Margin="0 10 0 10" Background="{DynamicResource MaterialDesignDivider}"/>
+
+                    <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Content="수동으로 메타데이터 입력하기"/>
+
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="메타데이터" />
+                        <Button Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0 10 0 0" HorizontalAlignment="Left" Content="메타데이터 입력/수정하기" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Content="취소" />
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" />
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

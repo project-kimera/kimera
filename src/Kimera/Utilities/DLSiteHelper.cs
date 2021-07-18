@@ -3,6 +3,7 @@ using Kimera.Data.Enums;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Kimera.Utilities
 {
-    public static class DLSiteBroker
+    public static class DLSiteHelper
     {
-        private static readonly string[] ARRAY_PRODUCT_CODE_REGEX = { "RJ[0-9]{1,6}", "BJ[0-9]{1,6}", "VJ[0-9]{1,6}" };
+        private static readonly string[] ARRAY_PRODUCT_CODE_REGEX = { "RJ[0-9]{1,6}", "VJ[0-9]{1,6}", "BJ[0-9]{1,6}" };
 
         private const string URL_DLSITE_PRODUCT_HOMEPAGE = "https://www.dlsite.com/home/work/=/product_id/{0}.html";
         private const string URL_DLSITE_PRODUCT_INFO_API = "https://www.dlsite.com/home/api/=/product.json?workno={0}";
@@ -28,6 +29,26 @@ namespace Kimera.Utilities
             }
 
             return false;
+        }
+
+        public static string GetProductCodeFromPath(string path)
+        {
+            string[] pathChunks = path.Split(new char[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = pathChunks.Length - 1; i>=0; i--)
+            {
+                foreach (string regex in ARRAY_PRODUCT_CODE_REGEX)
+                {
+                    Match match = Regex.Match(pathChunks[i], regex);
+
+                    if (match.Success)
+                    {
+                        return match.Value;
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         public static async Task<GameMetadata> GetGameMetadataAsync(string productCode)
