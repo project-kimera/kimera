@@ -39,10 +39,17 @@ namespace Kimera.Data.Entities
 
         public Version Version { get; set; }
 
-        public string ThumbnailUrl { get; set; }
+        public string IconUri { get; set; }
+
+        public string ThumbnailUri { get; set; }
 
         public string HomepageUrl { get; set; }
 
         public virtual Game GameNavigation { get; set; }
+
+        public GameMetadata Copy()
+        {
+            return (GameMetadata)this.MemberwiseClone();
+        }
     }
 }

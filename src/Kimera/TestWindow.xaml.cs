@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,14 @@ using System.Windows.Shapes;
 namespace Kimera
 {
     /// <summary>
-    /// SizableDialogWindow.xaml에 대한 상호 작용 논리
+    /// TestWindow.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SizableDialogWindow : Window
+    public partial class TestWindow : Window
     {
-        public SizableDialogWindow(Page page)
+        public TestWindow()
         {
             InitializeComponent();
-            ContentFrame.Content = page;
+            this.DataContext = new TestViewModel();
         }
     }
 }

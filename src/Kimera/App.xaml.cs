@@ -17,7 +17,8 @@ namespace Kimera
     /// </summary>
     public partial class App : Application
     {
-        private bool _debugMode = true;
+        private static readonly bool _debugMode = true;
+        private static readonly bool _testMode = true;
 
         private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
 
@@ -26,6 +27,12 @@ namespace Kimera
             if (!PrivilegeManager.IsAdministrator() && !_debugMode)
             {
                 PrivilegeManager.RunAsAdiministrator();
+            }
+            else if (_testMode)
+            {
+                Window testWindow = new TestWindow();
+                testWindow.Show();
+                base.OnStartup(e);
             }
             else
             {

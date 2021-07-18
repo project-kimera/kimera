@@ -25,7 +25,7 @@ namespace Kimera.Utilities
                     }
                     else
                     {
-                        return response.ReasonPhrase;
+                        return string.Empty;
                     }
                 }
             }

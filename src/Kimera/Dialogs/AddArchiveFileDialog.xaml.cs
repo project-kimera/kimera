@@ -18,7 +18,7 @@ namespace Kimera.Dialogs
     /// <summary>
     /// AddArchiveFileDialog.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddArchiveFileDialog : Page
+    public partial class AddArchiveFileDialog : Window
     {
         public AddArchiveFileDialog()
         {

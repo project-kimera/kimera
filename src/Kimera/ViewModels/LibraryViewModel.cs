@@ -10,55 +10,43 @@ namespace Kimera.ViewModels
 {
     public class LibraryViewModel : ViewModelBase
     {
-        public DelegateCommand ShowAddExecutableFileCommand { get; }
+        public DelegateCommand AddExecutableFileCommand { get; }
 
-        public DelegateCommand ShowAddArchiveFileCommand { get; }
+        public DelegateCommand AddArchiveFileCommand { get; }
 
-        public DelegateCommand ShowAddMultipleFileCommand { get; }
+        public DelegateCommand AddMultipleFileCommand { get; }
 
-        public DelegateCommand ShowAddFolderCommand { get; }
+        public DelegateCommand AddFolderCommand { get; }
 
         public LibraryViewModel()
         {
-            ShowAddExecutableFileCommand = new DelegateCommand(ShowAddExecutableFileDialog);
-            ShowAddArchiveFileCommand = new DelegateCommand(ShowAddArchiveFileDialog);
-            ShowAddMultipleFileCommand = new DelegateCommand(ShowAddMultipleFileDialog);
-            ShowAddFolderCommand = new DelegateCommand(ShowAddFolderDialog);
+            AddExecutableFileCommand = new DelegateCommand(AddExecutableFileDialog);
+            AddArchiveFileCommand = new DelegateCommand(AddArchiveFileDialog);
+            AddMultipleFileCommand = new DelegateCommand(AddMultipleFileDialog);
+            AddFolderCommand = new DelegateCommand(AddFolderDialog);
         }
 
-        private void ShowAddExecutableFileDialog()
+        private void AddExecutableFileDialog()
         {
-            FixedDialogWindow dialog = new FixedDialogWindow(new AddExecutableFileDialog());
-            dialog.Title = "실행 파일 추가";
-            dialog.Width = 800;
-            dialog.Height = 550;
+            AddExecutableFileDialog dialog = new AddExecutableFileDialog();
             dialog.ShowDialog();
         }
 
-        private void ShowAddArchiveFileDialog()
+        private void AddArchiveFileDialog()
         {
-            FixedDialogWindow dialog = new FixedDialogWindow(new AddArchiveFileDialog());
-            dialog.Title = "압축 파일 추가";
-            dialog.Width = 600;
-            dialog.Height = 400;
+            AddArchiveFileDialog dialog = new AddArchiveFileDialog();
             dialog.ShowDialog();
         }
 
-        private void ShowAddMultipleFileDialog()
+        private void AddMultipleFileDialog()
         {
-            FixedDialogWindow dialog = new FixedDialogWindow(new AddMultipleFileDialog());
-            dialog.Title = "여러 파일 추가";
-            dialog.Width = 600;
-            dialog.Height = 400;
+            AddMultipleFileDialog dialog = new AddMultipleFileDialog();
             dialog.ShowDialog();
         }
 
-        private void ShowAddFolderDialog()
+        private void AddFolderDialog()
         {
-            FixedDialogWindow dialog = new FixedDialogWindow(new AddFolderDialog());
-            dialog.Title = "폴더 추가";
-            dialog.Width = 600;
-            dialog.Height = 400;
+            AddFolderDialog dialog = new AddFolderDialog();
             dialog.ShowDialog();
         }
     }

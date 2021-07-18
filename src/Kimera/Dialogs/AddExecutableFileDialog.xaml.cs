@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,12 @@ namespace Kimera.Dialogs
     /// <summary>
     /// AddExecutableFileDialog.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddExecutableFileDialog : Page
+    public partial class AddExecutableFileDialog : Window
     {
         public AddExecutableFileDialog()
         {
             InitializeComponent();
+            this.DataContext = new AddExecutableFileViewModel();
         }
     }
 }

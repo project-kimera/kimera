@@ -1,14 +1,196 @@
-﻿<Page x:Class="Kimera.Dialogs.EditGameMetadataDialog"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Kimera.Dialogs"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="EditGameMetadataDialog">
+﻿<Window x:Class="Kimera.Dialogs.EditGameMetadataDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Kimera.Dialogs"
+        xmlns:converters="clr-namespace:Kimera.Converters"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" 
+        Style="{StaticResource KimeraFixedDialogWindow}"
+        x:Name="EditGameMetadataDialogWindow"
+        Title="EditGameMetadataDialog" Width="600" Height="700">
+
+    <Window.Resources>
+        <converters:AgeToStringConverter x:Key="AgeToStringConverter"/>
+    </Window.Resources>
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Vertical" Margin="20 0 0 0" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="메타데이터 편집하기" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".68" Text="게임의 메타데이터를 편집합니다." />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+            <StackPanel Orientation="Vertical" Margin="20 10 20 20">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="이름" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Name" materialDesign:ValidationAssist.Background="Transparent"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
+                        <TextBox.Text>
+                            <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:NotEmptyValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="설명" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Description"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding Description, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="제작자" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Creator"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding Creator, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="등급" />
+                    <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="Age" Text="{Binding AdmittedAge, Mode=TwoWay, Converter={StaticResource AgeToStringConverter}}">
+                        <ComboBoxItem Content="All" />
+                        <ComboBoxItem Content="R15" />
+                        <ComboBoxItem Content="R18" />
+                    </ComboBox>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="장르" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Genres"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding Genres, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="태그" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Tags"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding Tags, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="언어" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Languages"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding SupportedLanguages, Mode=TwoWay}"/>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="평가" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Score" materialDesign:ValidationAssist.Background="Transparent"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
+                        <TextBox.Text>
+                            <Binding Path="Score" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:ScoreValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="아이콘 URI" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Icon URI" materialDesign:ValidationAssist.Background="Transparent"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
+                        <TextBox.Text>
+                            <Binding Path="IconUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="썸네일 URI" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Thumbnail URI" materialDesign:ValidationAssist.Background="Transparent"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
+                        <TextBox.Text>
+                            <Binding Path="ThumbnailUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+
+                <Grid Margin="0 6 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="홈페이지 URL" />
+                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="Homepage URL" materialDesign:ValidationAssist.Background="Transparent"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding HomepageUrl, Mode=TwoWay}"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Content="취소" Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=EditGameMetadataDialogWindow}"/>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" Command="{Binding ConfirmCommand}" CommandParameter="{Binding ElementName=EditGameMetadataDialogWindow}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
-</Page>
+</Window>

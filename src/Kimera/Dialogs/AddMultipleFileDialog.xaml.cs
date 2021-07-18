@@ -18,7 +18,7 @@ namespace Kimera.Dialogs
     /// <summary>
     /// AddMultipleFileDialog.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddMultipleFileDialog : Page
+    public partial class AddMultipleFileDialog : Window
     {
         public AddMultipleFileDialog()
         {

@@ -7,16 +7,36 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kimera.Utilities
 {
     public static class DLSiteHelper
     {
-        private static readonly string[] ARRAY_PRODUCT_CODE_REGEX = { "RJ[0-9]{1,6}", "VJ[0-9]{1,6}", "BJ[0-9]{1,6}" };
+        private static readonly string[] ARRAY_PRODUCT_CODE_REGEX = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}" };
 
         private const string URL_DLSITE_PRODUCT_HOMEPAGE = "https://www.dlsite.com/home/work/=/product_id/{0}.html";
         private const string URL_DLSITE_PRODUCT_INFO_API = "https://www.dlsite.com/home/api/=/product.json?workno={0}";
+
+        public static string GetProductInfoApiUrl()
+        {
+            string url = URL_DLSITE_PRODUCT_INFO_API;
+
+            switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
+            {
+                case "en":
+                    url = string.Concat(url, "&locale=en-US");
+                    break;
+                case "ko":
+                    url = string.Concat(url, "&locale=ko-KR");
+                    break;
+                default:
+                    break;
+            }
+
+            return url;
+        }
 
         public static bool IsValidProductCode(string productCode)
         {
@@ -51,9 +71,27 @@ namespace Kimera.Utilities
             return string.Empty;
         }
 
+        public static async Task<bool> IsValidProductAsync(string productCode)
+        {
+            string url = GetProductInfoApiUrl();
+            string response = await HttpHelper.GetResponseAsync(string.Format(url, productCode));
+
+            JArray array = JArray.Parse(response);
+
+            if (array.Count != 1)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public static async Task<GameMetadata> GetGameMetadataAsync(string productCode)
         {
-            string response = await HttpHelper.GetResponseAsync(string.Format(URL_DLSITE_PRODUCT_INFO_API, productCode));
+            string url = GetProductInfoApiUrl();
+            string response = await HttpHelper.GetResponseAsync(string.Format(url, productCode));
 
             JArray array = JArray.Parse(response);
 
@@ -67,7 +105,8 @@ namespace Kimera.Utilities
                 metadata.Memo = string.Empty;
                 metadata.PlayTime = 0;
                 metadata.IsCompleted = false;
-                metadata.ThumbnailUrl = array[0]["image_thum"]["url"].ToString();
+                metadata.ThumbnailUri = string.Concat("https:", array[0]["image_main"]["url"].ToString());
+                metadata.IconUri = string.Concat("https:", array[0]["image_thum"]["url"].ToString());
                 metadata.HomepageUrl = string.Format(URL_DLSITE_PRODUCT_HOMEPAGE, productCode);
 
                 // Admitted Age
@@ -91,15 +130,15 @@ namespace Kimera.Utilities
                 }
 
                 // Tags
-                List<string> genreStrings = new List<string>();
-                JToken[] genresArray = array["genres"].ToArray();
+                List<string> tagsStrings = new List<string>();
+                JToken[] tagsArray = array[0]["genres"].ToArray();
                 
-                foreach (JToken genre in genresArray)
+                foreach (JToken genre in tagsArray)
                 {
-                    genreStrings.Add(genre["name"].ToString());
+                    tagsStrings.Add(genre["name"].ToString());
                 }
 
-                metadata.Genres = string.Join(',', genreStrings);
+                metadata.Tags = string.Join(',', tagsStrings);
 
                 // Supported Languages
                 List<string> languageStrings = new List<string>();
@@ -135,18 +174,20 @@ namespace Kimera.Utilities
                     languageStrings.Add("한국어");
                 }
 
+                metadata.SupportedLanguages = string.Join(',', languageStrings);
+
                 // Score
-                int sum = 0;
-                int count = 0;
+                double sum = 0;
+                double count = 0;
 
                 for (int i = 1; i <= 5; i++)
                 {
-                    int currentCount = int.Parse(array[0]["rate_count_detail"][i].ToString());
+                    int currentCount = int.Parse(array[0]["rate_count_detail"][$"{i}"].ToString());
                     sum += currentCount * i;
                     count += currentCount;
                 }
 
-                metadata.Score = sum / count;
+                metadata.Score = Math.Round(sum / count, 2);
 
                 return metadata;
             }

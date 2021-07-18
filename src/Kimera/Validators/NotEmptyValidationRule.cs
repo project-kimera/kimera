@@ -3,22 +3,21 @@ using System.Windows.Controls;
 
 namespace Kimera.Validators
 {
-    public class NullStringValidationRule : ValidationRule
+    public class NotEmptyValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             if (string.IsNullOrEmpty((string)value))
             {
-                return new ValidationResult(false, "The name cannot be empty.");
+                return new ValidationResult(false, "The text cannot be empty.");
             }
 
             if (string.IsNullOrWhiteSpace((string)value))
             {
-                return new ValidationResult(false, "The name cannot be empty or consist only of spaces.");
+                return new ValidationResult(false, "The text cannot be empty or consist only of spaces.");
             }
 
-            // If it valid, return true.
-            return new ValidationResult(true, null);
+            return new ValidationResult(true, "The text is valid.");
         }
     }
 }

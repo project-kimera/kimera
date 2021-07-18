@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kimera.Data.Entities;
+using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,12 @@ namespace Kimera.Dialogs
     /// <summary>
     /// EditGameMetadataDialog.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class EditGameMetadataDialog : Page
+    public partial class EditGameMetadataDialog : Window
     {
-        public EditGameMetadataDialog()
+        public EditGameMetadataDialog(GameMetadata metadata)
         {
             InitializeComponent();
+            this.DataContext = new EditGameMetadataViewModel(metadata);
         }
     }
 }
