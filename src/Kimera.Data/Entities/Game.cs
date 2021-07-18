@@ -20,6 +20,6 @@ namespace Kimera.Data.Entities
 
         public virtual PackageMetadata PackageMetadataNavigation { get; set; }
 
-        public virtual ICollection<CategorySubscription> CategorySubscription { get; set; } = new HashSet<CategorySubscription>();
+        public virtual ICollection<CategorySubscription> CategorySubscriptions { get; set; } = new HashSet<CategorySubscription>();
     }
 }

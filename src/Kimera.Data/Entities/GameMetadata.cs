@@ -37,8 +37,6 @@ namespace Kimera.Data.Entities
 
         public DateTime LastTime { get; set; }
 
-        public Version Version { get; set; }
-
         public string IconUri { get; set; }
 
         public string ThumbnailUri { get; set; }

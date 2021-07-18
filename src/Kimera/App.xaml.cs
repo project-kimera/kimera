@@ -1,5 +1,6 @@
 ﻿using Kimera.AntiDPI;
 using Kimera.Data;
+using Kimera.Data.Contexts;
 using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,14 +21,14 @@ namespace Kimera
     {
         private static readonly bool _debugMode = true;
 
-        private static readonly DatabaseService _database;
+        private static KimeraContext _databaseContext;
         private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
 
-        public static DatabaseService Database
+        public static KimeraContext DatabaseContext
         {
             get
             {
-                return _database;
+                return _databaseContext;
             }
         }
 
@@ -65,7 +66,8 @@ namespace Kimera
 
         private void InitializeDatabase()
         {
-            _database = new DatabaseService();
+            _databaseContext = new KimeraContext();
+            _databaseContext.Database.EnsureCreated();
         }
 
         private void SetLanguageResources()

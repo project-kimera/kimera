@@ -1,5 +1,6 @@
 ﻿using Kimera.Commands;
 using Kimera.Data.Entities;
+using Kimera.Data.Enums;
 using Kimera.Dialogs;
 using Kimera.Utilities;
 using System;
@@ -171,7 +172,42 @@ namespace Kimera.ViewModels
                 }
             }
 
-            
+            // Add datas.
+
+            Guid gameGuid = Guid.NewGuid();
+            Guid packageMetadataGuid = Guid.NewGuid();
+            Guid gameMetadataGuid = Guid.NewGuid();
+
+            Component component = new Component();
+            component.PackageMetadata = packageMetadataGuid;
+            component.Type = ComponentType.Executable;
+            component.Index = 0;
+            component.FilePath = FilePath;
+
+            PackageMetadata packageMetadata = new PackageMetadata();
+            packageMetadata.SystemId = packageMetadataGuid;
+            packageMetadata.Type = PackageType.Executable;
+            packageMetadata.EntryPointFilePath = FilePath;
+            packageMetadata.Arguments = CommandlineArguments;
+            packageMetadata.Components.Add(component);
+
+            GameMetadata gameMetadata = GameMetadata.Copy();
+            gameMetadata.SystemId = gameMetadataGuid;
+            gameMetadata.FirstTime = DateTime.Now;
+            gameMetadata.LastTime = DateTime.Now;
+
+            Game game = new Game();
+            game.SystemId = gameGuid;
+            game.GameMetadata = gameMetadataGuid;
+            game.PackageMetadata = packageMetadataGuid;
+            game.PackageStatus = PackageStatus.NeedProcessing;
+            game.GameMetadataNavigation = gameMetadata;
+            game.PackageMetadataNavigation = packageMetadata;
+
+            App.DatabaseContext.Components.Add(component);
+            App.DatabaseContext.Games.Add(game);
+
+            App.DatabaseContext.SaveChanges();
 
             if (window != null)
             {

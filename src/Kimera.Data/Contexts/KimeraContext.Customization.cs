@@ -20,8 +20,10 @@ namespace Kimera.Data.Contexts
         {
             if (_options == null)
             {
-                optionsBuilder.UseSqlite("FileName=Kimera.db");
+                optionsBuilder.UseSqlite("Data Source=Kimera.db");
             }
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

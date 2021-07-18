@@ -2,6 +2,7 @@
 {
     public enum PackageStatus
     {
+        NeedProcessing,
         Compressed,
         FileNotFound,
         DataNotFound,
