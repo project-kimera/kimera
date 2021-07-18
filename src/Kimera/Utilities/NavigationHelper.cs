@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Kimera.Helpers
+namespace Kimera.Utilities
 {
     public class NavigationHelper
     {
