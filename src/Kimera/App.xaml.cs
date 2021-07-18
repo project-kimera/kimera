@@ -1,4 +1,5 @@
 ﻿using Kimera.AntiDPI;
+using Kimera.Data;
 using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
@@ -18,24 +19,38 @@ namespace Kimera
     public partial class App : Application
     {
         private static readonly bool _debugMode = true;
-        private static readonly bool _testMode = true;
 
+        private static readonly DatabaseService _database;
         private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
+
+        public static DatabaseService Database
+        {
+            get
+            {
+                return _database;
+            }
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             if (!PrivilegeManager.IsAdministrator() && !_debugMode)
             {
                 PrivilegeManager.RunAsAdiministrator();
+                return;
             }
-            else if (_testMode)
+            
+            if (_debugMode)
             {
                 Window testWindow = new TestWindow();
                 testWindow.Show();
+
+                InitializeDatabase();
+                SetLanguageResources();
                 base.OnStartup(e);
             }
             else
             {
+                InitializeDatabase();
                 SetLanguageResources();
                 StartAntiDPI();
                 base.OnStartup(e);
@@ -46,6 +61,11 @@ namespace Kimera
         {
             StopAntiDPI();
             base.OnExit(e);
+        }
+
+        private void InitializeDatabase()
+        {
+            _database = new DatabaseService();
         }
 
         private void SetLanguageResources()

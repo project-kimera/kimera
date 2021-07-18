@@ -171,7 +171,7 @@ namespace Kimera.ViewModels
                 }
             }
 
-
+            
 
             if (window != null)
             {
