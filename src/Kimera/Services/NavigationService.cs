@@ -6,19 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Kimera.Utilities
+namespace Kimera.Services
 {
-    public class NavigationHelper
+    public class NavigationService
     {
-        private static NavigationHelper _instance;
+        private static NavigationService _instance;
 
-        public static NavigationHelper Instance
+        public static NavigationService Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = new NavigationHelper();
+                    _instance = new NavigationService();
                 }
 
                 return _instance;

@@ -1,4 +1,5 @@
-﻿using Kimera.Utilities;
+﻿using Kimera.Services;
+using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,7 +14,7 @@ namespace Kimera.Validators
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (DLSiteHelper.IsValidProductCode((string)value))
+            if (DLSiteService.IsValidProductCode((string)value))
             {
                 return new ValidationResult(true, "The text is valid product code.");
             }

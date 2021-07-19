@@ -1,5 +1,6 @@
 ﻿using Kimera.Commands;
 using Kimera.Data.Entities;
+using Kimera.Services;
 using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Kimera.ViewModels
 
             foreach (string testString in testStrings)
             {
-                result += $"{testString} - {DLSiteHelper.IsValidProductCode(testString)}\r\n";
+                result += $"{testString} - {DLSiteService.IsValidProductCode(testString)}\r\n";
             }
 
             MessageBox.Show(result, "DLH-IPVC Test Result", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -53,7 +54,7 @@ namespace Kimera.ViewModels
 
             foreach (string testString in testStrings)
             {
-                result += $"{testString} - '{DLSiteHelper.GetProductCodeFromPath(testString)}'\r\n";
+                result += $"{testString} - '{DLSiteService.GetProductCodeFromPath(testString)}'\r\n";
             }
 
             MessageBox.Show(result, "DLH-GPCFP Test Result", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -61,7 +62,7 @@ namespace Kimera.ViewModels
 
         private async void DLH_GGMA()
         {
-            GameMetadata metadata = await DLSiteHelper.GetGameMetadataAsync("RJ311136"); // SHERYL
+            GameMetadata metadata = await DLSiteService.GetGameMetadataAsync("RJ311136"); // SHERYL
 
             string result = $"Name : {metadata.Name}\r\n" +
                 $"Description : {metadata.Description}\r\n" +

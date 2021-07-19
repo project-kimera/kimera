@@ -2,6 +2,7 @@
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Dialogs;
+using Kimera.Services;
 using Kimera.Utilities;
 using System;
 using System.Collections.Generic;
@@ -155,13 +156,13 @@ namespace Kimera.ViewModels
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 FilePath = dialog.FileName;
-                ProductCode = DLSiteHelper.GetProductCodeFromPath(FilePath);
+                ProductCode = DLSiteService.GetProductCodeFromPath(FilePath);
             }
         }
 
         private async void GetGameMetadata()
         {
-            GameMetadata = await DLSiteHelper.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+            GameMetadata = await DLSiteService.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
         }
 
         private void EditGameMetadata()
@@ -190,7 +191,7 @@ namespace Kimera.ViewModels
             {
                 if (UseMetadataServer)
                 {
-                    GameMetadata = await DLSiteHelper.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+                    GameMetadata = await DLSiteService.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
                 }
                 else
                 {

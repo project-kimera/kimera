@@ -1,5 +1,6 @@
 ﻿using Kimera.Data.Entities;
 using Kimera.Data.Enums;
+using Kimera.Utilities;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Kimera.Utilities
+namespace Kimera.Services
 {
-    public static class DLSiteHelper
+    public static class DLSiteService
     {
         private static readonly string[] ARRAY_PRODUCT_CODE_REGEX = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}" };
 

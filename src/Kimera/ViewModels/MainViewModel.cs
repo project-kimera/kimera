@@ -1,4 +1,5 @@
 ﻿using Kimera.Commands;
+using Kimera.Services;
 using Kimera.Utilities;
 using Kimera.Pages;
 using System;
@@ -22,7 +23,7 @@ namespace Kimera.ViewModels
 
         public MainViewModel(Frame shellFrame)
         {
-            NavigationHelper helper = NavigationHelper.Instance;
+            NavigationService helper = NavigationService.Instance;
             helper.InitializeFrame(shellFrame);
             helper.NavigateTo(LibraryPage);
 
@@ -32,13 +33,13 @@ namespace Kimera.ViewModels
 
         private void NavigateToLibrary()
         {
-            NavigationHelper helper = NavigationHelper.Instance;
+            NavigationService helper = NavigationService.Instance;
             helper.NavigateTo(LibraryPage);
         }
 
         private void NavigateToSettings()
         {
-            NavigationHelper helper = NavigationHelper.Instance;
+            NavigationService helper = NavigationService.Instance;
             helper.NavigateTo(SettingsPage);
         }
     }
