@@ -19,6 +19,8 @@ namespace Kimera.Data.Entities
 
         public string FilePath { get; set; }
 
+        public string Password { get; set; }
+
         public virtual PackageMetadata PackageMetadataNavigation { get; set; }
     }
 }
