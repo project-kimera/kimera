@@ -10,6 +10,6 @@ namespace Kimera.Data.Enums
     {
         Executable,
         Archive,
-        Folder
+        Multiple
     }
 }

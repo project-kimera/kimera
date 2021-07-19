@@ -2,6 +2,8 @@
 using Kimera.Data;
 using Kimera.Data.Contexts;
 using Kimera.Utilities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,8 +23,9 @@ namespace Kimera
     {
         private static readonly bool _debugMode = true;
 
-        private static KimeraContext _databaseContext;
         private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
+
+        private static KimeraContext _databaseContext;
 
         public static KimeraContext DatabaseContext
         {
@@ -39,38 +42,43 @@ namespace Kimera
                 PrivilegeManager.RunAsAdiministrator();
                 return;
             }
-            
+
+            InitializeDatabase();
+            InitializeLanguageResources();
+
+            // Check debug mode.
             if (_debugMode)
             {
                 Window testWindow = new TestWindow();
                 testWindow.Show();
 
-                InitializeDatabase();
-                SetLanguageResources();
                 base.OnStartup(e);
             }
             else
             {
-                InitializeDatabase();
-                SetLanguageResources();
                 StartAntiDPI();
+
                 base.OnStartup(e);
             }
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            StopAntiDPI();
+            if (!_debugMode)
+            {
+                StopAntiDPI();
+            }
+
             base.OnExit(e);
         }
 
         private void InitializeDatabase()
         {
             _databaseContext = new KimeraContext();
-            _databaseContext.Database.EnsureCreated();
+            _databaseContext.Database.Migrate();
         }
 
-        private void SetLanguageResources()
+        private void InitializeLanguageResources()
         {
             ResourceDictionary dict = new ResourceDictionary();
             switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)

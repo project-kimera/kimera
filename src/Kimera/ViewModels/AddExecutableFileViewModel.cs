@@ -10,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Threading;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Kimera.ViewModels
 {
     public class AddExecutableFileViewModel : ViewModelBase
     {
+        #region ::Variables & Properties::
+
         private string _filePath = string.Empty;
 
         public string FilePath
@@ -96,84 +99,12 @@ namespace Kimera.ViewModels
 
         public RelayCommand<Window> ConfirmCommand { get; }
 
-        public AddExecutableFileViewModel()
+        #endregion
+
+        #region ::Methods::
+
+        private async Task AddDataAsync()
         {
-            PackageMetadata = new PackageMetadata();
-            GameMetadata = new GameMetadata();
-
-            ExploreFileCommand = new DelegateCommand(ExploreFile);
-            GetGameMetadataCommand = new DelegateCommand(GetGameMetadata);
-            EditGameMetadataCommand = new DelegateCommand(EditGameMetadata);
-            CancelCommand = new RelayCommand<Window>(Cancel);
-            ConfirmCommand = new RelayCommand<Window>(Confirm);
-        }
-
-        private void ExploreFile()
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Title = "Open";
-            dialog.Filter = "Executable file (*.exe)|*.exe";
-            dialog.Multiselect = false;
-            
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                FilePath = dialog.FileName;
-                ProductCode = DLSiteHelper.GetProductCodeFromPath(FilePath);
-            }
-        }
-
-        private async void GetGameMetadata()
-        {
-            bool isValid = await DLSiteHelper.IsValidProductAsync(_productCode);
-            
-            if (isValid)
-            {
-                GameMetadata = await DLSiteHelper.GetGameMetadataAsync(_productCode);
-                MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                MessageBox.Show("상품을 찾을 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void EditGameMetadata()
-        {
-            EditGameMetadataDialog dialog = new EditGameMetadataDialog(GameMetadata);
-            dialog.ShowDialog();
-        }
-
-        private void Cancel(Window window)
-        {
-            if (window != null)
-            {
-                window.Close();
-            }
-        }
-
-        private void Confirm(Window window)
-        {
-            if (!ValidationHelper.IsValid(window))
-            {
-                MessageBox.Show("게임을 등록할 수 없습니다. 필수 정보들을 작성해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (!ValidationHelper.IsValidGameMetadata(GameMetadata))
-            {
-                if (UseMetadataServer)
-                {
-                    GetGameMetadata();
-                }
-                else
-                {
-                    MessageBox.Show("메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-            }
-
-            // Add datas.
-
             Guid gameGuid = Guid.NewGuid();
             Guid packageMetadataGuid = Guid.NewGuid();
             Guid gameMetadataGuid = Guid.NewGuid();
@@ -204,15 +135,94 @@ namespace Kimera.ViewModels
             game.GameMetadataNavigation = gameMetadata;
             game.PackageMetadataNavigation = packageMetadata;
 
-            App.DatabaseContext.Components.Add(component);
-            App.DatabaseContext.Games.Add(game);
+            await App.DatabaseContext.Components.AddAsync(component).ConfigureAwait(false);
+            await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
 
-            App.DatabaseContext.SaveChanges();
+            await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+        }
 
+        #endregion
+
+        #region ::Actions for Commands::
+
+        private void ExploreFile()
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Open";
+            dialog.Filter = "Executable file (*.exe)|*.exe";
+            dialog.Multiselect = false;
+            
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FilePath = dialog.FileName;
+                ProductCode = DLSiteHelper.GetProductCodeFromPath(FilePath);
+            }
+        }
+
+        private async void GetGameMetadata()
+        {
+            GameMetadata = await DLSiteHelper.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+        }
+
+        private void EditGameMetadata()
+        {
+            EditGameMetadataDialog dialog = new EditGameMetadataDialog(GameMetadata);
+            dialog.ShowDialog();
+        }
+
+        private void Cancel(Window window)
+        {
             if (window != null)
             {
                 window.Close();
             }
+        }
+
+        private async void Confirm(Window window)
+        {
+            if (!ValidationHelper.IsValid(window))
+            {
+                MessageBox.Show("게임을 등록할 수 없습니다. 필수 정보들을 작성해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!ValidationHelper.IsValidGameMetadata(GameMetadata))
+            {
+                if (UseMetadataServer)
+                {
+                    GameMetadata = await DLSiteHelper.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+                }
+                else
+                {
+                    MessageBox.Show("메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
+            // Add datas.
+            await AddDataAsync().ConfigureAwait(false);
+
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                if (window != null)
+                {
+                    window.Close();
+                }
+            });
+        }
+
+        #endregion
+
+        public AddExecutableFileViewModel()
+        {
+            PackageMetadata = new PackageMetadata();
+            GameMetadata = new GameMetadata();
+
+            ExploreFileCommand = new DelegateCommand(ExploreFile);
+            GetGameMetadataCommand = new DelegateCommand(GetGameMetadata);
+            EditGameMetadataCommand = new DelegateCommand(EditGameMetadata);
+            CancelCommand = new RelayCommand<Window>(Cancel);
+            ConfirmCommand = new RelayCommand<Window>(Confirm);
         }
     }
 }

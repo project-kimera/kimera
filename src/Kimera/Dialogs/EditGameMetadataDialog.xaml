@@ -9,6 +9,7 @@
         mc:Ignorable="d" 
         Style="{StaticResource KimeraFixedDialogWindow}"
         x:Name="EditGameMetadataDialogWindow"
+        WindowStartupLocation="CenterScreen"
         Title="EditGameMetadataDialog" Width="600" Height="700">
 
     <Window.Resources>

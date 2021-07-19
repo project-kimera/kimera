@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Kimera.Utilities
 {
@@ -88,7 +89,7 @@ namespace Kimera.Utilities
             }
         }
 
-        public static async Task<GameMetadata> GetGameMetadataAsync(string productCode)
+        private static async Task<GameMetadata> GetGameMetadataInternalAsync(string productCode)
         {
             string url = GetProductInfoApiUrl();
             string response = await HttpHelper.GetResponseAsync(string.Format(url, productCode));
@@ -193,6 +194,22 @@ namespace Kimera.Utilities
             }
             else
             {
+                return new GameMetadata();
+            }
+        }
+
+        public static async Task<GameMetadata> GetGameMetadataAsync(string productCode)
+        {
+            bool isValid = await IsValidProductAsync(productCode);
+
+            if (isValid)
+            {
+                GameMetadata result = await GetGameMetadataInternalAsync(productCode);
+                return result;
+            }
+            else
+            {
+                MessageBox.Show("상품을 찾을 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return new GameMetadata();
             }
         }

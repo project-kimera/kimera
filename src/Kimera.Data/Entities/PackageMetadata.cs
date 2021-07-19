@@ -14,7 +14,7 @@ namespace Kimera.Data.Entities
 
         public PackageType Type { get; set; }
 
-        public string EntryPointFilePath { get; set; }
+        public string EntryPointFilePath { get; set; } // If package type is not executable, it uses relative path.
 
         public string Arguments { get; set; }
 
