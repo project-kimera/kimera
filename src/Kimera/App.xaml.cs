@@ -1,6 +1,7 @@
 ﻿using Kimera.AntiDPI;
 using Kimera.Data;
 using Kimera.Data.Contexts;
+using Kimera.Data.Entities;
 using Kimera.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -43,8 +44,8 @@ namespace Kimera
                 return;
             }
 
-            InitializeDatabase();
             InitializeLanguageResources();
+            InitializeDatabase();
 
             // Check debug mode.
             if (_debugMode)
@@ -72,15 +73,10 @@ namespace Kimera
             base.OnExit(e);
         }
 
-        private void InitializeDatabase()
-        {
-            _databaseContext = new KimeraContext();
-            _databaseContext.Database.Migrate();
-        }
-
         private void InitializeLanguageResources()
         {
             ResourceDictionary dict = new ResourceDictionary();
+
             switch (Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName)
             {
                 case "en":
@@ -93,7 +89,19 @@ namespace Kimera
                     dict.Source = new Uri("..\\Resources\\StringResources.en-US.xaml", UriKind.Relative);
                     break;
             }
+
             this.Resources.MergedDictionaries.Add(dict);
+        }
+
+        private async void InitializeDatabase()
+        {
+            // Migrate database.
+            _databaseContext = new KimeraContext();
+            await _databaseContext.Database.MigrateAsync().ConfigureAwait(false);
+
+            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL");
+            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED");
+            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE");
         }
 
         private void StartAntiDPI()

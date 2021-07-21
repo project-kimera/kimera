@@ -29,10 +29,6 @@ namespace Kimera.Services
             }
         }
 
-        public static LibraryPage LibraryPage { get; set; } = new LibraryPage();
-
-        public static SettingsPage SettingsPage { get; set; } = new SettingsPage();
-
         private Frame _shellFrame;
 
         public void InitializeFrame(Frame rootFrame)
