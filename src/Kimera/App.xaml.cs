@@ -1,6 +1,7 @@
 ﻿using Kimera.Data;
 using Kimera.Data.Contexts;
 using Kimera.Data.Entities;
+using Kimera.Data.Extensions;
 using Kimera.Network;
 using Kimera.Utilities;
 using Microsoft.EntityFrameworkCore;
@@ -78,9 +79,9 @@ namespace Kimera
             _databaseContext = new KimeraContext();
             await _databaseContext.Database.MigrateAsync().ConfigureAwait(false);
 
-            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL");
-            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED");
-            await CategoryHelper.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE");
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL");
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED");
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE");
         }
     }
 }
