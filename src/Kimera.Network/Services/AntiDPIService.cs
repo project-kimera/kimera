@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kimera.AntiDPI
+namespace Kimera.Network.Services
 {
-    public class AntiDPIHelper : IDisposable
+    internal class AntiDPIService : IDisposable
     {
         private string _directory = string.Empty;
 
@@ -20,7 +20,7 @@ namespace Kimera.AntiDPI
 
         private Process _process = new Process();
 
-        public AntiDPIHelper(string directory)
+        internal AntiDPIService(string directory)
         {
             _directory = directory;
             _goodbyedpiExePath = Path.Combine(_directory, "goodbyedpi.exe");
@@ -29,7 +29,7 @@ namespace Kimera.AntiDPI
             _winDivert64SysPath = Path.Combine(_directory, "WinDivert64.sys");
         }
 
-        public bool CheckResources()
+        internal bool CheckResources()
         {
             if (!Directory.Exists(_directory))
             {
@@ -60,7 +60,7 @@ namespace Kimera.AntiDPI
             }
         }
 
-        public void EnsureResources()
+        internal void EnsureResources()
         {
             if (!Directory.Exists(_directory))
             {
@@ -93,17 +93,17 @@ namespace Kimera.AntiDPI
 
                 using (FileStream stream = new FileStream(_goodbyedpiExePath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.goodbyedpi.exe").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x64.goodbyedpi.exe").CopyTo(stream);
                 }
 
                 using (FileStream stream = new FileStream(_winDivertDllPath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.WinDivert.dll").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x64.WinDivert.dll").CopyTo(stream);
                 }
 
                 using (FileStream stream = new FileStream(_winDivert64SysPath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x64.WinDivert64.sys").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x64.WinDivert64.sys").CopyTo(stream);
                 }
             }
             else
@@ -112,22 +112,22 @@ namespace Kimera.AntiDPI
 
                 using (FileStream stream = new FileStream(_goodbyedpiExePath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.goodbyedpi.exe").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x86.goodbyedpi.exe").CopyTo(stream);
                 }
 
                 using (FileStream stream = new FileStream(_winDivertDllPath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.WinDivert.dll").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x86.WinDivert.dll").CopyTo(stream);
                 }
 
                 using (FileStream stream = new FileStream(_winDivert32SysPath, FileMode.CreateNew))
                 {
-                    currentAssembly.GetManifestResourceStream("Kimera.AntiDPI.Resources.x86.WinDivert32.sys").CopyTo(stream);
+                    currentAssembly.GetManifestResourceStream("Kimera.Network.Resources.x86.WinDivert32.sys").CopyTo(stream);
                 }
             }
         }
 
-        public bool Start()
+        internal bool Start()
         {
             try
             {
@@ -149,15 +149,22 @@ namespace Kimera.AntiDPI
             }
         }
 
-        public bool Stop()
+        internal bool Stop()
         {
             try
             {
-                _process.Kill();
-                _process.Close();
-                _process.Dispose();
+                if (_process.HasExited!)
+                {
+                    _process.Kill();
+                    _process.Close();
+                    _process.Dispose();
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch
             {

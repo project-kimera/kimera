@@ -29,32 +29,42 @@
                         <materialDesign:PopupBox.ToggleContent>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="6 0 0 0" VerticalAlignment="Center" Text="카테고리" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="카테고리" />
                             </StackPanel>
                         </materialDesign:PopupBox.ToggleContent>
 
                         <Grid Width="300" Height="400">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
 
-                            <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+                            <Grid Grid.Row="0">
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="10 10 10 10" Text="카테고리" />
+                            </Grid>
+
+                            <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
                                 <Grid>
-                                    <ListBox >
-                                        <TextBlock
-    Text="Plain" />
-                                        <TextBlock
-    Text="Old" />
-                                        <TextBlock
-    Text="ListBox" />
-                                        <TextBlock
-    Text="Full of junk" />
-                                    </ListBox>
+                                    <ItemsControl ItemsSource="{Binding Categories}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Button Style="{StaticResource MaterialDesignFlatButton}"  Foreground="{DynamicResource MaterialDesignBody}">
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                            <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
+                                                            <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Name}" />
+                                                        </StackPanel>
+                                                    </Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </Grid>
                             </Border>
 
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="추가">
                                     <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Plus"/>
                                 </Button>

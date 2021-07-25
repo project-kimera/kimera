@@ -2,6 +2,7 @@
 using Kimera.Data;
 using Kimera.Data.Contexts;
 using Kimera.Data.Entities;
+using Kimera.Network;
 using Kimera.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -23,8 +24,6 @@ namespace Kimera
     public partial class App : Application
     {
         private static readonly bool _debugMode = true;
-
-        private AntiDPIHelper _antiDPI = new AntiDPIHelper(Environment.CurrentDirectory);
 
         private static KimeraContext _databaseContext;
 
@@ -57,20 +56,10 @@ namespace Kimera
             }
             else
             {
-                StartAntiDPI();
+                AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
 
                 base.OnStartup(e);
             }
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            if (!_debugMode)
-            {
-                StopAntiDPI();
-            }
-
-            base.OnExit(e);
         }
 
         private void InitializeLanguageResources()
@@ -102,35 +91,6 @@ namespace Kimera
             await CategoryHelper.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL");
             await CategoryHelper.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED");
             await CategoryHelper.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE");
-        }
-
-        private void StartAntiDPI()
-        {
-            try
-            {
-                if (!_antiDPI.CheckResources())
-                {
-                    _antiDPI.EnsureResources();
-                }
-
-                _antiDPI.Start();
-            }
-            catch
-            {
-                MessageBox.Show("Failed to start the AntiDPI.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void StopAntiDPI()
-        {
-            try
-            {
-                _antiDPI.Stop();
-            }
-            catch
-            {
-                MessageBox.Show("Failed to stop the AntiDPI.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
     }
 }
