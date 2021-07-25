@@ -94,7 +94,7 @@ namespace Kimera.Network.Services
                     metadata.Genres = array[0]["work_type_string"].ToString();
                     metadata.Memo = string.Empty;
                     metadata.PlayTime = 0;
-                    metadata.IsCompleted = false;
+                    metadata.IsFinished = false;
                     metadata.ThumbnailUri = string.Concat("https:", array[0]["image_main"]["url"].ToString());
                     metadata.IconUri = string.Concat("https:", array[0]["image_thum"]["url"].ToString());
                     metadata.HomepageUrl = string.Format(URL_DLSITE_PRODUCT_HOMEPAGE, productCode);

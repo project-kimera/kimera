@@ -121,7 +121,7 @@ namespace Kimera.ViewModels
             packageMetadata.SystemId = packageMetadataGuid;
             packageMetadata.Type = PackageType.Executable;
             packageMetadata.EntryPointFilePath = FilePath;
-            packageMetadata.Arguments = CommandlineArguments;
+            packageMetadata.CommandLine = CommandlineArguments;
             packageMetadata.Components.Add(component);
 
             GameMetadata gameMetadata = GameMetadata.Copy();
