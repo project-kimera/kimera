@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera", "Kimera\Kimera.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.Data", "Kimera.Data\Kimera.Data.csproj", "{F66FA8AA-80F1-4932-BC3C-78BBEF617496}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.AntiDPI", "Kimera.AntiDPI\Kimera.AntiDPI.csproj", "{84E94E53-F194-459B-B111-D8DD7C905366}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.Network", "Kimera.Network\Kimera.Network.csproj", "{A9E78BFB-3DF8-4319-907C-F059D18B8B7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kimera.IO", "Kimera.IO\Kimera.IO.csproj", "{F2C3AE1A-D019-45ED-B220-514D6305B5B7}"
@@ -27,10 +25,6 @@ Global
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66FA8AA-80F1-4932-BC3C-78BBEF617496}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84E94E53-F194-459B-B111-D8DD7C905366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84E94E53-F194-459B-B111-D8DD7C905366}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84E94E53-F194-459B-B111-D8DD7C905366}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84E94E53-F194-459B-B111-D8DD7C905366}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9E78BFB-3DF8-4319-907C-F059D18B8B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9E78BFB-3DF8-4319-907C-F059D18B8B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9E78BFB-3DF8-4319-907C-F059D18B8B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -2,6 +2,7 @@
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Dialogs;
+using Kimera.Network;
 using Kimera.Services;
 using Kimera.Utilities;
 using System;
@@ -156,13 +157,31 @@ namespace Kimera.ViewModels
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 FilePath = dialog.FileName;
-                ProductCode = DLSiteService.GetProductCodeFromPath(FilePath);
+                ProductCode = MetadataServiceProvider.GetProductCodeFromPath(FilePath);
             }
         }
 
         private async void GetGameMetadata()
         {
-            GameMetadata = await DLSiteService.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+            string typeName;
+
+            if (MetadataServiceProvider.TryValidProductCode(_productCode, out typeName))
+            {
+                if (await MetadataServiceProvider.IsAvailableProductAsync(typeName, _productCode))
+                {
+                    GameMetadata = await MetadataServiceProvider.GetMetadataAsync(typeName, _productCode).ConfigureAwait(false);
+
+                    MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void EditGameMetadata()
@@ -191,7 +210,7 @@ namespace Kimera.ViewModels
             {
                 if (UseMetadataServer)
                 {
-                    GameMetadata = await DLSiteService.GetGameMetadataAsync(_productCode).ConfigureAwait(false);
+                    GetGameMetadata();
                 }
                 else
                 {
@@ -200,7 +219,7 @@ namespace Kimera.ViewModels
                 }
             }
 
-            // Add datas.
+            // Add data.
             await AddDataAsync().ConfigureAwait(false);
 
             App.Current.Dispatcher.Invoke(() =>
@@ -210,6 +229,8 @@ namespace Kimera.ViewModels
                     window.Close();
                 }
             });
+
+            MessageBox.Show("게임이 성공적으로 추가되었습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         #endregion

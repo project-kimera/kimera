@@ -1,5 +1,4 @@
-﻿using Kimera.AntiDPI;
-using Kimera.Data;
+﻿using Kimera.Data;
 using Kimera.Data.Contexts;
 using Kimera.Data.Entities;
 using Kimera.Network;
@@ -46,20 +45,11 @@ namespace Kimera
             InitializeLanguageResources();
             InitializeDatabase();
 
-            // Check debug mode.
-            if (_debugMode)
-            {
-                Window testWindow = new TestWindow();
-                testWindow.Show();
+            // Network
+            AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
+            MetadataServiceProvider.InitializeService();
 
-                base.OnStartup(e);
-            }
-            else
-            {
-                AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
-
-                base.OnStartup(e);
-            }
+            base.OnStartup(e);
         }
 
         private void InitializeLanguageResources()

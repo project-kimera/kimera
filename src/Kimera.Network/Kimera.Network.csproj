@@ -22,4 +22,12 @@
     <EmbeddedResource Include="Resources\x86\WinDivert32.sys" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kimera.Data\Kimera.Data.csproj" />
+  </ItemGroup>
+
 </Project>

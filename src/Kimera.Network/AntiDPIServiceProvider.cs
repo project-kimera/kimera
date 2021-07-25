@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace Kimera.Network
 {
+    /// <summary>
+    /// Provides a solution for DPI.
+    /// </summary>
     public static class AntiDPIServiceProvider
     {
         private static AntiDPIService _service;
 
+        /// <summary>
+        /// Initializes the internal service of the <see cref="AntiDPIServiceProvider"/>.
+        /// </summary>
+        /// <param name="directory">The directory to be used for AntiDPI service.</param>
         public static void InitializeService(string directory)
         {
             try
