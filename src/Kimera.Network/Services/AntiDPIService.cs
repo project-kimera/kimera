@@ -172,6 +172,25 @@ namespace Kimera.Network.Services
             }
         }
 
+        internal void EnsureProcessExited()
+        {
+            try
+            {
+                Process[] processes = Process.GetProcessesByName("goodbyedpi");
+
+                foreach (Process process in processes)
+                {
+                    process.Kill();
+                    process.Close();
+                    process.Dispose();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         #region ::IDisposable Members::
 
         private bool disposedValue;
@@ -183,6 +202,7 @@ namespace Kimera.Network.Services
                 if (disposing)
                 {
                     Stop();
+                    EnsureProcessExited();
                 }
 
                 // TODO: 비관리형 리소스(비관리형 개체)를 해제하고 종료자를 재정의합니다.
