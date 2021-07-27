@@ -145,7 +145,7 @@ namespace Kimera.ViewModels
 
         #endregion
 
-        #region ::Actions for Commands::
+        #region ::Command Actions::
 
         private void ExploreFile()
         {
@@ -235,6 +235,8 @@ namespace Kimera.ViewModels
 
         #endregion
 
+        #region ::Constructors::
+
         public AddExecutableFileViewModel()
         {
             PackageMetadata = new PackageMetadata();
@@ -246,5 +248,7 @@ namespace Kimera.ViewModels
             CancelCommand = new RelayCommand<Window>(Cancel);
             ConfirmCommand = new RelayCommand<Window>(Confirm);
         }
+
+        #endregion
     }
 }

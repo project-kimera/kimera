@@ -13,50 +13,31 @@ namespace Kimera.ViewModels
 {
     public class LibraryViewModel : ViewModelBase
     {
-        private LibraryService _service = LibraryService.Instance;
+        #region ::Variables & Properties::
 
-        private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
+        private LibraryService _service = LibraryService.Instance;
 
         public ObservableCollection<Category> Categories
         {
             get
             {
-                return _categories;
-            }
-            set
-            {
-                _categories = value;
-                RaisePropertyChanged();
+                return _service.Categories;
             }
         }
 
-        private Guid _currentCategory;
-
-        public Guid CurrentCategory
+        public Guid SelectedCategory
         {
             get
             {
-                return _currentCategory;
-            }
-            set
-            {
-                _currentCategory = value;
-                RaisePropertyChanged();
+                return _service.SelectedCategory;
             }
         }
 
-        private ObservableCollection<GameMetadata> _games = new ObservableCollection<GameMetadata>();
-
-        public ObservableCollection<GameMetadata> Games
+        public ObservableCollection<Game> Games
         {
             get
             {
-                return _games;
-            }
-            set
-            {
-                _games = value;
-                RaisePropertyChanged();
+                return _service.Games;
             }
         }
 
@@ -68,36 +49,28 @@ namespace Kimera.ViewModels
 
         public DelegateCommand AddFolderCommand { get; }
 
-        public LibraryViewModel()
+        #endregion
+
+        #region ::Event Subscribers::
+
+        private void OnCategoriesChanged(object sender, EventArgs e)
         {
-            foreach (Category category in App.DatabaseContext.Categories)
-            {
-                Categories.Add(category);
-            }
-
-            _service.GamesChangedEvent += OnGamesChangedEvent;
-            _service.UpdateGames(Categories.FirstOrDefault().SystemId);
-
-            AddExecutableFileCommand = new DelegateCommand(AddExecutableFileDialog);
-            AddArchiveFileCommand = new DelegateCommand(AddArchiveFileDialog);
-            AddMultipleFileCommand = new DelegateCommand(AddMultipleFileDialog);
-            AddFolderCommand = new DelegateCommand(AddFolderDialog);
+            RaisePropertyChanged("Categories");
         }
 
-        private async void OnGamesChangedEvent(object sender, EventArgs e)
+        private void OnSelectedCategoryChanged(object sender, EventArgs e)
         {
-            var task = Task.Factory.StartNew(() =>
-            {
-                _games.Clear();
-
-                foreach (Game game in _service.Games)
-                {
-                    _games.Add(game.GameMetadataNavigation);
-                }
-            });
-
-            await task.ConfigureAwait(false);
+            RaisePropertyChanged("SelectedCategory");
         }
+
+        private void OnGamesChanged(object sender, EventArgs e)
+        {
+            RaisePropertyChanged("Games");
+        }
+
+        #endregion
+
+        #region ::Command Actions::
 
         private void AddExecutableFileDialog()
         {
@@ -122,5 +95,23 @@ namespace Kimera.ViewModels
             AddFolderDialog dialog = new AddFolderDialog();
             dialog.ShowDialog();
         }
+
+        #endregion
+
+        #region ::Constructors::
+
+        public LibraryViewModel()
+        {
+            _service.CategoriesChangedEvent += OnCategoriesChanged;
+            _service.SelectedCategoryChangedEvent += OnSelectedCategoryChanged;
+            _service.GamesChangedEvent += OnGamesChanged;
+
+            AddExecutableFileCommand = new DelegateCommand(AddExecutableFileDialog);
+            AddArchiveFileCommand = new DelegateCommand(AddArchiveFileDialog);
+            AddMultipleFileCommand = new DelegateCommand(AddMultipleFileDialog);
+            AddFolderCommand = new DelegateCommand(AddFolderDialog);
+        }
+
+        #endregion
     }
 }
