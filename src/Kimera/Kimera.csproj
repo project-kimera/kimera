@@ -25,6 +25,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="SharpCompress" Version="0.28.3" />
+    <PackageReference Include="VirtualizingWrapPanel" Version="1.5.4" />
   </ItemGroup>
 
   <ItemGroup>

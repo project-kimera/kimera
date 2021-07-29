@@ -8,16 +8,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Material Design -->
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="Blue" />
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="Blue" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />
 
                 <!-- Kimera Styles -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/Brushes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/WindowStyles.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ListViewStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ListViewItemStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

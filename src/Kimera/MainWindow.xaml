@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Style="{StaticResource KimeraStripedWindow}"
-        Title="Kimera" Height="800" Width="1200" MinHeight="550" MinWidth="800">
+        Title="Kimera" Height="840" Width="1340" MinHeight="550" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
