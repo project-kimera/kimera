@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,6 +54,13 @@ namespace Kimera
             base.OnStartup(e);
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            AntiDPIServiceProvider.DisposeService();
+
+            base.OnExit(e);
+        }
+
         private void InitializeLanguageResources()
         {
             ResourceDictionary dict = new ResourceDictionary();
@@ -75,13 +83,22 @@ namespace Kimera
 
         private async void InitializeDatabase()
         {
-            // Migrate database.
+            // Migrate and initialize the database automatically.
             _databaseContext = new KimeraContext();
             await _databaseContext.Database.MigrateAsync().ConfigureAwait(false);
 
-            await _databaseContext.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL");
-            await _databaseContext.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED");
-            await _databaseContext.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE");
+            // Load the database.
+            await _databaseContext.Categories.LoadAsync().ConfigureAwait(false);
+            await _databaseContext.CategorySubscriptions.LoadAsync().ConfigureAwait(false);
+            await _databaseContext.Components.LoadAsync().ConfigureAwait(false);
+            await _databaseContext.Games.LoadAsync().ConfigureAwait(false);
+            await _databaseContext.GameMetadatas.LoadAsync().ConfigureAwait(false);
+            await _databaseContext.PackageMetadatas.LoadAsync().ConfigureAwait(false);
+
+            // Ensure default categories created.
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL").ConfigureAwait(false);
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED").ConfigureAwait(false);
+            await _databaseContext.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE").ConfigureAwait(false);
         }
     }
 }

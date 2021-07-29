@@ -31,8 +31,8 @@ namespace Kimera.Data.Extensions
                 newCategory.SystemId = guid;
                 newCategory.Name = name;
 
-                await context.Categories.AddAsync(newCategory);
-                await context.SaveChangesAsync();
+                await context.Categories.AddAsync(newCategory).ConfigureAwait(false);
+                await context.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }

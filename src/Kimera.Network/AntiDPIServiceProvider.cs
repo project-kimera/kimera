@@ -26,14 +26,29 @@ namespace Kimera.Network
 
                 if (!_service.CheckResources())
                 {
-                    _service.EnsureResources();
+                    _service.EnsureResourcesExist();
                 }
 
                 _service.Start();
             }
             catch(Exception ex)
             {
-                throw new InvalidOperationException("Failed to start the AntiDPI.", ex);
+                throw new InvalidOperationException("Failed to start the AntiDPI service.", ex);
+            }
+        }
+
+        public static void DisposeService()
+        {
+            try
+            {
+                if (_service != null)
+                {
+                    _service.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Failed to dispose the AntiDPI service.", ex);
             }
         }
     }

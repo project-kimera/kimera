@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Kimera.Services
 {
@@ -113,7 +114,13 @@ namespace Kimera.Services
 
         public async Task UpdateCategoriesAsync()
         {
-            var task = Task.Factory.StartNew(() => UpdateCategories());
+            var task = Task.Factory.StartNew(() =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateCategories();
+                });
+            });
 
             await task.ConfigureAwait(false);
         }
@@ -161,7 +168,13 @@ namespace Kimera.Services
 
         public async Task UpdateGamesAsync(Guid categoryGuid)
         {
-            var task = Task.Factory.StartNew(() => UpdateGames(categoryGuid));
+            var task = Task.Factory.StartNew(() =>
+            {
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    UpdateGames(categoryGuid);
+                });
+            });
 
             await task.ConfigureAwait(false);
         }

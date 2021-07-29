@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/WindowStyles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ListViewStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

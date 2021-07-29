@@ -134,6 +134,14 @@
             </Grid>
         </materialDesign:Card>
 
-        <ListView Grid.Row="1"/>
+        <ListView Grid.Row="1" Margin="10 0 10 10" ItemsSource="{Binding Games}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding GameMetadataNavigation.Name}" Header="Name" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GameMetadataNavigation.Creator}" Header="Creator" />
+                    <GridViewColumn DisplayMemberBinding="{Binding GameMetadataNavigation.SystemId}" Header="SystemID" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

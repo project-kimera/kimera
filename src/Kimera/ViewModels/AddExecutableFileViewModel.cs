@@ -137,8 +137,13 @@ namespace Kimera.ViewModels
             game.GameMetadataNavigation = gameMetadata;
             game.PackageMetadataNavigation = packageMetadata;
 
+            CategorySubscription subscription = new CategorySubscription();
+            subscription.Category = Settings.GUID_ALL_CATEGORY;
+            subscription.Game = gameGuid;
+
             await App.DatabaseContext.Components.AddAsync(component).ConfigureAwait(false);
             await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
+            await App.DatabaseContext.CategorySubscriptions.AddAsync(subscription).ConfigureAwait(false);
 
             await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
         }
@@ -161,7 +166,7 @@ namespace Kimera.ViewModels
             }
         }
 
-        private async void GetGameMetadata()
+        private async void GetGameMetadata(bool skipMessages = false)
         {
             string typeName;
 
@@ -171,16 +176,25 @@ namespace Kimera.ViewModels
                 {
                     GameMetadata = await MetadataServiceProvider.GetMetadataAsync(typeName, _productCode).ConfigureAwait(false);
 
-                    MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (!skipMessages)
+                    {
+                        MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (!skipMessages)
+                    {
+                        MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!skipMessages)
+                {
+                    MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -210,7 +224,7 @@ namespace Kimera.ViewModels
             {
                 if (UseMetadataServer)
                 {
-                    GetGameMetadata();
+                    GetGameMetadata(true);
                 }
                 else
                 {
@@ -243,7 +257,7 @@ namespace Kimera.ViewModels
             GameMetadata = new GameMetadata();
 
             ExploreFileCommand = new DelegateCommand(ExploreFile);
-            GetGameMetadataCommand = new DelegateCommand(GetGameMetadata);
+            GetGameMetadataCommand = new DelegateCommand(() => GetGameMetadata(false));
             EditGameMetadataCommand = new DelegateCommand(EditGameMetadata);
             CancelCommand = new RelayCommand<Window>(Cancel);
             ConfirmCommand = new RelayCommand<Window>(Confirm);

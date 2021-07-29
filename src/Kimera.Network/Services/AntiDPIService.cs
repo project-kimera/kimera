@@ -60,7 +60,7 @@ namespace Kimera.Network.Services
             }
         }
 
-        internal void EnsureResources()
+        internal void EnsureResourcesExist()
         {
             if (!Directory.Exists(_directory))
             {
@@ -181,8 +181,6 @@ namespace Kimera.Network.Services
                 foreach (Process process in processes)
                 {
                     process.Kill();
-                    process.Close();
-                    process.Dispose();
                 }
             }
             catch
