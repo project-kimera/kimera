@@ -15,6 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />

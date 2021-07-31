@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data">
+                    xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data"
+                    xmlns:converters="clr-namespace:Kimera.Converters">
+    <converters:StringToImageConverter x:Key="StringToImageConverter"/>
+    
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:GameMetadata">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
             <Grid Width="260" Height="220">
@@ -10,7 +13,8 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
-                <Image Grid.Row="0" Margin="10 10 10 0" Height="160" VerticalAlignment="Top" Source="{Binding GameMetadataNavigation.ThumbnailUri}" Stretch="UniformToFill"/>
+                <Image Grid.Row="0" Margin="10 10 10 0" Height="160" VerticalAlignment="Top"
+                       Source="{Binding GameMetadataNavigation.ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
                 <Grid Grid.Row="1" Margin="10 6 10 10">
                     <Grid.ColumnDefinitions>
@@ -47,7 +51,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top" Source="{Binding GameMetadataNavigation.IconUri}" Stretch="UniformToFill"/>
+                <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top"
+                       Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
                 <TextBlock Grid.Row="1" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0"
                            FontSize="11" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"

@@ -35,5 +35,30 @@ namespace Kimera.Network.Utilities
                 return text;
             }
         }
+
+        public static async Task<bool> IsImageUrlAsync(string url)
+        {
+            try
+            {
+                using (var response = await _httpClient.GetAsync(url))
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        string body = await response.Content.ReadAsStringAsync();
+
+                        bool result = response.ToString().Contains("Content-Type: image");
+                        return result;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@
 
                 <!-- Kimera Styles -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Images.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/Brushes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/WindowStyles.xaml" />
