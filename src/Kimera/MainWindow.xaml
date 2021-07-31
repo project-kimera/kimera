@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Style="{StaticResource KimeraStripedWindow}"
-        Title="Kimera" Height="840" Width="1340" MinHeight="550" MinWidth="800">
+        Title="Kimera" Height="850" Width="1400" MinHeight="550" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
@@ -15,55 +15,65 @@
         </Grid.RowDefinitions>
 
         <!--Title Bar-->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="64"/>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="128"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="128"/>
+                </Grid.ColumnDefinitions>
 
-            <!--Icon-->
-            <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{DynamicResource LogoDrawingImage}"/>
+                <!--Icon-->
+                <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{DynamicResource LogoDrawingImage}"/>
 
-            <!--Search Bar-->
-            <materialDesign:ColorZone Grid.Column="1" Mode="Standard" Padding="2 0 2 0" CornerRadius="4" Panel.ZIndex="1" Margin="16 0 0 0" VerticalAlignment="Center"
+                <!--Search Bar-->
+                <materialDesign:ColorZone Grid.Column="1" Mode="Standard" Padding="2 0 2 0" CornerRadius="4" Panel.ZIndex="1" Margin="16 0 0 0" VerticalAlignment="Center"
                                           WindowChrome.IsHitTestVisibleInChrome="True" materialDesign:ShadowAssist.ShadowDepth="Depth0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Column="0" Margin="8 0 0 0" materialDesign:HintAssist.Hint="{DynamicResource W_MAIN_SEARCH_HINT}" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" MinWidth="250" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="0" Margin="8 0 0 0" materialDesign:HintAssist.Hint="{DynamicResource W_MAIN_SEARCH_HINT}" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" MinWidth="250" VerticalAlignment="Center" />
 
-                    <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon Kind="Search" Opacity=".56" />
-                    </Button>
-                </Grid>
-            </materialDesign:ColorZone>
+                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}">
+                            <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                        </Button>
+                    </Grid>
+                </materialDesign:ColorZone>
 
-            <!--Action Buttons-->
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
-                <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                <!--Action Buttons-->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
                         WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
-                        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="라이브러리" />
-                    </StackPanel>
-                </Button>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="라이브러리" />
+                        </StackPanel>
+                    </Button>
 
-                <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                        WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="통계" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
                         WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToSettingsCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>
-                        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="설정" />
-                    </StackPanel>
-                </Button>
-            </StackPanel>
-        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="설정" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
 
-        <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignToolBarBackground}">
+        <Grid Grid.Row="1" Background="{DynamicResource KimeraBackground}">
             <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>

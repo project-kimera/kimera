@@ -42,7 +42,7 @@
                         </Border.Style>
 
                         <!--Client area-->
-                        <Grid Background="{DynamicResource MaterialDesignBackground}">
+                        <Grid Background="{DynamicResource KimeraBackground}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32"/>
                                 <RowDefinition Height="32"/>
@@ -50,7 +50,7 @@
                             </Grid.RowDefinitions>
 
                             <!--Title bar area-->
-                            <Grid Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource MaterialDesignCardBackground}">
+                            <Grid Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource KimeraBackground}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="32"/>
                                     <RowDefinition Height="*"/>
@@ -133,13 +133,13 @@
                         </Border.Style>
 
                         <!--Client area-->
-                        <Grid Background="{DynamicResource MaterialDesignBackground}">
+                        <Grid Background="{DynamicResource KimeraBackground}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--Title bar-->
-                            <Grid Grid.Row="0" Background="{DynamicResource MaterialDesignBackground}">
+                            <Grid Grid.Row="0" Background="{DynamicResource KimeraBackground}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="32"/>
@@ -219,13 +219,13 @@
                         </Border.Style>
 
                         <!--Client area-->
-                        <Grid Background="{DynamicResource MaterialDesignBackground}">
+                        <Grid Background="{DynamicResource KimeraBackground}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="32"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--Title bar-->
-                            <Grid Grid.Row="0" Background="{DynamicResource MaterialDesignBackground}">
+                            <Grid Grid.Row="0" Background="{DynamicResource KimeraBackground}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="32"/>
