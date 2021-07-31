@@ -54,7 +54,7 @@
                 <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top"
                        Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
-                <TextBlock Grid.Row="1" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0"
+                <TextBlock Grid.Row="1" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0" HorizontalAlignment="Center"
                            FontSize="11" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
                            Text="{Binding GameMetadataNavigation.Name}" />
             </Grid>
