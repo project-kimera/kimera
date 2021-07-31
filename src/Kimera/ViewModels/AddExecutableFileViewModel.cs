@@ -162,7 +162,13 @@ namespace Kimera.ViewModels
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 FilePath = dialog.FileName;
-                ProductCode = MetadataServiceProvider.GetProductCodeFromPath(FilePath);
+
+                string productCode = MetadataServiceProvider.GetProductCodeFromPath(FilePath);
+
+                if (string.IsNullOrEmpty(productCode))
+                {
+                    MessageBox.Show("상품 코드를 가져올 수 없습니다. 수동으로 메타데이터를 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
         }
 

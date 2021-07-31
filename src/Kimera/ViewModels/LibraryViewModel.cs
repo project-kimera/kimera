@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Kimera.ViewModels
 {
@@ -41,6 +42,25 @@ namespace Kimera.ViewModels
             }
         }
 
+        private DataTemplate _viewTemplate = App.Current.FindResource("TileViewItemTemplate") as DataTemplate;
+
+        public DataTemplate ViewTemplate
+        {
+            get
+            {
+                return _viewTemplate;
+            }
+            set
+            {
+                _viewTemplate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public DelegateCommand ChangeToTileViewCommand { get; }
+
+        public DelegateCommand ChangeToIconViewCommand { get; }
+
         public DelegateCommand AddExecutableFileCommand { get; }
 
         public DelegateCommand AddArchiveFileCommand { get; }
@@ -71,6 +91,16 @@ namespace Kimera.ViewModels
         #endregion
 
         #region ::Command Actions::
+
+        private void ChangeToTileView()
+        {
+            ViewTemplate = App.Current.FindResource("TileViewItemTemplate") as DataTemplate;
+        }
+
+        private void ChangeToIconView()
+        {
+            ViewTemplate = App.Current.FindResource("IconViewItemTemplate") as DataTemplate;
+        }
 
         private void AddExecutableFileDialog()
         {
@@ -105,6 +135,9 @@ namespace Kimera.ViewModels
             _service.CategoriesChangedEvent += OnCategoriesChanged;
             _service.SelectedCategoryChangedEvent += OnSelectedCategoryChanged;
             _service.GamesChangedEvent += OnGamesChanged;
+
+            ChangeToTileViewCommand = new DelegateCommand(ChangeToTileView);
+            ChangeToIconViewCommand = new DelegateCommand(ChangeToIconView);
 
             AddExecutableFileCommand = new DelegateCommand(AddExecutableFileDialog);
             AddArchiveFileCommand = new DelegateCommand(AddArchiveFileDialog);

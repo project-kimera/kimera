@@ -98,16 +98,12 @@
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
-                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="타일">
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="타일" Cursor="Hand">
                     <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="아이콘">
                     <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
-                </Button>
-
-                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="자세히">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="ViewListOutline"/>
                 </Button>
             </StackPanel>
 
@@ -139,7 +135,7 @@
             Grid.Row="1"
             Margin="10 0 10 10"
             ItemsSource="{Binding Games}"
-            ItemTemplate="{StaticResource TileViewItemTemplate}"
+            ItemTemplate="{Binding ViewTemplate}"
             VirtualizingPanel.CacheLengthUnit="Page"
             VirtualizingPanel.CacheLength="1,1"
             VirtualizingPanel.ScrollUnit="Pixel"
@@ -148,8 +144,8 @@
             ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <wpftk:VirtualizingWrapPanel Orientation="Vertical" SpacingMode="BetweenItemsOnly" StretchItems="False"                                    
-                                                 ScrollLineDelta="16" MouseWheelDelta="48"/>
+                    <wpftk:VirtualizingWrapPanel Orientation="Vertical"
+                                                 SpacingMode="BetweenItemsOnly" StretchItems="True" ScrollLineDelta="16" MouseWheelDelta="48"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </wpftk:VirtualizingItemsControl>

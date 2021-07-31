@@ -110,6 +110,7 @@
         </Setter>
 
         <Setter Property="WindowState" Value="Normal"/>
+        <Setter Property="Foreground" Value="{DynamicResource KimeraForeground}"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -196,6 +197,7 @@
 
         <Setter Property="WindowState" Value="Normal"/>
         <Setter Property="ResizeMode" Value="CanMinimize"/>
+        <Setter Property="Foreground" Value="{DynamicResource KimeraForeground}"/>
 
         <Setter Property="Template">
             <Setter.Value>
