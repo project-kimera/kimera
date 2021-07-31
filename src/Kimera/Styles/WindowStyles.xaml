@@ -65,7 +65,7 @@
                                         <ColumnDefinition Width="32"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Background="{DynamicResource MaterialDesignSelection}"
+                                    <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Background="{DynamicResource KimeraButtonRipple}"
                                                       HorizontalAlignment="Center" Width="24" Height="24" WindowChrome.IsHitTestVisibleInChrome="True"
                                                       IsChecked="{Binding Topmost, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>

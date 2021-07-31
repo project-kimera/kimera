@@ -37,7 +37,7 @@ namespace Kimera.Data.Entities
         /// <summary>
         /// The commandline used to start the game.
         /// </summary>
-        public string CommandLine { get; set; }
+        public string CommandLineArguments { get; set; }
 
         /// <summary>
         /// The components used for the game.

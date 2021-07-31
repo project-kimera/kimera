@@ -25,7 +25,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Icon-->
-                <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{DynamicResource LogoDrawingImage}"/>
+                <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{DynamicResource KimeraLogo}"/>
 
                 <!--Search Bar-->
                 <materialDesign:ColorZone Grid.Column="1" Mode="Standard" Padding="2 0 2 0" CornerRadius="4" Panel.ZIndex="1" Margin="16 0 0 0" VerticalAlignment="Center"
@@ -46,7 +46,7 @@
 
                 <!--Action Buttons-->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 0 0" Padding="18 0 18 0"
                         WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
@@ -54,7 +54,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 0 0" Padding="18 0 18 0"
                         WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
@@ -62,7 +62,7 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="4 0 0 0" Padding="18 0 18 0"
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 0 0" Padding="18 0 18 0"
                         WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToSettingsCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>

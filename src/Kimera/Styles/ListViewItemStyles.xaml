@@ -19,12 +19,12 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                        <TextBlock Foreground="{DynamicResource KimeraForeground}"
                                FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
                                Text="{Binding GameMetadataNavigation.Name}" />
                         <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
                             <Ellipse VerticalAlignment="Center" Width="6" Height="6" Fill="LightGreen"/>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBodyLight}"
+                            <TextBlock Foreground="{DynamicResource KimeraForegroundLight}"
                                        Margin="4 0 0 0" VerticalAlignment="Center"
                                        FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
                                        Text="이용 가능" />
@@ -32,7 +32,7 @@
                     </StackPanel>
 
                     <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30">
-                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="DotsHorizontal" />
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="DotsHorizontal" />
                     </Button>
                 </Grid>
             </Grid>

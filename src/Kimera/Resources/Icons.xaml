@@ -16,7 +16,7 @@
 
     </LinearGradientBrush>
 
-    <DrawingImage x:Key="LogoDrawingImage">
+    <DrawingImage x:Key="KimeraLogo">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V512 H512 V0 H0 Z">
                 <DrawingGroup.Transform>

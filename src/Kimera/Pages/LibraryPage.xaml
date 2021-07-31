@@ -26,7 +26,7 @@
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="새로고침">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Refresh"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Refresh"/>
                 </Button>
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
@@ -34,8 +34,8 @@
                 <materialDesign:PopupBox Margin="16 0 16 0" Padding="0" Height="32" PlacementMode="BottomAndAlignCentres" StaysOpen="True">
                     <materialDesign:PopupBox.ToggleContent>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}"
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="카테고리" />
                         </StackPanel>
                     </materialDesign:PopupBox.ToggleContent>
@@ -57,7 +57,7 @@
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
-                                                <Button Style="{StaticResource MaterialDesignFlatButton}"  Foreground="{DynamicResource MaterialDesignBody}">
+                                                <Button Style="{StaticResource MaterialDesignFlatButton}"  Foreground="{DynamicResource KimeraForeground}">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                         <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
                                                         <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Name}" />
@@ -72,15 +72,15 @@
 
                         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                             <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="추가">
-                                <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Plus"/>
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Plus"/>
                             </Button>
 
                             <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="이름 변경">
-                                <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Rename"/>
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Rename"/>
                             </Button>
 
                             <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="삭제">
-                                <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Remove"/>
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -89,21 +89,21 @@
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="정렬 기준">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="Sort"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Sort"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="필터">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FilterOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FilterOutline"/>
                 </Button>
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="타일">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="아이콘">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="자세히">
@@ -115,7 +115,7 @@
 
                 <materialDesign:PopupBox Margin="6 0 6 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="게임 추가">
                     <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel>
                         <Button Content="실행 파일로 추가하기" Command="{Binding AddExecutableFileCommand}"/>
@@ -126,7 +126,7 @@
 
                 <materialDesign:PopupBox Margin="0 0 0 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="여러 게임 추가">
                     <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBodyLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel>
                         <Button Content="폴더에서 추가하기" Command="{Binding AddFolderCommand}"/>
