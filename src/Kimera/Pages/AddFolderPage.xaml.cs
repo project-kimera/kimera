@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Kimera.Dialogs
+namespace Kimera.Pages
 {
     /// <summary>
-    /// AddArchiveFileDialog.xaml에 대한 상호 작용 논리
+    /// AddFolderPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddArchiveFileDialog : Window
+    public partial class AddFolderPage : Page
     {
-        public AddArchiveFileDialog()
+        public AddFolderPage()
         {
             InitializeComponent();
         }

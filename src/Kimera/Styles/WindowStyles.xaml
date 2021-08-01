@@ -146,27 +146,20 @@
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition Width="32"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 0 0 0" TextWrapping="Wrap" Text="{TemplateBinding Title}"/>
 
-                                <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Background="{DynamicResource MaterialDesignSelection}"
-                                                      HorizontalAlignment="Center" Width="24" Height="24" WindowChrome.IsHitTestVisibleInChrome="True"
-                                                      IsChecked="{Binding Topmost, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                                    <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
-                                </ToggleButton>
-
-                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
                                     <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="4" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
                                 </Button>
                             </Grid>
@@ -232,23 +225,16 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="32"/>
-                                    <ColumnDefinition Width="32"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 0 0 0" TextWrapping="Wrap" Text="{TemplateBinding Title}"/>
 
-                                <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Background="{DynamicResource MaterialDesignSelection}"
-                                                      HorizontalAlignment="Center" Width="24" Height="24" WindowChrome.IsHitTestVisibleInChrome="True"
-                                                      IsChecked="{Binding Topmost, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                                    <materialDesign:PackIcon Kind="Pin" Height="12" Width="12"/>
-                                </ToggleButton>
-
-                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <materialDesign:PackIcon Kind="WindowMinimize" Width="14" Height="14"/>
                                 </Button>
 
-                                <Button Grid.Column="4" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <materialDesign:PackIcon Kind="WindowClose" Width="14" Height="14"/>
                                 </Button>
                             </Grid>

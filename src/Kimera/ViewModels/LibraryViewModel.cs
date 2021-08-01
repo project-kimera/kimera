@@ -114,20 +114,18 @@ namespace Kimera.ViewModels
 
         private void AddArchiveFileDialog()
         {
-            AddArchiveFileDialog dialog = new AddArchiveFileDialog();
+            EditStringDialog dialog = new EditStringDialog();
             dialog.ShowDialog();
         }
 
         private void AddMultipleFileDialog()
         {
-            AddMultipleFileDialog dialog = new AddMultipleFileDialog();
-            dialog.ShowDialog();
+
         }
 
         private void AddFolderDialog()
         {
-            AddFolderDialog dialog = new AddFolderDialog();
-            dialog.ShowDialog();
+
         }
 
         #endregion
