@@ -2,6 +2,7 @@
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -209,6 +210,7 @@ namespace Kimera.ViewModels
             if (!ValidationHelper.IsValid(window))
             {
                 MessageBox.Show("메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning("The game metadata values aren't valid.");
                 return;
             }
 

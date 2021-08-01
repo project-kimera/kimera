@@ -1,4 +1,5 @@
 ﻿using Kimera.Data.Entities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -100,16 +101,23 @@ namespace Kimera.Services
 
         public void UpdateCategories()
         {
-            List<Category> result = App.DatabaseContext.Categories.ToList();
-
-            _categories.Clear();
-
-            foreach (Category category in result)
+            try
             {
-                _categories.Add(category);
-            }
+                List<Category> result = App.DatabaseContext.Categories.ToList();
 
-            CategoriesChangedEvent?.Invoke(this, new EventArgs());
+                _categories.Clear();
+
+                foreach (Category category in result)
+                {
+                    _categories.Add(category);
+                }
+
+                CategoriesChangedEvent?.Invoke(this, new EventArgs());
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "An exception occurred while updating games.");
+            }
         }
 
         public async Task UpdateCategoriesAsync()
@@ -127,18 +135,26 @@ namespace Kimera.Services
 
         public bool UpdateSelectedCategory(Guid categoryGuid)
         {
-            Category category = App.DatabaseContext.Categories.Where(c => c.SystemId == categoryGuid).First();
-
-            if (category != null)
+            try
             {
-                SelectedCategory = categoryGuid;
+                Category category = App.DatabaseContext.Categories.Where(c => c.SystemId == categoryGuid).First();
 
-                SelectedCategoryChangedEvent?.Invoke(this, new EventArgs());
+                if (category != null)
+                {
+                    SelectedCategory = categoryGuid;
 
-                return true;
+                    SelectedCategoryChangedEvent?.Invoke(this, new EventArgs());
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Log.Warning(ex, "An exception occurred while updating games.");
                 return false;
             }
         }
@@ -152,18 +168,25 @@ namespace Kimera.Services
 
         public void UpdateGames(Guid categoryGuid)
         {
-            List<CategorySubscription> subscriptions = App.DatabaseContext.CategorySubscriptions.Where(c => c.Category == categoryGuid).ToList();
-
-            var result = subscriptions.Select(s => s.GameNavigation);
-
-            _games.Clear();
-
-            foreach (Game game in result)
+            try
             {
-                _games.Add(game);
-            }
+                List<CategorySubscription> subscriptions = App.DatabaseContext.CategorySubscriptions.Where(c => c.Category == categoryGuid).ToList();
 
-            GamesChangedEvent?.Invoke(this, new EventArgs());
+                var result = subscriptions.Select(s => s.GameNavigation);
+
+                _games.Clear();
+
+                foreach (Game game in result)
+                {
+                    _games.Add(game);
+                }
+
+                GamesChangedEvent?.Invoke(this, new EventArgs());
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "An exception occurred while updating games.");
+            }
         }
 
         public async Task UpdateGamesAsync(Guid categoryGuid)
@@ -191,7 +214,10 @@ namespace Kimera.Services
                 {
                     if (category != null)
                     {
-                        _categories.Add(category);
+                        App.Current.Dispatcher.Invoke(() =>
+                        {
+                            _categories.Add(category);
+                        });
                     }
                 }
 
@@ -209,7 +235,10 @@ namespace Kimera.Services
                         
                         if (targetCategory != null)
                         {
-                            _categories.Remove(targetCategory);
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                _categories.Remove(targetCategory);
+                            });
                         }
 
                         if (targetCategory.SystemId == _selectedCategory)
@@ -227,6 +256,8 @@ namespace Kimera.Services
                     SelectedCategoryChangedEvent.Invoke(this, new EventArgs());
                 }
             }
+
+            Log.Information("The categories table has been changed.");
         }
 
         private void OnCategorySubscriptionsLocalCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -239,7 +270,10 @@ namespace Kimera.Services
                     {
                         if (subscription.Category == _selectedCategory)
                         {
-                            _games.Add(subscription.GameNavigation);
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                _games.Add(subscription.GameNavigation);
+                            });
                         }
                     }
                 }
@@ -258,7 +292,10 @@ namespace Kimera.Services
 
                             if (targetGame != null)
                             {
-                                _games.Remove(targetGame);
+                                App.Current.Dispatcher.Invoke(() =>
+                                {
+                                    _games.Remove(targetGame);
+                                });
                             }
                         }
                     }
@@ -270,6 +307,8 @@ namespace Kimera.Services
             {
                 Games.Clear();
             }
+
+            Log.Information("The category subscriptions table has been changed.");
         }
 
         #endregion
@@ -289,6 +328,8 @@ namespace Kimera.Services
 
             App.DatabaseContext.Categories.Local.CollectionChanged += OnCategoriesLocalCollectionChanged;
             App.DatabaseContext.CategorySubscriptions.Local.CollectionChanged += OnCategorySubscriptionsLocalCollectionChanged;
+
+            Log.Information("The library service has been initialized.");
         }
 
         #endregion

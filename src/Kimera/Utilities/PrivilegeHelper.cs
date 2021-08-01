@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -40,7 +41,7 @@ namespace Kimera.Utilities
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Fatal(ex, "The privilege helper couldn't run the process as administrator privilege.");
                 return;
             }
         }

@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Kimera.Dialogs
+namespace Kimera.Pages
 {
     /// <summary>
-    /// AddExecutableFileDialog.xaml에 대한 상호 작용 논리
+    /// AddExecutableFilePage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddExecutableFileDialog : Window
+    public partial class AddExecutableFilePage : Page
     {
-        public AddExecutableFileDialog()
+        public AddExecutableFilePage()
         {
             InitializeComponent();
             this.DataContext = new AddExecutableFileViewModel();

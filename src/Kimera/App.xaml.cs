@@ -6,10 +6,13 @@ using Kimera.Network;
 using Kimera.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Serilog;
+using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -38,8 +41,14 @@ namespace Kimera
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += OnUnhandledExceptionOccurred;
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+
+            InitializeLogger();
+
             if (!PrivilegeHelper.IsAdministrator() && !_debugMode)
             {
+                Log.Warning("The current process does not have administrator privileges. The process will be restart with administrator privileges.");
                 PrivilegeHelper.RunAsAdiministrator();
                 return;
             }
@@ -47,18 +56,69 @@ namespace Kimera
             InitializeLanguageResources();
             InitializeDatabase();
 
-            // Network
             AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
+            Log.Information("The Anti DPI Service has been initialized.");
+
             MetadataServiceProvider.InitializeService();
+            Log.Information("The Metadata Service has been initialized.");
 
             base.OnStartup(e);
+        }
+
+        private void OnUnhandledExceptionOccurred(object sender, UnhandledExceptionEventArgs e)
+        {
+            _databaseContext.SaveChanges();
+
+            AntiDPIServiceProvider.DisposeService();
+            Log.Information("The Anti DPI Service has been disposed.");
+
+            Log.CloseAndFlush();
+        }
+
+        private void OnProcessExit(object sender, EventArgs e)
+        {
+            AntiDPIServiceProvider.DisposeService();
+            Log.Information("The Anti DPI Service has been disposed.");
+
+            Log.CloseAndFlush();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
             AntiDPIServiceProvider.DisposeService();
+            Log.Information("The Anti DPI Service has been disposed.");
+
+            Log.CloseAndFlush();
 
             base.OnExit(e);
+        }
+
+
+
+        private void InitializeLogger()
+        {
+            string fileName = @"logs\log-.txt";
+            string outputTemplateString = "{Timestamp:HH:mm:ss.ms} ({ThreadId}) [{Level}] {Message}{NewLine}{Exception}";
+
+            if (_debugMode)
+            {
+                var log = new LoggerConfiguration()
+                    .Enrich.WithProperty("ThreadId", Thread.CurrentThread.ManagedThreadId)
+                    .WriteTo.File(fileName, restrictedToMinimumLevel: LogEventLevel.Verbose, outputTemplate: outputTemplateString, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 100000)
+                    .CreateLogger();
+
+                Log.Logger = log;
+                Log.Information("The logger has been initialized in debug mode.");
+            }
+            else
+            {
+                var log = new LoggerConfiguration()
+                    .WriteTo.File(fileName, restrictedToMinimumLevel: LogEventLevel.Warning, outputTemplate: outputTemplateString, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true, fileSizeLimitBytes: 100000)
+                    .CreateLogger();
+
+                Log.Logger = log;
+                Log.Information("The logger has been initialized.");
+            }
         }
 
         private void InitializeLanguageResources()
@@ -79,6 +139,7 @@ namespace Kimera
             }
 
             this.Resources.MergedDictionaries.Add(dict);
+            Log.Information("The language resources has been initialized.");
         }
 
         private async void InitializeDatabase()
@@ -97,8 +158,9 @@ namespace Kimera
 
             // Ensure default categories created.
             await _databaseContext.EnsureCategoryCreated(Settings.GUID_ALL_CATEGORY, "ALL").ConfigureAwait(false);
-            await _databaseContext.EnsureCategoryCreated(Settings.GUID_UNCATEGORIZED_CATEGORY, "UNCATEGORIZED").ConfigureAwait(false);
             await _databaseContext.EnsureCategoryCreated(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE").ConfigureAwait(false);
+
+            Log.Information("The database has been initialized.");
         }
     }
 }

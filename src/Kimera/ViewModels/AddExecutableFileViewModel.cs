@@ -5,12 +5,14 @@ using Kimera.Dialogs;
 using Kimera.Network;
 using Kimera.Services;
 using Kimera.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using MessageBox = System.Windows.MessageBox;
@@ -97,9 +99,9 @@ namespace Kimera.ViewModels
 
         public DelegateCommand EditGameMetadataCommand { get; }
 
-        public RelayCommand<Window> CancelCommand { get; }
+        public DelegateCommand GoBackCommand { get; }
 
-        public RelayCommand<Window> ConfirmCommand { get; }
+        public RelayCommand<Page> ConfirmCommand { get; }
 
         #endregion
 
@@ -107,45 +109,54 @@ namespace Kimera.ViewModels
 
         private async Task AddDataAsync()
         {
-            Guid gameGuid = Guid.NewGuid();
-            Guid packageMetadataGuid = Guid.NewGuid();
-            Guid gameMetadataGuid = Guid.NewGuid();
+            try
+            {
+                Guid gameGuid = Guid.NewGuid();
+                Guid packageMetadataGuid = Guid.NewGuid();
+                Guid gameMetadataGuid = Guid.NewGuid();
 
-            Component component = new Component();
-            component.PackageMetadata = packageMetadataGuid;
-            component.Type = ComponentType.Executable;
-            component.Index = 0;
-            component.FilePath = FilePath;
+                Component component = new Component();
+                component.PackageMetadata = packageMetadataGuid;
+                component.Type = ComponentType.Executable;
+                component.Index = 0;
+                component.FilePath = FilePath;
 
-            PackageMetadata packageMetadata = new PackageMetadata();
-            packageMetadata.SystemId = packageMetadataGuid;
-            packageMetadata.Type = PackageType.Executable;
-            packageMetadata.EntryPointFilePath = FilePath;
-            packageMetadata.CommandLineArguments = CommandlineArguments;
-            packageMetadata.Components.Add(component);
+                PackageMetadata packageMetadata = new PackageMetadata();
+                packageMetadata.SystemId = packageMetadataGuid;
+                packageMetadata.Type = PackageType.Executable;
+                packageMetadata.EntryPointFilePath = FilePath;
+                packageMetadata.CommandLineArguments = CommandlineArguments;
+                packageMetadata.Components.Add(component);
 
-            GameMetadata gameMetadata = GameMetadata.Copy();
-            gameMetadata.SystemId = gameMetadataGuid;
-            gameMetadata.FirstTime = DateTime.Now;
-            gameMetadata.LastTime = DateTime.Now;
+                GameMetadata gameMetadata = GameMetadata.Copy();
+                gameMetadata.SystemId = gameMetadataGuid;
+                gameMetadata.FirstTime = DateTime.Now;
+                gameMetadata.LastTime = DateTime.Now;
 
-            Game game = new Game();
-            game.SystemId = gameGuid;
-            game.GameMetadata = gameMetadataGuid;
-            game.PackageMetadata = packageMetadataGuid;
-            game.PackageStatus = PackageStatus.NeedProcessing;
-            game.GameMetadataNavigation = gameMetadata;
-            game.PackageMetadataNavigation = packageMetadata;
+                Game game = new Game();
+                game.SystemId = gameGuid;
+                game.GameMetadata = gameMetadataGuid;
+                game.PackageMetadata = packageMetadataGuid;
+                game.PackageStatus = PackageStatus.NeedProcessing;
+                game.GameMetadataNavigation = gameMetadata;
+                game.PackageMetadataNavigation = packageMetadata;
 
-            CategorySubscription subscription = new CategorySubscription();
-            subscription.Category = Settings.GUID_ALL_CATEGORY;
-            subscription.Game = gameGuid;
+                CategorySubscription subscription = new CategorySubscription();
+                subscription.Category = Settings.GUID_ALL_CATEGORY;
+                subscription.Game = gameGuid;
 
-            await App.DatabaseContext.Components.AddAsync(component).ConfigureAwait(false);
-            await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
-            await App.DatabaseContext.CategorySubscriptions.AddAsync(subscription).ConfigureAwait(false);
+                await App.DatabaseContext.Components.AddAsync(component).ConfigureAwait(false);
+                await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
+                await App.DatabaseContext.CategorySubscriptions.AddAsync(subscription).ConfigureAwait(false);
 
-            await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+                await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                Log.Information("A game data has been registerd.");
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "An exception occurred while adding a game data.");
+            }
         }
 
         #endregion
@@ -176,7 +187,7 @@ namespace Kimera.ViewModels
             }
         }
 
-        private async void GetGameMetadata(bool skipMessages = false)
+        private async void GetGameMetadata()
         {
             string typeName;
 
@@ -186,25 +197,16 @@ namespace Kimera.ViewModels
                 {
                     GameMetadata = await MetadataServiceProvider.GetMetadataAsync(typeName, _productCode).ConfigureAwait(false);
 
-                    if (!skipMessages)
-                    {
-                        MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
+                    MessageBox.Show("메타데이터를 성공적으로 가져왔습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    if (!skipMessages)
-                    {
-                        MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                if (!skipMessages)
-                {
-                    MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -214,17 +216,20 @@ namespace Kimera.ViewModels
             dialog.ShowDialog();
         }
 
-        private void Cancel(Window window)
+        private void GoBack()
         {
-            if (window != null)
+            App.Current.Dispatcher.Invoke(() =>
             {
-                window.Close();
-            }
+                if (NavigationService.Instance.CanGoBack())
+                {
+                    NavigationService.Instance.GoBack();
+                }
+            });
         }
 
-        private async void Confirm(Window window)
+        private async void Confirm(Page page)
         {
-            if (!ValidationHelper.IsValid(window))
+            if (!ValidationHelper.IsValid(page))
             {
                 MessageBox.Show("게임을 등록할 수 없습니다. 필수 정보들을 작성해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -234,7 +239,25 @@ namespace Kimera.ViewModels
             {
                 if (UseMetadataServer)
                 {
-                    GetGameMetadata(true);
+                    string typeName;
+
+                    if (MetadataServiceProvider.TryValidProductCode(_productCode, out typeName))
+                    {
+                        if (await MetadataServiceProvider.IsAvailableProductAsync(typeName, _productCode))
+                        {
+                            GameMetadata = await MetadataServiceProvider.GetMetadataAsync(typeName, _productCode).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            MessageBox.Show("존재하지 않는 상품입니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("올바른 상품 코드가 아닙니다. 메타데이터를 가져올 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
                 else
                 {
@@ -246,13 +269,7 @@ namespace Kimera.ViewModels
             // Add data.
             await AddDataAsync().ConfigureAwait(false);
 
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                if (window != null)
-                {
-                    window.Close();
-                }
-            });
+            GoBack();
 
             MessageBox.Show("게임이 성공적으로 추가되었습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -267,10 +284,10 @@ namespace Kimera.ViewModels
             GameMetadata = new GameMetadata();
 
             ExploreFileCommand = new DelegateCommand(ExploreFile);
-            GetGameMetadataCommand = new DelegateCommand(() => GetGameMetadata(false));
+            GetGameMetadataCommand = new DelegateCommand(GetGameMetadata);
             EditGameMetadataCommand = new DelegateCommand(EditGameMetadata);
-            CancelCommand = new RelayCommand<Window>(Cancel);
-            ConfirmCommand = new RelayCommand<Window>(Confirm);
+            GoBackCommand = new DelegateCommand(GoBack);
+            ConfirmCommand = new RelayCommand<Page>(Confirm);
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿using Kimera.Commands;
 using Kimera.Data.Entities;
 using Kimera.Dialogs;
+using Kimera.Pages;
 using Kimera.Services;
 using System;
 using System.Collections.Generic;
@@ -104,8 +105,11 @@ namespace Kimera.ViewModels
 
         private void AddExecutableFileDialog()
         {
-            AddExecutableFileDialog dialog = new AddExecutableFileDialog();
-            dialog.ShowDialog();
+            //AddExecutableFileDialog dialog = new AddExecutableFileDialog();
+            //dialog.ShowDialog();
+
+            AddExecutableFilePage page = new AddExecutableFilePage();
+            NavigationService.Instance.NavigateTo(page);
         }
 
         private void AddArchiveFileDialog()

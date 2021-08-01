@@ -1,4 +1,5 @@
 ﻿using Kimera.Pages;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace Kimera.Services
         public void InitializeFrame(Frame rootFrame)
         {
             _shellFrame = rootFrame;
+
+            Log.Information("The navigation service has been initialized.");
         }
 
         public void NavigateTo(Page page)

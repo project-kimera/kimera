@@ -1,4 +1,5 @@
 ﻿using Kimera.Network.Utilities;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,22 +18,36 @@ namespace Kimera.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string url = value.ToString();
-
-            if (!string.IsNullOrEmpty(url) && WebHelper.IsImageUrlAsync(url).GetAwaiter().GetResult())
+            try
             {
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
-                image.CacheOption = BitmapCacheOption.OnDemand;
-                image.CreateOptions = BitmapCreateOptions.DelayCreation;
-                image.UriSource = new Uri(url, UriKind.RelativeOrAbsolute);
-                image.EndInit();
+                string url = value.ToString();
 
-                return image;
+                if (!string.IsNullOrEmpty(url) && WebHelper.IsImageUrlAsync(url).GetAwaiter().GetResult())
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.CacheIfAvailable);
+                    image.CacheOption = BitmapCacheOption.OnDemand;
+                    image.CreateOptions = BitmapCreateOptions.DelayCreation;
+                    image.UriSource = new Uri(url, UriKind.RelativeOrAbsolute);
+                    image.EndInit();
+
+                    return image;
+                }
+                else
+                {
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri("..\\Resources\\Images\\placeholder.png", UriKind.Relative);
+                    image.EndInit();
+
+                    return image;
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Log.Warning(ex, "An exception occurred while processing a image.");
+
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = new Uri("..\\Resources\\Images\\placeholder.png", UriKind.Relative);
