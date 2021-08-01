@@ -43,6 +43,21 @@ namespace Kimera.ViewModels
             }
         }
 
+        private ObservableCollection<Game> _filteredGames = new ObservableCollection<Game>();
+
+        public ObservableCollection<Game> FilteredGames
+        {
+            get
+            {
+                return _filteredGames;
+            }
+            set
+            {
+                _filteredGames = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private DataTemplate _viewTemplate = App.Current.FindResource("TileViewItemTemplate") as DataTemplate;
 
         public DataTemplate ViewTemplate
@@ -58,17 +73,29 @@ namespace Kimera.ViewModels
             }
         }
 
+        public DelegateCommand RefreshGamesCommand { get; }
+
+        public DelegateCommand ChangeToAllCategoryCommand { get; }
+
+        public DelegateCommand ChangeToFavoriteCategoryCommand { get; }
+
+        public DelegateCommand AddCategoryCommand { get; }
+
+        public DelegateCommand RenameCategoryCommand { get; }
+
+        public DelegateCommand RemoveCategoryCommand { get; }
+
         public DelegateCommand ChangeToTileViewCommand { get; }
 
         public DelegateCommand ChangeToIconViewCommand { get; }
 
-        public DelegateCommand AddExecutableFileCommand { get; }
+        public DelegateCommand ShowAddExecutableFilePageCommand { get; }
 
-        public DelegateCommand AddArchiveFileCommand { get; }
+        public DelegateCommand ShowAddArchiveFilePageCommand { get; }
 
-        public DelegateCommand AddMultipleFileCommand { get; }
+        public DelegateCommand ShowAddMultipleFilePageCommand { get; }
 
-        public DelegateCommand AddFolderCommand { get; }
+        public DelegateCommand ShowAddFolderPageCommand { get; }
 
         #endregion
 
@@ -93,6 +120,130 @@ namespace Kimera.ViewModels
 
         #region ::Command Actions::
 
+        private async void RefreshGames()
+        {
+            await LibraryService.Instance.UpdateGamesAsync(LibraryService.Instance.SelectedCategory);
+        }
+
+        private async void ChangeToAllCategory()
+        {
+            await LibraryService.Instance.UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
+            await LibraryService.Instance.UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
+        }
+
+        private async void ChangeToFavoriteCategory()
+        {
+            await LibraryService.Instance.UpdateSelectedCategoryAsync(Settings.GUID_FAVORITE_CATEGORY);
+            await LibraryService.Instance.UpdateGamesAsync(Settings.GUID_FAVORITE_CATEGORY);
+        }
+
+        private async void AddCategory()
+        {
+            EditStringDialog dialog = new EditStringDialog();
+            dialog.Title = "카테고리 추가";
+            dialog.Caption = "추가할 카테고리의 이름을 입력해주세요.";
+            
+            if (dialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrEmpty(dialog.Text))
+                {
+                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.Text).FirstOrDefault();
+
+                    if (temp == null)
+                    {
+                        Category category = new Category();
+                        category.SystemId = Guid.NewGuid();
+                        category.Name = dialog.Text;
+
+                        await App.DatabaseContext.Categories.AddAsync(category);
+                        await App.DatabaseContext.SaveChangesAsync();
+
+                        await LibraryService.Instance.UpdateSelectedCategoryAsync(category.SystemId);
+                        await LibraryService.Instance.UpdateGamesAsync(category.SystemId);
+                    }
+                    else
+                    {
+                        MessageBox.Show("이미 존재하는 카테고리입니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("카테고리 이름을 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+            }
+        }
+
+        private async void RenameCategory()
+        {
+            EditCategoryNameDialog dialog = new EditCategoryNameDialog();
+            dialog.Title = "카테고리 이름 변경";
+            dialog.Caption = "이름을 변경할 카테고리를 선택 후 이름을 수정해주세요.";
+            dialog.Categories = LibraryService.Instance.Categories;
+            dialog.SelectedCategoryName = LibraryService.Instance.Categories.FirstOrDefault().Name;
+
+            if (dialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrEmpty(dialog.ChangedCategoryName))
+                {
+                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.SelectedCategoryName).FirstOrDefault();
+
+                    if (temp != null)
+                    {
+                        temp.Name = dialog.ChangedCategoryName;
+
+                        await App.DatabaseContext.SaveChangesAsync();
+
+                        await LibraryService.Instance.UpdateCategoriesAsync();
+                    }
+                    else
+                    {
+                        MessageBox.Show("존재하지 않는 카테고리입니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("카테고리 이름을 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+            }
+        }
+
+        private async void RemoveCategory()
+        {
+            SelectCategoryDialog dialog = new SelectCategoryDialog();
+            dialog.Title = "카테고리 제거";
+            dialog.Caption = "제거할 카테고리를 선택해주세요.";
+            dialog.Categories = LibraryService.Instance.Categories;
+            dialog.CategoryName = LibraryService.Instance.Categories.FirstOrDefault().Name;
+
+            if (dialog.ShowDialog() == true)
+            {
+                if (!string.IsNullOrEmpty(dialog.CategoryName))
+                {
+                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.CategoryName).FirstOrDefault();
+
+                    if (temp != null)
+                    {
+                        App.DatabaseContext.Categories.Remove(temp);
+                        await App.DatabaseContext.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        MessageBox.Show("존재하지 않는 카테고리입니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("카테고리 이름을 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+            }
+        }
+
         private void ChangeToTileView()
         {
             ViewTemplate = App.Current.FindResource("TileViewItemTemplate") as DataTemplate;
@@ -103,29 +254,28 @@ namespace Kimera.ViewModels
             ViewTemplate = App.Current.FindResource("IconViewItemTemplate") as DataTemplate;
         }
 
-        private void AddExecutableFileDialog()
+        private void ShowAddExecutableFilePage()
         {
-            //AddExecutableFileDialog dialog = new AddExecutableFileDialog();
-            //dialog.ShowDialog();
-
             AddExecutableFilePage page = new AddExecutableFilePage();
             NavigationService.Instance.NavigateTo(page);
         }
 
-        private void AddArchiveFileDialog()
+        private void ShowAddArchiveFilePage()
         {
-            EditStringDialog dialog = new EditStringDialog();
-            dialog.ShowDialog();
+            AddArchiveFilePage page = new AddArchiveFilePage();
+            NavigationService.Instance.NavigateTo(page);
         }
 
-        private void AddMultipleFileDialog()
+        private void ShowAddMultipleFilePage()
         {
-
+            AddMultipleFilePage page = new AddMultipleFilePage();
+            NavigationService.Instance.NavigateTo(page);
         }
 
-        private void AddFolderDialog()
+        private void ShowAddFolderPage()
         {
-
+            AddFolderPage page = new AddFolderPage();
+            NavigationService.Instance.NavigateTo(page);
         }
 
         #endregion
@@ -138,13 +288,21 @@ namespace Kimera.ViewModels
             _service.SelectedCategoryChangedEvent += OnSelectedCategoryChanged;
             _service.GamesChangedEvent += OnGamesChanged;
 
+            RefreshGamesCommand = new DelegateCommand(RefreshGames);
+
+            ChangeToAllCategoryCommand = new DelegateCommand(ChangeToAllCategory);
+            ChangeToFavoriteCategoryCommand = new DelegateCommand(ChangeToFavoriteCategory);
+            AddCategoryCommand = new DelegateCommand(AddCategory);
+            RenameCategoryCommand = new DelegateCommand(RenameCategory);
+            RemoveCategoryCommand = new DelegateCommand(RemoveCategory);
+
             ChangeToTileViewCommand = new DelegateCommand(ChangeToTileView);
             ChangeToIconViewCommand = new DelegateCommand(ChangeToIconView);
 
-            AddExecutableFileCommand = new DelegateCommand(AddExecutableFileDialog);
-            AddArchiveFileCommand = new DelegateCommand(AddArchiveFileDialog);
-            AddMultipleFileCommand = new DelegateCommand(AddMultipleFileDialog);
-            AddFolderCommand = new DelegateCommand(AddFolderDialog);
+            ShowAddExecutableFilePageCommand = new DelegateCommand(ShowAddExecutableFilePage);
+            ShowAddArchiveFilePageCommand = new DelegateCommand(ShowAddArchiveFilePage);
+            ShowAddMultipleFilePageCommand = new DelegateCommand(ShowAddMultipleFilePage);
+            ShowAddFolderPageCommand = new DelegateCommand(ShowAddFolderPage);
         }
 
         #endregion

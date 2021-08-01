@@ -1,4 +1,5 @@
-﻿using Kimera.Data.Entities;
+﻿using Kimera.Commands;
+using Kimera.Data.Entities;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -109,14 +110,19 @@ namespace Kimera.Services
 
                 foreach (Category category in result)
                 {
-                    _categories.Add(category);
+                    category.ChangeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+
+                    if (category.SystemId != Settings.GUID_ALL_CATEGORY && category.SystemId != Settings.GUID_FAVORITE_CATEGORY)
+                    {
+                        _categories.Add(category);
+                    }
                 }
 
                 CategoriesChangedEvent?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "An exception occurred while updating games.");
+                Log.Warning(ex, "An exception occurred while updating categories.");
             }
         }
 
@@ -154,7 +160,7 @@ namespace Kimera.Services
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "An exception occurred while updating games.");
+                Log.Warning(ex, "An exception occurred while updating selected category.");
                 return false;
             }
         }
@@ -202,6 +208,15 @@ namespace Kimera.Services
             await task.ConfigureAwait(false);
         }
 
+        public void ChangeCategory(Guid guid)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateSelectedCategory(guid);
+                UpdateGames(guid);
+            });
+        }
+
         #endregion
 
         #region ::Event Subscribers::
@@ -212,6 +227,8 @@ namespace Kimera.Services
             {
                 foreach (Category category in e.NewItems)
                 {
+                    category.ChangeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+
                     if (category != null)
                     {
                         App.Current.Dispatcher.Invoke(() =>

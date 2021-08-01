@@ -55,7 +55,7 @@
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 0 0" Padding="18 0 18 0"
-                        WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToLibraryCommand}">
+                        WindowChrome.IsHitTestVisibleInChrome="True" Command="{Binding NavigateToStatisticsCommand}">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
                             <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="통계" />

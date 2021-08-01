@@ -15,9 +15,13 @@ namespace Kimera.ViewModels
     {
         public LibraryPage LibraryPage { get; set; } = new LibraryPage();
 
+        public StatisticsPage StatisticsPage { get; set; } = new StatisticsPage();
+
         public SettingsPage SettingsPage { get; set; } = new SettingsPage();
 
         public DelegateCommand NavigateToLibraryCommand { get; }
+
+        public DelegateCommand NavigateToStatisticsCommand { get; }
 
         public DelegateCommand NavigateToSettingsCommand { get; }
 
@@ -28,6 +32,7 @@ namespace Kimera.ViewModels
             helper.NavigateTo(LibraryPage);
 
             NavigateToLibraryCommand = new DelegateCommand(NavigateToLibrary);
+            NavigateToStatisticsCommand = new DelegateCommand(NavigateToStatistics);
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
         }
 
@@ -35,6 +40,12 @@ namespace Kimera.ViewModels
         {
             NavigationService helper = NavigationService.Instance;
             helper.NavigateTo(LibraryPage);
+        }
+
+        private void NavigateToStatistics()
+        {
+            NavigationService helper = NavigationService.Instance;
+            helper.NavigateTo(StatisticsPage);
         }
 
         private void NavigateToSettings()

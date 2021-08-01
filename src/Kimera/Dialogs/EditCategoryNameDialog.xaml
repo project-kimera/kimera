@@ -1,4 +1,4 @@
-﻿<Window x:Class="Kimera.Dialogs.EditStringDialog"
+﻿<Window x:Class="Kimera.Dialogs.EditCategoryNameDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,14 +8,16 @@
         mc:Ignorable="d"
         Style="{StaticResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
-        Title="EditStringDialog"
+        Title="EditCategoryNameDialog"
         WindowStartupLocation="CenterScreen"
-        MinHeight="150" MinWidth="350" Height="170" Width="350">
+        MinHeight="150" MinWidth="350" Height="210" Width="350">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 0 20 0" VerticalAlignment="Center">
             <TextBlock x:Name="CaptionTextBlock" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="Text" />
 
-            <TextBox x:Name="ContentTextBox" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0 "
+            <ComboBox x:Name="CategoriesComboBox" Margin="0 6 0 0" DisplayMemberPath="Name" SelectionChanged="OnSelectionChanged"/>
+
+            <TextBox x:Name="NameTextBox" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0 "
                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"/>
 
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">

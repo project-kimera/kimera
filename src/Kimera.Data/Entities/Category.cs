@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Input;
 
 namespace Kimera.Data.Entities
 {
@@ -27,5 +29,11 @@ namespace Kimera.Data.Entities
         /// The collection of <see cref="CategorySubscription"/>, which used to check the subscription status of category and game.
         /// </summary>
         public virtual ICollection<CategorySubscription> CategorySubscriptions { get; set; } = new HashSet<CategorySubscription>();
+
+        /// <summary>
+        /// The command to change the selected category.
+        /// </summary>
+        [NotMapped]
+        public ICommand ChangeCategoryCommand { get; set; }
     }
 }
