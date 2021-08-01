@@ -181,7 +181,7 @@ namespace Kimera.ViewModels
             dialog.Title = "카테고리 이름 변경";
             dialog.Caption = "이름을 변경할 카테고리를 선택 후 이름을 수정해주세요.";
             dialog.Categories = LibraryService.Instance.Categories;
-            dialog.SelectedCategoryName = LibraryService.Instance.Categories.FirstOrDefault().Name;
+            dialog.SelectedCategoryName = LibraryService.Instance.Categories.FirstOrDefault()?.Name;
 
             if (dialog.ShowDialog() == true)
             {
@@ -217,7 +217,7 @@ namespace Kimera.ViewModels
             dialog.Title = "카테고리 제거";
             dialog.Caption = "제거할 카테고리를 선택해주세요.";
             dialog.Categories = LibraryService.Instance.Categories;
-            dialog.CategoryName = LibraryService.Instance.Categories.FirstOrDefault().Name;
+            dialog.CategoryName = LibraryService.Instance.Categories.FirstOrDefault()?.Name;
 
             if (dialog.ShowDialog() == true)
             {

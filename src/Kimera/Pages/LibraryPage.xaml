@@ -148,9 +148,9 @@
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel>
-                        <Button Content="실행 파일로 추가하기" Command="{Binding AddExecutableFileCommand}"/>
-                        <Button Content="압축 파일로 추가하기" Command="{Binding AddArchiveFileCommand}"/>
-                        <Button Content="여러 파일을 한 게임으로 추가하기" Command="{Binding AddMultipleFileCommand}"/>
+                        <Button Content="실행 파일로 추가하기" Command="{Binding ShowAddExecutableFilePageCommand}"/>
+                        <Button Content="압축 파일로 추가하기" Command="{Binding ShowAddArchiveFilePageCommand}"/>
+                        <Button Content="여러 파일을 한 게임으로 추가하기" Command="{Binding ShowAddMultipleFilePageCommand}"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
 
@@ -159,7 +159,7 @@
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel>
-                        <Button Content="폴더에서 추가하기" Command="{Binding AddFolderCommand}"/>
+                        <Button Content="폴더에서 추가하기" Command="{Binding ShowAddFolderPageCommand}"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
