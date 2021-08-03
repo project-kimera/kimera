@@ -5,10 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kimera.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:converters="clr-namespace:Kimera.Converters"
       xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryPage">
+
+    <Page.Resources>
+        <converters:CategoryGuidToNameConverter x:Key="CategoryGuidToNameConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -31,12 +36,14 @@
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
-                <materialDesign:PopupBox Margin="16 0 16 0" Padding="0" Height="32" PlacementMode="BottomAndAlignCentres" StaysOpen="True">
+                <materialDesign:PopupBox Margin="16 0 16 0" Padding="0" Height="32" PlacementMode="BottomAndAlignLeftEdges" StaysOpen="True">
                     <materialDesign:PopupBox.ToggleContent>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
-                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="카테고리" />
+                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="카테고리 : " />
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CategoryGuidToNameConverter}}" />
                         </StackPanel>
                     </materialDesign:PopupBox.ToggleContent>
 

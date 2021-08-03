@@ -196,6 +196,7 @@ namespace Kimera.ViewModels
                         await App.DatabaseContext.SaveChangesAsync();
 
                         await LibraryService.Instance.UpdateCategoriesAsync();
+                        await LibraryService.Instance.UpdateSelectedCategoryAsync(LibraryService.Instance.SelectedCategory);
                     }
                     else
                     {

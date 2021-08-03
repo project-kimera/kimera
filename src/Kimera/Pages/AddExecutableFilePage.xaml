@@ -126,7 +126,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="제품 코드" />
                             <TextBox Grid.Column="1" Margin="0 6 0 0"
-                                     materialDesign:HintAssist.Hint="DLSite Product Code" materialDesign:TransitionAssist.DisableTransitions="True" MaxLength="8"
+                                     materialDesign:HintAssist.Hint="Product Code" materialDesign:TransitionAssist.DisableTransitions="True" MaxLength="8"
                                      materialDesign:ValidationAssist.Background="Transparent">
                                 <TextBox.Text>
                                     <Binding Path="ProductCode" UpdateSourceTrigger="PropertyChanged">
