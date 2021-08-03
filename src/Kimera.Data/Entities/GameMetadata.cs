@@ -116,5 +116,13 @@ namespace Kimera.Data.Entities
         {
             return (GameMetadata)this.MemberwiseClone();
         }
+
+        /// <summary>
+        /// Creates a new instance of GameMetadata.
+        /// </summary>
+        public GameMetadata()
+        {
+            SystemId = Guid.NewGuid();
+        }
     }
 }

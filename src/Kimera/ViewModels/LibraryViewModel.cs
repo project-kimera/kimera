@@ -151,9 +151,7 @@ namespace Kimera.ViewModels
 
                     if (temp == null)
                     {
-                        Category category = new Category();
-                        category.SystemId = Guid.NewGuid();
-                        category.Name = dialog.Text;
+                        Category category = new Category(dialog.Text);
 
                         await App.DatabaseContext.Categories.AddAsync(category);
                         await App.DatabaseContext.SaveChangesAsync();

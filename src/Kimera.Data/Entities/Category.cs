@@ -35,5 +35,33 @@ namespace Kimera.Data.Entities
         /// </summary>
         [NotMapped]
         public ICommand ChangeCategoryCommand { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of Category.
+        /// </summary>
+        public Category()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of Category.
+        /// </summary>
+        /// <param name="name"></param>
+        public Category(string name)
+        {
+            SystemId = Guid.NewGuid();
+            Name = name;
+        }
+
+        /// <summary>
+        /// Creates a new instance of Category.
+        /// </summary>
+        /// <param name="name"></param>
+        public Category(Guid guid, string name)
+        {
+            SystemId = guid;
+            Name = name;
+        }
     }
 }

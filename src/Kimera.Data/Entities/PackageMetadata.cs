@@ -48,5 +48,27 @@ namespace Kimera.Data.Entities
         /// The navigation property of the game.
         /// </summary>
         public virtual Game GameNavigation { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of PackageMetadata.
+        /// </summary>
+        public PackageMetadata()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of PackageMetadata.
+        /// </summary>
+        /// <param name="type">The type of package.</param>
+        /// <param name="entryPointFilePath">The entry point file path of the package. <para/>If the package type is not <see cref="PackageType.Executable"/>, it uses relative path.</param>
+        /// <param name="commandLineArguments">The commandline used to start the game.</param>
+        public PackageMetadata(PackageType type, string entryPointFilePath, string commandLineArguments)
+        {
+            SystemId = Guid.NewGuid();
+            Type = type;
+            EntryPointFilePath = entryPointFilePath;
+            CommandLineArguments = commandLineArguments;
+        }
     }
 }

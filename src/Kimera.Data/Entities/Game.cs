@@ -1,6 +1,8 @@
 ﻿using Kimera.Data.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Windows.Input;
 
 namespace Kimera.Data.Entities
 {
@@ -48,5 +50,57 @@ namespace Kimera.Data.Entities
         /// The collection of <see cref="CategorySubscription"/>, which used to check the subscription status of category and game.
         /// </summary>
         public virtual ICollection<CategorySubscription> CategorySubscriptions { get; set; } = new HashSet<CategorySubscription>();
+
+        /// <summary>
+        /// The command to start the game.
+        /// </summary>
+        [NotMapped]
+        public ICommand StartGameCommand { get; set; }
+
+        /// <summary>
+        /// The command to show the game information.
+        /// </summary>
+        [NotMapped]
+        public ICommand ShowGameInformationCommand { get; set; }
+
+        /// <summary>
+        /// The command to edit the metadata of the game.
+        /// </summary>
+        [NotMapped]
+        public ICommand EditMetadataCommand { get; set; }
+
+        /// <summary>
+        /// The command to move the game to another category.
+        /// </summary>
+        [NotMapped]
+        public ICommand MoveCategoryCommand { get; set; }
+
+        /// <summary>
+        /// The command to remove the game.
+        /// </summary>
+        [NotMapped]
+        public ICommand RemoveGameCommand { get; set; }
+
+        /// <summary>
+        /// Creates a new instance of Game.
+        /// </summary>
+        public Game()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of Game.
+        /// </summary>
+        /// <param name="gameMetadataGuid">The Foreign Key(FK) of the game metadata.</param>
+        /// <param name="packageMetadataGuid">The Foreign Key(FK) of the package metadata.</param>
+        /// <param name="packageStatus">The package status.</param>
+        public Game(Guid gameMetadataGuid, Guid packageMetadataGuid, PackageStatus packageStatus)
+        {
+            SystemId = Guid.NewGuid();
+            GameMetadata = gameMetadataGuid;
+            PackageMetadata = packageMetadataGuid;
+            PackageStatus = packageStatus;
+        }
     }
 }

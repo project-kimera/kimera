@@ -32,5 +32,23 @@ namespace Kimera.Data.Entities
         /// </summary>
         public virtual Game GameNavigation { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of CategorySubscription.
+        /// </summary>
+        public CategorySubscription()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new instance of CategorySubscription.
+        /// </summary>
+        /// <param name="categoryGuid">The Foreign Key(FK) of the category.</param>
+        /// <param name="GameGuid">The Foreign Key(FK) of the game.</param>
+        public CategorySubscription(Guid categoryGuid, Guid gameGuid)
+        {
+            Category = categoryGuid;
+            Game = gameGuid;
+        }
     }
 }
