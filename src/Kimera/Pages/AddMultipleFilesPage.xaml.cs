@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Kimera.Pages
 {
     /// <summary>
-    /// AddFolderPage.xaml에 대한 상호 작용 논리
+    /// AddMultipleFilesPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AddFolderPage : Page
+    public partial class AddMultipleFilesPage : Page
     {
-        public AddFolderPage()
+        public AddMultipleFilesPage()
         {
             InitializeComponent();
         }

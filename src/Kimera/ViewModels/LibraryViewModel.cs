@@ -267,13 +267,13 @@ namespace Kimera.ViewModels
 
         private void ShowAddMultipleFilePage()
         {
-            AddMultipleFilePage page = new AddMultipleFilePage();
+            AddMultipleFilesPage page = new AddMultipleFilesPage();
             NavigationService.Instance.NavigateTo(page);
         }
 
         private void ShowAddFolderPage()
         {
-            AddFolderPage page = new AddFolderPage();
+            AddGamesFromFolderPage page = new AddGamesFromFolderPage();
             NavigationService.Instance.NavigateTo(page);
         }
 
