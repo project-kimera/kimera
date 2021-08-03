@@ -4,4 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\x64\7z.dll" />
+    <None Remove="Resources\x86\7z.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\x64\7z.dll" />
+    <EmbeddedResource Include="Resources\x86\7z.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpCompress" Version="0.28.3" />
+    <PackageReference Include="Squid-Box.SevenZipSharp" Version="1.4.0.345" />
+  </ItemGroup>
+
 </Project>

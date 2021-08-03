@@ -51,6 +51,8 @@ namespace Kimera.Services
 
         public event GamesChangedEventHandler GamesChangedEvent;
 
+        private RelayCommand<Guid> _changeCategoryCommand;
+
         private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
 
         public ObservableCollection<Category> Categories
@@ -110,7 +112,7 @@ namespace Kimera.Services
 
                 foreach (Category category in result)
                 {
-                    category.ChangeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+                    category.ChangeCategoryCommand = _changeCategoryCommand;
 
                     if (category.SystemId != Settings.GUID_ALL_CATEGORY && category.SystemId != Settings.GUID_FAVORITE_CATEGORY)
                     {
@@ -227,7 +229,7 @@ namespace Kimera.Services
             {
                 foreach (Category category in e.NewItems)
                 {
-                    category.ChangeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+                    category.ChangeCategoryCommand = _changeCategoryCommand;
 
                     if (category != null)
                     {
@@ -339,6 +341,8 @@ namespace Kimera.Services
 
         private async void InitializeService()
         {
+            _changeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+
             await UpdateCategoriesAsync();
             await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
             await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);

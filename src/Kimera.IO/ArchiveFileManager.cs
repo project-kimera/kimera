@@ -1,83 +1,106 @@
 ﻿using Kimera.IO.Entities;
+using SevenZip;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Kimera.IO
 {
-    public static class ArchiveFileManager
+    public class ArchiveFileManager
     {
-        /*
-        private static readonly string[] _normalZipSignature = new string[] { "50", "4B", "03", "04" };
+        private string _filePath = string.Empty;
 
-        private static readonly string[] _emptyZipSignature = new string[] { "50", "4B", "05", "06" };
+        public event EventHandler<FileInfoEventArgs> FileExtractionStartedEvent;
 
-        private static readonly string[] _spannedZipSignature = new string[] { "50", "4B", "07", "08" };
+        public event EventHandler<FileInfoEventArgs> FileExtractionFinishedEvent;
 
-        private static readonly string[] _sevenZipSignature = new string[] { "37", "7A", "BC", "AF", "27", "1C" };
+        public event EventHandler<EventArgs> ExtractionFinishedEvent;
 
-        private static readonly string[] _roshalArchive150Signature = new string[] { "52", "61", "72", "21", "1A", "07", "00" };
+        public event EventHandler<ProgressEventArgs> ExtractingEvent;
 
-        private static readonly string[] _roshalArchive500Signature = new string[] { "52", "61", "72", "21", "1A", "07", "01", "00" };
-        */
+        public event EventHandler<FileOverwriteEventArgs> FileExistsEvent;
 
-        private static readonly byte[] _normalZipSignature = new byte[] { 80, 75, 3, 4 };
+        public ArchiveFileManager(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("The archive file does not found.");
+            }
 
-        private static readonly byte[] _emptyZipSignature = new byte[] { 80, 75, 5, 6 };
+            EnsureSevenZipLibrary();
 
-        private static readonly byte[] _spannedZipSignature = new byte[] { 80, 75, 7, 8 };
+            _filePath = filePath;
+        }
 
-        private static readonly byte[] _sevenZipSignature = new byte[] { 55, 122, 188, 175, 39, 28 };
+        private static void EnsureSevenZipLibrary()
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, "7z.dll");
 
-        private static readonly byte[] _roshalArchive150Signature = new byte[] { 82, 97, 114, 33, 26, 7, 0};
+            if (!File.Exists(filePath))
+            {
+                Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
-        private static readonly byte[] _roshalArchive500Signature = new byte[] { 82, 97, 114, 33, 26, 7, 1, 0 };
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    using (FileStream stream = new FileStream(filePath, FileMode.CreateNew))
+                    {
+                        currentAssembly.GetManifestResourceStream("Kimera.IO.Resources.x64.7z.dll").CopyTo(stream);
+                    }
+                }
+                else
+                {
+                    using (FileStream stream = new FileStream(filePath, FileMode.CreateNew))
+                    {
+                        currentAssembly.GetManifestResourceStream("Kimera.IO.Resources.x86.7z.dll").CopyTo(stream);
+                    }
+                }
+            }
 
-        public static ArchiveType GetArchiveType(string filePath)
+            SevenZipBase.SetLibraryPath(filePath);
+        }
+
+        public InArchiveFormat GetArchiveType()
+        {
+            using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath))
+            {
+                return extractor.Format;
+            }
+        }
+
+        public List<string> GetEntryPoints(List<string> targetFileNames, string password = null)
         {
             try
             {
-                if (!File.Exists(filePath))
+                if (targetFileNames == null || targetFileNames.Count == 0)
                 {
-                    throw new FileNotFoundException("The file to get type does not exist.");
+                    targetFileNames = new List<string>();
+                    targetFileNames.Add("Game.exe");
+                    targetFileNames.Add("Start.exe");
+                    targetFileNames.Add("Play.exe");
                 }
 
-                using (Stream stream = File.OpenRead(filePath))
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath, password))
                 {
-                    // Get header from the file.
-                    byte[] buffer = new byte[10];
-                    stream.Read(buffer, 0, 10);
+                    List<string> result = new List<string>();
 
-                    byte[] header4 = new byte[4];
-                    byte[] header6 = new byte[6];
-                    byte[] header7 = new byte[7];
-                    byte[] header8 = new byte[8];
+                    foreach (string file in extractor.ArchiveFileNames)
+                    {
+                        string fileName = Path.GetFileName(file);
 
-                    Array.Copy(buffer, 0, header4, 0, 4);
-                    Array.Copy(buffer, 0, header6, 0, 6);
-                    Array.Copy(buffer, 0, header7, 0, 7);
-                    Array.Copy(buffer, 0, header8, 0, 8);
+                        foreach (string target in targetFileNames)
+                        {
+                            if (fileName.Equals(target, StringComparison.OrdinalIgnoreCase))
+                            {
+                                result.Add(file);
+                            }
+                        }
+                    }
 
-                    // Check the header with signature arrays.
-                    if (header4.SequenceEqual(_normalZipSignature) || header4.SequenceEqual(_emptyZipSignature) || header4.SequenceEqual(_spannedZipSignature))
-                    {
-                        return ArchiveType.Zip;
-                    }
-                    else if (header6.SequenceEqual(_sevenZipSignature))
-                    {
-                        return ArchiveType.SevenZip;
-                    }
-                    else if (header7.SequenceEqual(_roshalArchive150Signature) || header8.SequenceEqual(_roshalArchive500Signature))
-                    {
-                        return ArchiveType.RoshalArchive;
-                    }
-                    else
-                    {
-                        return ArchiveType.None;
-                    }
+                    return result;
                 }
             }
             catch
@@ -86,6 +109,126 @@ namespace Kimera.IO
             }
         }
 
+        public async Task<List<string>> GetEntryPointsAsync(List<string> targetFileNames, string password = null)
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                return GetEntryPoints(targetFileNames, password);
+            });
 
+            return await task.ConfigureAwait(false);
+        }
+
+        public bool IsEncrypted()
+        {
+            try
+            {
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath))
+                {
+                    string fileName = extractor.ArchiveFileNames.FirstOrDefault();
+                }
+
+                return false;
+            }
+            catch (SevenZipArchiveException)
+            {
+                return true;
+            }
+        }
+
+        public async Task<bool> IsEncryptedAsync()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                return IsEncrypted();
+            });
+
+            return await task.ConfigureAwait(false);
+        }
+
+        public bool IsValidPassword(string password)
+        {
+            try
+            {
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath, password))
+                {
+                    string fileName = extractor.ArchiveFileNames.FirstOrDefault();
+                }
+
+                return true;
+            }
+            catch (SevenZipArchiveException)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> IsValidPasswordAsync(string password)
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                return IsValidPassword(password);
+            });
+
+            return await task.ConfigureAwait(false);
+        }
+
+        public void DecompressArchive(string targetDirectory, string password = null)
+        {
+            try
+            {
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath, password))
+                {
+                    extractor.PreserveDirectoryStructure = true;
+
+                    extractor.EventSynchronization = EventSynchronizationStrategy.AlwaysSynchronous;
+                    extractor.FileExtractionStarted += FileExtractionStartedEvent;
+                    extractor.FileExtractionFinished += FileExtractionFinishedEvent;
+                    extractor.ExtractionFinished += ExtractionFinishedEvent;
+                    extractor.Extracting += ExtractingEvent;
+                    extractor.FileExists += FileExistsEvent;
+
+                    extractor.ExtractArchive(targetDirectory);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task DecompressArchiveAsync(string targetDirectory, string password = null)
+        {
+            try
+            {
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath, password))
+                {
+                    extractor.PreserveDirectoryStructure = true;
+
+                    extractor.EventSynchronization = EventSynchronizationStrategy.AlwaysSynchronous;
+                    extractor.FileExtractionStarted += FileExtractionStartedEvent;
+                    extractor.FileExtractionFinished += FileExtractionFinishedEvent;
+                    extractor.ExtractionFinished += ExtractionFinishedEvent;
+                    extractor.Extracting += ExtractingEvent;
+                    extractor.FileExists += FileExistsEvent;
+
+                    await extractor.ExtractArchiveAsync(targetDirectory);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
