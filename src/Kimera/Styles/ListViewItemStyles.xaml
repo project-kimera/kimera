@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data"
                     xmlns:converters="clr-namespace:Kimera.Converters">
@@ -38,6 +39,32 @@
                     </StackPanel>
 
                     <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="Click">
+                                <behaviors:ChangePropertyAction TargetName="contextMenu" PropertyName="IsOpen" Value="True"/>
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                        
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="contextMenu">
+                                <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"
+                                          Command="{Binding StartGameCommand}" CommandParameter="{Binding SystemId}"/>
+                                
+                                <Separator/>
+                                
+                                <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"
+                                          Command="{Binding ShowGameInformationCommand}" CommandParameter="{Binding SystemId}"/>
+                                <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"
+                                          Command="{Binding EditMetadataCommand}" CommandParameter="{Binding SystemId}"/>
+                                <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"
+                                          Command="{Binding MoveCategoryCommand}" CommandParameter="{Binding SystemId}"/>
+                                
+                                <Separator/>
+                                
+                                <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"
+                                          Command="{Binding RemoveGameCommand}"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="DotsHorizontal" />
                     </Button>
                 </Grid>
@@ -47,6 +74,27 @@
 
     <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:GameMetadata">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"
+                                          Command="{Binding StartGameCommand}" CommandParameter="{Binding SystemId}"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"
+                                          Command="{Binding ShowGameInformationCommand}" CommandParameter="{Binding SystemId}"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"
+                                          Command="{Binding EditMetadataCommand}" CommandParameter="{Binding SystemId}"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"
+                                          Command="{Binding MoveCategoryCommand}" CommandParameter="{Binding SystemId}"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"
+                                          Command="{Binding RemoveGameCommand}"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+            
             <Grid Margin="10" Width="80" Height="100" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
