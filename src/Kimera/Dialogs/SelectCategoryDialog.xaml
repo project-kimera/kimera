@@ -8,20 +8,22 @@
         mc:Ignorable="d"
         Style="{StaticResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
+        x:Name="SelectItemDialogWindow"
         Title="SelectItemDialog"
         WindowStartupLocation="CenterScreen"
         MinHeight="150" MinWidth="350" Height="170" Width="350">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 0 20 0" VerticalAlignment="Center">
-            <TextBlock x:Name="CaptionTextBlock" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="Text" />
+            <TextBlock x:Name="CaptionTextBlock" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                       Text="{Binding Caption}"/>
 
-            <ComboBox x:Name="CategoriesComboBox" Margin="0 6 0 0" DisplayMemberPath="Name"/>
+            <ComboBox x:Name="CategoriesComboBox" Margin="0 6 0 0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="취소"
-                        Click="OnCancelButtonClick"/>
+                        Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=SelectItemDialogWindow}"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인"
-                        Click="OnConfirmButtonClick"/>
+                        Command="{Binding ConfirmCommand}" CommandParameter="{Binding ElementName=SelectItemDialogWindow}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

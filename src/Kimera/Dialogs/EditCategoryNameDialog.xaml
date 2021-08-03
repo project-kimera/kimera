@@ -8,23 +8,26 @@
         mc:Ignorable="d"
         Style="{StaticResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
+        x:Name="EditCategoryNameDialogWindow"
         Title="EditCategoryNameDialog"
         WindowStartupLocation="CenterScreen"
         MinHeight="150" MinWidth="350" Height="210" Width="350">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 0 20 0" VerticalAlignment="Center">
-            <TextBlock x:Name="CaptionTextBlock" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="Text" />
+            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                       Text="{Binding Caption}"/>
 
-            <ComboBox x:Name="CategoriesComboBox" Margin="0 6 0 0" DisplayMemberPath="Name" SelectionChanged="OnSelectionChanged"/>
+            <ComboBox Margin="0 6 0 0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             <TextBox x:Name="NameTextBox" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0 "
-                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"/>
+                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                     Text="{Binding Text , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="취소"
-                        Click="OnCancelButtonClick"/>
+                        Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=EditCategoryNameDialogWindow}"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인"
-                        Click="OnConfirmButtonClick"/>
+                        Command="{Binding ConfirmCommand}" CommandParameter="{Binding ElementName=EditCategoryNameDialogWindow}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -1,4 +1,5 @@
 ﻿using Kimera.Data.Entities;
+using Kimera.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,74 +22,12 @@ namespace Kimera.Dialogs
     /// </summary>
     public partial class EditCategoryNameDialog : Window
     {
-        public string Caption
-        {
-            set
-            {
-                CaptionTextBlock.Text = value;
-            }
-        }
-
-        private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
-
-        public ObservableCollection<Category> Categories
-        {
-            get
-            {
-                return _categories;
-            }
-            set
-            {
-                _categories = value;
-                CategoriesComboBox.ItemsSource = value;
-            }
-        }
-
-        public string SelectedCategoryName
-        {
-            get
-            {
-                return CategoriesComboBox.Text;
-            }
-            set
-            {
-                CategoriesComboBox.Text = value;
-                NameTextBox.Text = value;
-            }
-        }
-
-        public string ChangedCategoryName
-        {
-            get
-            {
-                return NameTextBox.Text;
-            }
-            set
-            {
-                NameTextBox.Text = value;
-            }
-        }
+        public EditCategoryNameViewModel ViewModel { get; set; } = new EditCategoryNameViewModel();
 
         public EditCategoryNameDialog()
         {
             InitializeComponent();
-        }
-
-        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            NameTextBox.Text = CategoriesComboBox.Text;
-        }
-
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private void OnConfirmButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            Close();
+            this.DataContext = ViewModel;
         }
     }
 }

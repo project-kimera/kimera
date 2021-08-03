@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,41 +20,12 @@ namespace Kimera.Dialogs
     /// </summary>
     public partial class EditStringDialog : Window
     {
-        public string Caption
-        {
-            set
-            {
-                CaptionTextBlock.Text = value;
-            }
-        }
-
-        public string Text
-        {
-            get
-            {
-                return ContentTextBox.Text;
-            }
-            set
-            {
-                ContentTextBox.Text = value;
-            }
-        }
+        public EditStringViewModel ViewModel { get; set; } = new EditStringViewModel();
 
         public EditStringDialog()
         {
             InitializeComponent();
-        }
-
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private void OnConfirmButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            Close();
+            this.DataContext = ViewModel;
         }
     }
 }

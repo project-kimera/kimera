@@ -141,17 +141,17 @@ namespace Kimera.ViewModels
         {
             EditStringDialog dialog = new EditStringDialog();
             dialog.Title = "카테고리 추가";
-            dialog.Caption = "추가할 카테고리의 이름을 입력해주세요.";
+            dialog.ViewModel.Caption = "추가할 카테고리의 이름을 입력해주세요.";
             
             if (dialog.ShowDialog() == true)
             {
-                if (!string.IsNullOrEmpty(dialog.Text))
+                if (!string.IsNullOrEmpty(dialog.ViewModel.Text))
                 {
-                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.Text).FirstOrDefault();
+                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.ViewModel.Text).FirstOrDefault();
 
                     if (temp == null)
                     {
-                        Category category = new Category(dialog.Text);
+                        Category category = new Category(dialog.ViewModel.Text);
 
                         await App.DatabaseContext.Categories.AddAsync(category);
                         await App.DatabaseContext.SaveChangesAsync();
@@ -177,19 +177,18 @@ namespace Kimera.ViewModels
         {
             EditCategoryNameDialog dialog = new EditCategoryNameDialog();
             dialog.Title = "카테고리 이름 변경";
-            dialog.Caption = "이름을 변경할 카테고리를 선택 후 이름을 수정해주세요.";
-            dialog.Categories = LibraryService.Instance.Categories;
-            dialog.SelectedCategoryName = LibraryService.Instance.Categories.FirstOrDefault()?.Name;
+            dialog.ViewModel.Caption = "이름을 변경할 카테고리를 선택 후 이름을 수정해주세요.";
+            dialog.ViewModel.Categories = LibraryService.Instance.Categories;
+            dialog.ViewModel.SelectedCategory = LibraryService.Instance.SelectedCategory == Settings.GUID_ALL_CATEGORY || LibraryService.Instance.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
+                ? LibraryService.Instance.Categories.FirstOrDefault() : LibraryService.Instance.Categories.Where(c => c.SystemId == LibraryService.Instance.SelectedCategory).FirstOrDefault();
 
             if (dialog.ShowDialog() == true)
             {
-                if (!string.IsNullOrEmpty(dialog.ChangedCategoryName))
+                if (!string.IsNullOrEmpty(dialog.ViewModel.Text))
                 {
-                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.SelectedCategoryName).FirstOrDefault();
-
-                    if (temp != null)
+                    if (dialog.ViewModel.SelectedCategory != null)
                     {
-                        temp.Name = dialog.ChangedCategoryName;
+                        dialog.ViewModel.SelectedCategory.Name = dialog.ViewModel.Text;
 
                         await App.DatabaseContext.SaveChangesAsync();
 
@@ -214,30 +213,26 @@ namespace Kimera.ViewModels
         {
             SelectCategoryDialog dialog = new SelectCategoryDialog();
             dialog.Title = "카테고리 제거";
-            dialog.Caption = "제거할 카테고리를 선택해주세요.";
-            dialog.Categories = LibraryService.Instance.Categories;
-            dialog.CategoryName = LibraryService.Instance.Categories.FirstOrDefault()?.Name;
+            dialog.ViewModel.Caption = "제거할 카테고리를 선택해주세요.";
+            dialog.ViewModel.Categories = LibraryService.Instance.Categories;
+            dialog.ViewModel.SelectedCategory = LibraryService.Instance.SelectedCategory == Settings.GUID_ALL_CATEGORY || LibraryService.Instance.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
+                ? LibraryService.Instance.Categories.FirstOrDefault() : LibraryService.Instance.Categories.Where(c => c.SystemId == LibraryService.Instance.SelectedCategory).FirstOrDefault();
 
             if (dialog.ShowDialog() == true)
             {
-                if (!string.IsNullOrEmpty(dialog.CategoryName))
+                if (dialog.ViewModel.SelectedCategory != null)
                 {
-                    Category temp = App.DatabaseContext.Categories.Where(c => c.Name == dialog.CategoryName).FirstOrDefault();
+                    MessageBoxResult result =  MessageBox.Show("정말 카테고리를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.", "Kimera", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    if (temp != null)
+                    if (result == MessageBoxResult.Yes)
                     {
-                        App.DatabaseContext.Categories.Remove(temp);
+                        App.DatabaseContext.Categories.Remove(dialog.ViewModel.SelectedCategory);
                         await App.DatabaseContext.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        MessageBox.Show("존재하지 않는 카테고리입니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                        return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("카테고리 이름을 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("존재하지 않는 카테고리입니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     return;
                 }
             }

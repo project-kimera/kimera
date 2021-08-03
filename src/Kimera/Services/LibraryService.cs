@@ -244,8 +244,6 @@ namespace Kimera.Services
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                bool suicideFlag = false;
-
                 foreach (Category category in e.OldItems)
                 {
                     if (category != null)
@@ -262,18 +260,13 @@ namespace Kimera.Services
 
                         if (targetCategory.SystemId == _selectedCategory)
                         {
-                            suicideFlag = true;
                             await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
+                            await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
                         }
                     }
                 }
 
                 CategoriesChangedEvent.Invoke(this, new EventArgs());
-                
-                if (suicideFlag)
-                {
-                    SelectedCategoryChangedEvent.Invoke(this, new EventArgs());
-                }
             }
 
             Log.Information("The categories table has been changed.");

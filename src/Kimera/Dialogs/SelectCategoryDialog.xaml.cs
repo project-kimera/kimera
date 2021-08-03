@@ -1,4 +1,5 @@
 ﻿using Kimera.Data.Entities;
+using Kimera.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,56 +22,12 @@ namespace Kimera.Dialogs
     /// </summary>
     public partial class SelectCategoryDialog : Window
     {
-        public string Caption
-        {
-            set
-            {
-                CaptionTextBlock.Text = value;
-            }
-        }
-
-        private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
-
-        public ObservableCollection<Category> Categories
-        {
-            get
-            {
-                return _categories;
-            }
-            set
-            {
-                _categories = value;
-                CategoriesComboBox.ItemsSource = value;
-            }
-        }
-
-        public string CategoryName
-        {
-            get
-            {
-                return CategoriesComboBox.Text;
-            }
-            set
-            {
-                CategoriesComboBox.Text = value;
-            }
-        }
+        public SelectCategoryViewModel ViewModel { get; set; } = new SelectCategoryViewModel();
 
         public SelectCategoryDialog()
         {
             InitializeComponent();
-        }
-
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-            Close();
-        }
-
-        private void OnConfirmButtonClick(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            Close();
+            this.DataContext = ViewModel;
         }
     }
 }
