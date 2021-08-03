@@ -4,6 +4,8 @@
                     xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data"
                     xmlns:converters="clr-namespace:Kimera.Converters">
     <converters:StringToImageConverter x:Key="StringToImageConverter"/>
+    <converters:PackageStatusToColorConverter x:Key="PackageStatusToColorConverter"/>
+    <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:GameMetadata">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
@@ -27,11 +29,11 @@
                                FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
                                Text="{Binding GameMetadataNavigation.Name}" />
                         <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                            <Ellipse VerticalAlignment="Center" Width="6" Height="6" Fill="LightGreen"/>
+                            <Ellipse VerticalAlignment="Center" Width="6" Height="6" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToColorConverter}}"/>
                             <TextBlock Foreground="{DynamicResource KimeraForegroundLight}"
-                                       Margin="4 0 0 0" VerticalAlignment="Center"
+                                       Margin="6 0 0 0" VerticalAlignment="Center"
                                        FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
-                                       Text="이용 가능" />
+                                       Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
                         </StackPanel>
                     </StackPanel>
 
