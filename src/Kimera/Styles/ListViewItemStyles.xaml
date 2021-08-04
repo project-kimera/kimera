@@ -8,7 +8,7 @@
     <converters:PackageStatusToColorConverter x:Key="PackageStatusToColorConverter"/>
     <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     
-    <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:GameMetadata">
+    <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
             <Button.ContextMenu>
                 <ContextMenu x:Name="contextMenu">
@@ -67,7 +67,7 @@
         </Button>
     </DataTemplate>
 
-    <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:GameMetadata">
+    <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:Game">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
             <Button.ContextMenu>
                 <ContextMenu x:Name="contextMenu">
