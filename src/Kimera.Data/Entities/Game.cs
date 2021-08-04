@@ -1,4 +1,6 @@
-﻿using Kimera.Data.Enums;
+﻿using Kimera.Common;
+using Kimera.Common.Commands;
+using Kimera.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -55,38 +57,38 @@ namespace Kimera.Data.Entities
         /// The command to start the game.
         /// </summary>
         [NotMapped]
-        public ICommand StartGameCommand { get; set; }
-
-        /// <summary>
-        /// The command to show the game information.
-        /// </summary>
-        [NotMapped]
-        public ICommand ShowGameInformationCommand { get; set; }
-
-        /// <summary>
-        /// The command to edit the metadata of the game.
-        /// </summary>
-        [NotMapped]
-        public ICommand EditMetadataCommand { get; set; }
+        public ICommand StartGameCommand { get; private set; }
 
         /// <summary>
         /// The command to move the game to another category.
         /// </summary>
         [NotMapped]
-        public ICommand MoveCategoryCommand { get; set; }
+        public ICommand ChangeGameCategoryCommand { get; private set; }
 
         /// <summary>
         /// The command to remove the game.
         /// </summary>
         [NotMapped]
-        public ICommand RemoveGameCommand { get; set; }
+        public ICommand RemoveGameCommand { get; private set; }
+
+        /// <summary>
+        /// The command to show the game information.
+        /// </summary>
+        [NotMapped]
+        public ICommand ShowGameInformationCommand { get; private set; }
+
+        /// <summary>
+        /// The command to edit the metadata of the game.
+        /// </summary>
+        [NotMapped]
+        public ICommand EditMetadataCommand { get; private set; }
 
         /// <summary>
         /// Creates a new instance of Game.
         /// </summary>
         public Game()
         {
-
+            InitializeCommands();
         }
 
         /// <summary>
@@ -101,6 +103,17 @@ namespace Kimera.Data.Entities
             GameMetadata = gameMetadataGuid;
             PackageMetadata = packageMetadataGuid;
             PackageStatus = packageStatus;
+
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
+        {
+            StartGameCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameStarterRequestedEvent(this, SystemId));
+            ChangeGameCategoryCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameCategoryChangerRequestedEvent(this, SystemId));
+            RemoveGameCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameRemoverRequestedEvent(this, SystemId));
+            ShowGameInformationCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameInformationRequestedEvent(this, SystemId));
+            EditMetadataCommand = new DelegateCommand(() => LibraryEventBroker.InvokeMetadataEditorRequestedEvent(this, SystemId));
         }
     }
 }

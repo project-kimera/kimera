@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kimera.Common
+namespace Kimera.ViewModels
 {
-    public class EventBroker
+    public class GameViewModel : ViewModelBase
     {
-
     }
 }

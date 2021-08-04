@@ -92,7 +92,7 @@
                                             <DataTemplate>
                                                 <Grid>
                                                     <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Foreground="{DynamicResource KimeraForeground}"
-                                                            Command="{Binding ChangeCategoryCommand}" CommandParameter="{Binding Path=SystemId}">
+                                                            Command="{Binding ChangeSelectedCategoryCommand}" CommandParameter="{Binding Path=SystemId}">
                                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                                             <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
                                                             <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Name}" />

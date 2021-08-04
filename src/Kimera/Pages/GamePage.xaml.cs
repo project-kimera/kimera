@@ -20,7 +20,7 @@ namespace Kimera.Pages
     /// </summary>
     public partial class GamePage : Page
     {
-        public GamePage()
+        public GamePage(Guid guid)
         {
             InitializeComponent();
         }

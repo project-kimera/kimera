@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kimera.Common;
+using Kimera.Common.Commands;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Input;
@@ -34,34 +36,44 @@ namespace Kimera.Data.Entities
         /// The command to change the selected category.
         /// </summary>
         [NotMapped]
-        public ICommand ChangeCategoryCommand { get; set; }
+        public ICommand ChangeSelectedCategoryCommand { get; private set; }
 
         /// <summary>
         /// Creates a new instance of Category.
         /// </summary>
         public Category()
         {
-
+            InitializeCommands();
         }
 
         /// <summary>
         /// Creates a new instance of Category.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name of the category.</param>
         public Category(string name)
         {
             SystemId = Guid.NewGuid();
             Name = name;
+
+            InitializeCommands();
         }
 
         /// <summary>
         /// Creates a new instance of Category.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="guid">The Principal Key(PK) of the category, which used to interact with other entities.</param>
+        /// <param name="name">The name of the category.</param>
         public Category(Guid guid, string name)
         {
             SystemId = guid;
             Name = name;
+
+            InitializeCommands();
+        }
+
+        private void InitializeCommands()
+        {
+            ChangeSelectedCategoryCommand = new DelegateCommand(() => LibraryEventBroker.InvokeSelectedCategoryChangerRequestedEvent(this, SystemId));
         }
     }
 }

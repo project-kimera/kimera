@@ -9,7 +9,8 @@
     <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
-        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10"
+                Command="{Binding ShowGameInformationCommand}">
             <Button.ContextMenu>
                 <ContextMenu x:Name="contextMenu">
                     <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"
@@ -22,7 +23,7 @@
                     <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"
                                           Command="{Binding EditMetadataCommand}" CommandParameter="{Binding SystemId}"/>
                     <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"
-                                          Command="{Binding MoveCategoryCommand}" CommandParameter="{Binding SystemId}"/>
+                                          Command="{Binding ChangeGameCategoryCommand}" CommandParameter="{Binding SystemId}"/>
 
                     <Separator/>
 
@@ -59,7 +60,8 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
+                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center"
+                            Command="{Binding StartGameCommand}">
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
                     </Button>
                 </Grid>
@@ -68,7 +70,8 @@
     </DataTemplate>
 
     <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:Game">
-        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10"
+                Command="{Binding ShowGameInformationCommand}">
             <Button.ContextMenu>
                 <ContextMenu x:Name="contextMenu">
                     <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"
@@ -81,7 +84,7 @@
                     <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"
                                           Command="{Binding EditMetadataCommand}" CommandParameter="{Binding SystemId}"/>
                     <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"
-                                          Command="{Binding MoveCategoryCommand}" CommandParameter="{Binding SystemId}"/>
+                                          Command="{Binding ChangeGameCategoryCommand}" CommandParameter="{Binding SystemId}"/>
 
                     <Separator/>
 

@@ -1,5 +1,7 @@
-﻿using Kimera.Common.Commands;
+﻿using Kimera.Common;
+using Kimera.Common.Commands;
 using Kimera.Data.Entities;
+using Kimera.Pages;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace Kimera.Services
@@ -50,8 +53,6 @@ namespace Kimera.Services
         public delegate void GamesChangedEventHandler(object sender, EventArgs e);
 
         public event GamesChangedEventHandler GamesChangedEvent;
-
-        private RelayCommand<Guid> _changeCategoryCommand;
 
         private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
 
@@ -112,8 +113,6 @@ namespace Kimera.Services
 
                 foreach (Category category in result)
                 {
-                    category.ChangeCategoryCommand = _changeCategoryCommand;
-
                     if (category.SystemId != Settings.GUID_ALL_CATEGORY && category.SystemId != Settings.GUID_FAVORITE_CATEGORY)
                     {
                         _categories.Add(category);
@@ -210,15 +209,6 @@ namespace Kimera.Services
             await task.ConfigureAwait(false);
         }
 
-        public void ChangeCategory(Guid guid)
-        {
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                UpdateSelectedCategory(guid);
-                UpdateGames(guid);
-            });
-        }
-
         #endregion
 
         #region ::Event Subscribers::
@@ -229,7 +219,6 @@ namespace Kimera.Services
             {
                 foreach (Category category in e.NewItems)
                 {
-                    category.ChangeCategoryCommand = _changeCategoryCommand;
 
                     if (category != null)
                     {
@@ -323,6 +312,46 @@ namespace Kimera.Services
             Log.Information("The category subscriptions table has been changed.");
         }
 
+        private void OnSelectedCategoryChangerRequested(object sender, Guid guid)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                UpdateSelectedCategory(guid);
+                UpdateGames(guid);
+            });
+        }
+
+        private void OnGameStarterRequestedEvent(object sender, Guid guid)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show("Starter");
+            });
+        }
+
+        private void OnGameCategoryChangerRequestedEvent(object sender, Guid guid)
+        {
+
+        }
+
+        private void OnGameRemoverRequestedEvent(object sender, Guid guid)
+        {
+
+        }
+
+        private void OnGameInformationRequestedEvent(object sender, Guid guid)
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                NavigationService.Instance.NavigateTo(new GamePage(guid));
+            });
+        }
+
+        private void OnMetadataEditorRequestedEvent(object sender, Guid guid)
+        {
+
+        }
+
         #endregion
 
         #region ::Constructors::
@@ -334,7 +363,13 @@ namespace Kimera.Services
 
         private async void InitializeService()
         {
-            _changeCategoryCommand = new RelayCommand<Guid>(ChangeCategory);
+            // STRUCTURE : Kimera.Data -> Kimera.Common.LibraryEventBroker <-> Kimera.Services.LibraryService
+            LibraryEventBroker.SelectedCategoryChangerRequestedEvent += OnSelectedCategoryChangerRequested;
+            LibraryEventBroker.GameStarterRequestedEvent += OnGameStarterRequestedEvent;
+            LibraryEventBroker.GameCategoryChangerRequestedEvent += OnGameCategoryChangerRequestedEvent;
+            LibraryEventBroker.GameRemoverRequestedEvent += OnGameRemoverRequestedEvent;
+            LibraryEventBroker.GameInformationRequestedEvent += OnGameInformationRequestedEvent;
+            LibraryEventBroker.MetadataEditorRequestedEvent += OnMetadataEditorRequestedEvent;
 
             await UpdateCategoriesAsync();
             await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
