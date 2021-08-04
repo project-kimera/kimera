@@ -1,4 +1,4 @@
-﻿using Kimera.Commands;
+﻿using Kimera.Common.Commands;
 using Kimera.Data.Entities;
 using Serilog;
 using System;

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.Network", "Kimera.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kimera.IO", "Kimera.IO\Kimera.IO.csproj", "{F2C3AE1A-D019-45ED-B220-514D6305B5B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kimera.Common", "Kimera.Common\Kimera.Common.csproj", "{C2170CB5-A167-4A78-A109-4E176537415A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F2C3AE1A-D019-45ED-B220-514D6305B5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2C3AE1A-D019-45ED-B220-514D6305B5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2C3AE1A-D019-45ED-B220-514D6305B5B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2170CB5-A167-4A78-A109-4E176537415A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2170CB5-A167-4A78-A109-4E176537415A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2170CB5-A167-4A78-A109-4E176537415A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2170CB5-A167-4A78-A109-4E176537415A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Kimera.Commands
+namespace Kimera.Common.Commands
 {
     public class RelayCommand<T> : ICommand
     {
