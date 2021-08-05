@@ -93,8 +93,6 @@ namespace Kimera
             base.OnExit(e);
         }
 
-
-
         private void InitializeLogger()
         {
             string fileName = @"logs\log-.txt";

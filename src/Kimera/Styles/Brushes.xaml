@@ -1,5 +1,20 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <LinearGradientBrush x:Key="KimeraFadeGradient">
+        <LinearGradientBrush.StartPoint>
+            <Point X="0" Y="0" />
+        </LinearGradientBrush.StartPoint>
+        <LinearGradientBrush.EndPoint>
+            <Point X="0" Y="1" />
+        </LinearGradientBrush.EndPoint>
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#1f2e3131" Offset="0"/>
+                <GradientStop Color="#ff212121" Offset="0.95"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
     <SolidColorBrush x:Key="KimeraBackground" Color="#FF212121" />
     <SolidColorBrush x:Key="KimeraButtonHover" Color="#FF292929" />
     <SolidColorBrush x:Key="KimeraButtonRipple" Color="#FF323232" />

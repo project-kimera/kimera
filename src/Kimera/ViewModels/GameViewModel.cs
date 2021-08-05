@@ -130,6 +130,14 @@ namespace Kimera.ViewModels
             }
         }
 
+        public PackageStatus PackageStatus
+        {
+            get
+            {
+                return _game.PackageStatus;
+            }
+        }
+
         public ICommand StartGameCommand
         {
             get

@@ -15,6 +15,8 @@
     <Page.Resources>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <converters:StringToImageConverter x:Key="StringToImageConverter"/>
+        <converters:PackageStatusToColorConverter x:Key="PackageStatusToColorConverter"/>
+        <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -38,28 +40,78 @@
 
                     <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="돌아가기" />
                     <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Text="{Binding Name}" />
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Text="{Binding Name}" TextTrimming="CharacterEllipsis"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
             <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0 50 0 0" HorizontalAlignment="Center">
-                    <Rectangle Width="500" Height="300"  RadiusX="4" RadiusY="4">
-                        <Rectangle.Fill>
-                            <ImageBrush ImageSource="{Binding ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}"/>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Vertical" Width="500" Margin="50 00 0 0">
-                        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="{Binding Name}" />
+                    <!--Header-->
+                    <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2" Height="300" Stretch="UniformToFill" Source="{Binding ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}">
+                        <Image.Effect>
+                            <BlurEffect KernelType="Gaussian" Radius="30" />
+                        </Image.Effect>
+                    </Image>
 
-                        <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="0 20 0 0" TextWrapping="WrapWithOverflow"
-                                   Text="{Binding Description}"/>
+                    <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="2" Fill="{StaticResource KimeraFadeGradient}"/>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Rectangle Width="300" Height="200" RadiusX="4" RadiusY="4">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="{Binding ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}"/>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
+                        <StackPanel Orientation="Vertical" Margin="50 00 0 0" VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" TextTrimming="CharacterEllipsis" Text="{Binding Name}" />
+
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="0 20 0 0"
+                                       TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
+                                       Text="{Binding Description}"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
+
+                    <!--Contents-->
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical">
+                        <!--Game Starter-->
+                        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 20 0" VerticalAlignment="Center">
+                                <Ellipse VerticalAlignment="Center" Width="10" Height="10" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToColorConverter}}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                       Margin="6 0 0 0" VerticalAlignment="Center"
+                                       FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
+                                       Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
+                            </StackPanel>
+
+                            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Foreground="{DynamicResource KimeraForegroundLight}" BorderBrush="{DynamicResource KimeraForegroundLight}"
+                                Padding="0" Width="200" Height="50">
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="게임 실행" />
+                            </Button>
+                        </StackPanel>
+
+                        <Separator Background="{DynamicResource KimeraDivider}" Margin="0 20 0 20"/>
+                        
+                        <!--Metadatas-->
+                        
+                    </StackPanel>
+                </Grid>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
