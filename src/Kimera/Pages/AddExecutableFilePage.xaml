@@ -23,21 +23,25 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <Border Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="10 0 0 0" VerticalAlignment="Center" Width="36" Height="36"
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="10 0 0 0" VerticalAlignment="Center" Width="36" Height="36"
                         Command="{Binding GoBackCommand}">
-                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="24" Height="24" Kind="ArrowLeft" />
-                </Button>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
+                    </Button>
 
-                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 0 0" VerticalAlignment="Center" Text="실행 파일로 새 게임 추가하기" />
-            </StackPanel>
-        </Grid>
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="돌아가기" />
+                    <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Text="실행 파일로 새 게임 추가하기" />
+                </StackPanel>
+            </Grid>
+        </Border>
         <TabControl Grid.Row="1" Style="{StaticResource MaterialDesignTabControl}">
             <TabItem Header="실행 파일" Foreground="{DynamicResource KimeraForeground}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">

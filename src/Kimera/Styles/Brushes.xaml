@@ -7,4 +7,6 @@
     <SolidColorBrush x:Key="KimeraForegroundUltraLight" Color="#616161" />
     <SolidColorBrush x:Key="KimeraForegroundLight" Color="#89FFFFFF" />
     <SolidColorBrush x:Key="KimeraForeground" Color="#DDFFFFFF" />
+
+    <SolidColorBrush x:Key="KimeraDivider" Color="#FF303030" />
 </ResourceDictionary>

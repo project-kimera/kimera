@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Kimera.Pages
         public GamePage(Guid guid)
         {
             InitializeComponent();
+            this.DataContext = new GameViewModel(guid);
         }
     }
 }

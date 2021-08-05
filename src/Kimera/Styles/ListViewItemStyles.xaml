@@ -4,7 +4,6 @@
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data"
                     xmlns:converters="clr-namespace:Kimera.Converters">
-    <converters:StringToImageConverter x:Key="StringToImageConverter"/>
     <converters:PackageStatusToColorConverter x:Key="PackageStatusToColorConverter"/>
     <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     
