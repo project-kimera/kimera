@@ -74,7 +74,7 @@
         </Border>
 
         <Grid Grid.Row="1" Background="{DynamicResource KimeraBackground}">
-            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden"/>
+            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" Navigating="OnNavigating"/>
         </Grid>
     </Grid>
 </Window>
