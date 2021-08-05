@@ -65,12 +65,11 @@ namespace Kimera.ViewModels
             }
         }
 
-        public List<string> SupportedLanguages
+        public string SupportedLanguages
         {
             get
             {
-                List<string> temp = _game.GameMetadataNavigation.SupportedLanguages.Split(',').ToList();
-                return temp;
+                return _game.GameMetadataNavigation.SupportedLanguages;
             }
         }
 
