@@ -145,6 +145,22 @@ namespace Kimera.ViewModels
             }
         }
 
+        public ICommand EditMetadataCommand
+        {
+            get
+            {
+                return _game.EditMetadataCommand;
+            }
+        }
+
+        public ICommand EditSettingsCommand
+        {
+            get
+            {
+                return _game.EditSettingsCommand;
+            }
+        }
+
         public DelegateCommand GoBackCommand { get; }
 
         public GameViewModel(Guid guid)
@@ -177,6 +193,25 @@ namespace Kimera.ViewModels
                     NavigationService.Instance.GoBack();
                 }
             });
+        }
+
+        private void RefreshProperties()
+        {
+            RaisePropertyChanged("Name");
+            RaisePropertyChanged("Description");
+            RaisePropertyChanged("Creator");
+            RaisePropertyChanged("AdmittedAge");
+            RaisePropertyChanged("Genres");
+            RaisePropertyChanged("Tags");
+            RaisePropertyChanged("SupportedLanguages");
+            RaisePropertyChanged("Score");
+            RaisePropertyChanged("Memo");
+            RaisePropertyChanged("PlayTime");
+            RaisePropertyChanged("FirstTime");
+            RaisePropertyChanged("LastTime");
+            RaisePropertyChanged("ThumbnailUri");
+            RaisePropertyChanged("HomepageUrl");
+            RaisePropertyChanged("PackageStatus");
         }
     }
 }

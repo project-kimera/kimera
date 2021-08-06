@@ -106,7 +106,8 @@
                                 <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="게임 실행" />
                             </Button>
 
-                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="20 0 20 0" Width="24" Height="24">
+                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 10 0" Width="36" Height="36"
+                                    Command="{Binding EditSettingsCommand}">
                                 <materialDesign:PackIcon Width="16" Height="16" Kind="Settings" />
                             </Button>
                         </StackPanel>
@@ -166,7 +167,8 @@
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
                                 <materialDesign:RatingBar  VerticalAlignment="Center" IsReadOnly="True" Value="{Binding Score}"/>
                                 <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding Score}" />
-                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 0 0" Width="24" Height="24">
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 0 0" Width="24" Height="24"
+                                        Command="{Binding EditMetadataCommand}">
                                     <materialDesign:PackIcon Width="16" Height="16" Kind="Edit" />
                                 </Button>
                             </StackPanel>
