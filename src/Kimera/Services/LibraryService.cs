@@ -352,6 +352,11 @@ namespace Kimera.Services
 
         }
 
+        private void OnSettingsEditorRequestedEvent(object sender, Guid guid)
+        {
+
+        }
+
         #endregion
 
         #region ::Constructors::
@@ -370,6 +375,7 @@ namespace Kimera.Services
             LibraryEventBroker.GameRemoverRequestedEvent += OnGameRemoverRequestedEvent;
             LibraryEventBroker.GameInformationRequestedEvent += OnGameInformationRequestedEvent;
             LibraryEventBroker.MetadataEditorRequestedEvent += OnMetadataEditorRequestedEvent;
+            LibraryEventBroker.SettingsEditorRequestedEvent += OnSettingsEditorRequestedEvent;
 
             await UpdateCategoriesAsync();
             await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);

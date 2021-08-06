@@ -84,6 +84,12 @@ namespace Kimera.Data.Entities
         public ICommand EditMetadataCommand { get; private set; }
 
         /// <summary>
+        /// The command to edit the settings of the game.
+        /// </summary>
+        [NotMapped]
+        public ICommand EditSettingsCommand { get; private set; }
+
+        /// <summary>
         /// Creates a new instance of Game.
         /// </summary>
         public Game()
@@ -114,6 +120,7 @@ namespace Kimera.Data.Entities
             RemoveGameCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameRemoverRequestedEvent(this, SystemId));
             ShowGameInformationCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameInformationRequestedEvent(this, SystemId));
             EditMetadataCommand = new DelegateCommand(() => LibraryEventBroker.InvokeMetadataEditorRequestedEvent(this, SystemId));
+            EditSettingsCommand = new DelegateCommand(() => LibraryEventBroker.InvokeSettingsEditorRequestedEvent(this, SystemId));
         }
     }
 }

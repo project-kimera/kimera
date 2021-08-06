@@ -31,6 +31,8 @@ namespace Kimera.Common
 
         public static event EventHandler<Guid> MetadataEditorRequestedEvent;
 
+        public static event EventHandler<Guid> SettingsEditorRequestedEvent;
+
         public static void InvokeGameStarterRequestedEvent(object sender, Guid e)
         {
             GameStarterRequestedEvent?.Invoke(sender, e);
@@ -54,6 +56,11 @@ namespace Kimera.Common
         public static void InvokeMetadataEditorRequestedEvent(object sender, Guid e)
         {
             MetadataEditorRequestedEvent?.Invoke(sender, e);
+        }
+
+        public static void InvokeSettingsEditorRequestedEvent(object sender, Guid e)
+        {
+            SettingsEditorRequestedEvent?.Invoke(sender, e);
         }
 
         #endregion
