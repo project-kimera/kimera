@@ -25,6 +25,30 @@
         </Setter>
     </Style>
 
+    <Style x:Key="KimeraContentButton" TargetType="Button">
+        <Setter Property="Background" Value="{DynamicResource KimeraBackground}"/>
+        <Setter Property="Foreground" Value="{DynamicResource KimeraForegroundUltraLight}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource KimeraButtonHover}" TargetName="Border"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource KimeraButtonRipple}" TargetName="Border"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="KimeraViewButton" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource KimeraBackground}"/>
         <Setter Property="Foreground" Value="{DynamicResource KimeraForegroundUltraLight}"/>

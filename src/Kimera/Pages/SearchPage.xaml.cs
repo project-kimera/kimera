@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kimera.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace Kimera.Pages
     /// </summary>
     public partial class SearchPage : Page
     {
-        public SearchPage()
+        public SearchPage(string text)
         {
             InitializeComponent();
+            this.DataContext = new SearchViewModel(text);
         }
     }
 }

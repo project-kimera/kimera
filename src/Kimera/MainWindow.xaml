@@ -36,9 +36,16 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Grid.Column="0" Margin="8 0 0 0" materialDesign:HintAssist.Hint="{DynamicResource W_MAIN_SEARCH_HINT}" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" MinWidth="250" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="0" Margin="8 0 0 0"
+                                 materialDesign:HintAssist.Hint="{DynamicResource W_MAIN_SEARCH_HINT}" materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                 BorderThickness="0" MinWidth="250" VerticalAlignment="Center"
+                                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding SearchCommand}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
 
-                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}">
+                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}" Command="{Binding SearchCommand}">
                             <materialDesign:PackIcon Kind="Search" Opacity=".56" />
                         </Button>
                     </Grid>

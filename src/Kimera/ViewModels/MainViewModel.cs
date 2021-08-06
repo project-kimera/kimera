@@ -13,11 +13,28 @@ namespace Kimera.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public LibraryPage LibraryPage { get; set; } = new LibraryPage();
+        private LibraryPage _libraryPage = new LibraryPage();
 
-        public StatisticsPage StatisticsPage { get; set; } = new StatisticsPage();
+        private StatisticsPage _statisticsPage = new StatisticsPage();
 
-        public SettingsPage SettingsPage { get; set; } = new SettingsPage();
+        private SettingsPage _settingsPage = new SettingsPage();
+
+        private string _searchText = string.Empty;
+
+        public string SearchText
+        {
+            get
+            {
+                return _searchText;
+            }
+            set
+            {
+                _searchText = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public DelegateCommand SearchCommand { get; }
 
         public DelegateCommand NavigateToLibraryCommand { get; }
 
@@ -29,29 +46,41 @@ namespace Kimera.ViewModels
         {
             NavigationService helper = NavigationService.Instance;
             helper.InitializeFrame(shellFrame);
-            helper.NavigateTo(LibraryPage);
+            helper.NavigateTo(_libraryPage);
 
+            SearchCommand = new DelegateCommand(Search);
             NavigateToLibraryCommand = new DelegateCommand(NavigateToLibrary);
             NavigateToStatisticsCommand = new DelegateCommand(NavigateToStatistics);
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
         }
 
+        private void Search()
+        {
+            if (!string.IsNullOrEmpty(_searchText))
+            {
+                NavigationService helper = NavigationService.Instance;
+                helper.NavigateTo(new SearchPage(SearchText));
+
+                SearchText = string.Empty;
+            }
+        }
+
         private void NavigateToLibrary()
         {
             NavigationService helper = NavigationService.Instance;
-            helper.NavigateTo(LibraryPage);
+            helper.NavigateTo(_libraryPage);
         }
 
         private void NavigateToStatistics()
         {
             NavigationService helper = NavigationService.Instance;
-            helper.NavigateTo(StatisticsPage);
+            helper.NavigateTo(_statisticsPage);
         }
 
         private void NavigateToSettings()
         {
             NavigationService helper = NavigationService.Instance;
-            helper.NavigateTo(SettingsPage);
+            helper.NavigateTo(_settingsPage);
         }
     }
 }
