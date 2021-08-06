@@ -70,7 +70,7 @@ namespace Kimera
         /// <summary>
         /// Gets or sets the interval(days) of auto removing task.
         /// </summary>
-        public int AutoRemovingInterval { get; set; } = 14;
+        public int AutoRemovingInterval { get; set; } = 7;
 
         /// <summary>
         /// Gets or sets the list of master keys.
