@@ -11,11 +11,6 @@
       Foreground="{DynamicResource KimeraForeground}"
       x:Name="AddExecutableFilePageInternal"
       Title="AddExecutableFilePage">
-
-    <Page.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

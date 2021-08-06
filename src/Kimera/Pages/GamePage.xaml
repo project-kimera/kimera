@@ -11,15 +11,6 @@
       Foreground="{DynamicResource KimeraForeground}"
       x:Name="GamePageInternal"
       Title="GamePage">
-
-    <Page.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-        <converters:StringToImageConverter x:Key="StringToImageConverter"/>
-        <converters:PackageStatusToColorConverter x:Key="PackageStatusToColorConverter"/>
-        <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
-        <converters:IntegerToTimeStringConverter x:Key="IntegerToTimeStringConverter"/>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

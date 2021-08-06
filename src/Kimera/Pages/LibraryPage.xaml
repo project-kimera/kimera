@@ -10,11 +10,6 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LibraryPage">
-
-    <Page.Resources>
-        <converters:CategoryGuidToNameConverter x:Key="CategoryGuidToNameConverter"/>
-    </Page.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

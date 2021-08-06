@@ -11,11 +11,6 @@
         x:Name="EditGameMetadataDialogWindow"
         WindowStartupLocation="CenterScreen"
         Title="EditGameMetadataDialog" Width="600" Height="700">
-
-    <Window.Resources>
-        <converters:AgeToStringConverter x:Key="AgeToStringConverter"/>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
