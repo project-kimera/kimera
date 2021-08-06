@@ -181,30 +181,36 @@ namespace Kimera.ViewModels
         {
             try
             {
-                Game game = new Game();
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                {
 
-                // Add the game information.
-                GameMetadata gameMetadata = _gameMetadata.Copy();
-                gameMetadata.FirstTime = DateTime.Now;
-                gameMetadata.LastTime = DateTime.Now;
+                    Game game = new Game();
 
-                PackageMetadata packageMetadata = new PackageMetadata(PackageType.Executable, EntryPointFilePath, CommandlineArguments);
-                packageMetadata.AddComponent(new Component(ComponentType.Executable, 0, FilePath));
+                    // Add the game information.
+                    GameMetadata gameMetadata = _gameMetadata.Copy();
+                    gameMetadata.FirstTime = DateTime.Now;
+                    gameMetadata.LastTime = DateTime.Now;
 
-                // Set game metadatas and package status.
-                game.SetGameMetadata(gameMetadata);
-                game.SetPackageMetadata(packageMetadata);
-                game.PackageStatus = PackageStatus.NeedProcessing;
+                    PackageMetadata packageMetadata = new PackageMetadata(PackageType.Executable, EntryPointFilePath, CommandlineArguments);
+                    packageMetadata.AddComponent(new Component(ComponentType.Executable, 0, FilePath));
 
-                // Subscribes categories.
-                CategorySubscription subscription = new CategorySubscription(Settings.GUID_ALL_CATEGORY, game.SystemId);
+                    // Set game metadatas and package status.
+                    game.SetGameMetadata(gameMetadata);
+                    game.SetPackageMetadata(packageMetadata);
+                    game.PackageStatus = PackageStatus.NeedProcessing;
 
-                await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
-                await App.DatabaseContext.CategorySubscriptions.AddAsync(subscription).ConfigureAwait(false);
+                    // Subscribes categories.
+                    CategorySubscription subscription = new CategorySubscription(Settings.GUID_ALL_CATEGORY, game.SystemId);
 
-                await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+                    await App.DatabaseContext.Games.AddAsync(game).ConfigureAwait(false);
+                    await App.DatabaseContext.CategorySubscriptions.AddAsync(subscription).ConfigureAwait(false);
 
-                Log.Information("A game data has been registerd.");
+                    await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                    Log.Information("A game data has been registerd.");
+
+                    await transaction.CommitAsync();
+                }
             }
             catch (Exception ex)
             {

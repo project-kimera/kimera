@@ -151,13 +151,18 @@ namespace Kimera.ViewModels
 
                     if (temp == null)
                     {
-                        Category category = new Category(dialog.ViewModel.Text);
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            Category category = new Category(dialog.ViewModel.Text);
 
-                        await App.DatabaseContext.Categories.AddAsync(category);
-                        await App.DatabaseContext.SaveChangesAsync();
+                            await App.DatabaseContext.Categories.AddAsync(category);
+                            await App.DatabaseContext.SaveChangesAsync();
 
-                        await LibraryService.Instance.UpdateSelectedCategoryAsync(category.SystemId);
-                        await LibraryService.Instance.UpdateGamesAsync(category.SystemId);
+                            await LibraryService.Instance.UpdateSelectedCategoryAsync(category.SystemId);
+                            await LibraryService.Instance.UpdateGamesAsync(category.SystemId);
+
+                            await transaction.CommitAsync();
+                        }
                     }
                     else
                     {
@@ -188,12 +193,16 @@ namespace Kimera.ViewModels
                 {
                     if (dialog.ViewModel.SelectedCategory != null)
                     {
-                        dialog.ViewModel.SelectedCategory.Name = dialog.ViewModel.Text;
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            dialog.ViewModel.SelectedCategory.Name = dialog.ViewModel.Text;
+                            await App.DatabaseContext.SaveChangesAsync();
 
-                        await App.DatabaseContext.SaveChangesAsync();
+                            await LibraryService.Instance.UpdateCategoriesAsync();
+                            await LibraryService.Instance.UpdateSelectedCategoryAsync(LibraryService.Instance.SelectedCategory);
 
-                        await LibraryService.Instance.UpdateCategoriesAsync();
-                        await LibraryService.Instance.UpdateSelectedCategoryAsync(LibraryService.Instance.SelectedCategory);
+                            await transaction.CommitAsync();
+                        }
                     }
                     else
                     {
@@ -226,8 +235,13 @@ namespace Kimera.ViewModels
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        App.DatabaseContext.Categories.Remove(dialog.ViewModel.SelectedCategory);
-                        await App.DatabaseContext.SaveChangesAsync();
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            App.DatabaseContext.Categories.Remove(dialog.ViewModel.SelectedCategory);
+                            await App.DatabaseContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+                        }
                     }
                 }
                 else

@@ -67,7 +67,12 @@ namespace Kimera
 
         private void OnUnhandledExceptionOccurred(object sender, UnhandledExceptionEventArgs e)
         {
-            _databaseContext.SaveChanges();
+            using (var transaction = App.DatabaseContext.Database.BeginTransaction())
+            {
+                _databaseContext.SaveChanges();
+
+                transaction.Commit();
+            }
 
             AntiDPIServiceProvider.DisposeService();
             Log.Information("The Anti DPI Service has been disposed.");

@@ -23,14 +23,19 @@ namespace Kimera.Data.Extensions
         /// <returns></returns>
         public static async Task EnsureCategoryCreated(this KimeraContext context, Guid guid, string name)
         {
-            Category category = await context.Categories.Where(c => c.SystemId == guid).FirstOrDefaultAsync().ConfigureAwait(false);
+            Category category = await context.Categories.Where(c => c.SystemId == guid).FirstOrDefaultAsync();
 
             if (category == null)
             {
-                Category newCategory = new Category(guid, name);
+                using (var transaction = await context.Database.BeginTransactionAsync())
+                {
+                    Category newCategory = new Category(guid, name);
 
-                await context.Categories.AddAsync(newCategory).ConfigureAwait(false);
-                await context.SaveChangesAsync().ConfigureAwait(false);
+                    await context.Categories.AddAsync(newCategory);
+                    await context.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+                }
             }
         }
 
