@@ -33,6 +33,14 @@ namespace Kimera.Services
 
         #endregion
 
+        #region ::Variables & Properties::
+
+
+
+        #endregion
+
+        #region ::Methods::
+
         public void AddGame(PackageType type, GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Guid> categories)
         {
             if (type == PackageType.Executable)
@@ -78,5 +86,7 @@ namespace Kimera.Services
         {
 
         }
+
+        #endregion
     }
 }

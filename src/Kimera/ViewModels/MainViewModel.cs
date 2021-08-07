@@ -13,6 +13,8 @@ namespace Kimera.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        #region ::Variables & Properties::
+
         private LibraryPage _libraryPage = new LibraryPage();
 
         private StatisticsPage _statisticsPage = new StatisticsPage();
@@ -34,6 +36,10 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public DelegateCommand SearchCommand { get; }
 
         public DelegateCommand NavigateToLibraryCommand { get; }
@@ -41,6 +47,10 @@ namespace Kimera.ViewModels
         public DelegateCommand NavigateToStatisticsCommand { get; }
 
         public DelegateCommand NavigateToSettingsCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
 
         public MainViewModel(Frame shellFrame)
         {
@@ -53,6 +63,10 @@ namespace Kimera.ViewModels
             NavigateToStatisticsCommand = new DelegateCommand(NavigateToStatistics);
             NavigateToSettingsCommand = new DelegateCommand(NavigateToSettings);
         }
+
+        #endregion
+
+        #region ::Command Actions::
 
         private void Search()
         {
@@ -82,5 +96,7 @@ namespace Kimera.ViewModels
             NavigationService helper = NavigationService.Instance;
             helper.NavigateTo(_settingsPage);
         }
+
+        #endregion
     }
 }

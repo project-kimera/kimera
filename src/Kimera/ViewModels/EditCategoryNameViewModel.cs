@@ -1,17 +1,14 @@
 ﻿using Kimera.Common.Commands;
 using Kimera.Data.Entities;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Kimera.ViewModels
 {
     public class EditCategoryNameViewModel : ViewModelBase
     {
+        #region ::Variables & Properties::
+
         private string _caption = string.Empty;
 
         public string Caption
@@ -76,15 +73,27 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public RelayCommand<Window> CancelCommand { get; }
 
         public RelayCommand<Window> ConfirmCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
 
         public EditCategoryNameViewModel()
         {
             CancelCommand = new RelayCommand<Window>(Cancel);
             ConfirmCommand = new RelayCommand<Window>(Confirm);
         }
+
+        #endregion
+
+        #region ::Command Actions::
 
         private void Cancel(Window window)
         {
@@ -103,5 +112,7 @@ namespace Kimera.ViewModels
                 window.Close();
             }
         }
+
+        #endregion
     }
 }

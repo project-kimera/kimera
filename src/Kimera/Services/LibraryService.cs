@@ -1,5 +1,4 @@
 ﻿using Kimera.Common;
-using Kimera.Common.Commands;
 using Kimera.Data.Entities;
 using Kimera.Pages;
 using Serilog;
@@ -8,10 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace Kimera.Services
 {
@@ -41,18 +38,6 @@ namespace Kimera.Services
         #endregion
 
         #region ::Variables & Properties::
-
-        public delegate void CategoriesChangedEventHandler(object sender, EventArgs e);
-
-        public event CategoriesChangedEventHandler CategoriesChangedEvent;
-
-        public delegate void SelectedCategoryChangedEventHandler(object sender, EventArgs e);
-
-        public event SelectedCategoryChangedEventHandler SelectedCategoryChangedEvent;
-
-        public delegate void GamesChangedEventHandler(object sender, EventArgs e);
-
-        public event GamesChangedEventHandler GamesChangedEvent;
 
         private ObservableCollection<Category> _categories = new ObservableCollection<Category>();
 
@@ -97,6 +82,57 @@ namespace Kimera.Services
                 _games = value;
                 GamesChangedEvent?.Invoke(this, new EventArgs());
             }
+        }
+
+        #endregion
+
+        #region ::Events::
+
+
+        public delegate void CategoriesChangedEventHandler(object sender, EventArgs e);
+
+        public event CategoriesChangedEventHandler CategoriesChangedEvent;
+
+        public delegate void SelectedCategoryChangedEventHandler(object sender, EventArgs e);
+
+        public event SelectedCategoryChangedEventHandler SelectedCategoryChangedEvent;
+
+        public delegate void GamesChangedEventHandler(object sender, EventArgs e);
+
+        public event GamesChangedEventHandler GamesChangedEvent;
+
+        #endregion
+
+        #region ::Commands::
+
+        #endregion
+
+        #region ::Constructors::
+
+        public LibraryService()
+        {
+            InitializeService();
+        }
+
+        private async void InitializeService()
+        {
+            // STRUCTURE : Kimera.Data -> Kimera.Common.LibraryEventBroker <-> Kimera.Services.LibraryService
+            LibraryEventBroker.SelectedCategoryChangerRequestedEvent += OnSelectedCategoryChangerRequested;
+            LibraryEventBroker.GameStarterRequestedEvent += OnGameStarterRequestedEvent;
+            LibraryEventBroker.GameCategoryChangerRequestedEvent += OnGameCategoryChangerRequestedEvent;
+            LibraryEventBroker.GameRemoverRequestedEvent += OnGameRemoverRequestedEvent;
+            LibraryEventBroker.GameInformationRequestedEvent += OnGameInformationRequestedEvent;
+            LibraryEventBroker.MetadataEditorRequestedEvent += OnMetadataEditorRequestedEvent;
+            LibraryEventBroker.SettingsEditorRequestedEvent += OnSettingsEditorRequestedEvent;
+
+            await UpdateCategoriesAsync();
+            await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
+            await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
+
+            App.DatabaseContext.Categories.Local.CollectionChanged += OnCategoriesLocalCollectionChanged;
+            App.DatabaseContext.CategorySubscriptions.Local.CollectionChanged += OnCategorySubscriptionsLocalCollectionChanged;
+
+            Log.Information("The library service has been initialized.");
         }
 
         #endregion
@@ -355,36 +391,6 @@ namespace Kimera.Services
         private void OnSettingsEditorRequestedEvent(object sender, Guid guid)
         {
 
-        }
-
-        #endregion
-
-        #region ::Constructors::
-
-        public LibraryService()
-        {
-            InitializeService();
-        }
-
-        private async void InitializeService()
-        {
-            // STRUCTURE : Kimera.Data -> Kimera.Common.LibraryEventBroker <-> Kimera.Services.LibraryService
-            LibraryEventBroker.SelectedCategoryChangerRequestedEvent += OnSelectedCategoryChangerRequested;
-            LibraryEventBroker.GameStarterRequestedEvent += OnGameStarterRequestedEvent;
-            LibraryEventBroker.GameCategoryChangerRequestedEvent += OnGameCategoryChangerRequestedEvent;
-            LibraryEventBroker.GameRemoverRequestedEvent += OnGameRemoverRequestedEvent;
-            LibraryEventBroker.GameInformationRequestedEvent += OnGameInformationRequestedEvent;
-            LibraryEventBroker.MetadataEditorRequestedEvent += OnMetadataEditorRequestedEvent;
-            LibraryEventBroker.SettingsEditorRequestedEvent += OnSettingsEditorRequestedEvent;
-
-            await UpdateCategoriesAsync();
-            await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
-            await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
-
-            App.DatabaseContext.Categories.Local.CollectionChanged += OnCategoriesLocalCollectionChanged;
-            App.DatabaseContext.CategorySubscriptions.Local.CollectionChanged += OnCategorySubscriptionsLocalCollectionChanged;
-
-            Log.Information("The library service has been initialized.");
         }
 
         #endregion

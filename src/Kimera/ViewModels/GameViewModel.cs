@@ -5,14 +5,14 @@ using Kimera.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Kimera.ViewModels
 {
     public class GameViewModel : ViewModelBase
     {
+        #region ::Aasfeqwt::
+
         private Game _game;
 
         public string Name
@@ -137,6 +137,10 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public ICommand StartGameCommand
         {
             get
@@ -163,6 +167,10 @@ namespace Kimera.ViewModels
 
         public DelegateCommand GoBackCommand { get; }
 
+        #endregion
+
+        #region ::Constructors::
+
         public GameViewModel(Guid guid)
         {
             InitializeGame(guid);
@@ -184,16 +192,9 @@ namespace Kimera.ViewModels
             }
         }
 
-        private void GoBack()
-        {
-            App.Current.Dispatcher.Invoke(() =>
-            {
-                if (NavigationService.Instance.CanGoBack())
-                {
-                    NavigationService.Instance.GoBack();
-                }
-            });
-        }
+        #endregion
+
+        #region ::Methods::
 
         private void RefreshProperties()
         {
@@ -213,5 +214,22 @@ namespace Kimera.ViewModels
             RaisePropertyChanged("HomepageUrl");
             RaisePropertyChanged("PackageStatus");
         }
+
+        #endregion
+
+        #region ::Command Actions::
+
+        private void GoBack()
+        {
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                if (NavigationService.Instance.CanGoBack())
+                {
+                    NavigationService.Instance.GoBack();
+                }
+            });
+        }
+
+        #endregion
     }
 }

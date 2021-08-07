@@ -14,6 +14,8 @@ namespace Kimera.ViewModels
 {
     public class EditGameMetadataViewModel : ViewModelBase
     {
+        #region ::Variables & Properties::
+
         private GameMetadata _previousMetadata = new GameMetadata();
 
         private GameMetadata _metadata = new GameMetadata();
@@ -174,9 +176,17 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public RelayCommand<Window> CancelCommand { get; }
 
         public RelayCommand<Window> ConfirmCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
 
         public EditGameMetadataViewModel(GameMetadata metadata)
         {
@@ -195,6 +205,10 @@ namespace Kimera.ViewModels
             ConfirmCommand = new RelayCommand<Window>(Confirm);
         }
 
+        #endregion
+
+        #region ::Command Actions::
+
         private void Cancel(Window window)
         {
             _metadata = _previousMetadata;
@@ -210,7 +224,7 @@ namespace Kimera.ViewModels
             if (!ValidationHelper.IsValid(window))
             {
                 MessageBox.Show("메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                Log.Warning("The game metadata values aren't valid.");
+                Log.Information("The game metadata values aren't valid.");
                 return;
             }
 
@@ -219,5 +233,7 @@ namespace Kimera.ViewModels
                 window.Close();
             }
         }
+
+        #endregion
     }
 }

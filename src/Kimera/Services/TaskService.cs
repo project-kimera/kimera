@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kimera.Services
 {
-    class TaskService
+    public class TaskService
     {
     }
 }

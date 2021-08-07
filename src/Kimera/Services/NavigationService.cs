@@ -11,6 +11,8 @@ namespace Kimera.Services
 {
     public class NavigationService
     {
+        #region ::Singleton Members::
+
         private static NavigationService _instance;
 
         public static NavigationService Instance
@@ -30,7 +32,15 @@ namespace Kimera.Services
             }
         }
 
+        #endregion
+
+        #region ::Variables & Properties::
+
         private Frame _shellFrame;
+
+        #endregion
+
+        #region ::Methods::
 
         public void InitializeFrame(Frame rootFrame)
         {
@@ -73,5 +83,7 @@ namespace Kimera.Services
         {
             _shellFrame?.Refresh();
         }
+
+        #endregion
     }
 }

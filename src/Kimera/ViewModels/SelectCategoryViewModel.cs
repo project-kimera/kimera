@@ -12,6 +12,8 @@ namespace Kimera.ViewModels
 {
     public class SelectCategoryViewModel : ViewModelBase
     {
+        #region ::Variables & Properties::
+
         private string _caption = string.Empty;
 
         public string Caption
@@ -57,15 +59,27 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public RelayCommand<Window> CancelCommand { get; }
 
         public RelayCommand<Window> ConfirmCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
 
         public SelectCategoryViewModel()
         {
             CancelCommand = new RelayCommand<Window>(Cancel);
             ConfirmCommand = new RelayCommand<Window>(Confirm);
         }
+
+        #endregion
+
+        #region ::Command Actions::
 
         private void Cancel(Window window)
         {
@@ -84,5 +98,7 @@ namespace Kimera.ViewModels
                 window.Close();
             }
         }
+
+        #endregion
     }
 }

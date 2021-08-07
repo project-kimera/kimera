@@ -150,6 +150,10 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public DelegateCommand ExploreFileCommand { get; }
 
         public DelegateCommand GetGameMetadataCommand { get; }

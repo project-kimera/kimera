@@ -17,6 +17,9 @@ namespace Kimera.ViewModels
 {
     public class SearchViewModel : ViewModelBase
     {
+
+        #region ::Variables & Properties::
+
         private string _text = string.Empty;
 
         public string Text
@@ -78,11 +81,19 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public DelegateCommand GoBackCommand { get; }
 
         public DelegateCommand SearchCommand { get; }
 
         public RelayCommand<Guid> ShowGameInformationCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
 
         public SearchViewModel(string text)
         {
@@ -95,6 +106,10 @@ namespace Kimera.ViewModels
 
             Search();
         }
+
+        #endregion
+
+        #region ::Methods::
 
         private async Task SearchInternalAsync(SearchCategory searchCategory, string searchText)
         {
@@ -177,6 +192,10 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Command Actions::
+
         private void GoBack()
         {
             App.Current.Dispatcher.Invoke(() =>
@@ -200,5 +219,7 @@ namespace Kimera.ViewModels
                 NavigationService.Instance.NavigateTo(new GamePage(gameGuid));
             });
         }
+
+        #endregion
     }
 }

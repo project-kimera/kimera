@@ -73,6 +73,10 @@ namespace Kimera.ViewModels
             }
         }
 
+        #endregion
+
+        #region ::Commands::
+
         public DelegateCommand RefreshGamesCommand { get; }
 
         public DelegateCommand ChangeToAllCategoryCommand { get; }
@@ -96,6 +100,33 @@ namespace Kimera.ViewModels
         public DelegateCommand ShowAddMultipleFilePageCommand { get; }
 
         public DelegateCommand ShowAddFolderPageCommand { get; }
+
+        #endregion
+
+        #region ::Constructors::
+
+        public LibraryViewModel()
+        {
+            _service.CategoriesChangedEvent += OnCategoriesChanged;
+            _service.SelectedCategoryChangedEvent += OnSelectedCategoryChanged;
+            _service.GamesChangedEvent += OnGamesChanged;
+
+            RefreshGamesCommand = new DelegateCommand(RefreshGames);
+
+            ChangeToAllCategoryCommand = new DelegateCommand(ChangeToAllCategory);
+            ChangeToFavoriteCategoryCommand = new DelegateCommand(ChangeToFavoriteCategory);
+            AddCategoryCommand = new DelegateCommand(AddCategory);
+            RenameCategoryCommand = new DelegateCommand(RenameCategory);
+            RemoveCategoryCommand = new DelegateCommand(RemoveCategory);
+
+            ChangeToTileViewCommand = new DelegateCommand(ChangeToTileView);
+            ChangeToIconViewCommand = new DelegateCommand(ChangeToIconView);
+
+            ShowAddExecutableFilePageCommand = new DelegateCommand(ShowAddExecutableFilePage);
+            ShowAddArchiveFilePageCommand = new DelegateCommand(ShowAddArchiveFilePage);
+            ShowAddMultipleFilePageCommand = new DelegateCommand(ShowAddMultipleFilePage);
+            ShowAddFolderPageCommand = new DelegateCommand(ShowAddFolderPage);
+        }
 
         #endregion
 
@@ -284,33 +315,6 @@ namespace Kimera.ViewModels
         {
             AddGamesFromFolderPage page = new AddGamesFromFolderPage();
             NavigationService.Instance.NavigateTo(page);
-        }
-
-        #endregion
-
-        #region ::Constructors::
-
-        public LibraryViewModel()
-        {
-            _service.CategoriesChangedEvent += OnCategoriesChanged;
-            _service.SelectedCategoryChangedEvent += OnSelectedCategoryChanged;
-            _service.GamesChangedEvent += OnGamesChanged;
-
-            RefreshGamesCommand = new DelegateCommand(RefreshGames);
-
-            ChangeToAllCategoryCommand = new DelegateCommand(ChangeToAllCategory);
-            ChangeToFavoriteCategoryCommand = new DelegateCommand(ChangeToFavoriteCategory);
-            AddCategoryCommand = new DelegateCommand(AddCategory);
-            RenameCategoryCommand = new DelegateCommand(RenameCategory);
-            RemoveCategoryCommand = new DelegateCommand(RemoveCategory);
-
-            ChangeToTileViewCommand = new DelegateCommand(ChangeToTileView);
-            ChangeToIconViewCommand = new DelegateCommand(ChangeToIconView);
-
-            ShowAddExecutableFilePageCommand = new DelegateCommand(ShowAddExecutableFilePage);
-            ShowAddArchiveFilePageCommand = new DelegateCommand(ShowAddArchiveFilePage);
-            ShowAddMultipleFilePageCommand = new DelegateCommand(ShowAddMultipleFilePage);
-            ShowAddFolderPageCommand = new DelegateCommand(ShowAddFolderPage);
         }
 
         #endregion
