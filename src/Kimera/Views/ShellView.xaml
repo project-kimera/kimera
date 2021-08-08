@@ -75,7 +75,7 @@
         </Border>
 
         <Grid Grid.Row="1" Background="{StaticResource KimeraBackground}">
-            <Frame NavigationUIVisibility="Hidden" caliburn:Message.Attach="RegisterFrame($source)"/>
+            <Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" Navigating="OnNavigating" caliburn:Message.Attach="RegisterFrame($source)"/>
         </Grid>
     </Grid>
 </Window>

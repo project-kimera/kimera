@@ -53,6 +53,7 @@ namespace Kimera.ViewModels.Pages
         public SearcherViewModel()
         {
             SearchCategories = Enum.GetValues(typeof(SearchCategory)).Cast<SearchCategory>().ToList();
+            Search();
         }
 
         private async Task SearchInternalAsync(SearchCategory searchCategory, string searchText)
@@ -141,13 +142,17 @@ namespace Kimera.ViewModels.Pages
             await SearchInternalAsync(_searchCategory, _textToSearch);
         }
 
-        public async void NavigateToGameView(Guid gameGuid)
+        public void NavigateToGameView(Guid gameGuid)
         {
-            GameViewModel viewModel = IoC.Get<GameViewModel>();
-            viewModel.InitializeGame(gameGuid);
+            Game game = App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefault();
 
-            ShellViewModel shell = IoC.Get<ShellViewModel>();
-            
+            if (game != null)
+            {
+                INavigationService navigationService = IoC.Get<INavigationService>();
+                navigationService.For<GameViewModel>()
+                    .WithParam(g => g.Game, game)
+                    .Navigate();
+            }
         }
 
         public void GoBack()

@@ -130,12 +130,12 @@ namespace Kimera
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<ShellViewModel>()
-                .Singleton<LibraryViewModel>();
+                .Singleton<LibraryViewModel>()
+                .Singleton<SearcherViewModel>();
 
             _container
                .PerRequest<StatisticsViewModel>()
                .PerRequest<SettingsViewModel>()
-               .PerRequest<SearcherViewModel>()
                .PerRequest<GameViewModel>();
         }
 

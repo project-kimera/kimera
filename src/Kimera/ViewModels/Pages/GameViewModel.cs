@@ -27,14 +27,14 @@ namespace Kimera.ViewModels.Pages
 
         public string Name
         {
-            get { return _game.GameMetadataNavigation.Name; }
+            get { return _game?.GameMetadataNavigation.Name; }
         }
 
         public string Description
         {
             get
             {
-                return _game.GameMetadataNavigation.Description;
+                return _game?.GameMetadataNavigation.Description;
             }
         }
 
@@ -42,7 +42,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                return _game.GameMetadataNavigation.Creator;
+                return _game?.GameMetadataNavigation.Creator;
             }
         }
 
@@ -58,7 +58,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                List<string> temp = _game.GameMetadataNavigation.Genres.Split(',').ToList();
+                List<string> temp = _game?.GameMetadataNavigation.Genres.Split(',').ToList();
                 return temp;
             }
         }
@@ -67,7 +67,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                List<string> temp = _game.GameMetadataNavigation.Tags.Split(',').ToList();
+                List<string> temp = _game?.GameMetadataNavigation.Tags.Split(',').ToList();
                 return temp;
             }
         }
@@ -76,7 +76,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                return _game.GameMetadataNavigation.SupportedLanguages;
+                return _game?.GameMetadataNavigation.SupportedLanguages;
             }
         }
 
@@ -92,7 +92,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                return _game.GameMetadataNavigation.Memo;
+                return _game?.GameMetadataNavigation.Memo;
             }
         }
 
@@ -124,7 +124,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                return _game.GameMetadataNavigation.ThumbnailUri;
+                return _game?.GameMetadataNavigation.ThumbnailUri;
             }
         }
 
@@ -132,7 +132,7 @@ namespace Kimera.ViewModels.Pages
         {
             get
             {
-                return _game.GameMetadataNavigation.HomepageUrl;
+                return _game?.GameMetadataNavigation.HomepageUrl;
             }
         }
 
