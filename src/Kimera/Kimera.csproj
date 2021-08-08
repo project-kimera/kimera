@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\placeholder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="5.0.25" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
@@ -19,9 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
-    <Folder Include="Messages\" />
-    <Folder Include="Resources\Images\" />
     <Folder Include="ViewModels\Dialogs\" />
     <Folder Include="Views\Dialogs\" />
   </ItemGroup>
@@ -31,6 +32,10 @@
     <ProjectReference Include="..\Kimera.Data\Kimera.Data.csproj" />
     <ProjectReference Include="..\Kimera.IO\Kimera.IO.csproj" />
     <ProjectReference Include="..\Kimera.Network\Kimera.Network.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\placeholder.png" />
   </ItemGroup>
 
 </Project>

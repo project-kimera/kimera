@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <!--View : Common-->
+    <system:String x:Key="VIEW_COMMON_GOBACK">돌아가기</system:String>
+    
     <!--View : ShellView-->
     <system:String x:Key="VIEW_SHELL_SEARCHBOX_HINT">검색</system:String>
     <system:String x:Key="VIEW_SHELL_LIBRARY_HEADER">라이브러리</system:String>
@@ -10,5 +13,10 @@
     <!--View : StatisticsView-->
 
     <!--View : SettingsView-->
-    
+
+    <!--View : SearcherView-->
+    <system:String x:Key="VIEW_SEARCHER_HEADER">검색기</system:String>
+    <system:String x:Key="VIEW_SEARCHER_CATEGORYBOX_HINT">검색 카테고리</system:String>
+    <system:String x:Key="VIEW_SEARCHER_TEXTBOX_HINT">검색어</system:String>
+    <system:String x:Key="VIEW_SEARCHER_SEARCH">검색</system:String>
 </ResourceDictionary>

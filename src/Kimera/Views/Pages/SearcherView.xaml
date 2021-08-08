@@ -9,9 +9,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Foreground="{DynamicResource KimeraForeground}"
-      Title="SearcherView">
-
+      Foreground="{DynamicResource KimeraForeground}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -31,9 +29,9 @@
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
                     </Button>
 
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="돌아가기" />
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_COMMON_GOBACK}" />
                     <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Text="검색" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{DynamicResource VIEW_SEARCHER_HEADER}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -47,7 +45,7 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox Grid.Column="0" Margin="20 0 10 0" VerticalAlignment="Center" BorderThickness="0"
-                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:HintAssist.Hint="Search Category"
+                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:HintAssist.Hint="{DynamicResource VIEW_SEARCHER_CATEGORYBOX_HINT}"
                       ItemsSource="{Binding SearchCategories}" SelectedItem="{Binding SearchCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Rectangle Grid.Column="1" Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
@@ -55,7 +53,7 @@
             <TextBox Grid.Column="2" Margin="10 0 10 0" VerticalAlignment="Center" BorderThickness="0"
                       materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                      materialDesign:TextFieldAssist.TextFieldCornerRadius="0"
-                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:HintAssist.Hint="Search Text"
+                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:HintAssist.Hint="{DynamicResource VIEW_SEARCHER_TEXTBOX_HINT}"
                      Text="{Binding TextToSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:KeyTrigger Key="Return">
@@ -69,7 +67,7 @@
                     Margin="10 0 16 0">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="Search" />
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" Text="검색" />
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" Text="{DynamicResource VIEW_SEARCHER_SEARCH}" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -85,8 +83,15 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource KimeraContentButton}" Margin="0 0 0 10" HorizontalContentAlignment="Stretch" Height="50"
-                                >
+                            <Button Style="{StaticResource KimeraContentButton}" Margin="0 0 0 10" HorizontalContentAlignment="Stretch" Height="50">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <caliburn:ActionMessage MethodName="NavigateToGameView">
+                                            <caliburn:Parameter Value="{Binding Game}"/>
+                                        </caliburn:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                
                                 <Grid HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100"/>

@@ -54,47 +54,11 @@ namespace Kimera.Data.Entities
         public virtual ICollection<CategorySubscription> CategorySubscriptions { get; set; } = new HashSet<CategorySubscription>();
 
         /// <summary>
-        /// The command to start the game.
-        /// </summary>
-        [NotMapped]
-        public ICommand StartGameCommand { get; private set; }
-
-        /// <summary>
-        /// The command to move the game to another category.
-        /// </summary>
-        [NotMapped]
-        public ICommand ChangeGameCategoryCommand { get; private set; }
-
-        /// <summary>
-        /// The command to remove the game.
-        /// </summary>
-        [NotMapped]
-        public ICommand RemoveGameCommand { get; private set; }
-
-        /// <summary>
-        /// The command to show the game information.
-        /// </summary>
-        [NotMapped]
-        public ICommand ShowGameInformationCommand { get; private set; }
-
-        /// <summary>
-        /// The command to edit the metadata of the game.
-        /// </summary>
-        [NotMapped]
-        public ICommand EditMetadataCommand { get; private set; }
-
-        /// <summary>
-        /// The command to edit the settings of the game.
-        /// </summary>
-        [NotMapped]
-        public ICommand EditSettingsCommand { get; private set; }
-
-        /// <summary>
         /// Creates a new instance of Game.
         /// </summary>
         public Game()
         {
-            InitializeCommands();
+
         }
 
         /// <summary>
@@ -109,18 +73,6 @@ namespace Kimera.Data.Entities
             GameMetadata = gameMetadataGuid;
             PackageMetadata = packageMetadataGuid;
             PackageStatus = packageStatus;
-
-            InitializeCommands();
-        }
-
-        private void InitializeCommands()
-        {
-            StartGameCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameStarterRequestedEvent(this, SystemId));
-            ChangeGameCategoryCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameCategoryChangerRequestedEvent(this, SystemId));
-            RemoveGameCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameRemoverRequestedEvent(this, SystemId));
-            ShowGameInformationCommand = new DelegateCommand(() => LibraryEventBroker.InvokeGameInformationRequestedEvent(this, SystemId));
-            EditMetadataCommand = new DelegateCommand(() => LibraryEventBroker.InvokeMetadataEditorRequestedEvent(this, SystemId));
-            EditSettingsCommand = new DelegateCommand(() => LibraryEventBroker.InvokeSettingsEditorRequestedEvent(this, SystemId));
         }
     }
 }

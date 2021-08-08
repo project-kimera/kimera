@@ -33,17 +33,11 @@ namespace Kimera.Data.Entities
         public virtual ICollection<CategorySubscription> CategorySubscriptions { get; set; } = new HashSet<CategorySubscription>();
 
         /// <summary>
-        /// The command to change the selected category.
-        /// </summary>
-        [NotMapped]
-        public ICommand ChangeSelectedCategoryCommand { get; private set; }
-
-        /// <summary>
         /// Creates a new instance of Category.
         /// </summary>
         public Category()
         {
-            InitializeCommands();
+            
         }
 
         /// <summary>
@@ -54,8 +48,6 @@ namespace Kimera.Data.Entities
         {
             SystemId = Guid.NewGuid();
             Name = name;
-
-            InitializeCommands();
         }
 
         /// <summary>
@@ -67,13 +59,6 @@ namespace Kimera.Data.Entities
         {
             SystemId = guid;
             Name = name;
-
-            InitializeCommands();
-        }
-
-        private void InitializeCommands()
-        {
-            ChangeSelectedCategoryCommand = new DelegateCommand(() => LibraryEventBroker.InvokeSelectedCategoryChangerRequestedEvent(this, SystemId));
         }
     }
 }

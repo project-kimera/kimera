@@ -1,14 +1,17 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
 using Kimera.Entities;
+using Kimera.Messages;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 
 namespace Kimera.ViewModels.Pages
@@ -50,11 +53,6 @@ namespace Kimera.ViewModels.Pages
         public SearcherViewModel()
         {
             SearchCategories = Enum.GetValues(typeof(SearchCategory)).Cast<SearchCategory>().ToList();
-        }
-
-        public async void Search()
-        {
-            await SearchInternalAsync(_searchCategory, _textToSearch);
         }
 
         private async Task SearchInternalAsync(SearchCategory searchCategory, string searchText)
@@ -136,6 +134,20 @@ namespace Kimera.ViewModels.Pages
             {
                 throw;
             }
+        }
+
+        public async void Search()
+        {
+            await SearchInternalAsync(_searchCategory, _textToSearch);
+        }
+
+        public async void NavigateToGameView(Guid gameGuid)
+        {
+            GameViewModel viewModel = IoC.Get<GameViewModel>();
+            viewModel.InitializeGame(gameGuid);
+
+            ShellViewModel shell = IoC.Get<ShellViewModel>();
+            
         }
 
         public void GoBack()

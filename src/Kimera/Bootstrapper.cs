@@ -128,14 +128,15 @@ namespace Kimera
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ShellViewModel>()
+                .Singleton<LibraryViewModel>();
 
             _container
-               .PerRequest<ShellViewModel>()
-               .PerRequest<LibraryViewModel>()
                .PerRequest<StatisticsViewModel>()
                .PerRequest<SettingsViewModel>()
-               .PerRequest<SearcherViewModel>();
+               .PerRequest<SearcherViewModel>()
+               .PerRequest<GameViewModel>();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
