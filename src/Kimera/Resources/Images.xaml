@@ -1,4 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ImageSource x:Key="ImagePlaceholder">pack://application:,,,/Kimera;component/Resources/Images/placeholder.png</ImageSource>
-</ResourceDictionary>

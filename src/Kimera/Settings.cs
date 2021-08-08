@@ -35,10 +35,7 @@ namespace Kimera
 
         #region ::Application Settings::
 
-        /// <summary>
-        /// Gets or sets the latest search category.
-        /// </summary>
-        public SearchCategory LatestSearchCategory { get; set; } = SearchCategory.All;
+
 
         #endregion
 

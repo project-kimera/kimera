@@ -1,0 +1,81 @@
+﻿<Window x:Class="Kimera.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kimera.Views"
+        xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Style="{StaticResource KimeraStripedWindow}"
+        Title="Kimera" Height="850" Width="1400" MinHeight="550" MinWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Title Bar-->
+        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="128"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Icon-->
+                <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{StaticResource KimeraLogo}"/>
+
+                <!--Search Bar-->
+                <Button x:Name="NavigateToSearcher" Grid.Column="1" Style="{StaticResource KimeraContentButton}" Background="{StaticResource KimeraDivider}"
+                        Margin="16 0 0 0" Height="34" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_SEARCHBOX_HINT}"/>
+
+                        <materialDesign:PackIcon Grid.Column="1" Foreground="{StaticResource KimeraForegroundLight}" Margin="8 0 8 0" VerticalAlignment="Center" Kind="Search" Opacity=".56" />
+                    </Grid>
+                </Button>
+
+                <!--Action Buttons-->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
+                    <Button x:Name="NavigateToLibrary" Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}"
+                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_LIBRARY_HEADER}" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="NavigateToStatistics" Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}"
+                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_STATISTICS_HEADER}" />
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="NavigateToSettings" Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}"
+                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_SETTINGS_HEADER}" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Background="{StaticResource KimeraBackground}">
+            <Frame NavigationUIVisibility="Hidden" caliburn:Message.Attach="RegisterFrame($source)" />
+        </Grid>
+    </Grid>
+</Window>

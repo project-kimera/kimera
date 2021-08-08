@@ -1,7 +1,9 @@
 ﻿using Kimera.Data.Entities;
-using Kimera.Validators;
-using System.Globalization;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,7 +24,7 @@ namespace Kimera.Utilities
                 return false;
             }
 
-            if (!new ScoreValidationRule().Validate(metadata.Score.ToString(), CultureInfo.CurrentCulture).IsValid)
+            /*if (!new ScoreValidationRule().Validate(metadata.Score.ToString(), CultureInfo.CurrentCulture).IsValid)
             {
                 return false;
             }
@@ -35,7 +37,7 @@ namespace Kimera.Utilities
             if (!new UriValidationRule().Validate(metadata.ThumbnailUri, CultureInfo.CurrentCulture).IsValid)
             {
                 return false;
-            }
+            }*/
 
             return true;
         }

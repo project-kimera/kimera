@@ -10,7 +10,7 @@ namespace Kimera.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int hours = (int)value / 3600;
-            int minutes = ((int)value / 60) - hours*60;
+            int minutes = ((int)value / 60) - hours * 60;
 
             switch (culture.TwoLetterISOLanguageName)
             {

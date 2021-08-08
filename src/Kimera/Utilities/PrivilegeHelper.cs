@@ -6,7 +6,7 @@ using System.Security.Principal;
 
 namespace Kimera.Utilities
 {
-    public static class PrivilegeHelper
+    internal static class PrivilegeHelper
     {
         public static bool IsAdministrator()
         {
