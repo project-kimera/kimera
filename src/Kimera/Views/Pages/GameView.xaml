@@ -26,9 +26,9 @@
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
                     </Button>
 
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="돌아가기" />
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_COMMON_GOBACK}" />
                     <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Text="{Binding Name}" TextTrimming="CharacterEllipsis"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -90,7 +90,7 @@
                                 Foreground="{DynamicResource KimeraForegroundLight}" BorderBrush="{DynamicResource KimeraForegroundLight}"
                                 Padding="0" Width="200" Height="50"
                                 Command="{Binding StartGameCommand}">
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="게임 실행" />
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="{DynamicResource VIEW_GAME_START}" />
                             </Button>
 
                             <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 10 0" Width="36" Height="36"
@@ -103,53 +103,53 @@
 
                         <!--Metadatas-->
                         <StackPanel Orientation="Vertical" Margin="20 0 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="장르" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_GENRES_HEADER}" />
 
                             <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" IsEnabled="false" ItemsSource="{Binding Genres}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 10 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="태그" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_TAGS_HEADER}" />
 
                             <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" IsEnabled="false" ItemsSource="{Binding Tags}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="정보" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_INFO_HEADER}" />
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="플레이 시간" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_PLAYTIME_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding PlayTime, Converter={StaticResource IntegerToTimeStringConverter}}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="게임 등록 시각" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_FIRSTTIME_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding FirstTime}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="마지막 플레이 시각" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_LASTTIME_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding LastTime}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="제작자" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_CREATOR_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding Creator}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="연령 등급" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_AGE_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding AdmittedAge}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="지원 언어" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_LANGS_HEADER}" />
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding SupportedLanguages}"/>
                             </StackPanel>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="평가" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_SCORE_HEADER}" />
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
                                 <materialDesign:RatingBar  VerticalAlignment="Center" IsReadOnly="True" Value="{Binding Score}"/>
@@ -162,10 +162,11 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 100">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="메모" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_MEMO_HEADER}" />
 
                             <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 4 0 0" VerticalAlignment="Top" Height="150"
-                                     AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Memo" materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}"
+                                     AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                     materialDesign:HintAssist.Hint="{DynamicResource VIEW_GAME_MEMO_HINT}" materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}"
                                      Text=""/>
                         </StackPanel>
                     </StackPanel>

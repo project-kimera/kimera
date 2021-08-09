@@ -19,4 +19,19 @@
     <system:String x:Key="VIEW_SEARCHER_CATEGORYBOX_HINT">검색 카테고리</system:String>
     <system:String x:Key="VIEW_SEARCHER_TEXTBOX_HINT">검색어</system:String>
     <system:String x:Key="VIEW_SEARCHER_SEARCH">검색</system:String>
+    
+    <!--View : GameView-->
+    <system:String x:Key="VIEW_GAME_START">게임 실행</system:String>
+    <system:String x:Key="VIEW_GAME_GENRES_HEADER">장르</system:String>
+    <system:String x:Key="VIEW_GAME_TAGS_HEADER">태그</system:String>
+    <system:String x:Key="VIEW_GAME_INFO_HEADER">정보</system:String>
+    <system:String x:Key="VIEW_GAME_PLAYTIME_HEADER">플레이 시간</system:String>
+    <system:String x:Key="VIEW_GAME_FIRSTTIME_HEADER">게임 등록 시각</system:String>
+    <system:String x:Key="VIEW_GAME_LASTTIME_HEADER">마지막 플레이 시각</system:String>
+    <system:String x:Key="VIEW_GAME_CREATOR_HEADER">제작자</system:String>
+    <system:String x:Key="VIEW_GAME_AGE_HEADER">연령 등급</system:String>
+    <system:String x:Key="VIEW_GAME_LANGS_HEADER">지원 언어</system:String>
+    <system:String x:Key="VIEW_GAME_SCORE_HEADER">평가</system:String>
+    <system:String x:Key="VIEW_GAME_MEMO_HEADER">메모</system:String>
+    <system:String x:Key="VIEW_GAME_MEMO_HINT">메모</system:String>
 </ResourceDictionary>
