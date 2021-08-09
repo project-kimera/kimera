@@ -60,7 +60,7 @@ namespace Kimera.ViewModels.Pages
         {
             try
             {
-                string[] parameters = searchText.Split(' ', '　');
+                string[] parameters = searchText?.Split(' ', '　');
 
                 var predicate = PredicateBuilder.New<GameMetadata>();
 

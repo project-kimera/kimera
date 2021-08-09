@@ -72,6 +72,12 @@ namespace Kimera.Services
 
         #region ::Methods::
 
+        public async void ChangeCategory(Guid categoryGuid)
+        {
+            await UpdateSelectedCategoryAsync(categoryGuid);
+            await UpdateGamesAsync(categoryGuid);
+        }
+
         public void UpdateCategories()
         {
             try
@@ -118,6 +124,7 @@ namespace Kimera.Services
                 if (category != null)
                 {
                     SelectedCategory = categoryGuid;
+                    NotifyOfPropertyChange(() => SelectedCategory);
 
                     return true;
                 }

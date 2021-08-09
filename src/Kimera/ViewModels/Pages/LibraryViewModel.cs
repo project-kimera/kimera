@@ -15,12 +15,20 @@ namespace Kimera.ViewModels.Pages
     {
         #region ::Variables & Properties::
 
-        private LibraryService _service = IoC.Get<LibraryService>();
+        private LibraryService _libraryService = IoC.Get<LibraryService>();
 
-        public LibraryService Service
+        public LibraryService LibraryService
         {
-            get => _service;
-            set => Set(ref _service, value);
+            get => _libraryService;
+            set => Set(ref _libraryService, value);
+        }
+
+        private GameService _gameService = IoC.Get<GameService>();
+
+        public GameService GameService
+        {
+            get => _gameService;
+            set => Set(ref _gameService, value);
         }
 
         private BindableCollection<Game> _filteredGames = new BindableCollection<Game>();
@@ -54,19 +62,19 @@ namespace Kimera.ViewModels.Pages
 
         public async void RefreshGames()
         {
-            await _service.UpdateGamesAsync(_service.SelectedCategory);
+            await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory);
         }
 
         public async void ChangeToAllCategory()
         {
-            await _service.UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
-            await _service.UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
+            await _libraryService.UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
+            await _libraryService.UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
         }
 
         public async void ChangeToFavoriteCategory()
         {
-            await _service.UpdateSelectedCategoryAsync(Settings.GUID_FAVORITE_CATEGORY);
-            await _service.UpdateGamesAsync(Settings.GUID_FAVORITE_CATEGORY);
+            await _libraryService.UpdateSelectedCategoryAsync(Settings.GUID_FAVORITE_CATEGORY);
+            await _libraryService.UpdateGamesAsync(Settings.GUID_FAVORITE_CATEGORY);
         }
 
         public async void AddCategory()
@@ -93,8 +101,8 @@ namespace Kimera.ViewModels.Pages
                             await App.DatabaseContext.Categories.AddAsync(category);
                             await App.DatabaseContext.SaveChangesAsync();
 
-                            await _service.UpdateSelectedCategoryAsync(category.SystemId);
-                            await _service.UpdateGamesAsync(category.SystemId);
+                            await _libraryService.UpdateSelectedCategoryAsync(category.SystemId);
+                            await _libraryService.UpdateGamesAsync(category.SystemId);
 
                             await transaction.CommitAsync();
                         }
@@ -118,9 +126,9 @@ namespace Kimera.ViewModels.Pages
             CategoryNameEditorViewModel viewModel = new CategoryNameEditorViewModel();
             viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYNAMEEDITOR_TITLE"];
             viewModel.Caption = (string)App.Current.Resources["VIEW_CATEGORYENAMEEDITOR_CAPTION"];
-            viewModel.Categories = _service.Categories;
-            viewModel.SelectedCategory = _service.SelectedCategory == Settings.GUID_ALL_CATEGORY || _service.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
-                ? _service.Categories.FirstOrDefault() : _service.Categories.Where(c => c.SystemId == _service.SelectedCategory).FirstOrDefault();
+            viewModel.Categories = _libraryService.Categories;
+            viewModel.SelectedCategory = _libraryService.SelectedCategory == Settings.GUID_ALL_CATEGORY || _libraryService.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
+                ? _libraryService.Categories.FirstOrDefault() : _libraryService.Categories.Where(c => c.SystemId == _libraryService.SelectedCategory).FirstOrDefault();
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel);
 
@@ -135,8 +143,8 @@ namespace Kimera.ViewModels.Pages
                             viewModel.SelectedCategory.Name = viewModel.Text;
                             await App.DatabaseContext.SaveChangesAsync();
 
-                            await _service.UpdateCategoriesAsync();
-                            await _service.UpdateSelectedCategoryAsync(_service.SelectedCategory);
+                            await _libraryService.UpdateCategoriesAsync();
+                            await _libraryService.UpdateSelectedCategoryAsync(_libraryService.SelectedCategory);
 
                             await transaction.CommitAsync();
                         }
@@ -160,9 +168,9 @@ namespace Kimera.ViewModels.Pages
             CategorySelectorViewModel viewModel = new CategorySelectorViewModel();
             viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE"];
             viewModel.Caption = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION"];
-            viewModel.Categories = _service.Categories;
-            viewModel.SelectedCategory = _service.SelectedCategory == Settings.GUID_ALL_CATEGORY || _service.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
-                ? _service.Categories.FirstOrDefault() : _service.Categories.Where(c => c.SystemId == _service.SelectedCategory).FirstOrDefault();
+            viewModel.Categories = _libraryService.Categories;
+            viewModel.SelectedCategory = _libraryService.SelectedCategory == Settings.GUID_ALL_CATEGORY || _libraryService.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
+                ? _libraryService.Categories.FirstOrDefault() : _libraryService.Categories.Where(c => c.SystemId == _libraryService.SelectedCategory).FirstOrDefault();
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel);
 
@@ -201,24 +209,19 @@ namespace Kimera.ViewModels.Pages
             ViewTemplate = App.Current.FindResource("IconViewItemTemplate") as DataTemplate;
         }
 
-        public void ShowAddExecutableFilePage()
+        public void NavigateToSingleFileRegister()
         {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ShellViewModel));
+            IoC.Get<INavigationService>().NavigateToViewModel(typeof(SingleFileRegisterViewModel));
         }
 
-        public void ShowAddArchiveFilePage()
+        public void NavigateToChunkRegister()
         {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ShellViewModel));
+            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ChunkRegisterViewModel));
         }
 
-        public void ShowAddMultipleFilePage()
+        public void NavigateToMultipleFileRegister()
         {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ShellViewModel));
-        }
-
-        public void ShowAddFolderPage()
-        {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ShellViewModel));
+            IoC.Get<INavigationService>().NavigateToViewModel(typeof(MultipleFileRegisterViewModel));
         }
 
         #endregion

@@ -43,7 +43,7 @@
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                        VerticalAlignment="Center" FontWeight="Bold" Text=" : " />
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
-                                       Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Service.SelectedCategory, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CategoryGuidToNameConverter}}" />
+                                       Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategory, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CategoryGuidToNameConverter}}" />
                         </StackPanel>
                     </materialDesign:PopupBox.ToggleContent>
 
@@ -90,11 +90,20 @@
                         <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
                             <Grid>
                                 <ScrollViewer VerticalScrollBarVisibility="Visible">
-                                    <ItemsControl ItemsSource="{Binding Service.Categories}">
+                                    <ItemsControl x:Name="CategoryItems" ItemsSource="{Binding LibraryService.Categories}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
                                                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForeground}"
-                                                            HorizontalContentAlignment="Left" Height="40">
+                                                        HorizontalContentAlignment="Left" Height="40"
+                                                        caliburn:Action.TargetWithoutContext="{Binding DataContext.LibraryService, ElementName=CategoryItems}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <caliburn:ActionMessage MethodName="ChangeCategory">
+                                                                <caliburn:Parameter Value="{Binding SystemId}"/>
+                                                            </caliburn:ActionMessage>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+
                                                     <StackPanel Orientation="Horizontal" Margin="0 8 0 8" HorizontalAlignment="Left">
                                                         <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
                                                         <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -153,19 +162,22 @@
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
 
-                <materialDesign:PopupBox Margin="6 0 6 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{DynamicResource VIEW_LIBRARY_ADD_SINGLE_HINT}">
+                <materialDesign:PopupBox Margin="6 0 6 0" Padding="0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{DynamicResource VIEW_LIBRARY_ADD_SINGLE_HINT}">
                     <materialDesign:PopupBox.ToggleContent>
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                 </materialDesign:PopupBox>
 
-                <materialDesign:PopupBox Margin="0 0 0 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_HINT}">
+                <materialDesign:PopupBox Margin="0 0 0 0" Padding="0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_HINT}"
+                                         caliburn:Message.Attach="[Event Click] = [Action NavigateToSingleFileRegister()]">
                     <materialDesign:PopupBox.ToggleContent>
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel Orientation="Vertical" Background="{StaticResource KimeraPopupBoxBackground}">
-                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_CHUNK_HINT}" />
-                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT}" />
+                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_CHUNK_HINT}"
+                                caliburn:Message.Attach="NavigateToChunkRegister()"/>
+                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT}"
+                                caliburn:Message.Attach="NavigateToMultipleFileRegister()"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
@@ -174,7 +186,7 @@
         <wpftk:VirtualizingItemsControl
             Grid.Row="1"
             Margin="10 0 10 10"
-            ItemsSource="{Binding Service.Games}"
+            ItemsSource="{Binding LibraryService.Games}"
             ItemTemplate="{Binding ViewTemplate}"
             VirtualizingPanel.CacheLengthUnit="Page"
             VirtualizingPanel.CacheLength="1,1"

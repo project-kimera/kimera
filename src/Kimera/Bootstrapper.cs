@@ -34,21 +34,35 @@ namespace Kimera
         {
             _container.Instance(_container);
 
+            // Singletons
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<GameService>()
                 .Singleton<LibraryService>()
                 .Singleton<ShellViewModel>()
                 .Singleton<SearcherViewModel>();
 
+            // Shell Pages
             _container
                .PerRequest<LibraryViewModel>()
                .PerRequest<StatisticsViewModel>()
-               .PerRequest<SettingsViewModel>()
+               .PerRequest<SettingsViewModel>();
+
+            // Pages
+            _container
                .PerRequest<GameViewModel>()
+               .PerRequest<SingleFileRegisterViewModel>()
+               .PerRequest<ChunkRegisterViewModel>()
+               .PerRequest<MultipleFileRegisterViewModel>();
+
+            // Dialogs
+            _container
                .PerRequest<CategoryNameEditorViewModel>()
                .PerRequest<CategorySelectorViewModel>()
-               .PerRequest<StringEditorViewModel>();
+               .PerRequest<StringEditorViewModel>()
+               .PerRequest<MetadataEditorViewModel>()
+               .PerRequest<SettingsEditorViewModel>();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
