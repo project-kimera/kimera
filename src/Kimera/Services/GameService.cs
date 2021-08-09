@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
+using Kimera.Data.Enums;
 using Kimera.ViewModels.Pages;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,30 @@ namespace Kimera.Services
 
         #region ::Methods::
 
+        private async Task AddGameAsync(PackageType type, GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Guid> categories)
+        {
 
+        }
+
+        private async Task RemoveGameAsync(Game game)
+        {
+
+        }
+
+        private async Task ValidateGameAsync(Game game)
+        {
+
+        }
+
+        private async Task StartGameAsync(Game game)
+        {
+
+        }
+
+        private async Task ProcessGameAsync(Game game)
+        {
+
+        }
 
         #endregion
 
@@ -66,12 +90,12 @@ namespace Kimera.Services
             }
         }
 
-        public void CallMetadataEditor(Guid gameGuid)
+        public void CallGameMetadataEditor(Guid gameGuid)
         {
 
         }
 
-        public void CallSettingsEditor(Guid gameGuid)
+        public void CallPackageMetadataEditor(Guid gameGuid)
         {
 
         }

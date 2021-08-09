@@ -58,20 +58,20 @@
             </i:Interaction.Triggers>
         </MenuItem>
 
-        <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_MD}">
+        <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_GM}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                    <caliburn:ActionMessage MethodName="CallMetadataEditor">
+                    <caliburn:ActionMessage MethodName="CallGameMetadataEditor">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </MenuItem>
 
-        <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_ST}">
+        <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_PM}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                    <caliburn:ActionMessage MethodName="CallSettingsEditor">
+                    <caliburn:ActionMessage MethodName="CallPackageMetadataEditor">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>
                 </i:EventTrigger>

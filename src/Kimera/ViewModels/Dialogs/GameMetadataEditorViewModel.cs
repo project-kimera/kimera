@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kimera.ViewModels.Dialogs
 {
-    public class MetadataEditorViewModel : Screen
+    public class GameMetadataEditorViewModel : Screen
     {
     }
 }

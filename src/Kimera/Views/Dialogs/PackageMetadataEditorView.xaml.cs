@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Kimera.Views.Dialogs
 {
     /// <summary>
-    /// SettingsEditorView.xaml에 대한 상호 작용 논리
+    /// PackageMetadataEditorView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SettingsEditorView : Window
+    public partial class PackageMetadataEditorView : Window
     {
-        public SettingsEditorView()
+        public PackageMetadataEditorView()
         {
             InitializeComponent();
         }

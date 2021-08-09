@@ -109,7 +109,7 @@
                                     caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
-                                        <caliburn:ActionMessage MethodName="CallSettingsEditor">
+                                        <caliburn:ActionMessage MethodName="CallPackageMetadataEditor">
                                             <caliburn:Parameter Value="{Binding Game.SystemId}"/>
                                         </caliburn:ActionMessage>
                                     </i:EventTrigger>
@@ -178,7 +178,7 @@
                                         caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}" Cursor="Hand">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Click">
-                                            <caliburn:ActionMessage MethodName="CallMetadataEditor">
+                                            <caliburn:ActionMessage MethodName="CallGameMetadataEditor">
                                                 <caliburn:Parameter Value="{Binding Game.SystemId}"/>
                                             </caliburn:ActionMessage>
                                         </i:EventTrigger>

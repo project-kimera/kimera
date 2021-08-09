@@ -58,8 +58,8 @@ namespace Kimera
                .PerRequest<CategoryNameEditorViewModel>()
                .PerRequest<CategorySelectorViewModel>()
                .PerRequest<StringEditorViewModel>()
-               .PerRequest<MetadataEditorViewModel>()
-               .PerRequest<SettingsEditorViewModel>();
+               .PerRequest<GameMetadataEditorViewModel>()
+               .PerRequest<PackageMetadataEditorViewModel>();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)

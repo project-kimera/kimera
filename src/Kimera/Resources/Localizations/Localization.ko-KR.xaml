@@ -31,8 +31,8 @@
 
     <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_START">실행</system:String>
     <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_MOVE">다른 카테고리로 이동</system:String>
-    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_MD">메타데이터 편집</system:String>
-    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_ST">설정 편집</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_GM">게임 정보편집</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_PM">패키지 정보 편집</system:String>
     <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_REMOVE_RES">게임 리소스 제거</system:String>
     <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_REMOVE_GM">게임 제거</system:String>
 
@@ -73,6 +73,8 @@
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
 
+    
+    
     <!--ViewModel : LibraryViewModel-->
     <system:String x:Key="VM_LIBRARY_CATEGORY_EXISTS_MSG">이미 존재하는 카테고리입니다.</system:String>
     <system:String x:Key="VM_LIBRARY_CATEGORY_EMPTY_NAME_MSG">카테고리 명을 입력해주세요.</system:String>
