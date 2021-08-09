@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
+using Kimera.Data.Extensions;
 using Kimera.Messages;
+using Kimera.Services;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -17,12 +19,25 @@ namespace Kimera.ViewModels.Pages
     {
         #region ::Aasfeqwt::
 
+        private GameService _gameService = IoC.Get<GameService>();
+
+        public GameService GameService
+        {
+            get => _gameService;
+            set => Set(ref _gameService, value);
+        }
+
         private Game _game = new Game();
 
         public Game Game
         {
             get => _game;
             set => Set(ref _game, value);
+        }
+
+        public PackageStatus PackageStatus
+        {
+            get => _game.PackageStatus;
         }
 
         public string Name
@@ -73,11 +88,6 @@ namespace Kimera.ViewModels.Pages
             get => _game.GameMetadataNavigation.Score;
         }
 
-        public string Memo
-        {
-            get => _game?.GameMetadataNavigation.Memo;
-        }
-
         public int PlayTime
         {
             get => _game.GameMetadataNavigation.PlayTime;
@@ -102,10 +112,21 @@ namespace Kimera.ViewModels.Pages
         {
             get => _game?.GameMetadataNavigation.HomepageUrl;
         }
-
-        public PackageStatus PackageStatus
+        public string Memo
         {
-            get => _game.PackageStatus;
+            get => _game?.GameMetadataNavigation.Memo;
+            set
+            {
+                using (var transaction = App.DatabaseContext.Database.BeginTransaction())
+                {
+                    _game.GameMetadataNavigation.Memo = value;
+                    App.DatabaseContext.SaveChanges();
+
+                    transaction.Commit();
+                }
+
+                NotifyOfPropertyChange(Memo);
+            }
         }
 
         #endregion

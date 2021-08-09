@@ -2,6 +2,7 @@
 using Kimera.Data.Entities;
 using Kimera.Entities;
 using Kimera.Messages;
+using Kimera.Services;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,14 @@ namespace Kimera.ViewModels.Pages
 {
     public class SearcherViewModel : Screen
     {
+        private GameService _gameService = IoC.Get<GameService>();
+
+        public GameService GameService
+        {
+            get => _gameService;
+            set => Set(ref _gameService, value);
+        }
+
         private string _textToSearch = string.Empty;
 
         public string TextToSearch
@@ -140,19 +149,6 @@ namespace Kimera.ViewModels.Pages
         public async void Search()
         {
             await SearchInternalAsync(_searchCategory, _textToSearch);
-        }
-
-        public void NavigateToGameView(Guid gameGuid)
-        {
-            Game game = App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefault();
-
-            if (game != null)
-            {
-                INavigationService navigationService = IoC.Get<INavigationService>();
-                navigationService.For<GameViewModel>()
-                    .WithParam(g => g.Game, game)
-                    .Navigate();
-            }
         }
 
         public void GoBack()

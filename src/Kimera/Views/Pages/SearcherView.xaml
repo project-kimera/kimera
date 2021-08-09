@@ -74,7 +74,7 @@
 
         <Grid Grid.Row="2">
             <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <ItemsControl Margin="10" ItemsSource="{Binding SearchResults}">
+                <ItemsControl x:Name="SearchResultItems" Margin="10" ItemsSource="{Binding SearchResults}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Vertical"/>
@@ -83,10 +83,11 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Style="{StaticResource KimeraContentButton}" Margin="0 0 0 10" HorizontalContentAlignment="Stretch" Height="50">
+                            <Button Style="{StaticResource KimeraContentButton}" Margin="0 0 0 10" HorizontalContentAlignment="Stretch" Height="50"
+                                    caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=SearchResultItems}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
-                                        <caliburn:ActionMessage MethodName="NavigateToGameView">
+                                        <caliburn:ActionMessage MethodName="ViewGame">
                                             <caliburn:Parameter Value="{Binding Game}"/>
                                         </caliburn:ActionMessage>
                                     </i:EventTrigger>

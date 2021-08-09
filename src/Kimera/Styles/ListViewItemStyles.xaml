@@ -1,25 +1,118 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data">
+                    xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data"
+                    xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel">
+    <!--Context Menu-->
+    <ContextMenu x:Key="LibraryContextMenu"
+                 caliburn:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+
+        <MenuItem Height="60">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="ViewGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <MenuItem.Icon>
+                <Ellipse VerticalAlignment="Center" Width="10" Height="10" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToBrushConverter}}"/>
+
+            </MenuItem.Icon>
+            
+            <MenuItem.Header>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Foreground="{DynamicResource KimeraForeground}" Margin="0 0 0 0"
+                               FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
+                               Text="{Binding GameMetadataNavigation.Name}" />
+                    <TextBlock Foreground="{DynamicResource KimeraForegroundLight}"
+                                       Margin="0 6 0 0" VerticalAlignment="Center"
+                                       FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
+                                       Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
+                </StackPanel>
+            </MenuItem.Header>
+        </MenuItem>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_START}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="StartGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
+        <Separator/>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_MOVE}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="MoveGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_MD}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="CallMetadataEditor">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_ST}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="CallSettingsEditor">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
+        <Separator/>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=DeleteSweep}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_REMOVE_RES}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="RemoveGameResources">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
+        <MenuItem Icon="{materialDesign:PackIcon Kind=Delete}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_REMOVE_GM}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="RemoveGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+    </ContextMenu>
+
+    <!--Tile View-->
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
-        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
-            <Button.ContextMenu>
-                <ContextMenu x:Name="contextMenu">
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"/>
-
-                    <Separator/>
-
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"/>
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"/>
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"/>
-
-                    <Separator/>
-
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"/>
-                </ContextMenu>
-            </Button.ContextMenu>
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{StaticResource LibraryContextMenu}"
+                Tag="{Binding DataContext.GameService, ElementName=GameItems}"
+                caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="ViewGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
             <Grid Width="260" Height="220">
                 <Grid.RowDefinitions>
@@ -50,30 +143,25 @@
                     </StackPanel>
 
                     <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
+                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
                     </Button>
                 </Grid>
             </Grid>
         </Button>
     </DataTemplate>
 
+    <!--Icon View-->
     <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:Game">
-        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
-            <Button.ContextMenu>
-                <ContextMenu x:Name="contextMenu">
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"/>
-
-                    <Separator/>
-
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"/>
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"/>
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"/>
-
-                    <Separator/>
-
-                    <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"/>
-                </ContextMenu>
-            </Button.ContextMenu>
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{StaticResource LibraryContextMenu}"
+                Tag="{Binding DataContext.GameService, ElementName=GameItems}"
+                caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="ViewGame">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
             <Grid Margin="10" Width="80" Height="100" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
@@ -84,7 +172,7 @@
                 <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top"
                        Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
-                <TextBlock Grid.Row="1" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0" HorizontalAlignment="Center"
+                <TextBlock Grid.Row="1" Foreground="{StaticResource KimeraForeground}" Margin="0 6 0 0" HorizontalAlignment="Center"
                            FontSize="11" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
                            Text="{Binding GameMetadataNavigation.Name}" />
             </Grid>

@@ -41,13 +41,10 @@ namespace Kimera
                 .Singleton<GameService>()
                 .Singleton<LibraryService>()
                 .Singleton<ShellViewModel>()
+                .Singleton<LibraryViewModel>()
+                .Singleton<StatisticsViewModel>()
+                .Singleton<SettingsViewModel>()
                 .Singleton<SearcherViewModel>();
-
-            // Shell Pages
-            _container
-               .PerRequest<LibraryViewModel>()
-               .PerRequest<StatisticsViewModel>()
-               .PerRequest<SettingsViewModel>();
 
             // Pages
             _container

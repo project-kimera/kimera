@@ -29,6 +29,13 @@
     <system:String x:Key="VIEW_LIBRARY_ADD_CHUNK_HINT">파일들을 단일 게임으로 추가하기</system:String>
     <system:String x:Key="VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT">파일들을 개별 게임으로 추가하기</system:String>
 
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_START">실행</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_MOVE">다른 카테고리로 이동</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_MD">메타데이터 편집</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_EDIT_ST">설정 편집</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_REMOVE_RES">게임 리소스 제거</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CONTEXTMENU_REMOVE_GM">게임 제거</system:String>
+
     <!--View : StatisticsView-->
 
     <!--View : SettingsView-->
