@@ -22,32 +22,32 @@ namespace Kimera.ViewModels.Pages
 
         public string TextToSearch
         {
-            get { return _textToSearch; }
-            set { Set(ref _textToSearch, value); }
+            get => _textToSearch;
+            set => Set(ref _textToSearch, value);
         }
 
         private List<SearchCategory> _searchCategories = new List<SearchCategory>();
 
         public List<SearchCategory> SearchCategories
         {
-            get { return _searchCategories; }
-            set { Set(ref _searchCategories, value); }
+            get => _searchCategories;
+            set => Set(ref _searchCategories, value);
         }
 
         private SearchCategory _searchCategory = SearchCategory.All;
 
         public SearchCategory SearchCategory
         {
-            get { return _searchCategory; }
-            set { Set(ref _searchCategory, value); }
+            get => _searchCategory;
+            set => Set(ref _searchCategory, value);
         }
 
         private BindableCollection<GameMetadata> _searchResults = new BindableCollection<GameMetadata>();
 
         public BindableCollection<GameMetadata> SearchResults
         {
-            get { return _searchResults; }
-            set { Set(ref _searchResults, value); }
+            get => _searchResults;
+            set => Set(ref _searchResults, value);
         }
 
         public SearcherViewModel()

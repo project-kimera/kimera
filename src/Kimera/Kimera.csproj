@@ -23,12 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Dialogs\" />
-    <Folder Include="Views\Dialogs\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Kimera.Common\Kimera.Common.csproj" />
     <ProjectReference Include="..\Kimera.Data\Kimera.Data.csproj" />
     <ProjectReference Include="..\Kimera.IO\Kimera.IO.csproj" />
     <ProjectReference Include="..\Kimera.Network\Kimera.Network.csproj" />

@@ -21,7 +21,7 @@ namespace Kimera.Data.Extensions
         /// <param name="guid">The GUID of a category to create.</param>
         /// <param name="name">The name of a category to create.</param>
         /// <returns></returns>
-        public static async Task EnsureCategoryCreated(this KimeraContext context, Guid guid, string name)
+        public static async Task EnsureCategoryCreatedAsync(this KimeraContext context, Guid guid, string name)
         {
             Category category = await context.Categories.Where(c => c.SystemId == guid).FirstOrDefaultAsync();
 

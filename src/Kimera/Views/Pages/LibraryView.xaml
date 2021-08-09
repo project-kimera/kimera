@@ -4,10 +4,187 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kimera.Views.Pages"
+      xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <TextBlock Text="라이브러리 테스트"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="0" Background="Transparent" Margin="10" Height="44" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button x:Name="RefreshGames" Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="새로고침"
+                        caliburn:Message.Attach="RefreshGames()">
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Refresh"/>
+                </Button>
+
+                <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
+
+                <materialDesign:PopupBox Margin="16 0 16 0" Padding="0" Height="32" PlacementMode="BottomAndAlignLeftEdges" StaysOpen="True">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="카테고리 : " />
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Service.SelectedCategory, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CategoryGuidToNameConverter}}" />
+                        </StackPanel>
+                    </materialDesign:PopupBox.ToggleContent>
+
+                    <Grid Width="300" Height="400">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="10 10 10 10" Text="카테고리" />
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}" Height="40"
+                                    caliburn:Message.Attach="ChangeToAllCategory()">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Home"/>
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="전체" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Height="40"
+                                    caliburn:Message.Attach="ChangeToFavoriteCategory()">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Star"/>
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="즐겨찾기" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
+                            <Grid>
+                                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                                    <ItemsControl ItemsSource="{Binding Service.Categories}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Button Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" Foreground="{DynamicResource KimeraForeground}">
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                                            <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
+                                                            <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=Name}" />
+                                                        </StackPanel>
+                                                    </Button>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="추가"
+                                    caliburn:Message.Attach="AddCategory()">
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Plus"/>
+                            </Button>
+
+                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="이름 변경"
+                                    caliburn:Message.Attach="RenameCategory()">
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Rename"/>
+                            </Button>
+
+                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="삭제"
+                                    caliburn:Message.Attach="RemoveCategory()">
+                                <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:PopupBox>
+
+                <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="정렬 기준">
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Sort"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="필터">
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FilterOutline"/>
+                </Button>
+
+                <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="타일"
+                        caliburn:Message.Attach="ChangeToTileView()">
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
+                </Button>
+
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="아이콘"
+                        caliburn:Message.Attach="ChangeToIconView()">
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+
+                <materialDesign:PopupBox Margin="6 0 6 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="게임 추가">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel>
+                        <Button Content="실행 파일로 추가하기" />
+                        <Button Content="압축 파일로 추가하기" />
+                        <Button Content="여러 파일을 한 게임으로 추가하기" />
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <materialDesign:PopupBox Margin="0 0 0 0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="여러 게임 추가">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
+                    </materialDesign:PopupBox.ToggleContent>
+                    <StackPanel>
+                        <Button Content="폴더에서 추가하기" />
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Grid>
+
+        <wpftk:VirtualizingItemsControl
+            Grid.Row="1"
+            Margin="10 0 10 10"
+            ItemsSource="{Binding Service.Games}"
+            ItemTemplate="{Binding ViewTemplate}"
+            VirtualizingPanel.CacheLengthUnit="Page"
+            VirtualizingPanel.CacheLength="1,1"
+            VirtualizingPanel.ScrollUnit="Pixel"
+            VirtualizingPanel.VirtualizationMode="Standard"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <wpftk:VirtualizingWrapPanel Orientation="Vertical"
+                                                 SpacingMode="BetweenItemsOnly" StretchItems="True" ScrollLineDelta="16" MouseWheelDelta="48"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </wpftk:VirtualizingItemsControl>
     </Grid>
 </Page>

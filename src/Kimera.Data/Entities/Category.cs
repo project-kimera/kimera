@@ -1,6 +1,4 @@
-﻿using Kimera.Common;
-using Kimera.Common.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows.Input;

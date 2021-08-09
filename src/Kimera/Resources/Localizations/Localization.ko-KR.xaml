@@ -3,6 +3,8 @@
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <!--View : Common-->
     <system:String x:Key="VIEW_COMMON_GOBACK">돌아가기</system:String>
+    <system:String x:Key="VIEW_COMMON_CANCEL">취소</system:String>
+    <system:String x:Key="VIEW_COMMON_CONFIRM">확인</system:String>
     
     <!--View : ShellView-->
     <system:String x:Key="VIEW_SHELL_SEARCHBOX_HINT">검색</system:String>
@@ -34,4 +36,22 @@
     <system:String x:Key="VIEW_GAME_SCORE_HEADER">평가</system:String>
     <system:String x:Key="VIEW_GAME_MEMO_HEADER">메모</system:String>
     <system:String x:Key="VIEW_GAME_MEMO_HINT">메모</system:String>
+    
+    <!--View : StringEditorView-->
+    <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_TITLE">카테고리 추가</system:String>
+    <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_CAPTION">추가할 카테고리의 이름을 입력해주세요.</system:String>
+
+    <!--View : CategoryNameEditorView-->
+    <system:String x:Key="VIEW_CATEGORYNAMEEDITOR_TITLE">카테고리 이름 변경</system:String>
+    <system:String x:Key="VIEW_CATEGORYENAMEEDITOR_CAPTION">카테고리를 선택한 후 이름을 변경해주세요.</system:String>
+
+    <!--View : CategorySelectorView-->
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
+
+    <!--ViewModel : LibraryViewModel-->
+    <system:String x:Key="VM_LIBRARY_CATEGORY_EXISTS_MSG">이미 존재하는 카테고리입니다.</system:String>
+    <system:String x:Key="VM_LIBRARY_CATEGORY_EMPTY_NAME_MSG">카테고리 명을 입력해주세요.</system:String>
+    <system:String x:Key="VM_LIBRARY_CATEGORY_NOT_FOUND_MSG">존재하지 않는 카테고리입니다.</system:String>
+    <system:String x:Key="VM_LIBRARY_CATEGORY_REMOVE_CHECKER_MSG">정말 이 카테고리를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
 </ResourceDictionary>

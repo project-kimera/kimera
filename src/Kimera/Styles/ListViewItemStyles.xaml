@@ -1,4 +1,93 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:dataEntities="clr-namespace:Kimera.Data.Entities;assembly=Kimera.Data">
+    <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+
+            <Grid Width="260" Height="220">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Margin="10 10 10 0" Height="160" VerticalAlignment="Top"
+                       Source="{Binding GameMetadataNavigation.ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
+
+                <Grid Grid.Row="1" Margin="10 6 10 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Foreground="{DynamicResource KimeraForeground}"
+                               FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
+                               Text="{Binding GameMetadataNavigation.Name}" />
+                        <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
+                            <Ellipse VerticalAlignment="Center" Width="6" Height="6" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToBrushConverter}}"/>
+                            <TextBlock Foreground="{DynamicResource KimeraForegroundLight}"
+                                       Margin="6 0 0 0" VerticalAlignment="Center"
+                                       FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
+                                       Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
+                    </Button>
+                </Grid>
+            </Grid>
+        </Button>
+    </DataTemplate>
+
+    <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:Game">
+        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Play}" Header="실행"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Information}" Header="게임 정보"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=Edit}" Header="메타데이터 편집"/>
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="다른 카테고리로 이동"/>
+
+                    <Separator/>
+
+                    <MenuItem Icon="{materialDesign:PackIcon Kind=delete}" Header="게임 제거"/>
+                </ContextMenu>
+            </Button.ContextMenu>
+
+            <Grid Margin="10" Width="80" Height="100" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top"
+                       Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
+
+                <TextBlock Grid.Row="1" Foreground="{DynamicResource KimeraForeground}" Margin="0 6 0 0" HorizontalAlignment="Center"
+                           FontSize="11" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
+                           Text="{Binding GameMetadataNavigation.Name}" />
+            </Grid>
+        </Button>
+    </DataTemplate>
 </ResourceDictionary>

@@ -21,37 +21,28 @@ namespace Kimera.ViewModels.Pages
 
         public Game Game
         {
-            get { return _game; }
-            set { Set(ref _game, value); }
+            get => _game;
+            set => Set(ref _game, value);
         }
 
         public string Name
         {
-            get { return _game?.GameMetadataNavigation.Name; }
+            get => _game?.GameMetadataNavigation.Name;
         }
 
         public string Description
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.Description;
-            }
+            get => _game?.GameMetadataNavigation.Description;
         }
 
         public string Creator
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.Creator;
-            }
+            get => _game?.GameMetadataNavigation.Creator;
         }
 
         public Age AdmittedAge
         {
-            get
-            {
-                return _game.GameMetadataNavigation.AdmittedAge;
-            }
+            get => _game.GameMetadataNavigation.AdmittedAge;
         }
 
         public List<string> Genres
@@ -74,74 +65,47 @@ namespace Kimera.ViewModels.Pages
 
         public string SupportedLanguages
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.SupportedLanguages;
-            }
+            get => _game?.GameMetadataNavigation.SupportedLanguages;
         }
 
         public double Score
         {
-            get
-            {
-                return _game.GameMetadataNavigation.Score;
-            }
+            get => _game.GameMetadataNavigation.Score;
         }
 
         public string Memo
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.Memo;
-            }
+            get => _game?.GameMetadataNavigation.Memo;
         }
 
         public int PlayTime
         {
-            get
-            {
-                return _game.GameMetadataNavigation.PlayTime;
-            }
+            get => _game.GameMetadataNavigation.PlayTime;
         }
 
         public DateTime FirstTime
         {
-            get
-            {
-                return _game.GameMetadataNavigation.FirstTime;
-            }
+            get => _game.GameMetadataNavigation.FirstTime;
         }
 
         public DateTime LastTime
         {
-            get
-            {
-                return _game.GameMetadataNavigation.LastTime;
-            }
+            get => _game.GameMetadataNavigation.LastTime;
         }
 
         public string ThumbnailUri
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.ThumbnailUri;
-            }
+            get => _game?.GameMetadataNavigation.ThumbnailUri;
         }
 
         public string HomepageUrl
         {
-            get
-            {
-                return _game?.GameMetadataNavigation.HomepageUrl;
-            }
+            get => _game?.GameMetadataNavigation.HomepageUrl;
         }
 
         public PackageStatus PackageStatus
         {
-            get
-            {
-                return _game.PackageStatus;
-            }
+            get => _game.PackageStatus;
         }
 
         #endregion

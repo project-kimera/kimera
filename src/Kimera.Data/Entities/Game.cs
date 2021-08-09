@@ -1,6 +1,4 @@
-﻿using Kimera.Common;
-using Kimera.Common.Commands;
-using Kimera.Data.Enums;
+﻿using Kimera.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
