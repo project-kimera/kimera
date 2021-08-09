@@ -31,6 +31,8 @@
     </LinearGradientBrush>
 
     <SolidColorBrush x:Key="KimeraBackground" Color="#FF212121" />
+    <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="#FF303030" />
+    
     <SolidColorBrush x:Key="KimeraButtonHover" Color="#FF292929" />
     <SolidColorBrush x:Key="KimeraButtonRipple" Color="#FF323232" />
 

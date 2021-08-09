@@ -12,6 +12,23 @@
     <system:String x:Key="VIEW_SHELL_STATISTICS_HEADER">통계</system:String>
     <system:String x:Key="VIEW_SHELL_SETTINGS_HEADER">설정</system:String>
 
+    <!--View : LibraryView-->
+    <system:String x:Key="VIEW_LIBRARY_REFRESH_HINT">새로고침</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_HEADER">카테고리</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_ALL_HEADER">전체</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_FAVORITE_HEADER">즐겨찾기</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_ADD_HINT">추가</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_RENAME_HINT">이름 변경</system:String>
+    <system:String x:Key="VIEW_LIBRARY_CATEGORY_REMOVE_HINT">삭제</system:String>
+    <system:String x:Key="VIEW_LIBRARY_SORTING_HINT">정렬</system:String>
+    <system:String x:Key="VIEW_LIBRARY_FILTER_HINT">필터</system:String>
+    <system:String x:Key="VIEW_LIBRARY_TILEVIEW_HINT">타일</system:String>
+    <system:String x:Key="VIEW_LIBRARY_ICONVIEW_HINT">아이콘</system:String>
+    <system:String x:Key="VIEW_LIBRARY_ADD_SINGLE_HINT">단일 파일 추가</system:String>
+    <system:String x:Key="VIEW_LIBRARY_ADD_MULTIPLE_HINT">여러 파일 추가</system:String>
+    <system:String x:Key="VIEW_LIBRARY_ADD_CHUNK_HINT">파일들을 단일 게임으로 추가하기</system:String>
+    <system:String x:Key="VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT">파일들을 개별 게임으로 추가하기</system:String>
+
     <!--View : StatisticsView-->
 
     <!--View : SettingsView-->
