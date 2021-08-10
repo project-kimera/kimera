@@ -56,9 +56,8 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                        VerticalAlignment="Center" Margin="10 10 10 10"
-                                       FontSize="13" FontWeight="Bold"
                                        Text="{DynamicResource VIEW_LIBRARY_CATEGORY_HEADER}" />
                         </Grid>
 
@@ -106,9 +105,10 @@
 
                                                     <StackPanel Orientation="Horizontal" Margin="0 8 0 8" HorizontalAlignment="Left">
                                                         <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="Dot" />
-                                                        <TextBlock Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                                                       FontFamily="Roboto" FontSize="12" FontWeight="Regular"
-                                                                       Text="{Binding Path=Name}" />
+                                                        <TextBlock Foreground="{StaticResource KimeraForegroundLight}"
+                                                            Margin="2 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                            FontFamily="Roboto" FontSize="12" FontWeight="Regular"
+                                                            Text="{Binding Path=Name}" />
                                                     </StackPanel>
                                                 </Button>
                                             </DataTemplate>
@@ -174,10 +174,18 @@
                         <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>
                     <StackPanel Orientation="Vertical" Background="{StaticResource KimeraPopupBoxBackground}">
-                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_CHUNK_HINT}"
-                                caliburn:Message.Attach="NavigateToChunkRegister()"/>
-                        <Button Content="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT}"
-                                caliburn:Message.Attach="NavigateToMultipleFileRegister()"/>
+                        <Button caliburn:Message.Attach="NavigateToChunkRegister()">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Add"/>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_LIBRARY_ADD_CHUNK_HINT}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button caliburn:Message.Attach="NavigateToMultipleFileRegister()">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="PlaylistAdd"/>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_LIBRARY_ADD_MULTIPLE_FILES_HINT}"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>

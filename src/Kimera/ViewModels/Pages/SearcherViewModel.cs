@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
 using Kimera.Entities;
-using Kimera.Messages;
 using Kimera.Services;
 using LinqKit;
 using Microsoft.EntityFrameworkCore;
@@ -148,7 +147,7 @@ namespace Kimera.ViewModels.Pages
 
         public async void Search()
         {
-            await SearchInternalAsync(_searchCategory, _textToSearch);
+            await SearchInternalAsync(_searchCategory, _textToSearch).ConfigureAwait(false);
         }
 
         public void GoBack()

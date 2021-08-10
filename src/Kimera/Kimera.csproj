@@ -32,4 +32,8 @@
     <Resource Include="Resources\Images\placeholder.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Messages\" />
+  </ItemGroup>
+
 </Project>

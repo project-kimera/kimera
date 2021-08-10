@@ -2,7 +2,6 @@
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Data.Extensions;
-using Kimera.Messages;
 using Kimera.Services;
 using Serilog;
 using System;
@@ -130,25 +129,6 @@ namespace Kimera.ViewModels.Pages
         }
 
         #endregion
-
-        public GameViewModel(Guid gameGuid)
-        {
-            InitializeGame(gameGuid);
-        }
-
-        public void InitializeGame(Guid gameGuid)
-        {
-            Game game = App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefault();
-
-            if (game != null)
-            {
-                Game = game;
-            }
-            else
-            {
-                Game = new Game();
-            }
-        }
 
         public void GoBack()
         {

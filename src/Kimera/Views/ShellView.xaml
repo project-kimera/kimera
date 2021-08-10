@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="300"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="128"/>
+                    <ColumnDefinition Width="96"/>
                 </Grid.ColumnDefinitions>
 
                 <!--Icon-->

@@ -38,6 +38,7 @@ namespace Kimera
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<TaskService>()
                 .Singleton<GameService>()
                 .Singleton<LibraryService>()
                 .Singleton<ShellViewModel>()

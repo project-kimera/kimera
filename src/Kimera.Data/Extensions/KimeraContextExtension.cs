@@ -40,6 +40,30 @@ namespace Kimera.Data.Extensions
         }
 
         /// <summary>
+        /// Returns the category from GUID.
+        /// </summary>
+        /// <param name="context">The <see cref="KimeraContext"/> instance to be used.</param>
+        /// <param name="categoryGuid">The GUID of the category.</param>
+        /// <returns>The category.</returns>
+        public static async Task<Category> GetCategory(this KimeraContext context, Guid categoryGuid)
+        {
+            Category category = await context.Categories.Where(c => c.SystemId == categoryGuid).FirstOrDefaultAsync();
+            return category;
+        }
+
+        /// <summary>
+        /// Returns the game from GUID.
+        /// </summary>
+        /// <param name="context">The <see cref="KimeraContext"/> instance to be used.</param>
+        /// <param name="gameGuid">The GUID of the game.</param>
+        /// <returns>The game.</returns>
+        public static async Task<Game> GetGame(this KimeraContext context, Guid gameGuid)
+        {
+            Game game = await context.Games.Where(c => c.SystemId == gameGuid).FirstOrDefaultAsync();
+            return game;
+        }
+
+        /// <summary>
         /// Sets the game metadata.
         /// </summary>
         /// <param name="gameMetadata">The game metadata.</param>
@@ -98,6 +122,40 @@ namespace Kimera.Data.Extensions
 
             component.PackageMetadata = packageMetadata.SystemId;
             packageMetadata.Components.Add(component);
+        }
+
+        /// <summary>
+        /// Adds a category subscription to kimera context.
+        /// </summary>
+        /// <param name="context">The <see cref="KimeraContext"/> instance to be used.</param>
+        /// <param name="category">The category to add.</param>
+        /// <param name="game">The game to add.</param>
+        /// <returns>Task result.</returns>
+        public static async Task AddCategorySubscriptionAsync(this KimeraContext context, Category category, Game game)
+        {
+            if (category.SystemId == Guid.Empty)
+            {
+                category.SystemId = Guid.NewGuid();
+            }
+
+            if (game.SystemId == Guid.Empty)
+            {
+                game.SystemId = Guid.NewGuid();
+            }
+
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                CategorySubscription subscription = new CategorySubscription();
+                subscription.Category = category.SystemId;
+                subscription.Game = game.SystemId;
+                subscription.CategoryNavigation = category;
+                subscription.GameNavigation = game;
+
+                await context.CategorySubscriptions.AddAsync(subscription);
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+            }
         }
     }
 }
