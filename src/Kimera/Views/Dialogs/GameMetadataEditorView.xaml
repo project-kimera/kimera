@@ -78,11 +78,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}" />
-                    <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}" Text="{Binding AdmittedAge, Mode=TwoWay, Converter={StaticResource AgeToStringConverter}}">
-                        <ComboBoxItem Content="All" />
-                        <ComboBoxItem Content="R15" />
-                        <ComboBoxItem Content="R18" />
-                    </ComboBox>
+                    <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}"
+                              ItemsSource="{Binding Ages}" SelectedItem="{Binding AdmittedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <Grid Margin="0 6 0 0">

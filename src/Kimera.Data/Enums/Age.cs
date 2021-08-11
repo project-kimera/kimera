@@ -6,7 +6,8 @@
     public enum Age
     {
         All,
-        R15,
-        R18
+        Age12,
+        Age15,
+        Age18
     }
 }

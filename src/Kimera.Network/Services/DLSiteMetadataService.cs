@@ -108,11 +108,11 @@ namespace Kimera.Network.Services
                     }
                     else if (ageCategoryString == "r15")
                     {
-                        metadata.AdmittedAge = Age.R15;
+                        metadata.AdmittedAge = Age.Age15;
                     }
                     else if (ageCategoryString == "adult")
                     {
-                        metadata.AdmittedAge = Age.R18;
+                        metadata.AdmittedAge = Age.Age18;
                     }
                     else
                     {

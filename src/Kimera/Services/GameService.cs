@@ -238,9 +238,29 @@ namespace Kimera.Services
             }
         }
 
-        public void CallPackageMetadataEditor(Guid gameGuid)
+        public async void CallPackageMetadataEditor(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
 
+            if (game == null)
+            {
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning($"The game does not found. ({gameGuid})");
+                return;
+            }
+
+            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel();
+            viewModel.Metadata = game.GameMetadataNavigation.Copy();
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                game.GameMetadataNavigation = viewModel.Metadata;
+
+                LibraryService library = IoC.Get<LibraryService>();
+                await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+            }
         }
 
         #endregion

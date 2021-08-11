@@ -55,6 +55,17 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
+        private List<Age> _ages = new List<Age>();
+
+        public List<Age> Ages
+        {
+            get => _ages;
+            set
+            {
+                Set(ref _ages, value);
+            }
+        }
+
         public Age AdmittedAge
         {
             get => _metadata.AdmittedAge;
@@ -133,6 +144,11 @@ namespace Kimera.ViewModels.Dialogs
                 _metadata.HomepageUrl = value;
                 NotifyOfPropertyChange(HomepageUrl);
             }
+        }
+
+        public GameMetadataEditorViewModel()
+        {
+            Ages = Enum.GetValues(typeof(Age)).Cast<Age>().ToList();
         }
 
         public async void Cancel()
