@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_SEARCHBOX_HINT}"/>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_SEARCHBOX_HINT}"/>
 
                         <materialDesign:PackIcon Grid.Column="1" Foreground="{StaticResource KimeraForegroundLight}" Margin="8 0 8 0" VerticalAlignment="Center" Kind="Search" Opacity=".56" />
                     </Grid>
@@ -51,7 +51,7 @@
                             Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
-                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_LIBRARY_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_LIBRARY_HEADER}" />
                         </StackPanel>
                     </Button>
 
@@ -59,7 +59,7 @@
                             Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
-                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_STATISTICS_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_STATISTICS_HEADER}" />
                         </StackPanel>
                     </Button>
 
@@ -67,7 +67,7 @@
                             Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="SettingsOutline"/>
-                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_SHELL_SETTINGS_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_SETTINGS_HEADER}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>

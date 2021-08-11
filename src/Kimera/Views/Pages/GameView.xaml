@@ -9,7 +9,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Foreground="{DynamicResource KimeraForeground}"
+      Foreground="{StaticResource KimeraForeground}"
       x:Name="GameViewInternal">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 0 0 1">
+        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0 0 0 1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -26,11 +26,11 @@
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <Button x:Name="GoBack" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="10 0 0 0" VerticalAlignment="Center" Width="36" Height="36">
-                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
+                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
                     </Button>
 
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_COMMON_GOBACK}" />
-                    <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{StaticResource VIEW_COMMON_GOBACK}" />
+                    <Rectangle Fill="{StaticResource KimeraForegroundLight}" Width="2" Height="16"/>
                     <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
                 </StackPanel>
             </Grid>
@@ -71,7 +71,7 @@
                         <StackPanel Orientation="Vertical" Margin="50 00 0 0" VerticalAlignment="Center">
                             <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" TextTrimming="CharacterEllipsis" Text="{Binding Name}" />
 
-                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="0 20 0 0"
+                            <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="0 20 0 0"
                                        TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
                                        Text="{Binding Description}"/>
                         </StackPanel>
@@ -83,14 +83,14 @@
                         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Right">
                             <StackPanel Orientation="Horizontal" Margin="0 0 20 0" VerticalAlignment="Center">
                                 <Ellipse VerticalAlignment="Center" Width="10" Height="10" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToBrushConverter}}"/>
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                        Margin="6 0 0 0" VerticalAlignment="Center"
                                        FontSize="11" FontWeight="Regular" TextTrimming="CharacterEllipsis"
                                        Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
                             </StackPanel>
 
                             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Foreground="{DynamicResource KimeraForegroundLight}" BorderBrush="{DynamicResource KimeraForegroundLight}"
+                                    Foreground="{StaticResource KimeraForegroundLight}" BorderBrush="{DynamicResource KimeraForegroundLight}"
                                     Padding="0" Width="200" Height="50" Cursor="Hand"
                                     caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
                                 <i:Interaction.Triggers>
@@ -100,11 +100,11 @@
                                         </caliburn:ActionMessage>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                                
-                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="{DynamicResource VIEW_GAME_START}" />
+
+                                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="{StaticResource VIEW_GAME_START}" />
                             </Button>
 
-                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}"
+                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{StaticResource KimeraForegroundLight}"
                                     Margin="10 0 10 0" Width="36" Height="36"
                                     caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
                                 <i:Interaction.Triggers>
@@ -122,58 +122,58 @@
 
                         <!--Metadatas-->
                         <StackPanel Orientation="Vertical" Margin="20 0 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_GENRES_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{StaticResource VIEW_GAME_GENRES_HEADER}" />
 
                             <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" IsEnabled="false" ItemsSource="{Binding Genres}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 10 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_TAGS_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{StaticResource VIEW_GAME_TAGS_HEADER}" />
 
                             <ListBox Style="{StaticResource MaterialDesignFilterChipOutlineListBox}" IsEnabled="false" ItemsSource="{Binding Tags}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_INFO_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{StaticResource VIEW_GAME_INFO_HEADER}" />
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_PLAYTIME_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding PlayTime, Converter={StaticResource IntegerToTimeStringConverter}}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_PLAYTIME_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding PlayTime, Converter={StaticResource IntegerToTimeStringConverter}}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_FIRSTTIME_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding FirstTime}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_FIRSTTIME_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding FirstTime}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_LASTTIME_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding LastTime}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_LASTTIME_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding LastTime}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_CREATOR_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding Creator}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_CREATOR_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding Creator}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_AGE_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding AdmittedAge}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_AGE_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding AdmittedAge}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Width="150" Text="{DynamicResource VIEW_GAME_LANGS_HEADER}" />
-                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="{Binding SupportedLanguages}"/>
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Width="150" Text="{StaticResource VIEW_GAME_LANGS_HEADER}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="{Binding SupportedLanguages}"/>
                             </StackPanel>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_SCORE_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{StaticResource VIEW_GAME_SCORE_HEADER}" />
 
                             <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
                                 <materialDesign:RatingBar  VerticalAlignment="Center" IsReadOnly="True" Value="{Binding Score}"/>
                                 <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{Binding Score}" />
-                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{StaticResource KimeraForegroundLight}"
                                         Margin="10 0 0 0" Width="24" Height="24"
                                         caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}" Cursor="Hand">
                                     <i:Interaction.Triggers>
@@ -189,11 +189,11 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical" Margin="20 40 20 100">
-                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource VIEW_GAME_MEMO_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{StaticResource VIEW_GAME_MEMO_HEADER}" />
 
                             <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 4 0 0" VerticalAlignment="Top" Height="150"
                                      AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
-                                     materialDesign:HintAssist.Hint="{DynamicResource VIEW_GAME_MEMO_HINT}" materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}"
+                                     materialDesign:HintAssist.Hint="{DynamicResource VIEW_GAME_MEMO_HINT}" materialDesign:HintAssist.Background="{StaticResource KimeraBackground}"
                                      Text="{Binding Memo, UpdateSourceTrigger=LostFocus, Mode=TwoWay}" Cursor="IBeam"/>
                         </StackPanel>
                     </StackPanel>

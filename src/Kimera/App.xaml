@@ -16,7 +16,10 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />
-                
+
+                <!-- Default Localization -->
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Localizations/Localization.ko-KR.xaml" />
+
                 <!-- Kimera Converters -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Converters.xaml" />
 

@@ -45,7 +45,7 @@ namespace Kimera.Data.Extensions
         /// <param name="context">The <see cref="KimeraContext"/> instance to be used.</param>
         /// <param name="categoryGuid">The GUID of the category.</param>
         /// <returns>The category.</returns>
-        public static async Task<Category> GetCategory(this KimeraContext context, Guid categoryGuid)
+        public static async Task<Category> GetCategoryAsync(this KimeraContext context, Guid categoryGuid)
         {
             Category category = await context.Categories.Where(c => c.SystemId == categoryGuid).FirstOrDefaultAsync();
             return category;
@@ -57,7 +57,7 @@ namespace Kimera.Data.Extensions
         /// <param name="context">The <see cref="KimeraContext"/> instance to be used.</param>
         /// <param name="gameGuid">The GUID of the game.</param>
         /// <returns>The game.</returns>
-        public static async Task<Game> GetGame(this KimeraContext context, Guid gameGuid)
+        public static async Task<Game> GetGameAsync(this KimeraContext context, Guid gameGuid)
         {
             Game game = await context.Games.Where(c => c.SystemId == gameGuid).FirstOrDefaultAsync();
             return game;

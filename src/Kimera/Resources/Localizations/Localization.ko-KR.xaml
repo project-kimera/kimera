@@ -75,13 +75,56 @@
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
 
+    <!--View : GameMetadataEditorView-->
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION1">게임 메타데이터 편집하기</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION2">외부에 노출되는 게임의 정보를 편집합니다.</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_NAME_HEADER">이름</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_DESC_HEADER">설명</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER">제작자</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_AGE_HEADER">연령 등급</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_GENRES_HEADER">장르</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TAGS_HEADER">태그</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_LANGS_HEADER">지원 언어</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_SCORE_HEADER">평가</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_COMMA_SEP_NOTICE">※ 장르, 태그, 언어 항목은 쉼표로 구분됩니다.</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_ICONURI_HEADER">아이콘 URI</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER">썸네일 URI</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_HPURL_HEADER">홈페이지 URI</system:String>
+
     <!--ViewModel : LibraryViewModel-->
     <system:String x:Key="VM_LIBRARY_CATEGORY_EXISTS_MSG">이미 존재하는 카테고리입니다.</system:String>
     <system:String x:Key="VM_LIBRARY_CATEGORY_EMPTY_NAME_MSG">카테고리 명을 입력해주세요.</system:String>
     <system:String x:Key="VM_LIBRARY_CATEGORY_NOT_FOUND_MSG">존재하지 않는 카테고리입니다.</system:String>
     <system:String x:Key="VM_LIBRARY_CATEGORY_REMOVE_CHECKER_MSG">정말 이 카테고리를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
-    
+
+    <!--ViewModel : GameMetadataEditorView-->
+    <system:String x:Key="VM_GAMEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
+
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_ADD_WAIT_TITLE">게임을 추가하는 중</system:String>
     <system:String x:Key="SVC_GAME_ADD_WAIT_COMPONENTS">컴포넌트를 추가하는 중</system:String>
+    <system:String x:Key="SVC_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
+
+    <!--Validator : FilePathValidationRule-->
+    <system:String x:Key="VALID_FILEPATH_NOT_FOUND_MSG">파일을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="VALID_FILEPATH_OK_MSG">유효한 파일 경로입니다.</system:String>
+
+    <!--Validator : NotEmptyValidationRule-->
+    <system:String x:Key="VALID_NOTEMPTY_EMPTY_MSG">이 텍스트는 비어있을 수 없습니다.</system:String>
+    <system:String x:Key="VALID_NOTEMPTY_WHITESPACE_MSG">이 텍스트는 비어있거나 공백 문자로만 구성될 수 없습니다.</system:String>
+    <system:String x:Key="VALID_NOTEMPTY_OK_MSG">유효한 텍스트입니다.</system:String>
+
+    <!--Validator : ProductCodeValidationRule-->
+    <system:String x:Key="VALID_PRODUCTCODE_VALID_MSG">유효한 제품 코드입니다.</system:String>
+    <system:String x:Key="VALID_PRODUCTCODE_NOTVALID_MSG">유효한 제품 코드가 아닙니다.</system:String>
+
+    <!--Validator : ScoreValidationRule-->
+    <system:String x:Key="VALID_SCORE_VALID_MSG">유효한 점수입니다.</system:String>
+    <system:String x:Key="VALID_SCORE_RANGE_ERROR_MSG">점수는 0 이상, 5 이하의 범위여야만 합니다.</system:String>
+    <system:String x:Key="VALID_SCORE_NOT_VALID_MSG">유효한 점수가 아닙니다.</system:String>
+
+    <!--Validator : UriValidationRule-->
+    <system:String x:Key="VALID_URI_VALID_MSG">유효한 URI 형식입니다.</system:String>
+    <system:String x:Key="VALID_URI_NOT_VALID_MSG">유효한 URI 형식이 아닙니다.</system:String>
 </ResourceDictionary>

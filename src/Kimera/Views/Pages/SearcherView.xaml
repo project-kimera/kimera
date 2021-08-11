@@ -9,7 +9,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Foreground="{DynamicResource KimeraForeground}">
+      Foreground="{StaticResource KimeraForeground}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -17,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 0 0 1">
+        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0 0 0 1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -26,17 +26,17 @@
 
                 <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                     <Button x:Name="GoBack" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="10 0 0 0" VerticalAlignment="Center" Width="36" Height="36">
-                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
+                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
                     </Button>
 
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{DynamicResource VIEW_COMMON_GOBACK}" />
-                    <Rectangle Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{DynamicResource VIEW_SEARCHER_HEADER}"/>
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{StaticResource VIEW_COMMON_GOBACK}" />
+                    <Rectangle Fill="{StaticResource KimeraForegroundLight}" Width="2" Height="16"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{StaticResource VIEW_SEARCHER_HEADER}"/>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1" Background="{DynamicResource KimeraDivider}">
+        <Grid Grid.Row="1" Background="{StaticResource KimeraDivider}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="10"/>
@@ -45,15 +45,15 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox Grid.Column="0" Margin="20 0 10 0" VerticalAlignment="Center" BorderThickness="0"
-                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:HintAssist.Hint="{DynamicResource VIEW_SEARCHER_CATEGORYBOX_HINT}"
+                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" materialDesign:HintAssist.Hint="{StaticResource VIEW_SEARCHER_CATEGORYBOX_HINT}"
                       ItemsSource="{Binding SearchCategories}" SelectedItem="{Binding SearchCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Rectangle Grid.Column="1" Fill="{DynamicResource KimeraForegroundLight}" Width="2" Height="16"/>
+            <Rectangle Grid.Column="1" Fill="{StaticResource KimeraForegroundLight}" Width="2" Height="16"/>
 
             <TextBox Grid.Column="2" Margin="10 0 10 0" VerticalAlignment="Center" BorderThickness="0"
                       materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                      materialDesign:TextFieldAssist.TextFieldCornerRadius="0"
-                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:HintAssist.Hint="{DynamicResource VIEW_SEARCHER_TEXTBOX_HINT}"
+                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:HintAssist.Hint="{StaticResource VIEW_SEARCHER_TEXTBOX_HINT}"
                      Text="{Binding TextToSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <i:Interaction.Triggers>
                     <i:KeyTrigger Key="Return">
@@ -63,11 +63,11 @@
             </TextBox>
 
             <Button x:Name="Search" Grid.Column="3" Style="{StaticResource MaterialDesignOutlinedButton}"
-                    BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
+                    BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
                     Margin="10 0 16 0">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="Search" />
-                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" Text="{DynamicResource VIEW_SEARCHER_SEARCH}" />
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" VerticalAlignment="Center" Text="{StaticResource VIEW_SEARCHER_SEARCH}" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -101,17 +101,18 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding ThumbnailUri}"/>
+                                    <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="{Binding ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}"/>
 
-                                    <TextBlock Grid.Column="1" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                    <TextBlock Grid.Column="1" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                            VerticalAlignment="Center" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
                                            Text="{Binding Name}" />
 
-                                    <TextBlock Grid.Column="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                    <TextBlock Grid.Column="2" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                            VerticalAlignment="Center"  TextTrimming="CharacterEllipsis"
                                            Text="{Binding Creator}" />
 
-                                    <TextBlock Grid.Column="3" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                    <TextBlock Grid.Column="3" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                            Margin="10 0 20 0" VerticalAlignment="Center"  TextTrimming="CharacterEllipsis"
                                            Text="{Binding PlayTime, Converter={StaticResource IntegerToTimeStringConverter}}" />
                                 </Grid>

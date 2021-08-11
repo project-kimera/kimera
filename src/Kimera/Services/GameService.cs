@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Kimera.Services
 {
@@ -63,7 +64,7 @@ namespace Kimera.Services
                 }
 
                 // Add categories.
-                Category allCategory = await App.DatabaseContext.GetCategory(Settings.GUID_ALL_CATEGORY);
+                Category allCategory = await App.DatabaseContext.GetCategoryAsync(Settings.GUID_ALL_CATEGORY);
                 await App.DatabaseContext.AddCategorySubscriptionAsync(allCategory, game);
 
                 if (targetCategories == null || targetCategories.Count == 0)
@@ -212,9 +213,29 @@ namespace Kimera.Services
             }
         }
 
-        public void CallGameMetadataEditor(Guid gameGuid)
+        public async void CallGameMetadataEditor(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
 
+            if (game == null)
+            {
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning($"The game does not found. ({gameGuid})");
+                return;
+            }
+
+            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel();
+            viewModel.Metadata = game.GameMetadataNavigation.Copy();
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                game.GameMetadataNavigation = viewModel.Metadata;
+
+                LibraryService library = IoC.Get<LibraryService>();
+                await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+            }
         }
 
         public void CallPackageMetadataEditor(Guid gameGuid)

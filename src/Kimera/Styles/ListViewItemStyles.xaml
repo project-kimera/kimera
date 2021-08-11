@@ -121,7 +121,7 @@
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0" Margin="10 10 10 0" Height="160" VerticalAlignment="Top"
-                       Source="{Binding GameMetadataNavigation.ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
+                       Source="{Binding GameMetadataNavigation.ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
                 <Grid Grid.Row="1" Margin="10 6 10 10">
                     <Grid.ColumnDefinitions>
@@ -170,7 +170,7 @@
                 </Grid.RowDefinitions>
 
                 <Image Grid.Row="0" Width="60" Height="60" VerticalAlignment="Top"
-                       Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
+                       Source="{Binding GameMetadataNavigation.IconUri, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
                 <TextBlock Grid.Row="1" Foreground="{StaticResource KimeraForeground}" Margin="0 6 0 0" HorizontalAlignment="Center"
                            FontSize="11" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"

@@ -9,5 +9,6 @@ namespace Kimera.ViewModels.Dialogs
 {
     public class PackageMetadataEditorViewModel : Screen
     {
+
     }
 }
