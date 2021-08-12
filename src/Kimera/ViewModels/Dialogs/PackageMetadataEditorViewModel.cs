@@ -125,21 +125,21 @@ namespace Kimera.ViewModels.Dialogs
 
             if (!ValidationHelper.IsValid(window))
             {
-                MessageBox.Show((string)App.Current.Resources["VM_LIBRARY_CATEGORY_REMOVE_CHECKER_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_MD_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The game metadata values aren't valid.");
                 return;
             }
 
             if ((PackageType == PackageType.Executable || PackageType == PackageType.Archive) && Components.Count != 1)
             {
-                MessageBox.Show("Executable 또는 Archive 형식의 패키지에서는 컴포넌트 하나만을 필요로 합니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_COMP_COUNT_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("Too many or too few components.");
                 return;
             }
 
             if ((PackageType != PackageType.Executable) && string.IsNullOrEmpty(EntryPointFilePath))
             {
-                MessageBox.Show("현재 패키지 형식에서는 진입점을 비워둘 수 없습니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The entry point is null.");
                 return;
             }
@@ -148,21 +148,21 @@ namespace Kimera.ViewModels.Dialogs
 
             if ((PackageType == PackageType.Executable || PackageType == PackageType.Archive) && mainComponent == null)
             {
-                MessageBox.Show("Executable 또는 Archive 형식의 패키지에서는 인덱스가 0인 컴포넌트 하나가 반드시 필요합니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The main component is null.");
                 return;
             }
 
             if (PackageType == PackageType.Executable && mainComponent.Type != ComponentType.Executable)
             {
-                MessageBox.Show("Executable 형식 패키지의 0 인덱스 컴포넌트는 Executable 타입이어야만 합니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_EXE_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The main component is not a executable component.");
                 return;
             }
 
             if (PackageType == PackageType.Archive && mainComponent.Type != ComponentType.Archive)
             {
-                MessageBox.Show("Archive 형식 패키지의 0 인덱스 컴포넌트는 Archive 타입이어야만 합니다.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_ARCH_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The main component is not a archive component.");
                 return;
             }

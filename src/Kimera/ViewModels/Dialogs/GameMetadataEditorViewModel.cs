@@ -161,7 +161,7 @@ namespace Kimera.ViewModels.Dialogs
 
             if (!ValidationHelper.IsValid(window))
             {
-                MessageBox.Show((string)App.Current.Resources["VM_LIBRARY_CATEGORY_REMOVE_CHECKER_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_GAMEMETADATAEDITOR_INVALID_MD_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The game metadata values aren't valid.");
                 return;
             }

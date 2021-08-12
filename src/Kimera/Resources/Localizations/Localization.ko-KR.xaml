@@ -92,6 +92,23 @@
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER">썸네일 URI</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_HPURL_HEADER">홈페이지 URI</system:String>
 
+    <!--View : PackageMetadataEditorView-->
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_TITLE">패키지 메타데이터 편집</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION1">패키지 메타데이터 편집하기</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION2">게임의 실행 정보를 편집합니다.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_INDEX_HEADER">인덱스</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_TYPE_HEADER">타입</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_FPATH_HEADER">파일 경로</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_OPATH_HEADER">오프셋 경로</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PASSWORD_HEADER">비밀번호</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ADD_HINT">추가</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_REMOVE_HINT">제거</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER">패키지 형식</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_HEADER">진입점(EP)</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER">명령줄 인수</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE">※ 진입점을 지정하지 않을 경우에는 인덱스가 0인 Executable 컴포넌트를 실행합니다.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에서는 '$' 기호를 통해 변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
+    
     <!--ViewModel : LibraryViewModel-->
     <system:String x:Key="VM_LIBRARY_CATEGORY_EXISTS_MSG">이미 존재하는 카테고리입니다.</system:String>
     <system:String x:Key="VM_LIBRARY_CATEGORY_EMPTY_NAME_MSG">카테고리 명을 입력해주세요.</system:String>
@@ -100,6 +117,14 @@
 
     <!--ViewModel : GameMetadataEditorView-->
     <system:String x:Key="VM_GAMEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
+
+    <!--ViewModel : PackageMetadataEditorView-->
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_COMP_COUNT_MSG">Executable 또는 Archive 형식의 패키지에서는 오직 하나의 컴포넌트만을 필요로 합니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG">현재 패키지 형식에서는 진입점을 비워둘 수 없습니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG">Executable 또는 Archive 형식의 패키지에서는 인덱스가 0인 메인 컴포넌트 하나가 반드시 필요합니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_EXE_MSG">Executable 형식 패키지의 메인 컴포넌트(인덱스 0)는 Executable 타입이어야만 합니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_ARCH_MSG">Archive 형식 패키지의 메인 컴포넌트(인덱스 0)는 Archive 타입이어야만 합니다.</system:String>
 
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_ADD_WAIT_TITLE">게임을 추가하는 중</system:String>
