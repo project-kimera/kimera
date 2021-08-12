@@ -84,7 +84,7 @@ namespace Kimera.ViewModels.Pages
             viewModel.Caption = (string)App.Current.Resources["VIEW_STRINGEDITOR_ADD_CATEGORY_CAPTION"];
             viewModel.Text = string.Empty;
 
-            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel);
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
             if (dialogResult == true)
             {
@@ -94,17 +94,17 @@ namespace Kimera.ViewModels.Pages
 
                     if (temp == null)
                     {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                         {
                             Category category = new Category(viewModel.Text);
 
-                            await App.DatabaseContext.Categories.AddAsync(category);
-                            await App.DatabaseContext.SaveChangesAsync();
+                            await App.DatabaseContext.Categories.AddAsync(category).ConfigureAwait(false);
+                            await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
-                            await _libraryService.UpdateSelectedCategoryAsync(category.SystemId);
-                            await _libraryService.UpdateGamesAsync(category.SystemId);
+                            await _libraryService.UpdateSelectedCategoryAsync(category.SystemId).ConfigureAwait(false);
+                            await _libraryService.UpdateGamesAsync(category.SystemId).ConfigureAwait(false);
 
-                            await transaction.CommitAsync();
+                            await transaction.CommitAsync().ConfigureAwait(false);
                         }
                     }
                     else
@@ -130,7 +130,7 @@ namespace Kimera.ViewModels.Pages
             viewModel.SelectedCategory = _libraryService.SelectedCategory == Settings.GUID_ALL_CATEGORY || _libraryService.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
                 ? _libraryService.Categories.FirstOrDefault() : _libraryService.Categories.Where(c => c.SystemId == _libraryService.SelectedCategory).FirstOrDefault();
 
-            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel);
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
             if (dialogResult == true)
             {
@@ -138,15 +138,15 @@ namespace Kimera.ViewModels.Pages
                 {
                     if (viewModel.SelectedCategory != null)
                     {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                         {
                             viewModel.SelectedCategory.Name = viewModel.Text;
-                            await App.DatabaseContext.SaveChangesAsync();
+                            await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
-                            await _libraryService.UpdateCategoriesAsync();
-                            await _libraryService.UpdateSelectedCategoryAsync(_libraryService.SelectedCategory);
+                            await _libraryService.UpdateCategoriesAsync().ConfigureAwait(false);
+                            await _libraryService.UpdateSelectedCategoryAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
 
-                            await transaction.CommitAsync();
+                            await transaction.CommitAsync().ConfigureAwait(false);
                         }
                     }
                     else
@@ -172,7 +172,7 @@ namespace Kimera.ViewModels.Pages
             viewModel.SelectedCategory = _libraryService.SelectedCategory == Settings.GUID_ALL_CATEGORY || _libraryService.SelectedCategory == Settings.GUID_FAVORITE_CATEGORY
                 ? _libraryService.Categories.FirstOrDefault() : _libraryService.Categories.Where(c => c.SystemId == _libraryService.SelectedCategory).FirstOrDefault();
 
-            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel);
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
             if (dialogResult == true)
             {
@@ -182,12 +182,12 @@ namespace Kimera.ViewModels.Pages
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                         {
                             App.DatabaseContext.Categories.Remove(viewModel.SelectedCategory);
-                            await App.DatabaseContext.SaveChangesAsync();
+                            await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
-                            await transaction.CommitAsync();
+                            await transaction.CommitAsync().ConfigureAwait(false);
                         }
                     }
                 }

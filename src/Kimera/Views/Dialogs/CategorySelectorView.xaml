@@ -15,7 +15,7 @@
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 0 20 0" VerticalAlignment="Center">
             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                       Text="{Binding Caption}"/>
+                       TextTrimming="CharacterEllipsis" Text="{Binding Caption}"/>
 
             <ComboBox Margin="0 6 0 0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 

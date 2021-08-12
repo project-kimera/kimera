@@ -74,6 +74,8 @@
     <!--View : CategorySelectorView-->
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE">게임 카테고리 이동</system:String>
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION">이동할 카테고리를 선택해주세요. (현재 카테고리 : {0})</system:String>
 
     <!--View : GameMetadataEditorView-->
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집</system:String>
@@ -127,9 +129,8 @@
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_ARCH_MSG">Archive 형식 패키지의 메인 컴포넌트(인덱스 0)는 Archive 타입이어야만 합니다.</system:String>
 
     <!--Service : GameService-->
-    <system:String x:Key="SVC_GAME_ADD_WAIT_TITLE">게임을 추가하는 중</system:String>
-    <system:String x:Key="SVC_GAME_ADD_WAIT_COMPONENTS">컴포넌트를 추가하는 중</system:String>
-    <system:String x:Key="SVC_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_CATEGORY_NONE">없음</system:String>
 
     <!--Validator : FilePathValidationRule-->
     <system:String x:Key="VALID_FILEPATH_NOT_FOUND_MSG">파일을 찾을 수 없습니다.</system:String>

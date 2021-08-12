@@ -185,9 +185,77 @@ namespace Kimera.Services
 
         }
 
-        public void MoveGame(Guid gameGuid)
+        public async void MoveGame(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
 
+            if (game == null)
+            {
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning($"The game does not found. ({gameGuid})");
+                return;
+            }
+
+            CategorySubscription subscription = await App.DatabaseContext.CategorySubscriptions.Where(c => c.Game == gameGuid && c.Category != Settings.GUID_ALL_CATEGORY && c.Category != Settings.GUID_FAVORITE_CATEGORY).FirstOrDefaultAsync();
+
+            if (subscription == null)
+            {
+                CategorySelectorViewModel viewModel = new CategorySelectorViewModel();
+                viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE"];
+                viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION"], (string)App.Current.Resources["SVC_GAME_CATEGORY_NONE"]);
+                viewModel.Categories = IoC.Get<LibraryService>().Categories;
+
+                bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+                if (dialogResult == true)
+                {
+                    using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                    {
+                        CategorySubscription newSubscription = new CategorySubscription();
+                        newSubscription.Category = viewModel.SelectedCategory.SystemId;
+                        newSubscription.CategoryNavigation = viewModel.SelectedCategory;
+                        newSubscription.Game = game.SystemId;
+                        newSubscription.GameNavigation = game;
+
+                        await App.DatabaseContext.CategorySubscriptions.AddAsync(newSubscription).ConfigureAwait(false);
+
+                        await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                        await transaction.CommitAsync().ConfigureAwait(false);
+                    }
+
+                    LibraryService library = IoC.Get<LibraryService>();
+                    await library.UpdateCategoriesAsync();
+                    await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                CategorySelectorViewModel viewModel = new CategorySelectorViewModel();
+                viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE"];
+                viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION"], subscription.CategoryNavigation.Name);
+                viewModel.Categories = IoC.Get<LibraryService>().Categories;
+                viewModel.SelectedCategory = subscription.CategoryNavigation;
+
+                bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+                if (dialogResult == true)
+                {
+                    using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                    {
+                        subscription.Category = viewModel.SelectedCategory.SystemId;
+                        subscription.CategoryNavigation = viewModel.SelectedCategory;
+
+                        await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                        await transaction.CommitAsync().ConfigureAwait(false);
+                    }
+
+                    LibraryService library = IoC.Get<LibraryService>();
+                    await library.UpdateCategoriesAsync();
+                    await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                }
+            }
         }
 
         public void RemoveGameResources(Guid gameGuid)
@@ -231,7 +299,14 @@ namespace Kimera.Services
 
             if (dialogResult == true)
             {
-                game.GameMetadataNavigation = viewModel.Metadata;
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                {
+                    game.GameMetadataNavigation = viewModel.Metadata;
+
+                    await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                    await transaction.CommitAsync().ConfigureAwait(false);
+                }
 
                 LibraryService library = IoC.Get<LibraryService>();
                 await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
@@ -256,9 +331,15 @@ namespace Kimera.Services
 
             if (dialogResult == true)
             {
-                await viewModel.SavePackageMetadataAsync();
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                {
+                    await viewModel.SavePackageMetadataAsync();
+                    game.PackageMetadataNavigation = viewModel.Metadata;
 
-                game.PackageMetadataNavigation = viewModel.Metadata;
+                    await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                    await transaction.CommitAsync().ConfigureAwait(false);
+                }
 
                 LibraryService library = IoC.Get<LibraryService>();
                 await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
