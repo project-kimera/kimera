@@ -225,7 +225,7 @@ namespace Kimera.Services
             }
 
             GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel();
-            viewModel.Metadata = game.GameMetadataNavigation.Copy();
+            await viewModel.LoadPackageMetadataAsync(game.GameMetadataNavigation);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
@@ -250,13 +250,15 @@ namespace Kimera.Services
             }
 
             PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel();
-            viewModel.Metadata = game.GameMetadataNavigation.Copy();
+            await viewModel.LoadPackageMetadataAsync(game.PackageMetadataNavigation);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
             if (dialogResult == true)
             {
-                game.GameMetadataNavigation = viewModel.Metadata;
+                await viewModel.SavePackageMetadataAsync();
+
+                game.PackageMetadataNavigation = viewModel.Metadata;
 
                 LibraryService library = IoC.Get<LibraryService>();
                 await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);

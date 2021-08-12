@@ -20,12 +20,13 @@
                 <!-- Default Localization -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Localizations/Localization.ko-KR.xaml" />
 
-                <!-- Kimera Converters -->
+                <!-- Kimera Resources -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Converters.xaml" />
-
-                <!-- Kimera Styles -->
+                <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/EnumItems.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Icons.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Resources/Images.xaml" />
+                
+                <!-- Kimera Styles -->
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/Brushes.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Kimera;component/Styles/WindowStyles.xaml" />

@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:enums="clr-namespace:Kimera.Data.Enums;assembly=Kimera.Data">
+    <ObjectDataProvider x:Key="AgeItems"
+                            MethodName="GetValues" 
+                            ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:Age" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="ComponentTypeItems"
+                            MethodName="GetValues" 
+                            ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:ComponentType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+
+    <ObjectDataProvider x:Key="PackageTypeItems"
+                            MethodName="GetValues" 
+                            ObjectType="{x:Type sys:Enum}">
+        <ObjectDataProvider.MethodParameters>
+            <x:Type TypeName="enums:PackageType" />
+        </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
+</ResourceDictionary>

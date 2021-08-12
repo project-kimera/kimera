@@ -76,7 +76,9 @@
 
                             <!--Window content-->
                             <Grid x:Name="Content" Grid.Row="0" Grid.RowSpan="3">
-                                <ContentPresenter/>
+                                <AdornerDecorator>
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
                             </Grid>
                         </Grid>
                     </Border>
@@ -155,7 +157,9 @@
 
                             <!--Window content-->
                             <Grid x:Name="Content" Grid.Row="1">
-                                <ContentPresenter/>
+                                <AdornerDecorator>
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
                             </Grid>
                         </Grid>
                     </Border>
@@ -230,7 +234,9 @@
 
                             <!--Window content-->
                             <Grid x:Name="Content" Grid.Row="1">
-                                <ContentPresenter/>
+                                <AdornerDecorator>
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
                             </Grid>
                         </Grid>
                     </Border>

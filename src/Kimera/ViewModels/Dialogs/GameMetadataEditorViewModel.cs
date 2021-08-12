@@ -19,10 +19,6 @@ namespace Kimera.ViewModels.Dialogs
         public GameMetadata Metadata
         {
             get => _metadata;
-            set
-            {
-                Set(ref _metadata, value);
-            }
         }
 
         public string Name
@@ -52,17 +48,6 @@ namespace Kimera.ViewModels.Dialogs
             {
                 _metadata.Creator = value;
                 NotifyOfPropertyChange(Creator);
-            }
-        }
-
-        private List<Age> _ages = new List<Age>();
-
-        public List<Age> Ages
-        {
-            get => _ages;
-            set
-            {
-                Set(ref _ages, value);
             }
         }
 
@@ -146,9 +131,19 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public GameMetadataEditorViewModel()
+        public async Task LoadPackageMetadataAsync(GameMetadata metadata)
         {
-            Ages = Enum.GetValues(typeof(Age)).Cast<Age>().ToList();
+            await Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    _metadata = metadata.Copy();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "An error occurred while loading the components data table.");
+                }
+            });
         }
 
         public async void Cancel()

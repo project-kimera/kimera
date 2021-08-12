@@ -8,8 +8,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Style="{StaticResource KimeraSizableDialogWindow}"
-        Foreground="{DynamicResource KimeraForeground}"
-        Title="{DynamicResource VIEW_GAMEMETADATAEDITOR_TITLE}"
+        Foreground="{StaticResource KimeraForeground}"
+        Title="{StaticResource VIEW_GAMEMETADATAEDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
         Width="850" Height="600">
     <Grid>
@@ -24,10 +24,6 @@
                 <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION1}" />
                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION2}" />
             </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="0">
-            
         </Grid>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
@@ -79,7 +75,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}" />
                     <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}"
-                              ItemsSource="{Binding Ages}" SelectedItem="{Binding AdmittedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                              ItemsSource="{Binding Source={StaticResource AgeItems}}" SelectedItem="{Binding AdmittedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <Grid Margin="0 6 0 0">

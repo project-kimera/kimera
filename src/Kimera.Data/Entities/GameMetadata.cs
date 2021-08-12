@@ -109,20 +109,20 @@ namespace Kimera.Data.Entities
         public virtual Game GameNavigation { get; set; }
 
         /// <summary>
+        /// Creates a new instance of GameMetadata.
+        /// </summary>
+        public GameMetadata()
+        {
+            SystemId = Guid.NewGuid();
+        }
+
+        /// <summary>
         /// Copies and returns current game metadata.
         /// </summary>
         /// <returns>The copyed game metadata.</returns>
         public GameMetadata Copy()
         {
             return (GameMetadata)this.MemberwiseClone();
-        }
-
-        /// <summary>
-        /// Creates a new instance of GameMetadata.
-        /// </summary>
-        public GameMetadata()
-        {
-            SystemId = Guid.NewGuid();
         }
     }
 }

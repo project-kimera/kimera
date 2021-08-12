@@ -70,5 +70,14 @@ namespace Kimera.Data.Entities
             EntryPointFilePath = entryPointFilePath;
             CommandLineArguments = commandLineArguments;
         }
+
+        /// <summary>
+        /// Copies and returns current package metadata.
+        /// </summary>
+        /// <returns>The copyed game metadata.</returns>
+        public PackageMetadata Copy()
+        {
+            return (PackageMetadata)this.MemberwiseClone();
+        }
     }
 }
