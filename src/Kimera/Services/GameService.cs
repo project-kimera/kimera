@@ -3,6 +3,7 @@ using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Data.Extensions;
 using Kimera.Entities;
+using Kimera.IO;
 using Kimera.Utilities;
 using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
@@ -23,6 +24,8 @@ namespace Kimera.Services
     public class GameService : PropertyChangedBase
     {
         #region ::Variables & Properties::
+
+        private LibraryService _libraryService = IoC.Get<LibraryService>();
 
         private bool _isRunning = false;
 
@@ -149,6 +152,10 @@ namespace Kimera.Services
                 Log.Error(ex, "An exception occurred while removing the game resources.");
                 return new TaskRecord(TaskRecordType.Exception, $"An exception occurred while removing the game resources.\r\n{ex.Message}\r\n{ex.StackTrace}");
             }
+            finally
+            {
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory);
+            }
         }
 
         public async Task<TaskRecord> ValidateMetadataAsync(Game game)
@@ -244,30 +251,105 @@ namespace Kimera.Services
                     return new TaskRecord(TaskRecordType.Exception, "An exception has occurred while validating the metadata.");
                 }
             }
+            finally
+            {
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory);
+            }
         }
 
-        public async Task<TaskRecord> ValidateGameResourcesAsync(Game game)
+        public async Task<TaskRecord> ValidateEntryPointAsync(Game game)
         {
             return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+        }
+
+        public async Task<TaskRecord> DecompressComponentsAsync(Game game, bool ignorePackageStatus = false)
+        {
+            if (game.PackageStatus == PackageStatus.Compressed || ignorePackageStatus)
+            {
+                // If the package type is archive
+                if (game.PackageMetadataNavigation.Type == PackageType.Archive)
+                {
+                    Component mainComponent = await App.DatabaseContext.Components.Where(c => c.PackageMetadata == game.PackageMetadata && c.Index == 0).FirstOrDefaultAsync();
+
+                    if (mainComponent == null)
+                    {
+                        return new TaskRecord(TaskRecordType.Failure, $"The main component does not found.");
+                    }
+
+                    ArchiveFileManager archive = new ArchiveFileManager(mainComponent.FilePath);
+
+                    try
+                    {
+                        archive.GetArchiveType();
+                    }
+                    catch
+                    {
+                        return new TaskRecord(TaskRecordType.Failure, $"The main component is not a valid archive file.");
+                    }
+                }
+
+
+                // If the package type is chunk
+                foreach (Component component in game.PackageMetadataNavigation.Components)
+                {
+                    if (File.Exists(component.FilePath))
+                    {
+
+                    }
+                }
+            }
+
+            return new TaskRecord(TaskRecordType.Success, "The components have decompressed successfully.");
         }
 
         public async Task<TaskRecord> StartGameAsync(Game game)
         {
-            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
-        }
+            TaskRecord metadataValidationResult = await ValidateMetadataAsync(game);
 
-        public async Task<TaskRecord> ProcessGameAsync(Game game)
-        {
-            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+            if (metadataValidationResult.Type != TaskRecordType.Success)
+            {
+                return metadataValidationResult;
+            }
+
+            TaskRecord entryPointValidationResult = await ValidateEntryPointAsync(game);
+
+            if (entryPointValidationResult.Type != TaskRecordType.Success)
+            {
+                return entryPointValidationResult;
+            }
+
+            if (entryPointValidationResult.Type != TaskRecordType.Success && game.PackageMetadataNavigation.Type != PackageType.Executable)
+            {
+                TaskRecord decompressionResult = await DecompressComponentsAsync(game);
+
+                if (decompressionResult.Type != TaskRecordType.Success)
+                {
+                    return decompressionResult;
+                }
+            }
+
+            return new TaskRecord(TaskRecordType.Success, "The game has started successfully.");
         }
 
         #endregion
 
         #region ::Actions::
 
-        public void StartGame(Guid gameGuid)
+        public async void StartGame(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
 
+            TaskRecord result = await StartGameAsync(game);
+
+            if (result.Type != TaskRecordType.Success)
+            {
+                Log.Warning($"Failed to start the game. ({gameGuid})");
+                MessageBox.Show($"Failed to start the game. ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show($"SUCCESS ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
+            return;
         }
 
         public async void MoveGame(Guid gameGuid)
@@ -276,8 +358,8 @@ namespace Kimera.Services
 
             if (game == null)
             {
-                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -288,7 +370,7 @@ namespace Kimera.Services
                 CategorySelectorViewModel viewModel = new CategorySelectorViewModel();
                 viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE"];
                 viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION"], (string)App.Current.Resources["SVC_GAME_CATEGORY_NONE"]);
-                viewModel.Categories = IoC.Get<LibraryService>().Categories;
+                viewModel.Categories = _libraryService.Categories;
 
                 bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
@@ -309,9 +391,8 @@ namespace Kimera.Services
                         await transaction.CommitAsync().ConfigureAwait(false);
                     }
 
-                    LibraryService library = IoC.Get<LibraryService>();
-                    await library.UpdateCategoriesAsync();
-                    await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                    await _libraryService.UpdateCategoriesAsync();
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
                 }
             }
             else
@@ -319,7 +400,7 @@ namespace Kimera.Services
                 CategorySelectorViewModel viewModel = new CategorySelectorViewModel();
                 viewModel.Title = (string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE"];
                 viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION"], subscription.CategoryNavigation.Name);
-                viewModel.Categories = IoC.Get<LibraryService>().Categories;
+                viewModel.Categories = _libraryService.Categories;
                 viewModel.SelectedCategory = subscription.CategoryNavigation;
 
                 bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
@@ -336,9 +417,8 @@ namespace Kimera.Services
                         await transaction.CommitAsync().ConfigureAwait(false);
                     }
 
-                    LibraryService library = IoC.Get<LibraryService>();
-                    await library.UpdateCategoriesAsync();
-                    await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                    await _libraryService.UpdateCategoriesAsync();
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
                 }
             }
         }
@@ -372,8 +452,8 @@ namespace Kimera.Services
 
             if (game == null)
             {
-                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -388,13 +468,14 @@ namespace Kimera.Services
                 {
                     game.GameMetadataNavigation = viewModel.Metadata;
 
+                    App.DatabaseContext.Games.Update(game);
+
                     await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                LibraryService library = IoC.Get<LibraryService>();
-                await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
             }
         }
 
@@ -404,8 +485,8 @@ namespace Kimera.Services
 
             if (game == null)
             {
-                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -426,8 +507,7 @@ namespace Kimera.Services
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                LibraryService library = IoC.Get<LibraryService>();
-                await library.UpdateGamesAsync(library.SelectedCategory).ConfigureAwait(false);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
             }
         }
 

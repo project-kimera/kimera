@@ -1,4 +1,4 @@
 ﻿namespace Kimera.Entities
 {
-    public record TaskRecord(TaskRecordType type, string message);
+    public record TaskRecord(TaskRecordType Type, string Message);
 }
