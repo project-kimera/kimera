@@ -162,29 +162,6 @@ namespace Kimera.Services
         {
             try
             {
-                // Checks components are compressed.
-                if (game.PackageMetadataNavigation.Type == PackageType.Archive || game.PackageMetadataNavigation.Type == PackageType.Chunk)
-                {
-                    string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
-
-                    DirectoryInfo directory = new DirectoryInfo(gameDirectory);
-
-                    if (directory.EnumerateDirectories().Count() == 0 || directory.EnumerateFiles().Count() == 0)
-                    {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
-                        {
-                            game.PackageStatus = PackageStatus.Compressed;
-
-                            await App.DatabaseContext.SaveChangesAsync();
-
-                            await transaction.CommitAsync();
-
-                            Log.Warning("The components are compressed.");
-                            return new TaskRecord(TaskRecordType.Failure, "The components are compressed.");
-                        }
-                    }
-                }
-
                 // Checks components.
                 foreach (Component component in game.PackageMetadataNavigation.Components)
                 {
@@ -221,6 +198,29 @@ namespace Kimera.Services
 
                             Log.Warning("The package is invalid.");
                             return new TaskRecord(TaskRecordType.Failure, $"The package is invalid.");
+                        }
+                    }
+                }
+
+                // Checks components are compressed.
+                if (game.PackageMetadataNavigation.Type == PackageType.Archive || game.PackageMetadataNavigation.Type == PackageType.Chunk)
+                {
+                    string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
+
+                    DirectoryInfo directory = new DirectoryInfo(gameDirectory);
+
+                    if (directory.EnumerateDirectories().Count() == 0 || directory.EnumerateFiles().Count() == 0)
+                    {
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            game.PackageStatus = PackageStatus.Compressed;
+
+                            await App.DatabaseContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            Log.Warning("The components are compressed.");
+                            return new TaskRecord(TaskRecordType.Failure, "The components are compressed.");
                         }
                     }
                 }
@@ -466,9 +466,9 @@ namespace Kimera.Services
             {
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                 {
-                    game.GameMetadataNavigation = viewModel.Metadata;
+                    App.DatabaseContext.Entry(game.GameMetadataNavigation).CurrentValues.SetValues(viewModel.Metadata);
+                    App.DatabaseContext.Entry(game.GameMetadataNavigation).State = EntityState.Modified;
 
-                    App.DatabaseContext.Games.Update(game);
 
                     await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -500,7 +500,8 @@ namespace Kimera.Services
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                 {
                     await viewModel.SavePackageMetadataAsync();
-                    game.PackageMetadataNavigation = viewModel.Metadata;
+                    App.DatabaseContext.Entry(game.PackageMetadataNavigation).CurrentValues.SetValues(viewModel.Metadata);
+                    App.DatabaseContext.Entry(game.PackageMetadataNavigation).State = EntityState.Modified;
 
                     await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
