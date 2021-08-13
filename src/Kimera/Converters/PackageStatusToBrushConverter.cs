@@ -17,7 +17,7 @@ namespace Kimera.Converters
             {
                 return new SolidColorBrush(Color.FromArgb(255, 255, 203, 5));
             }
-            else if (status == PackageStatus.FileNotFound || status == PackageStatus.DataNotFound || status == PackageStatus.Exception)
+            else if (status == PackageStatus.FileNotFound || status == PackageStatus.DataNotFound || status == PackageStatus.InvalidPackage || status == PackageStatus.Exception)
             {
                 return new SolidColorBrush(Color.FromArgb(255, 217, 30, 24));
             }

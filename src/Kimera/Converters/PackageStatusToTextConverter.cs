@@ -14,31 +14,35 @@ namespace Kimera.Converters
 
             if (status == PackageStatus.NeedProcessing)
             {
-                return "추가 작업 필요";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_NEED_PROCESSING_MSG"];
             }
             else if (status == PackageStatus.Compressed)
             {
-                return "압축 상태";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_COMPRESSED_MSG"];
             }
             else if (status == PackageStatus.FileNotFound)
             {
-                return "파일 미존재";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_FILE_NOT_FOUND_MSG"];
             }
             else if (status == PackageStatus.DataNotFound)
             {
-                return "데이터 미존재";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_DATA_NOT_FOUND_MSG"];
+            }
+            else if (status == PackageStatus.InvalidPackage)
+            {
+                return (string)App.Current.Resources["CONV_PSTOTEXT_INVALID_PACKAGE_MSG"];
             }
             else if (status == PackageStatus.Exception)
             {
-                return "예외 발생";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_EXCEPTION_MSG"];
             }
             else if (status == PackageStatus.Playable)
             {
-                return "실행 가능";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_PLAYABLE_MSG"];
             }
             else
             {
-                return "알 수 없음";
+                return (string)App.Current.Resources["CONV_PSTOTEXT_UNKNOWN_MSG"];
             }
         }
 

@@ -9,6 +9,7 @@
         Compressed,
         FileNotFound,
         DataNotFound,
+        InvalidPackage,
         Exception,
         Playable
     }

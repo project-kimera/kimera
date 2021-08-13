@@ -3,6 +3,7 @@ using Kimera.Data.Entities;
 using Kimera.Data.Enums;
 using Kimera.Data.Extensions;
 using Kimera.Entities;
+using Kimera.Utilities;
 using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
 using LinqKit;
@@ -35,7 +36,7 @@ namespace Kimera.Services
 
         #region ::Methods::
 
-        public async Task<TaskRecord> AddGameAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Category> targetCategories, CancellationToken cancellationToken)
+        public async Task<TaskRecord> AddGameAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Category> targetCategories)
         {
             try
             {
@@ -78,12 +79,6 @@ namespace Kimera.Services
                     {
                         await App.DatabaseContext.AddCategorySubscriptionAsync(category, game);
                     }
-                }
-
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    await RemoveGameAsync(game);
-                    return new TaskRecord(TaskRecordType.Canceled, "The game registration has canceled.");
                 }
 
                 return new TaskRecord(TaskRecordType.Success, "The game has registered successfully.");
@@ -156,9 +151,99 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> ValidateGameAsync(Game game)
+        public async Task<TaskRecord> ValidateMetadataAsync(Game game)
         {
-            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+            try
+            {
+                // Checks components are compressed.
+                if (game.PackageMetadataNavigation.Type == PackageType.Archive || game.PackageMetadataNavigation.Type == PackageType.Chunk)
+                {
+                    string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
+
+                    DirectoryInfo directory = new DirectoryInfo(gameDirectory);
+
+                    if (directory.EnumerateDirectories().Count() == 0 || directory.EnumerateFiles().Count() == 0)
+                    {
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            game.PackageStatus = PackageStatus.Compressed;
+
+                            await App.DatabaseContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            Log.Warning("The components are compressed.");
+                            return new TaskRecord(TaskRecordType.Failure, "The components are compressed.");
+                        }
+                    }
+                }
+
+                // Checks components.
+                foreach (Component component in game.PackageMetadataNavigation.Components)
+                {
+                    if (!File.Exists(component.FilePath))
+                    {
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            game.PackageStatus = PackageStatus.FileNotFound;
+
+                            await App.DatabaseContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+                        }
+
+                        Log.Warning("$The component does not found. ({ component.FilePath})");
+                        return new TaskRecord(TaskRecordType.Failure, $"The component does not found. ({component.FilePath})");
+                    }
+                }
+
+                // Checks package compatibility.
+                if (game.PackageMetadataNavigation.Type == PackageType.Executable)
+                {
+                    Component mainComponent = await App.DatabaseContext.Components.Where(c => c.PackageMetadata == game.PackageMetadata && c.Index == 0).FirstOrDefaultAsync();
+
+                    if (mainComponent.Type != ComponentType.Executable)
+                    {
+                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                        {
+                            game.PackageStatus = PackageStatus.InvalidPackage;
+
+                            await App.DatabaseContext.SaveChangesAsync();
+
+                            await transaction.CommitAsync();
+
+                            Log.Warning("The package is invalid.");
+                            return new TaskRecord(TaskRecordType.Failure, $"The package is invalid.");
+                        }
+                    }
+                }
+
+                // Sets the package status to playable.
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                {
+                    game.PackageStatus = PackageStatus.Playable;
+
+                    await App.DatabaseContext.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+
+                    return new TaskRecord(TaskRecordType.Success, "The metadata is valid.");
+                }
+            }
+            catch (Exception ex)
+            {
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                {
+                    game.PackageStatus = PackageStatus.Exception;
+
+                    await App.DatabaseContext.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+
+                    Log.Error(ex, "An exception has occurred while validating the metadata.");
+                    return new TaskRecord(TaskRecordType.Exception, "An exception has occurred while validating the metadata.");
+                }
+            }
         }
 
         public async Task<TaskRecord> ValidateGameResourcesAsync(Game game)
