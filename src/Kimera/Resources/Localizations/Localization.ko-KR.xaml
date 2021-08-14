@@ -142,6 +142,8 @@
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
     <system:String x:Key="SVC_GAME_CATEGORY_NONE">없음</system:String>
+    <system:String x:Key="SVC_GAME_ADD_FAVORITE_MSG">게임이 즐겨찾기에 추가되었습니다.</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_FAVORITE_CHECKER_MSG">이 게임을 즐겨찾기에서 삭제하시겠습니까?</system:String>
 
     <!--Validator : FilePathValidationRule-->
     <system:String x:Key="VALID_FILEPATH_NOT_FOUND_MSG">파일을 찾을 수 없습니다.</system:String>

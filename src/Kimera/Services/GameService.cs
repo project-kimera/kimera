@@ -391,10 +391,12 @@ namespace Kimera.Services
 
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
+
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_ADD_FAVORITE_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                if (MessageBox.Show("이 게임을 즐겨찾기에서 삭제하시겠습니까?", "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                if (MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_FAVORITE_CHECKER_MSG"], "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                 {
                     using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                     {
