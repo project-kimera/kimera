@@ -117,7 +117,7 @@
                 Tag="{Binding DataContext.GameService, ElementName=GameItems}"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
+                <i:EventTrigger EventName="MouseDoubleClick">
                     <caliburn:ActionMessage MethodName="ViewGame">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>
@@ -153,6 +153,13 @@
                     </StackPanel>
 
                     <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <caliburn:ActionMessage MethodName="StartGame">
+                                    <caliburn:Parameter Value="{Binding SystemId}"/>
+                                </caliburn:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
                     </Button>
                 </Grid>
@@ -166,7 +173,7 @@
                 Tag="{Binding DataContext.GameService, ElementName=GameItems}"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
+                <i:EventTrigger EventName="MouseDoubleClick">
                     <caliburn:ActionMessage MethodName="ViewGame">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>

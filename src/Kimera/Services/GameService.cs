@@ -356,6 +356,8 @@ namespace Kimera.Services
                 return;
             }
 
+
+
             MessageBox.Show($"SUCCESS ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
