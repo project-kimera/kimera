@@ -74,8 +74,8 @@ namespace Kimera.Services
 
         public async void ChangeCategory(Guid categoryGuid)
         {
-            await UpdateSelectedCategoryAsync(categoryGuid);
-            await UpdateGamesAsync(categoryGuid);
+            await UpdateSelectedCategoryAsync(categoryGuid).ConfigureAwait(false);
+            await UpdateGamesAsync(categoryGuid).ConfigureAwait(false);
         }
 
         public void UpdateCategories()
@@ -225,8 +225,8 @@ namespace Kimera.Services
 
                             if (targetCategory.SystemId == _selectedCategory)
                             {
-                                await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
-                                await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
+                                await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY).ConfigureAwait(false);
+                                await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY).ConfigureAwait(false);
                             }
                         }
                     }

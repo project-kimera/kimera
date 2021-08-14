@@ -46,6 +46,16 @@
             </i:Interaction.Triggers>
         </MenuItem>
 
+        <MenuItem Icon="{materialDesign:PackIcon Kind=Favorite}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_FAVORITE}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="ChangeFavoriteState">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
         <Separator/>
 
         <MenuItem Icon="{materialDesign:PackIcon Kind=FileReplace}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_MOVE}">

@@ -176,7 +176,7 @@ namespace Kimera.Services
                             await transaction.CommitAsync();
                         }
 
-                        Log.Warning("$The component does not found. ({ component.FilePath})");
+                        Log.Warning($"The component does not found. ({component.FilePath})");
                         return new TaskRecord(TaskRecordType.Failure, $"The component does not found. ({component.FilePath})");
                     }
                 }
@@ -259,6 +259,7 @@ namespace Kimera.Services
 
         public async Task<TaskRecord> ValidateEntryPointAsync(Game game)
         {
+
             return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
         }
 
@@ -339,6 +340,13 @@ namespace Kimera.Services
         {
             Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
 
+            if (game == null)
+            {
+                Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             TaskRecord result = await StartGameAsync(game);
 
             if (result.Type != TaskRecordType.Success)
@@ -350,6 +358,53 @@ namespace Kimera.Services
 
             MessageBox.Show($"SUCCESS ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
             return;
+        }
+
+        public async void ChangeFavoriteState(Guid gameGuid)
+        {
+            Game game = await App.DatabaseContext.GetGameAsync(gameGuid).ConfigureAwait(false);
+
+            if (game == null)
+            {
+                Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            CategorySubscription subscription = await App.DatabaseContext.CategorySubscriptions.Where(c => c.Game == gameGuid && c.Category == Settings.GUID_FAVORITE_CATEGORY).FirstOrDefaultAsync();
+
+            if (subscription == null)
+            {
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                {
+                    CategorySubscription newSubscription = new CategorySubscription();
+                    newSubscription.Category = Settings.GUID_FAVORITE_CATEGORY;
+                    newSubscription.CategoryNavigation = await App.DatabaseContext.GetCategoryAsync(Settings.GUID_FAVORITE_CATEGORY).ConfigureAwait(false);
+                    newSubscription.Game = game.SystemId;
+                    newSubscription.GameNavigation = game;
+
+                    await App.DatabaseContext.CategorySubscriptions.AddAsync(newSubscription).ConfigureAwait(false);
+
+                    await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                    await transaction.CommitAsync().ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                if (MessageBox.Show("이 게임을 즐겨찾기에서 삭제하시겠습니까?", "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                {
+                    using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                    {
+
+                        App.DatabaseContext.CategorySubscriptions.Remove(subscription);
+
+                        await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                        await transaction.CommitAsync().ConfigureAwait(false);
+                    }
+                }
+            }
         }
 
         public async void MoveGame(Guid gameGuid)
@@ -437,13 +492,17 @@ namespace Kimera.Services
         {
             Game game = await App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefaultAsync();
 
-            if (game != null)
+            if (game == null)
             {
-                INavigationService navigationService = IoC.Get<INavigationService>();
-                navigationService.For<GameViewModel>()
-                    .WithParam(g => g.Game, game)
-                    .Navigate();
+                Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
+
+            INavigationService navigationService = IoC.Get<INavigationService>();
+            navigationService.For<GameViewModel>()
+                .WithParam(g => g.Game, game)
+                .Navigate();
         }
 
         public async void CallGameMetadataEditor(Guid gameGuid)

@@ -79,7 +79,7 @@
                             <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}" Height="40"
                                     caliburn:Message.Attach="ChangeToFavoriteCategory()">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Star"/>
+                                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Favorite"/>
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_LIBRARY_CATEGORY_FAVORITE_HEADER}" />
                                 </StackPanel>
