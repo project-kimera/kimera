@@ -1,4 +1,5 @@
 ﻿using Kimera.Network;
+using System;
 using System.Globalization;
 using System.Windows.Controls;
 
@@ -8,9 +9,9 @@ namespace Kimera.Validators
     {
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            string typeName;
+            Type serviceType;
 
-            if (MetadataServiceProvider.TryValidProductCode((string)value, out typeName))
+            if (MetadataServiceProvider.TryValidProductCode((string)value, out serviceType))
             {
                 return new ValidationResult(true, (string)App.Current.Resources["VALID_PRODUCTCODE_VALID_MSG"]);
             }

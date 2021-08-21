@@ -48,7 +48,7 @@ namespace Kimera.Network
                 {
                     foreach (string regex in service.ProductCodeRegexs)
                     {
-                        Match match = Regex.Match(pathChunks[i], regex);
+                        Match match = Regex.Match(pathChunks[i], regex, RegexOptions.IgnoreCase);
 
                         if (match.Success)
                         {
@@ -65,37 +65,37 @@ namespace Kimera.Network
         /// If the product code is valid, this returns true and type name of target service; otherwise, false and null.
         /// </summary>
         /// <param name="productCode">The product code.</param>
-        /// <param name="serviceTypeName">The string where the service type name is stored.</param>
+        /// <param name="serviceType">The string where the service type is stored.</param>
         /// <returns>true if the product code is valid; otherwise, false.</returns>
-        public static bool TryValidProductCode(string productCode, out string serviceTypeName)
+        public static bool TryValidProductCode(string productCode, out Type serviceType)
         {
             foreach(IMetadataService service in _services)
             {
                 foreach (string regex in service.ProductCodeRegexs)
                 {
-                    if (Regex.IsMatch(productCode, regex))
+                    if (Regex.IsMatch(productCode, regex, RegexOptions.IgnoreCase))
                     {
-                        serviceTypeName = service.GetType().Name;
+                        serviceType = service.GetType();
                         return true;
                     }
                 }
             }
 
-            serviceTypeName = null;
+            serviceType = null;
             return false;
         }
 
         /// <summary>
         /// Checks availablity of the product.
         /// </summary>
-        /// <param name="serviceTypeName">The type name of service to use.</param>
+        /// <param name="serviceType">The type of service to use.</param>
         /// <param name="productCode">The product code to be used.</param>
         /// <returns>true if the product is available; otherwise, false.</returns>
-        public static async Task<bool> IsAvailableProductAsync(string serviceTypeName, string productCode)
+        public static async Task<bool> IsAvailableProductAsync(Type serviceType, string productCode)
         {
             try
             {
-                IMetadataService service = _services.Where(s => s.GetType().Name == serviceTypeName).First();
+                IMetadataService service = _services.Where(s => s.GetType().Name == serviceType.Name).First();
 
                 if (service != null)
                 {
@@ -116,14 +116,14 @@ namespace Kimera.Network
         /// <summary>
         /// Get the metadata of the product.
         /// </summary>
-        /// <param name="serviceTypeName">The type name of service to use.</param>
+        /// <param name="serviceType">The type of service to use.</param>
         /// <param name="productCode">The product code to be used.</param>
         /// <returns>A <see cref="GameMetadata"/> if the product is available; otherwise, null.</returns>
-        public static async Task<GameMetadata> GetMetadataAsync(string serviceTypeName, string productCode)
+        public static async Task<GameMetadata> GetMetadataAsync(Type serviceType, string productCode)
         {
             try
             {
-                IMetadataService service = _services.Where(s => s.GetType().Name == serviceTypeName).First();
+                IMetadataService service = _services.Where(s => s.GetType().Name == serviceType.Name).First();
 
                 if (service != null)
                 {

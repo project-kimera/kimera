@@ -161,15 +161,13 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}" Padding="18 0 18 0" 
+                        ToolTip="{StaticResource VIEW_LIBRARY_ADD_SINGLE_HINT}"
+                        caliburn:Message.Attach="NavigateToSingleFileRegister()">
+                    <materialDesign:PackIcon  Width="18" Height="18" Kind="FolderPlusOutline"/>
+                </Button>
 
-                <materialDesign:PopupBox Margin="6 0 6 0" Padding="0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{StaticResource VIEW_LIBRARY_ADD_SINGLE_HINT}">
-                    <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderPlusOutline"/>
-                    </materialDesign:PopupBox.ToggleContent>
-                </materialDesign:PopupBox>
-
-                <materialDesign:PopupBox Margin="0 0 0 0" Padding="0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{StaticResource VIEW_LIBRARY_ADD_MULTIPLE_HINT}"
-                                         caliburn:Message.Attach="[Event Click] = [Action NavigateToSingleFileRegister()]">
+                <materialDesign:PopupBox Margin="0 0 0 0" Padding="0" Width="32" Height="32" PlacementMode="BottomAndAlignCentres" ToolTip="{StaticResource VIEW_LIBRARY_ADD_MULTIPLE_HINT}">
                     <materialDesign:PopupBox.ToggleContent>
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="FolderMultiplePlusOutline"/>
                     </materialDesign:PopupBox.ToggleContent>

@@ -4,11 +4,221 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kimera.Views.Pages"
+      xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SingleFileRegisterView">
-
+      Foreground="{StaticResource KimeraForeground}">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0 0 0 1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="GoBack" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="10 0 0 0" VerticalAlignment="Center" Width="36" Height="36">
+                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="16" Height="16" Kind="ArrowLeft" />
+                    </Button>
+
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="4 0 6 0" VerticalAlignment="Center" Text="{StaticResource VIEW_COMMON_GOBACK}" />
+                    <Rectangle Fill="{StaticResource KimeraForegroundLight}" Width="2" Height="16"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{StaticResource VIEW_SINGLEREGISTER_HEADER}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Background="{StaticResource KimeraDivider}">
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="20 0 0 0" VerticalAlignment="Center" Text="패키지 메타데이터" />
+                </Grid>
+                
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Foreground="{DynamicResource KimeraForeground}" Text="실행 파일 설정" />
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="파일 경로"/>
+                            <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Executable File Path" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     materialDesign:ValidationAssist.Background="Transparent">
+                                <TextBox.Text>
+                                    <Binding Path="FilePath" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <domain:FilePathValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="10 0 0 0" Content="..." 
+                                    caliburn:Message.Attach="ExploreFile()"/>
+                        </Grid>
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="비밀번호" />
+                            <TextBox Grid.Column="1" materialDesign:HintAssist.Hint="Password" 
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="진입점 경로" />
+                            <TextBox Grid.Column="1" Foreground="{DynamicResource KimeraForeground}"
+                                     materialDesign:ValidationAssist.Background="Transparent" materialDesign:HintAssist.Hint="Entry Point Path"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
+                                <TextBox.Text>
+                                    <Binding Path="EntryPointFilePath" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <domain:NotEmptyValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="명령줄 인수" />
+                            <TextBox Grid.Column="1" Foreground="{DynamicResource KimeraForeground}" materialDesign:HintAssist.Hint="Commandline Arguments"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding CommandlineArguments, Mode=TwoWay}"/>
+                        </Grid>
+
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Foreground="{DynamicResource KimeraForeground}" Margin="0 20 0 0" Text="카테고리 설정" />
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="카테고리 지정" />
+                            <ToggleButton Grid.Column="1" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" 
+                                          IsChecked="{Binding UseCategory, Mode=TwoWay}"/>
+                        </Grid>
+
+                        <Grid Margin="0 12 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="카테고리" />
+                            <ComboBox Grid.Column="1" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Category" />
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <GridSplitter Grid.Column="1" Background="{StaticResource KimeraDivider}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="1" ShowsPreview="True"/>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Background="{StaticResource KimeraDivider}">
+                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="20 0 0 0" VerticalAlignment="Center" Text="게임 메타데이터" />
+                </Grid>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Text="메타데이터 입력 방식" />
+
+                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 16 0 0"
+                                         Content="자동으로 메타데이터 입력하기"
+                                         IsChecked="{Binding UseMetadataServer, Mode=TwoWay}"/>
+                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" Margin="0 6 0 0"
+                                         Content="수동으로 메타데이터 입력하기"
+                                         IsChecked="{Binding UseMetadataServer, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Margin="0 20 0 0" Text="자동 입력" />
+
+                        <Grid Margin="0 6 0 0" IsEnabled="{Binding UseMetadataServer}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="제품 코드" />
+                            <TextBox Grid.Column="1" Margin="0 6 0 0"
+                                     materialDesign:HintAssist.Hint="Product Code" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     materialDesign:ValidationAssist.Background="Transparent">
+                                <TextBox.Text>
+                                    <Binding Path="ProductCode" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <domain:ProductCodeValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="10 0 0 0" Content="가져오기"
+                                    caliburn:Message.Attach="GetGameMetadataFromProductCode()"/>
+                        </Grid>
+
+
+                        <TextBlock Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Margin="0 20 0 0" Text="수동 입력" />
+
+                        <Grid Margin="0 6 0 0" IsEnabled="{Binding UseMetadataServer, Converter={StaticResource InverseBooleanConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="메타데이터" />
+                            <Button Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0 10 0 0" HorizontalAlignment="Left"
+                                    caliburn:Message.Attach="EditGameMetadata()">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Edit"/>
+                                    <TextBlock Margin="6 0 0 0"  Text="메타데이터 편집하기"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인"
+                            caliburn:Message.Attach="Confirm()"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
