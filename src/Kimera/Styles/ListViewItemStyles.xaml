@@ -115,6 +115,7 @@
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{StaticResource LibraryContextMenu}"
                 Tag="{Binding DataContext.GameService, ElementName=GameItems}"
+                Cursor="Hand"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -171,6 +172,7 @@
     <DataTemplate x:Key="IconViewItemTemplate" DataType="dataEntities:Game">
         <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{StaticResource LibraryContextMenu}"
                 Tag="{Binding DataContext.GameService, ElementName=GameItems}"
+                Cursor="Hand"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
