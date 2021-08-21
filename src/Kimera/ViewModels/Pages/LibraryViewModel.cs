@@ -209,19 +209,9 @@ namespace Kimera.ViewModels.Pages
             ViewTemplate = App.Current.FindResource("IconViewItemTemplate") as DataTemplate;
         }
 
-        public void NavigateToSingleFileRegister()
+        public void NavigateToGameRegister()
         {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(SingleFileRegisterViewModel));
-        }
-
-        public void NavigateToChunkRegister()
-        {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(ChunkRegisterViewModel));
-        }
-
-        public void NavigateToMultipleFileRegister()
-        {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(MultipleFileRegisterViewModel));
+            IoC.Get<INavigationService>().NavigateToViewModel(typeof(GameRegisterViewModel));
         }
 
         #endregion

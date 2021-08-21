@@ -130,14 +130,14 @@ namespace Kimera.ViewModels.Dialogs
                 return;
             }
 
-            if ((PackageType == PackageType.Executable || PackageType == PackageType.Archive) && Components.Count != 1)
+            if (PackageType == PackageType.Single && Components.Count != 1)
             {
                 MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_COMP_COUNT_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("Too many or too few components.");
                 return;
             }
 
-            if ((PackageType != PackageType.Executable) && string.IsNullOrEmpty(EntryPointFilePath))
+            if (string.IsNullOrEmpty(EntryPointFilePath))
             {
                 MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The entry point is null.");
@@ -146,24 +146,10 @@ namespace Kimera.ViewModels.Dialogs
 
             Component mainComponent = Components.Where(c => c.Index == 0).FirstOrDefault();
 
-            if ((PackageType == PackageType.Executable || PackageType == PackageType.Archive) && mainComponent == null)
+            if (PackageType == PackageType.Single && mainComponent == null)
             {
                 MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The main component is null.");
-                return;
-            }
-
-            if (PackageType == PackageType.Executable && mainComponent.Type != ComponentType.Executable)
-            {
-                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_EXE_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                Log.Warning("The main component is not a executable component.");
-                return;
-            }
-
-            if (PackageType == PackageType.Archive && mainComponent.Type != ComponentType.Archive)
-            {
-                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_MAIN_COMP_FOR_ARCH_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                Log.Warning("The main component is not a archive component.");
                 return;
             }
 

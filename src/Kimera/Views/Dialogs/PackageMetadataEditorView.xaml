@@ -47,10 +47,6 @@
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                        <materialDesign:DataGridComboBoxColumn Width="100" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_TYPE_HEADER}"
-                                                               IsEditable="True" SelectedValueBinding="{Binding Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                               ItemsSourceBinding="{Binding Source={StaticResource ComponentTypeItems}}"/>
-
                         <DataGridTextColumn Binding="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_FPATH_HEADER}" Width="200"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />

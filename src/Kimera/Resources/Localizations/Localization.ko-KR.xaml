@@ -64,8 +64,17 @@
     <system:String x:Key="VIEW_GAME_MEMO_HEADER">메모</system:String>
     <system:String x:Key="VIEW_GAME_MEMO_HINT">메모</system:String>
     
-    <!--View : SingleFileRegisterView-->
-    <system:String x:Key="VIEW_SINGLEREGISTER_HEADER">단일 파일 추가</system:String>
+    <!--View : GameRegisterView-->
+    <system:String x:Key="VIEW_GAMEREGISTER_HEADER">게임 추가</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_STATUS_HEADER">상태</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_PKG_MD_HEADER">패키지 메타데이터</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_GM_MD_HEADER">게임 메타데이터</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_CATEGORY_HEADER">카테고리</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_EP_HEADER">진입점 경로</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_ARGS_HEADER">명령줄 인수</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_ADD_SINGLE_HINT">개별 게임으로 추가</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_ADD_CHUNK_HINT">청크로 추가</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_REMOVE_REG_HINT">제거</system:String>
 
     <!--View : ChunkRegisterView-->
 

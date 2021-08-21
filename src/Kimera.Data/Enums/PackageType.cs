@@ -5,8 +5,7 @@
     /// </summary>
     public enum PackageType
     {
-        Executable,
-        Archive,
+        Single,
         Chunk
     }
 }

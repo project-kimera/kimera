@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Kimera.Views.Pages
 {
     /// <summary>
-    /// SingleFileRegisterView.xaml에 대한 상호 작용 논리
+    /// GameRegisterView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SingleFileRegisterView : Page
+    public partial class GameRegisterView : Page
     {
-        public SingleFileRegisterView()
+        public GameRegisterView()
         {
             InitializeComponent();
         }

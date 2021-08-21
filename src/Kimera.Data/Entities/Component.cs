@@ -21,11 +21,6 @@ namespace Kimera.Data.Entities
         /// The Foreign Key(FK) of the package metadata.
         /// </summary>
         public Guid PackageMetadata { get; set; }
-
-        /// <summary>
-        /// The type of the component.
-        /// </summary>
-        public ComponentType Type { get; set; }
         
         /// <summary>
         /// The priority of the component.
@@ -66,9 +61,8 @@ namespace Kimera.Data.Entities
         /// <param name="type">The type of the component.</param>
         /// <param name="index">The priority of the component.</param>
         /// <param name="filePath">The path of the component.</param>
-        public Component(ComponentType type, int index, string filePath)
+        public Component(int index, string filePath)
         {
-            Type = type;
             Index = index;
             FilePath = filePath;
         }
@@ -80,9 +74,8 @@ namespace Kimera.Data.Entities
         /// <param name="index">The priority of the component.</param>
         /// <param name="filePath">The path of the component.</param>
         /// <param name="password">The password of the component.</param>
-        public Component(ComponentType type, int index, string filePath, string password)
+        public Component(int index, string filePath, string password)
         {
-            Type = type;
             Index = index;
             FilePath = filePath;
             Password = password;

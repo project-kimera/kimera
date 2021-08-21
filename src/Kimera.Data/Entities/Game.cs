@@ -1,8 +1,6 @@
 ﻿using Kimera.Data.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Windows.Input;
 
 namespace Kimera.Data.Entities
 {
@@ -35,6 +33,11 @@ namespace Kimera.Data.Entities
         /// The package status.
         /// </summary>
         public PackageStatus PackageStatus { get; set; }
+
+        /// <summary>
+        /// Whether the game is selected as a favorite game, or not.
+        /// </summary>
+        public bool IsFavorite { get; set; }
 
         /// <summary>
         /// The navigation property of the game metadata.

@@ -10,14 +10,6 @@
         </ObjectDataProvider.MethodParameters>
     </ObjectDataProvider>
 
-    <ObjectDataProvider x:Key="ComponentTypeItems"
-                            MethodName="GetValues" 
-                            ObjectType="{x:Type sys:Enum}">
-        <ObjectDataProvider.MethodParameters>
-            <x:Type TypeName="enums:ComponentType" />
-        </ObjectDataProvider.MethodParameters>
-    </ObjectDataProvider>
-
     <ObjectDataProvider x:Key="PackageTypeItems"
                             MethodName="GetValues" 
                             ObjectType="{x:Type sys:Enum}">

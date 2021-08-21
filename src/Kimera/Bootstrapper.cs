@@ -50,9 +50,7 @@ namespace Kimera
             // Pages
             _container
                .PerRequest<GameViewModel>()
-               .PerRequest<SingleFileRegisterViewModel>()
-               .PerRequest<ChunkRegisterViewModel>()
-               .PerRequest<MultipleFileRegisterViewModel>();
+               .PerRequest<GameRegisterViewModel>();
 
             // Dialogs
             _container

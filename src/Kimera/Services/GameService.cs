@@ -181,29 +181,8 @@ namespace Kimera.Services
                     }
                 }
 
-                // Checks package compatibility.
-                if (game.PackageMetadataNavigation.Type == PackageType.Executable)
-                {
-                    Component mainComponent = await App.DatabaseContext.Components.Where(c => c.PackageMetadata == game.PackageMetadata && c.Index == 0).FirstOrDefaultAsync();
-
-                    if (mainComponent.Type != ComponentType.Executable)
-                    {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
-                        {
-                            game.PackageStatus = PackageStatus.InvalidPackage;
-
-                            await App.DatabaseContext.SaveChangesAsync();
-
-                            await transaction.CommitAsync();
-
-                            Log.Warning("The package is invalid.");
-                            return new TaskRecord(TaskRecordType.Failure, $"The package is invalid.");
-                        }
-                    }
-                }
-
                 // Checks components are compressed.
-                if (game.PackageMetadataNavigation.Type == PackageType.Archive || game.PackageMetadataNavigation.Type == PackageType.Chunk)
+                if (game.PackageMetadataNavigation.Type == PackageType.Single || game.PackageMetadataNavigation.Type == PackageType.Chunk)
                 {
                     string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
 
@@ -268,7 +247,7 @@ namespace Kimera.Services
             if (game.PackageStatus == PackageStatus.Compressed || ignorePackageStatus)
             {
                 // If the package type is archive
-                if (game.PackageMetadataNavigation.Type == PackageType.Archive)
+                if (game.PackageMetadataNavigation.Type == PackageType.Single)
                 {
                     Component mainComponent = await App.DatabaseContext.Components.Where(c => c.PackageMetadata == game.PackageMetadata && c.Index == 0).FirstOrDefaultAsync();
 
@@ -319,14 +298,11 @@ namespace Kimera.Services
                 return entryPointValidationResult;
             }
 
-            if (entryPointValidationResult.Type != TaskRecordType.Success && game.PackageMetadataNavigation.Type != PackageType.Executable)
-            {
-                TaskRecord decompressionResult = await DecompressComponentsAsync(game);
+            TaskRecord decompressionResult = await DecompressComponentsAsync(game);
 
-                if (decompressionResult.Type != TaskRecordType.Success)
-                {
-                    return decompressionResult;
-                }
+            if (decompressionResult.Type != TaskRecordType.Success)
+            {
+                return decompressionResult;
             }
 
             return new TaskRecord(TaskRecordType.Success, "The game has started successfully.");
