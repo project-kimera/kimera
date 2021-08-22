@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Entities;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +45,34 @@ namespace Kimera.ViewModels.Pages
 
         public async void AddFiles()
         {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Open";
+            dialog.Filter = "Supported Files|*.zip;*.7z;*.rar";
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == true)
+            {
+                //FilePath = dialog.FileName;
+
+                //string productCode = MetadataServiceProvider.GetProductCodeFromPath(FilePath);
+
+                //if (string.IsNullOrEmpty(productCode))
+                {
+                    //MessageBox.Show("상품 코드를 가져올 수 없습니다. 수동으로 게임 메타데이터를 입력해주세요.", "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                //else
+                {
+                    //ProductCode = productCode;
+                }
+            }
+        }
+
+        public async void AddChunk()
+        {
 
         }
 
-        public async void AddChunks()
+        public async void Remove()
         {
 
         }

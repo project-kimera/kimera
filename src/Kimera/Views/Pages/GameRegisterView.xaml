@@ -79,17 +79,17 @@
             <Grid Grid.Row="1" Margin="10 0 10 0">
                 <StackPanel Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Right">
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_SINGLE_HINT}"
-                            caliburn:Message.Attach="AddComponent()">
+                            caliburn:Message.Attach="AddFiles()">
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_CHUNK_HINT}"
-                            caliburn:Message.Attach="AddComponent()">
+                            caliburn:Message.Attach="AddChunk()">
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ArchiveAddOutline"/>
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_REMOVE_REG_HINT}"
-                            caliburn:Message.Attach="RemoveComponent()" Cursor="Hand">
+                            caliburn:Message.Attach="Remove()" Cursor="Hand">
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                     </Button>
                 </StackPanel>
