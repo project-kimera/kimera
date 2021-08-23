@@ -39,11 +39,7 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_LIBRARY_CATEGORY_HEADER}" />
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       VerticalAlignment="Center" FontWeight="Bold" Text=" : " />
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategory, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CategoryGuidToNameConverter}}" />
+                                       Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategory, Converter={StaticResource CategoryGuidToNameConverter}, StringFormat='카테고리 : {0}'}" />
                         </StackPanel>
                     </materialDesign:PopupBox.ToggleContent>
 

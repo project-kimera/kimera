@@ -39,7 +39,7 @@ namespace Kimera.Services
 
         #region ::Methods::
 
-        public async Task<TaskRecord> AddGameAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Category> targetCategories)
+        public async Task<TaskRecord> AddGameInternalAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Category> targetCategories)
         {
             try
             {
@@ -93,11 +93,11 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> RemoveGameAsync(Game game)
+        public async Task<TaskRecord> RemoveGameInternalAsync(Game game)
         {
             try
             {
-                await RemoveGameResourcesAsync(game.SystemId);
+                await RemoveGameResourcesInternalAsync(game.SystemId);
 
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
                 {
@@ -137,7 +137,7 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> RemoveGameResourcesAsync(Guid gameGuid)
+        public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Guid gameGuid)
         {
             try
             {
@@ -158,13 +158,13 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> ValidateMetadataAsync(Game game)
+        public async Task<TaskRecord> ValidateMetadataInternalAsync(Game game)
         {
             try
             {
-                // Checks components.
                 foreach (Component component in game.PackageMetadataNavigation.Components)
                 {
+                    // Checks components.
                     if (!File.Exists(component.FilePath))
                     {
                         using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
@@ -179,30 +179,13 @@ namespace Kimera.Services
                         Log.Warning($"The component does not found. ({component.FilePath})");
                         return new TaskRecord(TaskRecordType.Failure, $"The component does not found. ({component.FilePath})");
                     }
+
+                    // Checks component password.
+                    ArchiveFileManager archive = new ArchiveFileManager(component.FilePath);
+                    //await archive.IsValidPasswordAsync();
                 }
 
-                // Checks components are compressed.
-                if (game.PackageMetadataNavigation.Type == PackageType.Single || game.PackageMetadataNavigation.Type == PackageType.Chunk)
-                {
-                    string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
 
-                    DirectoryInfo directory = new DirectoryInfo(gameDirectory);
-
-                    if (directory.EnumerateDirectories().Count() == 0 || directory.EnumerateFiles().Count() == 0)
-                    {
-                        using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
-                        {
-                            game.PackageStatus = PackageStatus.Compressed;
-
-                            await App.DatabaseContext.SaveChangesAsync();
-
-                            await transaction.CommitAsync();
-
-                            Log.Warning("The components are compressed.");
-                            return new TaskRecord(TaskRecordType.Failure, "The components are compressed.");
-                        }
-                    }
-                }
 
                 // Sets the package status to playable.
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
@@ -236,17 +219,36 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> ValidateEntryPointAsync(Game game)
+        public async Task<TaskRecord> ValidateResourcesInternalAsync(Game game)
         {
+            string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
+            
+            // Checks the entry point.
+            if (Path.IsPathRooted(game.PackageMetadataNavigation.EntryPointFilePath))
+            {
+                if (!File.Exists(game.PackageMetadataNavigation.EntryPointFilePath))
+                {
+                    return new TaskRecord(TaskRecordType.Failure, "The entry point does not found.");
+                }
+            }
+            else
+            {
+                string entryPoint = Path.Combine(gameDirectory, game.PackageMetadataNavigation.EntryPointFilePath);
 
-            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+                if (!File.Exists(entryPoint))
+                {
+                    return new TaskRecord(TaskRecordType.Failure, "The entry point does not found.");
+                }
+            }         
+
+            return new TaskRecord(TaskRecordType.Success, "The game resources are valid.");
         }
 
-        public async Task<TaskRecord> DecompressComponentsAsync(Game game, bool ignorePackageStatus = false)
+        public async Task<TaskRecord> DecompressComponentsInternalAsync(Game game, bool ignorePackageStatus = false)
         {
             if (game.PackageStatus == PackageStatus.Compressed || ignorePackageStatus)
             {
-                // If the package type is archive
+                // If the package type is single.
                 if (game.PackageMetadataNavigation.Type == PackageType.Single)
                 {
                     Component mainComponent = await App.DatabaseContext.Components.Where(c => c.PackageMetadata == game.PackageMetadata && c.Index == 0).FirstOrDefaultAsync();
@@ -282,23 +284,29 @@ namespace Kimera.Services
             return new TaskRecord(TaskRecordType.Success, "The components have decompressed successfully.");
         }
 
-        public async Task<TaskRecord> StartGameAsync(Game game)
+        public async Task<TaskRecord> RunProcessInternalAsync(Game game)
         {
-            TaskRecord metadataValidationResult = await ValidateMetadataAsync(game);
+
+            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+        }
+
+        public async Task<TaskRecord> StartGameInternalAsync(Game game)
+        {
+            TaskRecord metadataValidationResult = await ValidateMetadataInternalAsync(game);
 
             if (metadataValidationResult.Type != TaskRecordType.Success)
             {
                 return metadataValidationResult;
             }
 
-            TaskRecord entryPointValidationResult = await ValidateEntryPointAsync(game);
+            TaskRecord resourcesValidationResult = await ValidateResourcesInternalAsync(game);
 
-            if (entryPointValidationResult.Type != TaskRecordType.Success)
+            if (resourcesValidationResult.Type != TaskRecordType.Success)
             {
-                return entryPointValidationResult;
+                return resourcesValidationResult;
             }
 
-            TaskRecord decompressionResult = await DecompressComponentsAsync(game);
+            TaskRecord decompressionResult = await DecompressComponentsInternalAsync(game);
 
             if (decompressionResult.Type != TaskRecordType.Success)
             {
@@ -323,7 +331,7 @@ namespace Kimera.Services
                 return;
             }
 
-            TaskRecord result = await StartGameAsync(game);
+            TaskRecord result = await StartGameInternalAsync(game);
 
             if (result.Type != TaskRecordType.Success)
             {
@@ -463,9 +471,18 @@ namespace Kimera.Services
 
         }
 
-        public void RemoveGame(Guid gameGuid)
+        public async void RemoveGame(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefaultAsync();
 
+            if (game == null)
+            {
+                Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            await RemoveGameInternalAsync(game);
         }
 
         public async void ViewGame(Guid gameGuid)
