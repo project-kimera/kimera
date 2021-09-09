@@ -100,6 +100,7 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
+
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="MouseOver" />

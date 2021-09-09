@@ -52,6 +52,9 @@
     <Color x:Key="KimeraDividerLightColor">#FF404040</Color>
     <SolidColorBrush x:Key="KimeraDividerLight" Color="{StaticResource KimeraDividerLightColor}" />
 
+    <Color x:Key="KimeraPrimaryColor">#1976d2</Color>
+    <SolidColorBrush x:Key="KimeraPrimary" Color="{StaticResource KimeraPrimaryColor}" />
+
     <Color x:Key="KimeraAccentColor">#FF2962FF</Color>
     <SolidColorBrush x:Key="KimeraAccent" Color="{StaticResource KimeraAccentColor}" />
 </ResourceDictionary>
