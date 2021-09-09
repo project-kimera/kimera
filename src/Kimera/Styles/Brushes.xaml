@@ -30,18 +30,28 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-    <SolidColorBrush x:Key="KimeraBackground" Color="#FF212121" />
-    <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="#FF303030" />
-    
-    <SolidColorBrush x:Key="KimeraButtonHover" Color="#FF292929" />
-    <SolidColorBrush x:Key="KimeraButtonRipple" Color="#FF323232" />
+    <Color x:Key="KimeraBackgroundColor">#FF212121</Color>
+    <SolidColorBrush x:Key="KimeraBackground" Color="{StaticResource KimeraBackgroundColor}" />
+    <Color x:Key="KimeraPopupBoxBackgroundColor">#FF303030</Color>
+    <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="{StaticResource KimeraPopupBoxBackgroundColor}" />
 
-    <SolidColorBrush x:Key="KimeraForegroundUltraLight" Color="#616161" />
-    <SolidColorBrush x:Key="KimeraForegroundLight" Color="#89FFFFFF" />
-    <SolidColorBrush x:Key="KimeraForeground" Color="#DDFFFFFF" />
+    <Color x:Key="KimeraButtonHoverColor">#FF292929</Color>
+    <SolidColorBrush x:Key="KimeraButtonHover" Color="{StaticResource KimeraButtonHoverColor}" />
+    <Color x:Key="KimeraButtonRippleColor">#FF323232</Color>
+    <SolidColorBrush x:Key="KimeraButtonRipple" Color="{StaticResource KimeraButtonRippleColor}" />
 
-    <SolidColorBrush x:Key="KimeraDivider" Color="#FF303030" />
-    <SolidColorBrush x:Key="KimeraDividerLight" Color="#FF404040" />
+    <Color x:Key="KimeraForegroundUltraLightColor">#616161</Color>
+    <SolidColorBrush x:Key="KimeraForegroundUltraLight" Color="{StaticResource KimeraForegroundUltraLightColor}" />
+    <Color x:Key="KimeraForegroundLightColor">#89FFFFFF</Color>
+    <SolidColorBrush x:Key="KimeraForegroundLight" Color="{StaticResource KimeraForegroundLightColor}" />
+    <Color x:Key="KimeraForegroundColor">#DDFFFFFF</Color>
+    <SolidColorBrush x:Key="KimeraForeground" Color="{StaticResource KimeraForegroundColor}" />
 
-    <SolidColorBrush x:Key="KimeraAccent" Color="#FF2962FF" />
+    <Color x:Key="KimeraDividerColor">#FF303030</Color>
+    <SolidColorBrush x:Key="KimeraDivider" Color="{StaticResource KimeraDividerColor}" />
+    <Color x:Key="KimeraDividerLightColor">#FF404040</Color>
+    <SolidColorBrush x:Key="KimeraDividerLight" Color="{StaticResource KimeraDividerLightColor}" />
+
+    <Color x:Key="KimeraAccentColor">#FF2962FF</Color>
+    <SolidColorBrush x:Key="KimeraAccent" Color="{StaticResource KimeraAccentColor}" />
 </ResourceDictionary>

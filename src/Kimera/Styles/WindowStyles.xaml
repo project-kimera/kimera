@@ -6,7 +6,7 @@
             <Setter.Value>
                 <WindowChrome 
                     ResizeBorderThickness="10" 
-                    CaptionHeight="40"
+                    CaptionHeight="64"
                     CornerRadius="0" 
                     GlassFrameThickness="0.5"/>
             </Setter.Value>
@@ -92,7 +92,7 @@
             <Setter.Value>
                 <WindowChrome 
                     ResizeBorderThickness="10" 
-                    CaptionHeight="40"
+                    CaptionHeight="70"
                     CornerRadius="0" 
                     GlassFrameThickness="0.5"/>
             </Setter.Value>
@@ -125,7 +125,7 @@
                         <!--Client area-->
                         <Grid Background="{DynamicResource KimeraBackground}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="70"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--Title bar-->
@@ -137,20 +137,19 @@
                                     <ColumnDefinition Width="32"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Foreground="{DynamicResource KimeraForegroundLight}"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 0 0 0" Padding="0 4"
-                                           FontSize="12" FontWeight="Regular" TextWrapping="Wrap"
-                                           Text="{TemplateBinding Title}"/>
+                                <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForeground}"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 10" Padding="0 4"
+                                           TextWrapping="Wrap" Text="{TemplateBinding Title}"/>
 
-                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" VerticalAlignment="Top" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <Image Width="14" Height="14" Source="{StaticResource WindowMinimizeIcon}"/>
                                 </Button>
 
-                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" VerticalAlignment="Top" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMaximize">
                                     <Image Width="14" Height="14" Source="{StaticResource WindowMaximizeIcon}"/>
                                 </Button>
 
-                                <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="3" Style="{StaticResource KimeraCommandButton}" VerticalAlignment="Top" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <Image Width="14" Height="14" Source="{StaticResource WindowCloseIcon}"/>
                                 </Button>
                             </Grid>
@@ -173,7 +172,7 @@
             <Setter.Value>
                 <WindowChrome 
                     ResizeBorderThickness="10" 
-                    CaptionHeight="40"
+                    CaptionHeight="70"
                     CornerRadius="0" 
                     GlassFrameThickness="0.5"/>
             </Setter.Value>
@@ -207,7 +206,7 @@
                         <!--Client area-->
                         <Grid Background="{DynamicResource KimeraBackground}">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="32"/>
+                                <RowDefinition Height="70"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--Title bar-->
@@ -217,17 +216,16 @@
                                     <ColumnDefinition Width="32"/>
                                     <ColumnDefinition Width="32"/>
                                 </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForeground}"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 10" Padding="0 4"
+                                           TextWrapping="Wrap" Text="{TemplateBinding Title}"/>
 
-                                <TextBlock Grid.Column="0" Foreground="{DynamicResource KimeraForegroundLight}"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12 0 0 0" Padding="0 4"
-                                           FontSize="12" FontWeight="Regular" TextWrapping="Wrap"
-                                           Text="{TemplateBinding Title}"/>
-
-                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
+                                <Button Grid.Column="1" Style="{StaticResource KimeraCommandButton}" VerticalAlignment="Top" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnMinimize">
                                     <Image Width="14" Height="14" Source="{StaticResource WindowMinimizeIcon}"/>
                                 </Button>
 
-                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
+                                <Button Grid.Column="2" Style="{StaticResource KimeraCommandButton}" VerticalAlignment="Top" Height="32" WindowChrome.IsHitTestVisibleInChrome="True" Click="OnClose">
                                     <Image Width="14" Height="14" Source="{StaticResource WindowCloseIcon}"/>
                                 </Button>
                             </Grid>

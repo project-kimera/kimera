@@ -41,8 +41,6 @@
 
     <!--View : StatisticsView-->
 
-    <!--View : SettingsView-->
-
     <!--View : SearcherView-->
     <system:String x:Key="VIEW_SEARCHER_HEADER">검색기</system:String>
     <system:String x:Key="VIEW_SEARCHER_CATEGORYBOX_HINT">검색 카테고리</system:String>
@@ -75,6 +73,9 @@
     <system:String x:Key="VIEW_GAMEREGISTER_ADD_SINGLE_HINT">개별 게임으로 추가</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_ADD_CHUNK_HINT">청크로 추가</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_REMOVE_REG_HINT">제거</system:String>
+
+    <!--View : SettingsView-->
+    <system:String x:Key="VIEW_SETTINGS_TITLE">설정</system:String>
 
     <!--View : ChunkRegisterView-->
 

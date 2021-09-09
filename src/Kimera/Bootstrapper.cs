@@ -44,7 +44,6 @@ namespace Kimera
                 .Singleton<ShellViewModel>()
                 .Singleton<LibraryViewModel>()
                 .Singleton<StatisticsViewModel>()
-                .Singleton<SettingsViewModel>()
                 .Singleton<SearcherViewModel>();
 
             // Pages
@@ -54,6 +53,7 @@ namespace Kimera
 
             // Dialogs
             _container
+                .PerRequest<SettingsViewModel>()
                .PerRequest<CategoryNameEditorViewModel>()
                .PerRequest<CategorySelectorViewModel>()
                .PerRequest<StringEditorViewModel>()

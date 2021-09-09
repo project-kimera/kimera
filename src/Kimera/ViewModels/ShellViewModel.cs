@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Services;
+using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
 using System.Windows.Controls;
 
@@ -39,9 +40,11 @@ namespace Kimera.ViewModels
             _navigationService.NavigateToViewModel(typeof(StatisticsViewModel));
         }
 
-        public void NavigateToSettings()
+        public async void NavigateToSettings()
         {
-            _navigationService.NavigateToViewModel(typeof(SettingsViewModel));
+            SettingsViewModel viewModel = new SettingsViewModel();
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
         }
     }
 }

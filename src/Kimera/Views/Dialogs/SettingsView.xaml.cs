@@ -10,15 +10,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Kimera.Views.Pages
+namespace Kimera.Views.Dialogs
 {
     /// <summary>
     /// SettingsView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SettingsView : Page
+    public partial class SettingsView : Window
     {
         public SettingsView()
         {
