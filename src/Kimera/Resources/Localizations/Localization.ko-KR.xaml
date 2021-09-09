@@ -93,7 +93,7 @@
     <!--View : CategorySelectorView-->
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
-    <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE">게임 카테고리 이동</system:String>
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE">카테고리 이동</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION">이동할 카테고리를 선택해주세요. (현재 카테고리 : {0})</system:String>
 
     <!--View : GameMetadataEditorView-->

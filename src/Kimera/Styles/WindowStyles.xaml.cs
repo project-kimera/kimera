@@ -201,6 +201,55 @@ namespace Kimera.Styles
 
         #region ::Event Subscribers::
 
+        private void OnWindowLoaded(Object sender, RoutedEventArgs e)
+        {
+            if (sender is Window window && window.SizeToContent != SizeToContent.Manual)
+            {
+                FixLayout(window);
+            }
+        }
+
+        private void FixLayout(Window window)
+        {
+            bool arrangeRequired = false;
+            double deltaWidth = 0;
+            double deltaHeight = 0;
+
+            void CalculateDeltaSize()
+            {
+                deltaWidth = window.ActualWidth - deltaWidth;
+                deltaHeight = window.ActualHeight - deltaHeight;
+            }
+
+            void OnSourceInitialized(object sender, EventArgs e)
+            {
+                window.InvalidateMeasure();
+                arrangeRequired = true;
+                window.SourceInitialized -= OnSourceInitialized;
+            }
+
+            void OnLayoutUpdated(object sender, EventArgs e)
+            {
+                if (arrangeRequired)
+                {
+                    if (window.SizeToContent == SizeToContent.WidthAndHeight)
+                    {
+                        CalculateDeltaSize();
+                    }
+                    window.Left -= deltaWidth * 0.5;
+                    window.Top -= deltaHeight * 0.5;
+                    window.LayoutUpdated -= OnLayoutUpdated;
+                }
+                else
+                {
+                    CalculateDeltaSize();
+                }
+            }
+
+            window.SourceInitialized += OnSourceInitialized;
+            window.LayoutUpdated += OnLayoutUpdated;
+        }
+
         private void OnMinimize(object sender, RoutedEventArgs e)
         {
             if (GetWindow())

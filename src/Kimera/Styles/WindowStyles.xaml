@@ -23,7 +23,7 @@
                     <Border>
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource KimeraDivider}"/>
                                 <Setter Property="BorderThickness" Value="0"/>
 
                                 <Style.Triggers>
@@ -31,7 +31,7 @@
                                         <Setter Property="BorderThickness" Value="6"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
-                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -108,7 +108,7 @@
                     <Border>
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource KimeraDivider}"/>
                                 <Setter Property="BorderThickness" Value="0"/>
 
                                 <Style.Triggers>
@@ -116,7 +116,7 @@
                                         <Setter Property="BorderThickness" Value="6"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
-                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -168,6 +168,8 @@
     </Style>
 
     <Style x:Key="KimeraFixedDialogWindow" TargetType="Window">
+        <EventSetter Event="Loaded" Handler="OnWindowLoaded"/>
+        
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
                 <WindowChrome 
@@ -189,7 +191,7 @@
                     <Border>
                         <Border.Style>
                             <Style TargetType="Border">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource KimeraDivider}"/>
                                 <Setter Property="BorderThickness" Value="0"/>
 
                                 <Style.Triggers>
@@ -197,7 +199,7 @@
                                         <Setter Property="BorderThickness" Value="6"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}" Value="Normal">
-                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
