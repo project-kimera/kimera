@@ -20,113 +20,121 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel Orientation="Vertical" Margin="20 0 0 0" VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_CAPTION1}" />
-                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_CAPTION2}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" Kind="ZipBoxOutline" />
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Opacity=".90" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_CAPTION1}" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".50" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_CAPTION2}" />
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
+        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="44"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                
-                <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="1"
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="44"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="1"
                           Margin="20 10 20 00" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="All"
                           ItemsSource="{Binding Components}" SelectedItem="{Binding SelectedComponent}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_INDEX_HEADER}"
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Index, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_INDEX_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                        <DataGridTextColumn Binding="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_FPATH_HEADER}" Width="200"
+                            <DataGridTextColumn Binding="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_FPATH_HEADER}" Width="200"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                        <DataGridTextColumn Binding="{Binding OffsetPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_OPATH_HEADER}"
+                            <DataGridTextColumn Binding="{Binding OffsetPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_OPATH_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                        <DataGridTextColumn Binding="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PASSWORD_HEADER}"
+                            <DataGridTextColumn Binding="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PASSWORD_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 0 20 0" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ADD_HINT}"
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 0 20 0" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ADD_HINT}"
                             caliburn:Message.Attach="AddComponent()">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
-                    </Button>
-                    <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_REMOVE_HINT}"
+                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_REMOVE_HINT}"
                             caliburn:Message.Attach="RemoveComponent()" Cursor="Hand">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
+                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
 
-            <GridSplitter Grid.Row="1" Background="{StaticResource KimeraDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"
+                <GridSplitter Grid.Row="1" Background="{StaticResource KimeraDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"
                       ShowsPreview="True"/>
 
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                <StackPanel Orientation="Vertical" Margin="20">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}" />
-                        <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}"
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}" />
+                            <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}"
                               ItemsSource="{Binding Source={StaticResource PackageTypeItems}}" SelectedItem="{Binding PackageType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    </Grid>
+                        </Grid>
 
-                    <Grid Margin="0 6 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}" />
-                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}"
+                        <Grid Margin="0 6 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}" />
+                            <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding EntryPointFilePath, Mode=TwoWay}"/>
-                    </Grid>
+                        </Grid>
 
-                    <Grid Margin="0 6 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}" />
-                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}"
+                        <Grid Margin="0 6 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}" />
+                            <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding CommandLineArguments, Mode=TwoWay}"/>
-                    </Grid>
+                        </Grid>
 
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
                                Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE}" />
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 6 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 6 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
                                Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE}" />
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-
-        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
-            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
-                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
-                            caliburn:Message.Attach="Cancel()"/>
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
-                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
-                </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Border>
+
+
+        <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
+            <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                            caliburn:Message.Attach="Cancel()"/>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
+                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

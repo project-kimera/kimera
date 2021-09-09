@@ -11,9 +11,29 @@
         Foreground="{StaticResource KimeraForeground}"
         Title="{StaticResource VIEW_SETTINGS_TITLE}"
         WindowStartupLocation="CenterScreen"
-        Height="600" Width="800">
+        Height="600" Width="900">
     <Grid>
-        <Border BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 1 0 0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" Kind="SettingsOutline" />
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Opacity=".90" Text="{StaticResource VIEW_SETTINGS_CAPTION1}" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".50" Text="{StaticResource VIEW_SETTINGS_CAPTION2}" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1"  BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 1 0 0">
             <TabControl Style="{StaticResource KimeraVerticalTabControl}" Margin="0">
                 <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="일반">
                     <StackPanel Orientation="Vertical" Margin="20">

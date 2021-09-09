@@ -76,6 +76,8 @@
 
     <!--View : SettingsView-->
     <system:String x:Key="VIEW_SETTINGS_TITLE">설정</system:String>
+    <system:String x:Key="VIEW_SETTINGS_CAPTION1">당신만의 키메라를 만들어보세요.</system:String>
+    <system:String x:Key="VIEW_SETTINGS_CAPTION2">키메라 애플리케이션의 설정을 변경합니다.</system:String>
 
     <!--View : ChunkRegisterView-->
 
@@ -97,9 +99,9 @@
     <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION">이동할 카테고리를 선택해주세요. (현재 카테고리 : {0})</system:String>
 
     <!--View : GameMetadataEditorView-->
-    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집</system:String>
-    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION1">게임 메타데이터 편집하기</system:String>
-    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION2">외부에 노출되는 게임의 정보를 편집합니다.</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집하기</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION1">게임 메타데이터를 편집해보세요.</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION2">외부에 노출되는 게임의 정보가 변경됩니다.</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_NAME_HEADER">이름</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_DESC_HEADER">설명</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER">제작자</system:String>
@@ -114,9 +116,9 @@
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_HPURL_HEADER">홈페이지 URI</system:String>
 
     <!--View : PackageMetadataEditorView-->
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_TITLE">패키지 메타데이터 편집</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION1">패키지 메타데이터 편집하기</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION2">게임의 실행 정보를 편집합니다.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_TITLE">패키지 메타데이터 편집하기</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION1">패키지 메타데이터를 편집해보세요.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_CAPTION2">게임의 실행 구조를 변경할 수 있습니다.</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_INDEX_HEADER">인덱스</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_TYPE_HEADER">타입</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_FPATH_HEADER">파일 경로</system:String>
@@ -127,8 +129,8 @@
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER">패키지 형식</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_HEADER">진입점(EP)</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER">명령줄 인수</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE">※ 진입점을 지정하지 않을 경우에는 인덱스가 0인 Executable 컴포넌트를 실행합니다.</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에서는 '$' 기호를 통해 변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE">※ 진입점을 지정하지 않을 경우에는 실행이 불가능합니다.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에는 시스템 환경변수와 '$' 기호를 이용한 변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
     
     <!--ViewModel : LibraryViewModel-->
     <system:String x:Key="VM_LIBRARY_CATEGORY_EXISTS_MSG">이미 존재하는 카테고리입니다.</system:String>

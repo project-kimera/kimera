@@ -20,178 +20,185 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel Orientation="Vertical" Margin="20 0 0 0" VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION1}" />
-                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION2}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" Kind="GamepadVariantOutline" />
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Opacity=".90" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION1}" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".50" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CAPTION2}" />
             </StackPanel>
         </Grid>
 
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-            <StackPanel Orientation="Vertical" Margin="20 10 20 20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
+        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <StackPanel Orientation="Vertical" Margin="20 10 20 20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
-                        <TextBox.Text>
-                            <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:NotEmptyValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                </Grid>
+                            <TextBox.Text>
+                                <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <domain:NotEmptyValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_DESC_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_DESC_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_DESC_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_DESC_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding Description, Mode=TwoWay}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding Creator, Mode=TwoWay}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}" />
-                    <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}" />
+                        <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_AGE_HEADER}"
                               ItemsSource="{Binding Source={StaticResource AgeItems}}" SelectedItem="{Binding AdmittedAge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_GENRES_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_GENRES_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_GENRES_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_GENRES_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding Genres, Mode=TwoWay}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_TAGS_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_TAGS_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_TAGS_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_TAGS_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding Tags, Mode=TwoWay}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_LANGS_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_LANGS_HEADER}"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_LANGS_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_LANGS_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding SupportedLanguages, Mode=TwoWay}"/>
-                </Grid>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_SCORE_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SCORE_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_SCORE_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SCORE_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
-                        <TextBox.Text>
-                            <Binding Path="Score" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:ScoreValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                </Grid>
+                            <TextBox.Text>
+                                <Binding Path="Score" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <domain:ScoreValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
 
-                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
                            Text="{DynamicResource VIEW_GAMEMETADATAEDITOR_COMMA_SEP_NOTICE}" />
 
-                <Separator Background="{StaticResource KimeraDivider}" Margin="0 20 0 20"/>
+                    <Separator Background="{StaticResource KimeraDivider}" Margin="0 20 0 20"/>
 
-                <Grid Margin="0 0 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_ICONURI_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_ICONURI_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_ICONURI_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_ICONURI_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
-                        <TextBox.Text>
-                            <Binding Path="IconUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                </Grid>
+                            <TextBox.Text>
+                                <Binding Path="IconUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_THUMBURI_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
-                        <TextBox.Text>
-                            <Binding Path="ThumbnailUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                </Grid>
+                            <TextBox.Text>
+                                <Binding Path="ThumbnailUri" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <domain:UriValidationRule xmlns:domain="clr-namespace:Kimera.Validators" ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
 
-                <Grid Margin="0 6 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_HPURL_HEADER}" />
-                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_HPURL_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
+                    <Grid Margin="0 6 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_HPURL_HEADER}" />
+                        <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_HPURL_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding HomepageUrl, Mode=TwoWay}"/>
-                </Grid>
-            </StackPanel>
-        </ScrollViewer>
-
-        <Border Grid.Row="2" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
-            <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
-                <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
-                            caliburn:Message.Attach="Cancel()"/>
-                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
-                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
+                    </Grid>
                 </StackPanel>
-            </Grid>
+            </ScrollViewer>
         </Border>
+
+        <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
+            <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                            caliburn:Message.Attach="Cancel()"/>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
+                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

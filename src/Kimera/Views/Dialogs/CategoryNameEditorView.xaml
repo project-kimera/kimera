@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
         MinWidth="350" MaxWidth="450" Height="210" SizeToContent="WidthAndHeight">
     <Grid>
-        <StackPanel Orientation="Vertical" Margin="20">
+        <StackPanel Orientation="Vertical" Margin="20 0 20 20">
             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                        TextTrimming="CharacterEllipsis" Text="{Binding Caption}"/>
 
