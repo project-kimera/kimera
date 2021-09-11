@@ -20,6 +20,11 @@ namespace Kimera.IO
         /// <param name="encoding">The text encoding to use.</param>
         public static void WriteTextFile(string filePath, string text, Encoding encoding)
         {
+            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+            }
+
             using (Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 using (StreamWriter writer = new StreamWriter(stream, encoding))

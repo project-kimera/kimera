@@ -141,7 +141,7 @@ namespace Kimera.Services
         {
             try
             {
-                string gameDirectory = Path.Combine(Settings.Instance.WorkDirectory, gameGuid.ToString());
+                string gameDirectory = Path.Combine(VariableBuilder.GetWorkDirectory(), gameGuid.ToString());
 
                 
 

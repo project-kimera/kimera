@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Contexts;
 using Kimera.Data.Extensions;
+using Kimera.IO;
 using Kimera.Network;
 using Kimera.Services;
 using Kimera.Utilities;
@@ -8,10 +9,12 @@ using Kimera.ViewModels;
 using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -38,6 +41,7 @@ namespace Kimera
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<Settings>()
                 .Singleton<TaskService>()
                 .Singleton<GameService>()
                 .Singleton<LibraryService>()
@@ -48,22 +52,44 @@ namespace Kimera
 
             // Pages
             _container
-               .PerRequest<GameViewModel>()
-               .PerRequest<GameRegisterViewModel>();
+                .PerRequest<GameViewModel>()
+                .PerRequest<GameRegisterViewModel>();
 
             // Dialogs
             _container
                 .PerRequest<SettingsViewModel>()
-               .PerRequest<CategoryNameEditorViewModel>()
-               .PerRequest<CategorySelectorViewModel>()
-               .PerRequest<StringEditorViewModel>()
-               .PerRequest<GameMetadataEditorViewModel>()
-               .PerRequest<PackageMetadataEditorViewModel>();
+                .PerRequest<CategoryNameEditorViewModel>()
+                .PerRequest<CategorySelectorViewModel>()
+                .PerRequest<StringEditorViewModel>()
+                .PerRequest<GameMetadataEditorViewModel>()
+                .PerRequest<PackageMetadataEditorViewModel>();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
         {
+            var task = Task.Factory.StartNew(() =>
+            {
+                if (File.Exists(Settings.DataPath))
+                {
+                    string json = TextFileManager.ReadTextFile(Settings.DataPath, Encoding.UTF8);
+
+                    var settings = JsonConvert.DeserializeObject<Settings>(json);
+
+                    IoC.BuildUp(settings);
+                }
+            });
+
+            await task;
+
             await DisplayRootViewForAsync(typeof(ShellViewModel));
+        }
+
+        protected override async void OnExit(object sender, EventArgs e)
+        {
+            var settings = IoC.Get<Settings>();
+            string json = JsonConvert.SerializeObject(settings);
+
+            TextFileManager.WriteTextFile(Settings.DataPath, json, Encoding.UTF8);
         }
 
         protected override object GetInstance(Type service, string key)

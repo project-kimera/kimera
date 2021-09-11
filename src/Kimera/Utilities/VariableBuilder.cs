@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace Kimera.Utilities
     {
         public static string GetWorkDirectory()
         {
-            return Settings.Instance.WorkDirectory;
+            return IoC.Get<Settings>().WorkDirectory;
         }
 
         public static string GetGameDirectory(Guid gameGuid)
         {
-            string path = Path.Combine(Settings.Instance.WorkDirectory, gameGuid.ToString());
+            string path = Path.Combine(GetWorkDirectory(), gameGuid.ToString());
 
             if (!Directory.Exists(path))
             {

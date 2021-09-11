@@ -1,5 +1,4 @@
-﻿using Kimera.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,24 +9,7 @@ namespace Kimera
 {
     public class Settings
     {
-        private static Settings _instance;
-
-        public static Settings Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Settings();
-                }
-
-                return _instance;
-            }
-            set
-            {
-                _instance = value;
-            }
-        }
+        public readonly static string DataPath = @"data\settings.json";
 
         public readonly static Guid GUID_ALL_CATEGORY = Guid.Parse("B34641DF-A149-4670-BB27-D0A9696B3E3F");
 
@@ -42,22 +24,23 @@ namespace Kimera
         #region ::General::
 
         /// <summary>
+        /// Gets or sets the value whether the application is started when the system is start up.
+        /// </summary>
+        public bool UseAutoStarter { get; set; } = false;
+
+        #endregion
+
+        #region ::Game::
+
+        /// <summary>
         /// Gets or sets the work directory which is used by kimera.
         /// </summary>
         public string WorkDirectory { get; set; } = Path.Combine(Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.Windows)), "Kimera");
 
-        #endregion
-
-        #region ::Network::
-
         /// <summary>
-        /// Gets or sets the value whether the Anti DPI Service is used or not.
+        /// Gets or sets the master keys.
         /// </summary>
-        public bool UseAntiDPIService { get; set; } = true;
-
-        #endregion
-
-        #region ::Game Service::
+        public string MasterKeys { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the value whether the auto remover is used or not.
@@ -69,10 +52,14 @@ namespace Kimera
         /// </summary>
         public int AutoRemovingInterval { get; set; } = 7;
 
+        #endregion
+
+        #region ::Network::
+
         /// <summary>
-        /// Gets or sets the list of master keys.
+        /// Gets or sets the value whether the Anti DPI Service is used or not.
         /// </summary>
-        public List<string> MasterKeyCollection { get; set; } = new List<string>();
+        public bool UseAntiDPIService { get; set; } = true;
 
         #endregion
     }

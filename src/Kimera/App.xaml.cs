@@ -59,7 +59,7 @@ namespace Kimera
 
         private void InitializeLogger()
         {
-            string fileName = @"logs\log-.txt";
+            string fileName = @"data\logs\log-.txt";
             string outputTemplateString = "{Timestamp:HH:mm:ss.ms} ({ThreadId}) [{Level}] {Message}{NewLine}{Exception}";
 
             if (_debugMode)
