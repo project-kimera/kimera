@@ -34,6 +34,8 @@
     <SolidColorBrush x:Key="KimeraBackground" Color="{StaticResource KimeraBackgroundColor}" />
     <Color x:Key="KimeraPopupBoxBackgroundColor">#FF303030</Color>
     <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="{StaticResource KimeraPopupBoxBackgroundColor}" />
+    <Color x:Key="KimeraProgressBarBackgroundColor">#FF303030</Color>
+    <SolidColorBrush x:Key="KimeraProgressBarBackground" Color="{StaticResource KimeraProgressBarBackgroundColor}" />
 
     <Color x:Key="KimeraButtonHoverColor">#FF292929</Color>
     <SolidColorBrush x:Key="KimeraButtonHover" Color="{StaticResource KimeraButtonHoverColor}" />

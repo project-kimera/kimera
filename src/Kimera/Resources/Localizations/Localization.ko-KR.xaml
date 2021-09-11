@@ -76,6 +76,7 @@
     <system:String x:Key="VIEW_GAMEREGISTER_ADD_SINGLE_HINT">개별 게임으로 추가</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_ADD_CHUNK_HINT">청크로 추가</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_REMOVE_REG_HINT">제거</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_IDLE">대기중...</system:String>
 
     <!--View : SettingsView-->
     <system:String x:Key="VIEW_SETTINGS_TITLE">설정</system:String>
@@ -108,11 +109,6 @@
     
     <system:String x:Key="VIEW_SETTINGS_OPENSOURCES_CAPTION">오픈소스 라이선스</system:String>
     <system:String x:Key="VIEW_SETTINGS_OPENSOURCES">키메라는 MIT 라이선스 하에 배포되는 오픈소스 소프트웨어이며, 제 3자가 제공하는 오픈소스 소프트웨어를 일부 사용하고 있습니다. 사용된 제 3자 오픈소스 소프트웨어와 그 라이선스는 아래 문서를 통해 확인할 수 있습니다.</system:String>
-
-    <!--View : ChunkRegisterView-->
-
-    <!--View : MultipleFileRegisterView-->
-
 
     <!--View : StringEditorView-->
     <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_TITLE">카테고리 추가</system:String>

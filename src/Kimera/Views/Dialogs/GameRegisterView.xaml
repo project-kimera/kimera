@@ -38,76 +38,82 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="44"/>
+                    <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
-                
-                <Grid Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="44"/>
-                    </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDividerLight}" BorderThickness="1" Background="{StaticResource KimeraBackground}"
+                <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="1"
                       GridLinesVisibility="All" VerticalGridLinesBrush="{StaticResource KimeraDividerLight}" HorizontalGridLinesBrush="{StaticResource KimeraDividerLight}"
                       Margin="10 10 10 0" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="All"
                       materialDesign:DataGridAssist.ColumnHeaderPadding="24 16 24 16"
                       VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
                       ItemsSource="{Binding Registrations}" SelectedItem="{Binding SelectedRegistration}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn IsReadOnly="True"
+                    <DataGrid.Columns>
+                        <DataGridTextColumn IsReadOnly="True"
                                         Binding="{Binding IsRegistrable, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_STATUS_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
 
-                            <DataGridTextColumn Binding="{Binding PackageMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_PKG_MD_HEADER}"
+                        <DataGridTextColumn Binding="{Binding PackageMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_PKG_MD_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                            <DataGridTextColumn Binding="{Binding GameMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_GM_MD_HEADER}"
+                        <DataGridTextColumn Binding="{Binding GameMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_GM_MD_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                            <DataGridTextColumn Binding="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_CATEGORY_HEADER}" Width="150"
+                        <DataGridTextColumn Binding="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_CATEGORY_HEADER}" Width="150"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                            <DataGridTextColumn Binding="{Binding PackageMetadata.EntryPointFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_EP_HEADER}" Width="300"
+                        <DataGridTextColumn Binding="{Binding PackageMetadata.EntryPointFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_EP_HEADER}" Width="300"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
 
-                            <DataGridTextColumn Binding="{Binding PackageMetadata.CommandLineArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_ARGS_HEADER}" Width="200"
+                        <DataGridTextColumn Binding="{Binding PackageMetadata.CommandLineArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_ARGS_HEADER}" Width="200"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                         EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-                    <Grid Grid.Row="1" Margin="10 0 10 0">
-                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Right">
-                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_SINGLE_HINT}"
+                <Grid Grid.Row="1" Margin="10 0 10 0">
+                    <StackPanel Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_SINGLE_HINT}"
                             caliburn:Message.Attach="AddFiles()">
-                                <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
-                            </Button>
+                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
+                        </Button>
 
-                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_CHUNK_HINT}"
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_CHUNK_HINT}"
                             caliburn:Message.Attach="AddChunk()">
-                                <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ArchiveAddOutline"/>
-                            </Button>
+                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ArchiveAddOutline"/>
+                        </Button>
 
-                            <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_REMOVE_REG_HINT}"
+                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_REMOVE_REG_HINT}"
                             caliburn:Message.Attach="Remove()" Cursor="Hand">
-                                <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
+                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
-                <GridSplitter Grid.Row="1" Background="{StaticResource KimeraDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"
-                      ShowsPreview="True"/>
+                <Border Grid.Row="2" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0 1 0 0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                    
-                </ScrollViewer>
+                        <Grid Grid.Column="0" Margin="40 0 40 0">
+                            <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Text="100%" />
+                        </Grid>
+
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0 0 40 0" VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="Wait..." />
+                            <ProgressBar Background="{StaticResource KimeraProgressBarBackground}" BorderThickness="0" Margin="0 8 0 0" Value="25" Height="8" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </Grid>
         </Border>
 
@@ -115,7 +121,7 @@
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
                             caliburn:Message.Attach="Cancel()"/>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_COMPLETE}"
                             caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
             </StackPanel>
         </Grid>
