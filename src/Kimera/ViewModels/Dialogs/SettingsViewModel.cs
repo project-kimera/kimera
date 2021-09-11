@@ -1,7 +1,9 @@
 ﻿using Caliburn.Micro;
+using Kimera.Network.Utilities;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -105,6 +107,11 @@ namespace Kimera.ViewModels.Dialogs
                     WorkDirectory = dialog.FileName;
                 }
             }
+        }
+
+        public void ShowOpenSources()
+        {
+            WebHelper.OpenUrl("https://github.com/project-kimera/kimera/blob/main/OPENSOURCES.md");
         }
     }
 }

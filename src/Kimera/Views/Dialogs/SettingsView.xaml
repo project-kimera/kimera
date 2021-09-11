@@ -123,7 +123,8 @@
                             <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 0" Header="{StaticResource VIEW_SETTINGS_OPENSOURCES_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_OPENSOURCES}" />
-                                    <Button Style="{StaticResource MaterialDesignToolButton}" Content="asd"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 4 0 0" Content="{StaticResource VIEW_SETTINGS_OPENSOURCES_CAPTION}"
+                                            caliburn:Message.Attach="ShowOpenSources()"/>
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
