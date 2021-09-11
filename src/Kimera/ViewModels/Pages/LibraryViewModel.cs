@@ -209,9 +209,11 @@ namespace Kimera.ViewModels.Pages
             ViewTemplate = App.Current.FindResource("IconViewItemTemplate") as DataTemplate;
         }
 
-        public void NavigateToGameRegister()
+        public async void NavigateToGameRegister()
         {
-            IoC.Get<INavigationService>().NavigateToViewModel(typeof(GameRegisterViewModel));
+            GameRegisterViewModel viewModel = new GameRegisterViewModel();
+
+            await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
         }
 
         #endregion

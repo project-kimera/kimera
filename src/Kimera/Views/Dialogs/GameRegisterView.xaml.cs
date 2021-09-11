@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Kimera.Views.Pages
+namespace Kimera.Views.Dialogs
 {
     /// <summary>
     /// GameRegisterView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class GameRegisterView : Page
+    public partial class GameRegisterView : Window
     {
         public GameRegisterView()
         {

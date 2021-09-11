@@ -64,7 +64,9 @@
     <system:String x:Key="VIEW_GAME_MEMO_HINT">메모</system:String>
     
     <!--View : GameRegisterView-->
-    <system:String x:Key="VIEW_GAMEREGISTER_HEADER">게임 추가</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_TITLE">게임 추가하기</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_CAPTION1">새로운 게임들을 추가해보세요.</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_CAPTION2">간단하면서도 강력한 기능을 지원합니다.</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_STATUS_HEADER">상태</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_PKG_MD_HEADER">패키지 메타데이터</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_GM_MD_HEADER">게임 메타데이터</system:String>

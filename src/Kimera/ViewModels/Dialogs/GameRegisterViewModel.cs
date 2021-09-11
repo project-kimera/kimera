@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kimera.ViewModels.Pages
+namespace Kimera.ViewModels.Dialogs
 {
     public class GameRegisterViewModel : Screen
     {

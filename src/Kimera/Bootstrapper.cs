@@ -52,8 +52,7 @@ namespace Kimera
 
             // Pages
             _container
-                .PerRequest<GameViewModel>()
-                .PerRequest<GameRegisterViewModel>();
+                .PerRequest<GameViewModel>();
 
             // Dialogs
             _container
@@ -62,7 +61,8 @@ namespace Kimera
                 .PerRequest<CategorySelectorViewModel>()
                 .PerRequest<StringEditorViewModel>()
                 .PerRequest<GameMetadataEditorViewModel>()
-                .PerRequest<PackageMetadataEditorViewModel>();
+                .PerRequest<PackageMetadataEditorViewModel>()
+                .PerRequest<GameRegisterViewModel>();
         }
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
