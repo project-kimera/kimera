@@ -74,7 +74,7 @@
     <system:String x:Key="VIEW_GAMEREGISTER_EP_HEADER">진입점 경로</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_ARGS_HEADER">명령줄 인수</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_ADD_SINGLE_HINT">개별 게임으로 추가</system:String>
-    <system:String x:Key="VIEW_GAMEREGISTER_ADD_CHUNK_HINT">청크로 추가</system:String>
+    <system:String x:Key="VIEW_GAMEREGISTER_ADD_CHUNK_HINT">단일 게임으로 추가</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_REMOVE_REG_HINT">제거</system:String>
     <system:String x:Key="VIEW_GAMEREGISTER_IDLE">대기중...</system:String>
 

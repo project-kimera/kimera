@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Kimera.Data.Entities;
 using Kimera.Entities;
 using Microsoft.Win32;
 using System;
@@ -43,6 +44,30 @@ namespace Kimera.ViewModels.Dialogs
             set => Set(ref _progressCaption, value);
         }
 
+        public async void EditPackageMetadata(PackageMetadata packageMetadata)
+        {
+            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel(packageMetadata, true);
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                packageMetadata = viewModel.Metadata;
+            }
+        }
+
+        public async void EditGameMetadata(GameMetadata gameMetadata)
+        {
+            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel(gameMetadata, true);
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                gameMetadata = viewModel.Metadata;
+            }
+        }
+
         public async void AddFiles()
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -69,7 +94,8 @@ namespace Kimera.ViewModels.Dialogs
 
         public async void AddChunk()
         {
-
+            GameRegistration registration = new GameRegistration();
+            Registrations.Add(registration);
         }
 
         public async void Remove()

@@ -4,12 +4,12 @@ namespace Kimera.Entities
 {
     public class GameRegistration
     {
-        public bool IsRegistrable { get; set; }
+        public bool IsRegistrable { get; set; } = false;
 
-        public PackageMetadata PackageMetadata { get; set; }
+        public PackageMetadata PackageMetadata { get; set; } = new PackageMetadata();
 
-        public GameMetadata GameMetadata { get; set; }
+        public GameMetadata GameMetadata { get; set; } = new GameMetadata();
 
-        public Category Category { get; set; }
+        public Category Category { get; set; } = new Category();
     }
 }

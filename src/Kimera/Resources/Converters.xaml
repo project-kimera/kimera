@@ -1,9 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Kimera.Converters">
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converters:CategoryGuidToNameConverter x:Key="CategoryGuidToNameConverter"/>
     <converters:IntegerToTimeStringConverter x:Key="IntegerToTimeStringConverter"/>
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
     <converters:PackageStatusToBrushConverter x:Key="PackageStatusToBrushConverter"/>
     <converters:PackageStatusToTextConverter x:Key="PackageStatusToTextConverter"/>
     <converters:StringToImageConverter x:Key="StringToImageConverter"/>

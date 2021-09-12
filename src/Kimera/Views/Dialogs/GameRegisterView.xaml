@@ -54,13 +54,47 @@
                                         Binding="{Binding IsRegistrable, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_STATUS_HEADER}"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
 
-                        <DataGridTextColumn Binding="{Binding PackageMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_PKG_MD_HEADER}"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                        <DataGridTemplateColumn Header="{StaticResource VIEW_GAMEREGISTER_PKG_MD_HEADER}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForeground}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <caliburn:ActionMessage MethodName="EditPackageMetadata">
+                                                    <caliburn:Parameter Value="{Binding PackageMetadata, Mode=TwoWay}" />
+                                                </caliburn:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="Edit"/>
+                                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="6 0 0 0" Text="편집하기" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Binding="{Binding GameMetadata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_GM_MD_HEADER}"
-                                        ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                        EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                        <DataGridTemplateColumn Header="{StaticResource VIEW_GAMEREGISTER_GM_MD_HEADER}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForeground}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <caliburn:ActionMessage MethodName="EditGameMetadata">
+                                                    <caliburn:Parameter Value="{Binding GameMetadata, Mode=TwoWay}" />
+                                                </caliburn:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="Edit"/>
+                                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="6 0 0 0" Text="편집하기" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                         <DataGridTextColumn Binding="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="{StaticResource VIEW_GAMEREGISTER_CATEGORY_HEADER}" Width="150"
                                         ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
@@ -89,7 +123,7 @@
                         </Button>
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_REMOVE_REG_HINT}"
-                            caliburn:Message.Attach="Remove()" Cursor="Hand">
+                            caliburn:Message.Attach="Remove()">
                             <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                         </Button>
                     </StackPanel>

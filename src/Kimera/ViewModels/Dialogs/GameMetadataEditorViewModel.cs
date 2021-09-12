@@ -14,6 +14,13 @@ namespace Kimera.ViewModels.Dialogs
 {
     public class GameMetadataEditorViewModel : Screen
     {
+        private readonly bool _useDirectWriting = false;
+
+        public bool UseDirectWriting
+        {
+            get => _useDirectWriting;
+        }
+
         private GameMetadata _metadata = new GameMetadata();
 
         public GameMetadata Metadata
@@ -131,19 +138,29 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public async Task LoadPackageMetadataAsync(GameMetadata metadata)
+        public GameMetadataEditorViewModel(GameMetadata metadata, bool useDirectWriting = false)
         {
-            await Task.Factory.StartNew(() =>
+            _useDirectWriting = useDirectWriting;
+            InitializeGameMetadata(metadata);
+        }
+
+        private void InitializeGameMetadata(GameMetadata metadata)
+        {
+            try
             {
-                try
+                if (_useDirectWriting)
+                {
+                    _metadata = metadata;
+                }
+                else
                 {
                     _metadata = metadata.Copy();
                 }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "An error occurred while loading the components data table.");
-                }
-            });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An error occurred while loading the components data table.");
+            }
         }
 
         public async void Cancel()

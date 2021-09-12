@@ -39,22 +39,12 @@ namespace Kimera.Services
 
         #region ::Methods::
 
-        public async Task<TaskRecord> AddGameInternalAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Component> components, List<Category> targetCategories)
+        public async Task<TaskRecord> AddGameInternalAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Category> targetCategories)
         {
             try
             {
                 Game game = new Game();
                 game.PackageStatus = PackageStatus.NeedProcessing;
-
-                if (components == null || components.Count == 0)
-                {
-                    return new TaskRecord(TaskRecordType.Failure, "At least one component is required.");
-                }
-
-                foreach (Component component in components)
-                {
-                    packageMetadata.AddComponent(component);
-                }
 
                 game.SetGameMetadata(gameMetadata);
                 game.SetPackageMetadata(packageMetadata);
@@ -97,7 +87,7 @@ namespace Kimera.Services
         {
             try
             {
-                await RemoveGameResourcesInternalAsync(game.SystemId);
+                await RemoveGameResourcesInternalAsync(game);
 
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
                 {
@@ -116,12 +106,9 @@ namespace Kimera.Services
                     }
 
                     // Remove datas.
-                    GameMetadata gm = game.GameMetadataNavigation;
-                    PackageMetadata pm = game.PackageMetadataNavigation;
-
                     App.DatabaseContext.Games.Remove(game);
-                    App.DatabaseContext.GameMetadatas.Remove(gm);
-                    App.DatabaseContext.PackageMetadatas.Remove(pm);
+                    App.DatabaseContext.GameMetadatas.Remove(game.GameMetadataNavigation);
+                    App.DatabaseContext.PackageMetadatas.Remove(game.PackageMetadataNavigation);
 
                     await App.DatabaseContext.SaveChangesAsync();
 
@@ -137,13 +124,16 @@ namespace Kimera.Services
             }
         }
 
-        public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Guid gameGuid)
+        public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Game game)
         {
             try
             {
-                string gameDirectory = Path.Combine(VariableBuilder.GetWorkDirectory(), gameGuid.ToString());
+                string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
 
-                
+                if (Directory.Exists(gameDirectory))
+                {
+
+                }
 
                 return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
             }
@@ -513,8 +503,7 @@ namespace Kimera.Services
                 return;
             }
 
-            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel();
-            await viewModel.LoadPackageMetadataAsync(game.GameMetadataNavigation);
+            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel(game.GameMetadataNavigation);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
@@ -546,8 +535,7 @@ namespace Kimera.Services
                 return;
             }
 
-            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel();
-            await viewModel.LoadPackageMetadataAsync(game.PackageMetadataNavigation);
+            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel(game.PackageMetadataNavigation);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 

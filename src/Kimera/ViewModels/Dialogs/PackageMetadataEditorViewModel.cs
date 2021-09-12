@@ -16,6 +16,13 @@ namespace Kimera.ViewModels.Dialogs
 {
     public class PackageMetadataEditorViewModel : Screen
     {
+        private readonly bool _useDirectWriting = false;
+
+        public bool UseDirectWriting
+        {
+            get => _useDirectWriting;
+        }
+
         private PackageMetadata _metadata = new PackageMetadata();
 
         public PackageMetadata Metadata
@@ -69,35 +76,31 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public async Task LoadPackageMetadataAsync(PackageMetadata metadata)
+        public PackageMetadataEditorViewModel(PackageMetadata metadata, bool useDirectWriting = false)
         {
-            await Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    _metadata = metadata.Copy();
-                    Components = new BindableCollection<Component>(metadata.Components);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex, "An error occurred while loading the package metadata.");
-                }
-            });
+            _useDirectWriting = useDirectWriting;
+            InitializePackageMetadata(metadata);
         }
 
-        public async Task SavePackageMetadataAsync()
+        private void InitializePackageMetadata(PackageMetadata metadata)
         {
-            await Task.Factory.StartNew(() =>
+            try
             {
-                try
+                if (_useDirectWriting)
                 {
-                    _metadata.Components = _components.ToHashSet();
+                    _metadata = metadata;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log.Error(ex, "An error occurred while saving the package metadata.");
+                    _metadata = metadata.Copy();
                 }
-            });
+
+                Components = new BindableCollection<Component>(_metadata.Components);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An error occurred while loading the package metadata.");
+            }
         }
 
         public void AddComponent()
@@ -153,7 +156,13 @@ namespace Kimera.ViewModels.Dialogs
                 return;
             }
 
-            _metadata.GameNavigation.PackageStatus = PackageStatus.NeedProcessing;
+            _metadata.Components = Components.ToHashSet();
+
+            if (_metadata.GameNavigation != null)
+            {
+                _metadata.GameNavigation.PackageStatus = PackageStatus.NeedProcessing;
+            }
+
             await TryCloseAsync(true);
         }
     }
