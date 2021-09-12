@@ -144,7 +144,9 @@
 
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0 0 40 0" VerticalAlignment="Center">
                             <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="Wait..." />
-                            <ProgressBar Background="{StaticResource KimeraProgressBarBackground}" BorderThickness="0" Margin="0 8 0 0" Value="25" Height="8" />
+                            <ProgressBar Background="{StaticResource KimeraProgressBarBackground}" BorderThickness="0" Margin="0 8 0 0" Height="8"
+                                         materialDesign:TransitionAssist.DisableTransitions="True"
+                                         Value="25" />
                         </StackPanel>
                     </Grid>
                 </Border>

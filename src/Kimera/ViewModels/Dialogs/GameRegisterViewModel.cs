@@ -46,7 +46,7 @@ namespace Kimera.ViewModels.Dialogs
 
         public async void EditPackageMetadata(PackageMetadata packageMetadata)
         {
-            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel(packageMetadata, true);
+            PackageMetadataEditorViewModel viewModel = new PackageMetadataEditorViewModel(packageMetadata);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
@@ -58,7 +58,7 @@ namespace Kimera.ViewModels.Dialogs
 
         public async void EditGameMetadata(GameMetadata gameMetadata)
         {
-            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel(gameMetadata, true);
+            GameMetadataEditorViewModel viewModel = new GameMetadataEditorViewModel(gameMetadata);
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 

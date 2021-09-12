@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
+using Kimera.Data.Extensions;
 using Kimera.Utilities;
 using Serilog;
 using System;
@@ -16,11 +17,11 @@ namespace Kimera.ViewModels.Dialogs
 {
     public class PackageMetadataEditorViewModel : Screen
     {
-        private readonly bool _useDirectWriting = false;
+        private bool _isRegistered = false;
 
-        public bool UseDirectWriting
+        public bool IsRegistered
         {
-            get => _useDirectWriting;
+            get => _isRegistered;
         }
 
         private PackageMetadata _metadata = new PackageMetadata();
@@ -76,9 +77,8 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public PackageMetadataEditorViewModel(PackageMetadata metadata, bool useDirectWriting = false)
+        public PackageMetadataEditorViewModel(PackageMetadata metadata)
         {
-            _useDirectWriting = useDirectWriting;
             InitializePackageMetadata(metadata);
         }
 
@@ -86,12 +86,17 @@ namespace Kimera.ViewModels.Dialogs
         {
             try
             {
-                if (_useDirectWriting)
+                // To check the metadata has linked with a game navigation.
+                var temp = App.DatabaseContext.PackageMetadatas.Where(p => p.SystemId == metadata.SystemId).FirstOrDefault();
+
+                if (temp == null)
                 {
+                    _isRegistered = false;
                     _metadata = metadata;
                 }
                 else
                 {
+                    _isRegistered = true;
                     _metadata = metadata.Copy();
                 }
 
@@ -156,11 +161,44 @@ namespace Kimera.ViewModels.Dialogs
                 return;
             }
 
-            _metadata.Components = Components.ToHashSet();
-
-            if (_metadata.GameNavigation != null)
+            if (_isRegistered)
             {
-                _metadata.GameNavigation.PackageStatus = PackageStatus.NeedProcessing;
+                using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
+                {
+                    // Add new items.
+                    foreach (Component component in _components)
+                    {
+                        Component temp = App.DatabaseContext.Components.Where(c => c.Id == component.Id).FirstOrDefault();
+
+                        if (temp == null)
+                        {
+                            App.DatabaseContext.Components.Add(component);
+                            _metadata.AddComponent(component);
+                        }
+                    }
+
+                    // Remove items from database.
+                    List<Component> components = App.DatabaseContext.Components.Where(c => c.PackageMetadata == _metadata.SystemId).ToList();
+
+                    foreach (Component component in components)
+                    {
+                        if (!_components.Contains(component))
+                        {
+                            App.DatabaseContext.Components.Remove(component);
+                            _metadata.Components.Remove(component);
+                        }
+                    }
+
+                    _metadata.GameNavigation.PackageStatus = PackageStatus.NeedProcessing;
+
+                    await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
+
+                    await transaction.CommitAsync().ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                _metadata.Components = _components.ToHashSet();
             }
 
             await TryCloseAsync(true);

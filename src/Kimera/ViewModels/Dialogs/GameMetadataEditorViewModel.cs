@@ -14,11 +14,11 @@ namespace Kimera.ViewModels.Dialogs
 {
     public class GameMetadataEditorViewModel : Screen
     {
-        private readonly bool _useDirectWriting = false;
+        private bool _isRegistered = false;
 
-        public bool UseDirectWriting
+        public bool IsRegistered
         {
-            get => _useDirectWriting;
+            get => _isRegistered;
         }
 
         private GameMetadata _metadata = new GameMetadata();
@@ -138,9 +138,8 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public GameMetadataEditorViewModel(GameMetadata metadata, bool useDirectWriting = false)
+        public GameMetadataEditorViewModel(GameMetadata metadata)
         {
-            _useDirectWriting = useDirectWriting;
             InitializeGameMetadata(metadata);
         }
 
@@ -148,12 +147,16 @@ namespace Kimera.ViewModels.Dialogs
         {
             try
             {
-                if (_useDirectWriting)
+                var temp = App.DatabaseContext.GameMetadatas.Where(p => p.SystemId == metadata.SystemId).FirstOrDefault();
+
+                if (temp == null)
                 {
+                    _isRegistered = false;
                     _metadata = metadata;
                 }
                 else
                 {
+                    _isRegistered = true;
                     _metadata = metadata.Copy();
                 }
             }

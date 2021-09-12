@@ -543,7 +543,6 @@ namespace Kimera.Services
             {
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                 {
-                    await viewModel.SavePackageMetadataAsync();
                     App.DatabaseContext.Entry(game.PackageMetadataNavigation).CurrentValues.SetValues(viewModel.Metadata);
                     App.DatabaseContext.Entry(game.PackageMetadataNavigation).State = EntityState.Modified;
 
