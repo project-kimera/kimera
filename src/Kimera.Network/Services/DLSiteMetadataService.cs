@@ -17,7 +17,7 @@ namespace Kimera.Network.Services
         private const string URL_DLSITE_PRODUCT_HOMEPAGE = "https://www.dlsite.com/home/work/=/product_id/{0}.html";
         private const string URL_DLSITE_PRODUCT_INFO_API = "https://www.dlsite.com/home/api/=/product.json?workno={0}";
 
-        public string[] ProductCodeRegexs { get; init; } = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}" };
+        public string[] ProductCodeRegexs { get; init; } = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}", "[0-9]{6}" };
 
         private string GetProductInfoApiUrl()
         {

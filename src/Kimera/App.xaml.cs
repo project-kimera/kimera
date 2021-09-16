@@ -104,7 +104,7 @@ namespace Kimera
         private async Task InitializeDatabaseAsync()
         {
             // Migrate and initialize the database automatically.
-            App.DatabaseContext = new KimeraContext();
+            App.DatabaseContext = new KimeraContext(@"data\Kimera.db");
             await App.DatabaseContext.Database.MigrateAsync().ConfigureAwait(false);
 
             // Load the database.
