@@ -43,15 +43,15 @@
             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
                     BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
                     Margin="4 0 0 0" Height="50"
-                    caliburn:Message.Attach="Submit()">
+                    caliburn:Message.Attach="Submit()" Cursor="Hand">
                 <materialDesign:PackIcon Width="12" Height="12" Kind="Send"/>
             </Button>
         </StackPanel>
 
-        <TextBlock Margin="0 10 0 0" HorizontalAlignment="Center">
-            <Hyperlink Style="{StaticResource MaterialDesignCaptionHyperlink}">
-                <TextBlock Foreground="{StaticResource KimeraForegroundUltraLight}" Text="{StaticResource VIEW_GUARD_RESET_APPLICATION_CAPTION}"/>
-            </Hyperlink>
-        </TextBlock>
+        <Button Style="{StaticResource KimeraContentButton}" Margin="0 10 0 0" HorizontalAlignment="Stretch"
+                caliburn:Message.Attach="Reset()">
+            <TextBlock Foreground="{StaticResource KimeraForegroundUltraLight}" HorizontalAlignment="Center" Margin="0 10 0 10"
+                       Text="{StaticResource VIEW_GUARD_RESET_APPLICATION_CAPTION}"/>
+        </Button>
     </StackPanel>
 </Page>

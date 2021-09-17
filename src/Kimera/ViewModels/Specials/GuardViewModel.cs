@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Contexts;
+using Kimera.ViewModels.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -119,6 +120,39 @@ namespace Kimera.ViewModels.Specials
             }
 
             Password = string.Empty;
+        }
+
+        public async void Reset()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            string secretKey = new string(Enumerable.Repeat(chars, 10).Select(s => s[new Random().Next(s.Length)]).ToArray());
+
+            StringEditorViewModel viewModel = new StringEditorViewModel();
+            viewModel.Title = (string)App.Current.Resources["VIEW_STRINGEDITOR_RESET_APP_TITLE"];
+            viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_STRINGEDITOR_RESET_APP_CAPTION"], secretKey);
+            viewModel.Text = string.Empty;
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                if (viewModel.Text == secretKey)
+                {
+                    try
+                    {
+                        File.Delete(Settings.DatabaseFilePath);
+                        Initialize();
+                    }
+                    catch
+                    {
+                        MessageBox.Show((string)App.Current.Resources["VM_GUARD_RESET_APP_EXCEPTION_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show((string)App.Current.Resources["VM_GUARD_RESET_APP_UNMATCHED_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
         }
     }
 }

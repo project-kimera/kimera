@@ -11,7 +11,7 @@
         Foreground="{DynamicResource KimeraForeground}"
         Title="{Binding Title}"
         WindowStartupLocation="CenterScreen"
-        MinWidth="350" MaxWidth="400" Height="170" SizeToContent="WidthAndHeight">
+        MinWidth="350" Height="170" SizeToContent="WidthAndHeight">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 0 20 20" VerticalAlignment="Center">
             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
