@@ -83,7 +83,7 @@ namespace Kimera.Data.Contexts
             }
         }
 
-        public bool EncryptDatabase(ref string password, ref string path)
+        public bool EncryptDatabase(ref string password)
         {
             try
             {
@@ -118,17 +118,45 @@ namespace Kimera.Data.Contexts
             }
         }
 
-        public void DecryptDatabase(ref string password)
+        public bool DecryptDatabase(ref string password)
         {
             try
             {
-                using var keyCommand = _connection.CreateCommand();
-                keyCommand.CommandText = $"PRAGMA key = {password};";
-                keyCommand.ExecuteNonQuery();
+                string tempFilePath = Path.Combine(Path.GetTempPath(), $"KimeraBackup {DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss-fff")}.tmp");
 
-                using var rekeyCommand = _connection.CreateCommand();
-                rekeyCommand.CommandText = "PRAGMA rekey = '';";
-                rekeyCommand.ExecuteNonQuery();
+                if (File.Exists(_databaseFilePath))
+                {
+                    SqliteConnectionStringBuilder builder = new SqliteConnectionStringBuilder();
+                    builder.DataSource = _databaseFilePath;
+
+                    using (SqliteConnection connection = new SqliteConnection(builder.ConnectionString))
+                    {
+                        connection.Open();
+
+                        var command = connection.CreateCommand();
+                        command.CommandText = "SELECT quote($password);";
+                        command.Parameters.AddWithValue("$password", password);
+
+                        var quotedPassword = (string)command.ExecuteScalar();
+
+                        // Input the quoted password.
+                        command.CommandText = "PRAGMA key = " + quotedPassword;
+                        command.Parameters.Clear();
+                        command.ExecuteNonQuery();
+
+                        var query = @$"ATTACH DATABASE '{tempFilePath}' AS plaintext KEY ''; SELECT sqlcipher_export('plaintext'); DETACH DATABASE plaintext;";
+                        using var cmd = new SqliteCommand(query, connection);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    File.Copy(tempFilePath, _databaseFilePath, true);
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             finally
             {
@@ -136,7 +164,7 @@ namespace Kimera.Data.Contexts
             }
         }
 
-        public void ChangePassword(ref string password)
+        public bool ChangePassword(ref string password)
         {
             try
             {
@@ -154,6 +182,12 @@ namespace Kimera.Data.Contexts
 
                 // Reset variables.
                 quotedPassword = null;
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
             finally
             {

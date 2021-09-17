@@ -67,7 +67,7 @@ namespace Kimera.ViewModels.Specials
             await task;
         }
 
-        private bool ValidateSqliteSignature()
+        public static bool ValidateSqliteSignature()
         {
             byte[] sqliteDatabaseSignature = new byte[16] { 0x53, 0x51, 0x4c, 0x69, 0x74, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x20, 0x33, 0x00 };
             using (FileStream stream = new FileStream(Settings.DatabaseFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -81,7 +81,7 @@ namespace Kimera.ViewModels.Specials
             }
         }
 
-        private bool TryPass(string password)
+        public static bool TryPass(string password)
         {
             try
             {
@@ -108,18 +108,25 @@ namespace Kimera.ViewModels.Specials
             });
         }
 
-        public void Submit()
+        public async void Submit()
         {
-            if (TryPass(_password))
+            var task = Task.Factory.StartNew(() =>
             {
-                CallScouter(_password);
-            }
-            else
-            {
-                Message = (string)App.Current.Resources["VIEW_GUARD_WRONG_PASSWORD_CAPTION"];
-            }
+                Message = (string)App.Current.Resources["VIEW_GUARD_VALIDATE_PASSWORD_CAPTION"];
 
-            Password = string.Empty;
+                if (TryPass(_password))
+                {
+                    CallScouter(_password);
+                }
+                else
+                {
+                    Message = (string)App.Current.Resources["VIEW_GUARD_WRONG_PASSWORD_CAPTION"];
+                }
+
+                Password = string.Empty;
+            });
+
+            await task;
         }
 
         public async void Reset()

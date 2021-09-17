@@ -17,6 +17,7 @@
 
     <!--View : GuardView-->
     <system:String x:Key="VIEW_GUARD_NEEDS_PASSWORD_CAPTION">비밀번호를 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_GUARD_VALIDATE_PASSWORD_CAPTION">비밀번호를 검증하는 중입니다...</system:String>
     <system:String x:Key="VIEW_GUARD_WRONG_PASSWORD_CAPTION">잘못된 비밀번호입니다.</system:String>
     <system:String x:Key="VIEW_GUARD_PASSWORD_HINT">비밀번호</system:String>
     <system:String x:Key="VIEW_GUARD_RESET_APPLICATION_CAPTION">애플리케이션 초기화하기</system:String>
@@ -90,12 +91,17 @@
     <system:String x:Key="VIEW_SETTINGS_CAPTION2">키메라 애플리케이션의 설정을 변경합니다.</system:String>
 
     <system:String x:Key="VIEW_SETTINGS_GENERAL">일반</system:String>
+    <system:String x:Key="VIEW_SETTINGS_SECURITY">보안</system:String>
     <system:String x:Key="VIEW_SETTINGS_GAME">게임</system:String>
     <system:String x:Key="VIEW_SETTINGS_NETWORK">네트워크</system:String>
     <system:String x:Key="VIEW_SETTINGS_INFORMATION">정보</system:String>
 
     <system:String x:Key="VIEW_SETTINGS_STARTUP_CAPTION">시작</system:String>
     <system:String x:Key="VIEW_SETTINGS_AUTOSTARTER">윈도우 시작 시 프로그램 자동 실행</system:String>
+
+    <system:String x:Key="VIEW_SETTINGS_CRYPTO_CAPTION">데이터베이스 암호화</system:String>
+    <system:String x:Key="VIEW_SETTINGS_CHANGE_PASSWORD">비밀번호 등록 / 변경</system:String>
+    <system:String x:Key="VIEW_SETTINGS_DECRYPT">암호화 해제</system:String>
 
     <system:String x:Key="VIEW_SETTINGS_WORKDIR_CAPTION">작업 경로</system:String>
     <system:String x:Key="VIEW_SETTINGS_MASTERKEYS_CAPTION">마스터 키</system:String>
@@ -121,6 +127,10 @@
     <system:String x:Key="VIEW_STRINGEDITOR_RESET_APP_CAPTION">애플리케이션을 초기화하려면 주어진 문자열을 정확히 입력해주세요. ({0})</system:String>
     <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_TITLE">카테고리 추가</system:String>
     <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_CAPTION">추가할 카테고리의 이름을 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_STRINGEDITOR_ENCRYPT_DATABASE_TITLE">데이터베이스 암호화</system:String>
+    <system:String x:Key="VIEW_STRINGEDITOR_ENCRYPT_DATABASE_CAPTION">암호화에 사용할 비밀번호를 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_STRINGEDITOR_DECRYPT_DATABASE_TITLE">데이터베이스 암호화 해제</system:String>
+    <system:String x:Key="VIEW_STRINGEDITOR_DECRYPT_DATABASE_CAPTION">현재 사용중인 비밀번호를 입력해주세요.</system:String>
 
     <!--View : CategoryNameEditorView-->
     <system:String x:Key="VIEW_CATEGORYNAMEEDITOR_TITLE">카테고리 이름 변경</system:String>
@@ -188,6 +198,13 @@
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG">현재 패키지 형식에서는 진입점을 비워둘 수 없습니다.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG">Single 형식의 패키지에서는 인덱스가 0인 메인 컴포넌트 하나가 반드시 필요합니다.</system:String>
 
+    <!--ViewModel : SettingsView-->
+    <system:String x:Key="VM_SETTINGS_CRYPTO_TASK_HAS_FAILED_MSG">데이터베이스 작업에 실패했습니다.</system:String>
+    <system:String x:Key="VM_SETTINGS_CRYPTO_WRONG_PASSWORD_MSG">잘못된 비밀번호입니다.</system:String>
+    <system:String x:Key="VM_SETTINGS_ENCRYPTED_MSG">데이터베이스가 성공적으로 암호화되었습니다.</system:String>
+    <system:String x:Key="VM_SETTINGS_DECRYPTION_REMINDER_MSG">정말 암호화를 해제하시겠습니까?</system:String>
+    <system:String x:Key="VM_SETTINGS_DECRYPTED_MSG">데이터베이스 암호화가 해제되었습니다.</system:String>
+    
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
     <system:String x:Key="SVC_GAME_CATEGORY_NONE">없음</system:String>

@@ -46,6 +46,28 @@
                     </ScrollViewer>
                 </TabItem>
 
+                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_SECURITY}">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <StackPanel Orientation="Vertical" Margin="20">
+                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_CRYPTO_CAPTION}">
+                                <StackPanel Orientation="Vertical">
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                                            HorizontalAlignment="Left"
+                                            Content="{StaticResource VIEW_SETTINGS_CHANGE_PASSWORD}"
+                                            caliburn:Message.Attach="EncryptDatabase()"/>
+                                    
+                                    <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                                            BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                                            HorizontalAlignment="Left" Margin="0 10 0 0"
+                                            Content="{StaticResource VIEW_SETTINGS_DECRYPT}"
+                                            caliburn:Message.Attach="DecryptDatabase()"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
                 <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_GAME}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
