@@ -127,10 +127,12 @@
     <system:String x:Key="VIEW_STRINGEDITOR_RESET_APP_CAPTION">애플리케이션을 초기화하려면 주어진 문자열을 정확히 입력해주세요. ({0})</system:String>
     <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_TITLE">카테고리 추가</system:String>
     <system:String x:Key="VIEW_STRINGEDITOR_ADD_CATEGORY_CAPTION">추가할 카테고리의 이름을 입력해주세요.</system:String>
-    <system:String x:Key="VIEW_STRINGEDITOR_ENCRYPT_DATABASE_TITLE">데이터베이스 암호화</system:String>
-    <system:String x:Key="VIEW_STRINGEDITOR_ENCRYPT_DATABASE_CAPTION">암호화에 사용할 비밀번호를 입력해주세요.</system:String>
-    <system:String x:Key="VIEW_STRINGEDITOR_DECRYPT_DATABASE_TITLE">데이터베이스 암호화 해제</system:String>
-    <system:String x:Key="VIEW_STRINGEDITOR_DECRYPT_DATABASE_CAPTION">현재 사용중인 비밀번호를 입력해주세요.</system:String>
+
+    <!--View : PasswordEditorView-->
+    <system:String x:Key="VIEW_PASSWORDEDITOR_ENCRYPT_DATABASE_TITLE">데이터베이스 암호화</system:String>
+    <system:String x:Key="VIEW_PASSWORDEDITOR_ENCRYPT_DATABASE_CAPTION">암호화에 사용할 비밀번호를 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_TITLE">데이터베이스 암호화 해제</system:String>
+    <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_CAPTION">현재 사용중인 비밀번호를 입력해주세요.</system:String>
 
     <!--View : CategoryNameEditorView-->
     <system:String x:Key="VIEW_CATEGORYNAMEEDITOR_TITLE">카테고리 이름 변경</system:String>

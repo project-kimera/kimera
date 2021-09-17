@@ -66,6 +66,7 @@ namespace Kimera
                 .PerRequest<CategoryNameEditorViewModel>()
                 .PerRequest<CategorySelectorViewModel>()
                 .PerRequest<StringEditorViewModel>()
+                .PerRequest<PasswordEditorViewModel>()
                 .PerRequest<GameMetadataEditorViewModel>()
                 .PerRequest<PackageMetadataEditorViewModel>()
                 .PerRequest<GameRegisterViewModel>();

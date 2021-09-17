@@ -98,16 +98,16 @@ namespace Kimera.ViewModels.Dialogs
 
         public async void EncryptDatabase()
         {
-            StringEditorViewModel viewModel = new StringEditorViewModel();
-            viewModel.Title = (string)App.Current.Resources["VIEW_STRINGEDITOR_ENCRYPT_DATABASE_TITLE"];
-            viewModel.Caption = (string)App.Current.Resources["VIEW_STRINGEDITOR_ENCRYPT_DATABASE_CAPTION"];
-            viewModel.Text = string.Empty;
+            PasswordEditorViewModel viewModel = new PasswordEditorViewModel();
+            viewModel.Title = (string)App.Current.Resources["VIEW_PASSWORDEDITOR_ENCRYPT_DATABASE_TITLE"];
+            viewModel.Caption = (string)App.Current.Resources["VIEW_PASSWORDEDITOR_ENCRYPT_DATABASE_CAPTION"];
+            viewModel.Password = string.Empty;
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
             if (dialogResult == true)
             {
-                string password = viewModel.Text;
+                string password = viewModel.Password;
 
                 if (GuardViewModel.ValidateSqliteSignature()) // If the database is encrypted...
                 {
@@ -125,7 +125,7 @@ namespace Kimera.ViewModels.Dialogs
                 }
 
                 password = null;
-                viewModel.Text = null;
+                viewModel.Password = null;
 
                 MessageBox.Show((string)App.Current.Resources["VM_SETTINGS_ENCRYPTED_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -133,10 +133,10 @@ namespace Kimera.ViewModels.Dialogs
 
         public async void DecryptDatabase()
         {
-            StringEditorViewModel viewModel = new StringEditorViewModel();
-            viewModel.Title = (string)App.Current.Resources["VIEW_STRINGEDITOR_DECRYPT_DATABASE_TITLE"];
-            viewModel.Caption = (string)App.Current.Resources["VIEW_STRINGEDITOR_DECRYPT_DATABASE_CAPTION"];
-            viewModel.Text = string.Empty;
+            PasswordEditorViewModel viewModel = new PasswordEditorViewModel();
+            viewModel.Title = (string)App.Current.Resources["VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_TITLE"];
+            viewModel.Caption = (string)App.Current.Resources["VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_CAPTION"];
+            viewModel.Password = string.Empty;
 
             bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
 
@@ -146,7 +146,7 @@ namespace Kimera.ViewModels.Dialogs
 
                 if (result == MessageBoxResult.OK)
                 {
-                    string password = viewModel.Text;
+                    string password = viewModel.Password;
 
                     if (GuardViewModel.TryPass(password))
                     {
@@ -165,7 +165,7 @@ namespace Kimera.ViewModels.Dialogs
                     }
 
                     password = null;
-                    viewModel.Text = null;
+                    viewModel.Password = null;
                 }
             }
         }
