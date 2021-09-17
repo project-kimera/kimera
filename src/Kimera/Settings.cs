@@ -9,7 +9,9 @@ namespace Kimera
 {
     public class Settings
     {
-        public readonly static string DataPath = @"data\settings.json";
+        public readonly static string DatabaseFilePath = @"data\database.sqlite";
+
+        public readonly static string SettingsFilePath = @"data\settings.json";
 
         public readonly static Guid GUID_ALL_CATEGORY = Guid.Parse("B34641DF-A149-4670-BB27-D0A9696B3E3F");
 

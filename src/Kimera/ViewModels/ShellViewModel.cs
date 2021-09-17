@@ -2,6 +2,7 @@
 using Kimera.Services;
 using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
+using Kimera.ViewModels.Specials;
 using System.Windows.Controls;
 
 namespace Kimera.ViewModels
@@ -10,6 +11,14 @@ namespace Kimera.ViewModels
     {
         private readonly SimpleContainer _container;
         private INavigationService _navigationService;
+
+        private bool _clearTitleBar = true;
+
+        public bool ClearTitleBar
+        {
+            get => _clearTitleBar;
+            set => Set(ref _clearTitleBar, value);
+        }
 
         public ShellViewModel(SimpleContainer container)
         {
@@ -22,7 +31,7 @@ namespace Kimera.ViewModels
 
             _container.Instance(_navigationService);
 
-            _navigationService.NavigateToViewModel(typeof(LibraryViewModel));
+            _navigationService.NavigateToViewModel(typeof(GuardViewModel));
         }
 
         public void NavigateToSearcher()

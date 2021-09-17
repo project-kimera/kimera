@@ -17,7 +17,8 @@
         </Grid.RowDefinitions>
 
         <!--Title Bar-->
-        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0">
+        <Border Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0"
+                Visibility="{Binding ClearTitleBar, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="64"/>

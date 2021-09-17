@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Kimera.Views
+namespace Kimera.Views.Specials
 {
     /// <summary>
-    /// SecurityView.xaml에 대한 상호 작용 논리
+    /// ScouterView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SecurityView : Page
+    public partial class ScouterView : Page
     {
-        public SecurityView()
+        public ScouterView()
         {
             InitializeComponent();
         }

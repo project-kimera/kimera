@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Kimera.Views
@@ -25,7 +26,7 @@ namespace Kimera.Views
             InitializeComponent();
         }
 
-        private void OnNavigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
         {
             DoubleAnimation animation = new DoubleAnimation();
             animation.From = 0;

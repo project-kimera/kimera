@@ -8,6 +8,7 @@ using Kimera.Utilities;
 using Kimera.ViewModels;
 using Kimera.ViewModels.Dialogs;
 using Kimera.ViewModels.Pages;
+using Kimera.ViewModels.Specials;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
@@ -37,6 +38,12 @@ namespace Kimera
         {
             _container.Instance(_container);
 
+            // System
+            _container
+                .Singleton<ShellViewModel>()
+                .PerRequest<GuardViewModel>()
+                .PerRequest<ScouterViewModel>();
+
             // Singletons
             _container
                 .Singleton<IWindowManager, WindowManager>()
@@ -44,14 +51,13 @@ namespace Kimera
                 .Singleton<Settings>()
                 .Singleton<TaskService>()
                 .Singleton<GameService>()
-                .Singleton<LibraryService>()
-                .Singleton<ShellViewModel>()
-                .Singleton<LibraryViewModel>()
-                .Singleton<StatisticsViewModel>()
-                .Singleton<SearcherViewModel>();
+                .Singleton<LibraryService>();
 
             // Pages
             _container
+                .Singleton<LibraryViewModel>()
+                .Singleton<StatisticsViewModel>()
+                .Singleton<SearcherViewModel>()
                 .PerRequest<GameViewModel>();
 
             // Dialogs
@@ -67,29 +73,7 @@ namespace Kimera
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
         {
-            var task = Task.Factory.StartNew(() =>
-            {
-                if (File.Exists(Settings.DataPath))
-                {
-                    string json = TextFileManager.ReadTextFile(Settings.DataPath, Encoding.UTF8);
-
-                    var settings = JsonConvert.DeserializeObject<Settings>(json);
-
-                    IoC.BuildUp(settings);
-                }
-            });
-
-            await task;
-
             await DisplayRootViewForAsync(typeof(ShellViewModel));
-        }
-
-        protected override async void OnExit(object sender, EventArgs e)
-        {
-            var settings = IoC.Get<Settings>();
-            string json = JsonConvert.SerializeObject(settings);
-
-            TextFileManager.WriteTextFile(Settings.DataPath, json, Encoding.UTF8);
         }
 
         protected override object GetInstance(Type service, string key)

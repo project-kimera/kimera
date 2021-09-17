@@ -55,22 +55,24 @@ namespace Kimera.Data.Contexts
                 SqliteConnection connection = new SqliteConnection(builder.ConnectionString);
                 connection.Open();
 
-                if (_password != null)
+                if (!string.IsNullOrEmpty(_password))
                 {
                     // Get a quoted password.
-                    var command = connection.CreateCommand();
-                    command.CommandText = "SELECT quote($password);";
-                    command.Parameters.AddWithValue("$password", _password);
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT quote($password);";
+                        command.Parameters.AddWithValue("$password", _password);
 
-                    var quotedPassword = (string)command.ExecuteScalar();
+                        var quotedPassword = (string)command.ExecuteScalar();
 
-                    // Input the quoted password.
-                    command.CommandText = "PRAGMA key = " + quotedPassword;
-                    command.Parameters.Clear();
-                    command.ExecuteNonQuery();
+                        // Input the quoted password.
+                        command.CommandText = "PRAGMA key = " + quotedPassword;
+                        command.Parameters.Clear();
+                        var result = command.ExecuteNonQuery();
 
-                    // Reset variables.
-                    quotedPassword = null;
+                        // Reset variables.
+                        quotedPassword = null;
+                    }
                 }
 
                 return connection;
@@ -81,7 +83,7 @@ namespace Kimera.Data.Contexts
             }
         }
 
-        public bool EncryptDatabase(ref string password,ref string path)
+        public bool EncryptDatabase(ref string password, ref string path)
         {
             try
             {

@@ -1,0 +1,57 @@
+﻿<Page x:Class="Kimera.Views.Specials.GuardView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kimera.Views.Specials"
+      xmlns:behaviours="clr-namespace:Kimera.Behaviours"
+      xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Foreground="{StaticResource KimeraForeground}"
+      Title="GuardView">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 64"
+                Visibility="{Binding IsEncrypted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Width="64" Height="64" Source="{StaticResource KimeraLogo}"/>
+
+        <StackPanel Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   FontWeight="Light" Text="Kimera" />
+            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 4 0 0"
+                   FontWeight="Light" Text="®" />
+        </StackPanel>
+
+        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
+                   Foreground="{StaticResource KimeraForegroundLight}"
+                   HorizontalAlignment="Center" Margin="0 10 0 0"
+                   FontWeight="Light" Text="{Binding Message}" />
+
+        <StackPanel Orientation="Horizontal" Margin="0 20 0 0" HorizontalAlignment="Center">
+            <PasswordBox Style="{StaticResource MaterialDesignOutlinedPasswordBox}" Width="300"
+                         materialDesign:HintAssist.Hint="{StaticResource VIEW_GUARD_PASSWORD_HINT}" materialDesign:HintAssist.IsFloating="False"
+                         behaviours:PasswordBoxBehaviour.Attach="True"
+                         behaviours:PasswordBoxBehaviour.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Cursor="IBeam">
+                <i:Interaction.Triggers>
+                    <i:KeyTrigger Key="Return">
+                        <caliburn:ActionMessage MethodName="Submit" />
+                    </i:KeyTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
+
+            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                    BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                    Margin="4 0 0 0" Height="50"
+                    caliburn:Message.Attach="Submit()">
+                <materialDesign:PackIcon Width="12" Height="12" Kind="Send"/>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Margin="0 10 0 0" HorizontalAlignment="Center">
+            <Hyperlink Style="{StaticResource MaterialDesignCaptionHyperlink}">
+                <TextBlock Foreground="{StaticResource KimeraForegroundUltraLight}" Text="{StaticResource VIEW_GUARD_RESET_APPLICATION_CAPTION}"/>
+            </Hyperlink>
+        </TextBlock>
+    </StackPanel>
+</Page>

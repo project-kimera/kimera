@@ -15,6 +15,12 @@
     <system:String x:Key="VIEW_SHELL_STATISTICS_HEADER">통계</system:String>
     <system:String x:Key="VIEW_SHELL_SETTINGS_HEADER">설정</system:String>
 
+    <!--View : GuardView-->
+    <system:String x:Key="VIEW_GUARD_NEEDS_PASSWORD_CAPTION">비밀번호를 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_GUARD_WRONG_PASSWORD_CAPTION">잘못된 비밀번호입니다.</system:String>
+    <system:String x:Key="VIEW_GUARD_PASSWORD_HINT">비밀번호</system:String>
+    <system:String x:Key="VIEW_GUARD_RESET_APPLICATION_CAPTION">애플리케이션 초기화하기</system:String>
+
     <!--View : LibraryView-->
     <system:String x:Key="VIEW_LIBRARY_REFRESH_HINT">새로고침</system:String>
     <system:String x:Key="VIEW_LIBRARY_CATEGORY_HEADER">카테고리</system:String>
