@@ -103,6 +103,8 @@ namespace Kimera.Data.Contexts
                         cmd.ExecuteNonQuery();
                     }
 
+                    File.Copy(tempFilePath, _databaseFilePath, true);
+
                     return true;
                 }
                 else

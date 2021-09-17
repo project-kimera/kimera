@@ -1,14 +1,17 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Contexts;
 using Kimera.Data.Extensions;
+using Kimera.IO;
 using Kimera.Network;
 using Kimera.Utilities;
 using Kimera.ViewModels.Pages;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -36,13 +39,6 @@ namespace Kimera.ViewModels.Specials
         {
             await InitializeLoggerAsync();
             Log.Information("The logger has been initialized.");
-
-            if (!App.DebugMode && !PrivilegeHelper.IsAdministrator())
-            {
-                Log.Warning("The current process does not have administrator privileges. The process will be restart with administrator privileges.");
-                PrivilegeHelper.RunAsAdiministrator();
-                return;
-            }
 
             await InitializeLocalizationAsync();
             Log.Information("The language resources has been initialized.");

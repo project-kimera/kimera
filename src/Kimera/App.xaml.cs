@@ -38,5 +38,17 @@ namespace Kimera
                 _databaseContext = value;
             }
         }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            if (!_debugMode && !PrivilegeHelper.IsAdministrator())
+            {
+                Log.Warning("The current process does not have administrator privileges. The process will be restart with administrator privileges.");
+                PrivilegeHelper.RunAsAdiministrator();
+                return;
+            }
+
+            base.OnStartup(e);
+        }
     }
 }

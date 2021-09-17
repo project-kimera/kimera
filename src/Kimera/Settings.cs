@@ -64,5 +64,15 @@ namespace Kimera
         public bool UseAntiDPIService { get; set; } = true;
 
         #endregion
+
+        public void Set(Settings settings)
+        {
+            UseAutoStarter = settings.UseAutoStarter;
+            WorkDirectory = settings.WorkDirectory;
+            MasterKeys = settings.MasterKeys;
+            UseAutoRemover = settings.UseAutoRemover;
+            AutoRemovingInterval = settings.AutoRemovingInterval;
+            UseAntiDPIService = settings.UseAntiDPIService;
+        }
     }
 }
