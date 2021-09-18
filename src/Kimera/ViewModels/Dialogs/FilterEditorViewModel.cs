@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kimera.ViewModels.Dialogs
 {
-    class FilterEditorView
+    class FilterEditorViewModel
     {
     }
 }
