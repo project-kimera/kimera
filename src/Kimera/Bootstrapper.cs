@@ -91,7 +91,7 @@ namespace Kimera
             await DisplayRootViewForAsync(typeof(ShellViewModel));
         }
 
-        protected override async void OnExit(object sender, EventArgs e)
+        protected override void OnExit(object sender, EventArgs e)
         {
             var settings = IoC.Get<Settings>();
             string json = JsonConvert.SerializeObject(settings);

@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kimera.Network.Utilities
@@ -13,6 +14,37 @@ namespace Kimera.Network.Utilities
     public static class WebHelper
     {
         private static readonly HttpClient _httpClient = new HttpClient();
+
+        public static string GetLocalizedApiUrl(string url)
+        {
+            switch (Thread.CurrentThread.CurrentCulture.Name)
+            {
+                case "ja":
+                case "ja-JP":
+                    url = string.Concat(url, "&locale=ja-JP");
+                    break;
+                case "en":
+                case "en-US":
+                    url = string.Concat(url, "&locale=en-US");
+                    break;
+                case "zh-Hant":
+                case "zh-TW":
+                    url = string.Concat(url, "&locale=zh-TW");
+                    break;
+                case "zh-Hans":
+                case "zh-CN":
+                    url = string.Concat(url, "&locale=zh-CN");
+                    break;
+                case "ko":
+                case "ko-KR":
+                    url = string.Concat(url, "&locale=ko-KR");
+                    break;
+                default:
+                    break;
+            }
+
+            return url;
+        }
 
         public static async Task<string> GetResponseAsync(string url)
         {

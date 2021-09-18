@@ -98,13 +98,11 @@ namespace Kimera.ViewModels.Specials
         {
             var task = Task.Factory.StartNew(() =>
             {
-                Settings settings = IoC.Get<Settings>();
-
                 var variables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine);
 
                 foreach (DictionaryEntry entry in variables)
                 {
-                    settings.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
+                    Settings.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
                 }
             });
 
@@ -165,6 +163,8 @@ namespace Kimera.ViewModels.Specials
                 AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
 
                 MetadataServiceProvider.InitializeService();
+
+                SearchServiceProvider.InitializeService();
             });
 
             await task;

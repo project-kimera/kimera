@@ -15,14 +15,14 @@ namespace Kimera.Network
     /// </summary>
     public static class MetadataServiceProvider
     {
-        private static List<IMetadataService> _services = new List<IMetadataService>();
+        public static List<IMetadataService> Services { get; private set; } = new List<IMetadataService>();
 
         /// <summary>
         /// Initializes the internal service of the <see cref="MetadataServiceProvider"/>.
         /// </summary>
         public static void InitializeService()
         {
-            _services = Assembly.GetExecutingAssembly()
+            Services = Assembly.GetExecutingAssembly()
                 .GetTypes()  // Gets all types
                 .Where(type => typeof(IMetadataService).IsAssignableFrom(type)) // Ensures that object can be cast to interface
                 .Where(type =>
@@ -44,7 +44,7 @@ namespace Kimera.Network
 
             for (int i = pathChunks.Length - 1; i >= 0; i--)
             {
-                foreach (IMetadataService service in _services)
+                foreach (IMetadataService service in Services)
                 {
                     foreach (string regex in service.ProductCodeRegexs)
                     {
@@ -69,7 +69,7 @@ namespace Kimera.Network
         /// <returns>true if the product code is valid; otherwise, false.</returns>
         public static bool TryValidProductCode(string productCode, out Type serviceType)
         {
-            foreach(IMetadataService service in _services)
+            foreach(IMetadataService service in Services)
             {
                 foreach (string regex in service.ProductCodeRegexs)
                 {
@@ -95,7 +95,7 @@ namespace Kimera.Network
         {
             try
             {
-                IMetadataService service = _services.Where(s => s.GetType().Name == serviceType.Name).First();
+                IMetadataService service = Services.Where(s => s.GetType().Name == serviceType.Name).First();
 
                 if (service != null)
                 {
@@ -123,7 +123,7 @@ namespace Kimera.Network
         {
             try
             {
-                IMetadataService service = _services.Where(s => s.GetType().Name == serviceType.Name).First();
+                IMetadataService service = Services.Where(s => s.GetType().Name == serviceType.Name).First();
 
                 if (service != null)
                 {

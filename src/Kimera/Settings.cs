@@ -23,7 +23,7 @@ namespace Kimera
         #region ::System Settings::
 
         [JsonIgnore]
-        public Dictionary<string, string> EnvironmentVariables { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, string> EnvironmentVariables { get; set; } = new Dictionary<string, string>();
 
         #endregion
 

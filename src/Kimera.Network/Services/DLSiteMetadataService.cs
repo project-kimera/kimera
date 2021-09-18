@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Kimera.Network.Services
 {
@@ -19,44 +20,11 @@ namespace Kimera.Network.Services
 
         public string[] ProductCodeRegexs { get; init; } = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}", "[0-9]{6}" };
 
-        private string GetProductInfoApiUrl()
-        {
-            string url = URL_DLSITE_PRODUCT_INFO_API;
-
-            switch (Thread.CurrentThread.CurrentCulture.Name)
-            {
-                case "ja":
-                case "ja-JP":
-                    url = string.Concat(url, "&locale=ja-JP");
-                    break;
-                case "en":
-                case "en-US":
-                    url = string.Concat(url, "&locale=en-US");
-                    break;
-                case "zh-Hant":
-                case "zh-TW":
-                    url = string.Concat(url, "&locale=zh-TW");
-                    break;
-                case "zh-Hans":
-                case "zh-CN":
-                    url = string.Concat(url, "&locale=zh-CN");
-                    break;
-                case "ko":
-                case "ko-KR":
-                    url = string.Concat(url, "&locale=ko-KR");
-                    break;
-                default:
-                    break;
-            }
-
-            return url;
-        }
-
         public async Task<bool> IsAvailableProductAsync(string productCode)
         {
             try
             {
-                string url = GetProductInfoApiUrl();
+                string url = WebHelper.GetLocalizedApiUrl(URL_DLSITE_PRODUCT_INFO_API);
                 string response = await WebHelper.GetResponseAsync(string.Format(url, productCode));
 
                 JArray array = JArray.Parse(response);
@@ -80,7 +48,7 @@ namespace Kimera.Network.Services
         {
             try
             {
-                string url = GetProductInfoApiUrl();
+                string url = WebHelper.GetLocalizedApiUrl(URL_DLSITE_PRODUCT_INFO_API);
                 string response = await WebHelper.GetResponseAsync(string.Format(url, productCode));
 
                 JArray array = JArray.Parse(response);
