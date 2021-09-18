@@ -49,7 +49,7 @@
                 <!--Action Buttons-->
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="16 0 0 0" VerticalAlignment="Center">
                     <Button x:Name="NavigateToLibrary" Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}"
-                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
+                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="FileCabinet"/>
                             <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_LIBRARY_HEADER}" />
@@ -57,7 +57,7 @@
                     </Button>
 
                     <Button x:Name="NavigateToStatistics" Style="{StaticResource MaterialDesignToolButton}" Foreground="{StaticResource KimeraForegroundLight}"
-                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True">
+                            Margin="4 0 0 0" Padding="18 0 18 0" WindowChrome.IsHitTestVisibleInChrome="True" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon VerticalAlignment="Center" Kind="ChartTimelineVariant"/>
                             <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_STATISTICS_HEADER}" />

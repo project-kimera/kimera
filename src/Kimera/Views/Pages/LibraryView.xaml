@@ -39,22 +39,22 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       Margin="0 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategory, Converter={StaticResource CategoryGuidToNameConverter}, StringFormat='카테고리 : {0}'}" />
+                                       Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategory, Converter={StaticResource CategoryGuidToNameConverter}, StringFormat='카테고리 : {0}'}" />
                         </StackPanel>
                     </materialDesign:PopupBox.ToggleContent>
 
-                    <Grid Background="{StaticResource KimeraPopupBoxBackground}" Width="300" Height="400">
+                    <Grid Background="{StaticResource KimeraPopupBoxBackground}" Width="400" Height="400">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="70"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0">
-                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       VerticalAlignment="Center" Margin="10 10 10 10"
-                                       Text="{StaticResource VIEW_LIBRARY_CATEGORY_HEADER}" />
+                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="{DynamicResource KimeraForeground}"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 0 0 10" Padding="0 4"
+                                           TextWrapping="Wrap" Text="{StaticResource VIEW_LIBRARY_CATEGORY_HEADER}"/>
                         </Grid>
 
                         <Grid Grid.Row="1">

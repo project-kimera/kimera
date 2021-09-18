@@ -199,6 +199,16 @@ namespace Kimera.ViewModels.Pages
             }
         }
 
+        public void EditSorting()
+        {
+
+        }
+
+        public void EditFilter()
+        {
+
+        }
+
         public void ChangeToTileView()
         {
             ViewTemplate = App.Current.FindResource("TileViewItemTemplate") as DataTemplate;
