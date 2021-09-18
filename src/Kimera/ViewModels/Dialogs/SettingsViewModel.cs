@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using Kimera.Network.Utilities;
+using Kimera.Utilities;
 using Kimera.ViewModels.Specials;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
@@ -18,13 +19,15 @@ namespace Kimera.ViewModels.Dialogs
     {
         private Settings _settings = IoC.Get<Settings>();
 
+        private bool _useAutoStarter = false;
+
         public bool UseAutoStarter
         {
-            get => _settings.UseAutoStarter;
+            get => _useAutoStarter;
             set
             {
-                _settings.UseAutoStarter = value;
-                NotifyOfPropertyChange("UseAutoStarter");
+                Set(ref _useAutoStarter, value);
+                ChangeAutoStarterStatus(value);
             }
         }
 
@@ -92,8 +95,23 @@ namespace Kimera.ViewModels.Dialogs
 
         private void InitializeSettings()
         {
+            _useAutoStarter = RegistryManager.IsStartupProgram(Settings.ApplicationName);
+
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             _versionString = $"Kimera Version {version.Major}.{version.Minor} (Build {version.Build}, Revision {version.Revision})";
+        }
+
+        public async void ChangeAutoStarterStatus(bool useAutoStarter)
+        {
+            if (useAutoStarter)
+            {
+                string path = Path.Combine(Environment.CurrentDirectory, "Kimera.exe");
+                RegistryManager.AddStartupProgram(Settings.ApplicationName, path);
+            }
+            else
+            {
+                RegistryManager.RemoveStartupProgram(Settings.ApplicationName);
+            }
         }
 
         public async void EncryptDatabase()

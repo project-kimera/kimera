@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,6 +40,9 @@ namespace Kimera.ViewModels.Specials
         {
             await InitializeLoggerAsync();
             Log.Information("The logger has been initialized.");
+
+            await InitializeEnvironmentVariablesAsync();
+            Log.Information("The environment variables has been initialized.");
 
             await InitializeLocalizationAsync();
             Log.Information("The language resources has been initialized.");
@@ -85,6 +89,23 @@ namespace Kimera.ViewModels.Specials
                         Log.Logger = log;
                     }
                 });
+            });
+
+            await task;
+        }
+
+        private async Task InitializeEnvironmentVariablesAsync()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                Settings settings = IoC.Get<Settings>();
+
+                var variables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine);
+
+                foreach (DictionaryEntry entry in variables)
+                {
+                    settings.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
+                }
             });
 
             await task;

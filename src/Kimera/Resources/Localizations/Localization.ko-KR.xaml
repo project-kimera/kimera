@@ -102,6 +102,7 @@
     <system:String x:Key="VIEW_SETTINGS_CRYPTO_CAPTION">데이터베이스 암호화</system:String>
     <system:String x:Key="VIEW_SETTINGS_CHANGE_PASSWORD">비밀번호 등록 / 변경</system:String>
     <system:String x:Key="VIEW_SETTINGS_DECRYPT">암호화 해제</system:String>
+    <system:String x:Key="VIEW_SETTINGS_CRYPTOGRAPHY_NOTICE">※ 데이터베이스를 암호화할 경우 애플리케이션의 성능이 다소 저하될 수 있습니다.</system:String>
 
     <system:String x:Key="VIEW_SETTINGS_WORKDIR_CAPTION">작업 경로</system:String>
     <system:String x:Key="VIEW_SETTINGS_MASTERKEYS_CAPTION">마스터 키</system:String>

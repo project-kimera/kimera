@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Kimera
 {
     public class Settings
     {
+        public readonly static string ApplicationName = "Kimera";
+
         public readonly static string DatabaseFilePath = @"data\database.sqlite";
 
         public readonly static string SettingsFilePath = @"data\settings.json";
@@ -17,6 +20,13 @@ namespace Kimera
 
         public readonly static Guid GUID_FAVORITE_CATEGORY = Guid.Parse("DD297C4A-3CC4-4E67-8E5F-512B02B5AF61");
 
+        #region ::System Settings::
+
+        [JsonIgnore]
+        public Dictionary<string, string> EnvironmentVariables { get; set; } = new Dictionary<string, string>();
+
+        #endregion
+
         #region ::Application Settings::
 
 
@@ -24,11 +34,6 @@ namespace Kimera
         #endregion
 
         #region ::General::
-
-        /// <summary>
-        /// Gets or sets the value whether the application is started when the system is start up.
-        /// </summary>
-        public bool UseAutoStarter { get; set; } = false;
 
         #endregion
 
@@ -50,6 +55,11 @@ namespace Kimera
         public bool UseAutoRemover { get; set; } = false;
 
         /// <summary>
+        /// Gets or sets the value whether the auto remover is used or not.
+        /// </summary>
+        public bool UseAutoRemovingReminder { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets the interval(days) of auto removing task.
         /// </summary>
         public int AutoRemovingInterval { get; set; } = 7;
@@ -67,10 +77,10 @@ namespace Kimera
 
         public void Set(Settings settings)
         {
-            UseAutoStarter = settings.UseAutoStarter;
             WorkDirectory = settings.WorkDirectory;
             MasterKeys = settings.MasterKeys;
             UseAutoRemover = settings.UseAutoRemover;
+            UseAutoRemovingReminder = settings.UseAutoRemovingReminder;
             AutoRemovingInterval = settings.AutoRemovingInterval;
             UseAntiDPIService = settings.UseAntiDPIService;
         }
