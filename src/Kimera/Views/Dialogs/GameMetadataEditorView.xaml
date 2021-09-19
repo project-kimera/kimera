@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kimera.Views.Dialogs"
         xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Style="{StaticResource KimeraSizableDialogWindow}"
         Foreground="{StaticResource KimeraForeground}"
@@ -36,9 +36,9 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
@@ -59,19 +59,50 @@
 
                             <TextBox Grid.Column="0" x:Name="SearchTextBox"  Margin="0 0 0 0"
                              materialDesign:HintAssist.Hint="Search Keywords" materialDesign:HintAssist.IsFloating="False"
-                             Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Triggers>
+                                    <i:KeyTrigger Key="Return">
+                                        <caliburn:ActionMessage MethodName="Search" />
+                                    </i:KeyTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
 
                             <Button Grid.Column="1" Style="{StaticResource KimeraContentButton}"
-                                caliburn:Message.Attach="RefreshSuggestions()">
+                                caliburn:Message.Attach="Search()">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 0 0">
                                     <materialDesign:PackIcon VerticalAlignment="Center" Kind="Search"/>
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="4 0 0 0" Text="Search"/>
                                 </StackPanel>
                             </Button>
+                            
+                            
                         </Grid>
                     </StackPanel>
-                    
-                    <ListBox Grid.Row="1" ItemsSource="{Binding Suggestions}" DisplayMemberPath="Name">
+
+                    <ProgressBar Grid.Row="1" Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="40" Height="40"
+                                 materialDesign:TransitionAssist.DisableTransitions="True" IsIndeterminate="True"
+                                 Visibility="{Binding IsWorking, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <ListBox Grid.Row="1" ItemsSource="{Binding Suggestions}" SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}" Visibility="{Binding IsWorking, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="40" Margin="10 0 10 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"
+                                           Source="{Binding ThumbnailUrl, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}"/>
+
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="10 0 0 0">
+                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Foreground="{StaticResource KimeraForegroundUltraLight}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding ProductCode}"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
 

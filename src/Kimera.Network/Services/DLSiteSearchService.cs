@@ -13,7 +13,7 @@ namespace Kimera.Network.Services
 {
     public class DLSiteSharedClass
     {
-        protected virtual string ApiUrl { get; } = string.Empty;
+        protected virtual string SearchApiUrl { get; } = string.Empty;
 
         public Type MetadataServiceType
         {
@@ -24,19 +24,23 @@ namespace Kimera.Network.Services
         {
             try
             {
+                DLSiteMetadataService metadataService = new DLSiteMetadataService();
+
                 List<SearchResult> results = new List<SearchResult>();
 
-                string url = WebHelper.GetLocalizedApiUrl(ApiUrl);
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
+                string searchApiUrl = WebHelper.GetLocalizedApiUrl(SearchApiUrl);
+                string encodedKeyword = HttpUtility.UrlEncode(keyword);
+                string searchApiResponse = await WebHelper.GetResponseAsync(string.Format(searchApiUrl, encodedKeyword));
 
-                JArray array = JArray.Parse(response);
+                JArray array = JArray.Parse(searchApiResponse);
 
-                foreach (JObject token in array.Children<JObject>())
+                foreach (JObject item in array.Children<JObject>())
                 {
                     SearchResult result = new SearchResult();
-                    result.ProductCode = token["product_id"].ToString();
-                    result.Name = token["product_name"].ToString();
+                    result.ProductCode = item["product_id"].ToString();
+                    result.Name = item["product_name"].ToString();
+                    result.ThumbnailUrl = await metadataService.GetThumbnailUrlAsync(result.ProductCode, true);
+
                     results.Add(result);
                 }
 
@@ -56,7 +60,7 @@ namespace Kimera.Network.Services
             get => "DLSite Home";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/home/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
@@ -69,7 +73,7 @@ namespace Kimera.Network.Services
             get => "DLSite Maniax";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/maniax/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
@@ -81,7 +85,7 @@ namespace Kimera.Network.Services
             get => "DLSite Girls";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/girls/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
@@ -95,7 +99,7 @@ namespace Kimera.Network.Services
             get => "DLSite BL";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/bl/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
@@ -109,7 +113,7 @@ namespace Kimera.Network.Services
             get => "DLSite Software";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/soft/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
@@ -123,7 +127,7 @@ namespace Kimera.Network.Services
             get => "DLSite Pro";
         }
 
-        protected override string ApiUrl
+        protected override string SearchApiUrl
         {
             get => "https://www.dlsite.com/pro/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }

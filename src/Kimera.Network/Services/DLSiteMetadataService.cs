@@ -17,6 +17,7 @@ namespace Kimera.Network.Services
     {
         private const string URL_DLSITE_PRODUCT_HOMEPAGE = "https://www.dlsite.com/home/work/=/product_id/{0}.html";
         private const string URL_DLSITE_PRODUCT_INFO_API = "https://www.dlsite.com/home/api/=/product.json?workno={0}";
+        private const string URL_DLSITE_SHORT_PRODUCT_INFO_API = "https://www.dlsite.com/home/product/info/ajax?product_id={0}";
 
         public string[] ProductCodeRegexs { get; init; } = { "RJ[0-9]{6}", "VJ[0-9]{6}", "BJ[0-9]{6}", "[0-9]{6}" };
 
@@ -37,6 +38,31 @@ namespace Kimera.Network.Services
                 {
                     return true;
                 }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<string> GetThumbnailUrlAsync(string productCode, bool mini = false)
+        {
+            try
+            {
+                string productInfoApiUrl = WebHelper.GetLocalizedApiUrl(URL_DLSITE_SHORT_PRODUCT_INFO_API);
+                string response = await WebHelper.GetResponseAsync(string.Format(productInfoApiUrl, productCode));
+
+                JObject workImage = JObject.Parse(response);
+                string imageUrl = workImage[productCode.ToUpper()]["work_image"].ToString();
+
+                if (mini)
+                {
+                    imageUrl = imageUrl.Replace("img_main", "img_sam");
+                }
+
+                imageUrl = string.Concat("https:", imageUrl);
+
+                return imageUrl;
             }
             catch
             {

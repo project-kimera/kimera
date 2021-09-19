@@ -31,6 +31,14 @@ namespace Kimera.ViewModels.Dialogs
             get => _metadata;
         }
 
+        private bool _isWorking = false;
+
+        public bool IsWorking
+        {
+            get => _isWorking;
+            set => Set(ref _isWorking, value);
+        }
+
         public List<ISearchService> SearchServices
         {
             get => SearchServiceProvider.Services;
@@ -63,13 +71,29 @@ namespace Kimera.ViewModels.Dialogs
             set => Set(ref _suggestions, value);
         }
 
+        private SearchResult _selectedSuggestion = null;
+
+        public SearchResult SelectedSuggestion
+        {
+            get => _selectedSuggestion;
+            set
+            {
+                Set(ref _selectedSuggestion, value);
+
+                if (value != null)
+                {
+                    LoadMetadata(value.ProductCode);
+                }
+            }
+        }
+
         public string Name
         {
             get => _metadata.Name;
             set
             {
                 _metadata.Name = value;
-                NotifyOfPropertyChange(Name);
+                NotifyOfPropertyChange("Name");
             }
         }
 
@@ -79,7 +103,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.Description = value;
-                NotifyOfPropertyChange(Description);
+                NotifyOfPropertyChange("Description");
             }
         }
 
@@ -89,7 +113,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.Creator = value;
-                NotifyOfPropertyChange(Creator);
+                NotifyOfPropertyChange("Creator");
             }
         }
 
@@ -109,7 +133,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.Genres = value;
-                NotifyOfPropertyChange(Genres);
+                NotifyOfPropertyChange("Genres");
             }
         }
 
@@ -119,7 +143,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.Tags = value;
-                NotifyOfPropertyChange(Tags);
+                NotifyOfPropertyChange("Tags");
             }
         }
 
@@ -129,7 +153,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.SupportedLanguages = value;
-                NotifyOfPropertyChange(SupportedLanguages);
+                NotifyOfPropertyChange("SupportedLanguages");
             }
         }
 
@@ -149,7 +173,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.IconUri = value;
-                NotifyOfPropertyChange(IconUri);
+                NotifyOfPropertyChange("IconUri");
             }
         }
 
@@ -159,7 +183,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.ThumbnailUri = value;
-                NotifyOfPropertyChange(ThumbnailUri);
+                NotifyOfPropertyChange("ThumbnailUri");
             }
         }
 
@@ -169,7 +193,7 @@ namespace Kimera.ViewModels.Dialogs
             set
             {
                 _metadata.HomepageUrl = value;
-                NotifyOfPropertyChange(HomepageUrl);
+                NotifyOfPropertyChange("HomepageUrl");
             }
         }
 
@@ -203,8 +227,10 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
-        public async void RefreshSuggestions()
+        public async void Search()
         {
+            IsWorking = true;
+
             if (_selectedSearchService != null)
             {
                 List<SearchResult> results = await _selectedSearchService.GetSearchResultsAsync(_searchKeywords);
@@ -212,6 +238,38 @@ namespace Kimera.ViewModels.Dialogs
                 Suggestions.Clear();
                 Suggestions.AddRange(results);
             }
+
+            IsWorking = false;
+        }
+
+        public async void LoadMetadata(string productCode)
+        {
+            IsWorking = true;
+
+            Type type;
+            GameMetadata metadata;
+
+            if (MetadataServiceProvider.TryValidProductCode(productCode, out type))
+            {
+                metadata = await MetadataServiceProvider.GetMetadataAsync(type, productCode);
+
+                if (metadata != null)
+                {
+                    Name = metadata.Name;
+                    Description = metadata.Description;
+                    Creator = metadata.Creator;
+                    Genres = metadata.Genres;
+                    ThumbnailUri = metadata.ThumbnailUri;
+                    IconUri = metadata.IconUri;
+                    HomepageUrl = metadata.HomepageUrl;
+                    AdmittedAge = metadata.AdmittedAge;
+                    Tags = metadata.Tags;
+                    SupportedLanguages = metadata.SupportedLanguages;
+                    Score = metadata.Score;
+                }
+            }
+
+            IsWorking = false;
         }
 
         public async void Cancel()
