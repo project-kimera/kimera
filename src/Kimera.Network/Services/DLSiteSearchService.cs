@@ -1,4 +1,5 @@
-﻿using Kimera.Network.Services.Interfaces;
+﻿using Kimera.Network.Entities;
+using Kimera.Network.Services.Interfaces;
 using Kimera.Network.Utilities;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,201 +11,121 @@ using System.Web;
 
 namespace Kimera.Network.Services
 {
-    internal class DLSiteHomeSearchService : ISearchService
+    public class DLSiteSharedClass
+    {
+        protected virtual string ApiUrl { get; } = string.Empty;
+
+        public Type MetadataServiceType
+        {
+            get => typeof(DLSiteMetadataService);
+        }
+
+        public async Task<List<SearchResult>> GetSearchResultsAsync(string keyword)
+        {
+            try
+            {
+                List<SearchResult> results = new List<SearchResult>();
+
+                string url = WebHelper.GetLocalizedApiUrl(ApiUrl);
+                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
+                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
+
+                JArray array = JArray.Parse(response);
+
+                foreach (JObject token in array.Children<JObject>())
+                {
+                    SearchResult result = new SearchResult();
+                    result.ProductCode = token["product_id"].ToString();
+                    result.Name = token["product_name"].ToString();
+                    results.Add(result);
+                }
+
+                return results;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+    }
+
+    internal class DLSiteHomeSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite Home";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/home/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/home/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
 
-    internal class DLSiteManiaxSearchService : ISearchService
+    internal class DLSiteManiaxSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite Maniax";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/maniax/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/maniax/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
-
-    internal class DLSiteGirlsSearchService : ISearchService
+    internal class DLSiteGirlsSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite Girls";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/girls/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/girls/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
 
-    internal class DLSiteBLSearchService : ISearchService
+
+    internal class DLSiteBLSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite BL";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/bl/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/bl/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
 
-    internal class DLSiteSoftwareSearchService : ISearchService
+
+    internal class DLSiteSoftwareSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite Software";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/soft/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/soft/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
 
-    internal class DLSiteProSearchService : ISearchService
+
+    internal class DLSiteProSearchService : DLSiteSharedClass, ISearchService
     {
         public string ServiceName
         {
             get => "DLSite Pro";
         }
 
-        public async Task<Dictionary<string, string>> GetSearchResult(string keyword)
+        protected override string ApiUrl
         {
-            try
-            {
-                Dictionary<string, string> result = new Dictionary<string, string>();
-
-                string url = WebHelper.GetLocalizedApiUrl("https://www.dlsite.com/pro/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/");
-                string encodedKeyword = HttpUtility.UrlEncodeUnicode(keyword);
-                string response = await WebHelper.GetResponseAsync(string.Format(url, encodedKeyword));
-
-                JArray array = JArray.Parse(response);
-
-                foreach (JObject token in array.Children<JObject>())
-                {
-                    result.Add(token["product_id"].ToString(), token["product_name"].ToString());
-                }
-
-                return result;
-            }
-            catch
-            {
-                throw;
-            }
+            get => "https://www.dlsite.com/pro/sapi/=/language/jp/keyword/{0}/per_page/30/format/json/";
         }
     }
 }

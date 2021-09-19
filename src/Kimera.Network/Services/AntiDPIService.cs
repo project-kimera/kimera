@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kimera.Network.Services
 {
-    internal class AntiDPIService : IDisposable
+    public class AntiDPIService : IDisposable
     {
         private string _directory = string.Empty;
 

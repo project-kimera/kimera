@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Kimera.Network.Entities;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Kimera.Network.Services.Interfaces
@@ -7,6 +9,8 @@ namespace Kimera.Network.Services.Interfaces
     {
         public string ServiceName { get; }
 
-        public Task<Dictionary<string, string>> GetSearchResult(string keyword);
+        public Type MetadataServiceType { get; }
+
+        public Task<List<SearchResult>> GetSearchResultsAsync(string keyword);
     }
 }

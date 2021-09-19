@@ -1,6 +1,9 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
 using Kimera.Data.Enums;
+using Kimera.Network;
+using Kimera.Network.Entities;
+using Kimera.Network.Services.Interfaces;
 using Kimera.Utilities;
 using Serilog;
 using System;
@@ -26,6 +29,38 @@ namespace Kimera.ViewModels.Dialogs
         public GameMetadata Metadata
         {
             get => _metadata;
+        }
+
+        public List<ISearchService> SearchServices
+        {
+            get => SearchServiceProvider.Services;
+        }
+
+        private ISearchService _selectedSearchService = null;
+
+        public ISearchService SelectedSearchService
+        {
+            get => _selectedSearchService;
+            set => Set(ref _selectedSearchService, value);
+        }
+
+        private string _searchKeywords = string.Empty;
+
+        public string SearchKeywords
+        {
+            get => _searchKeywords;
+            set
+            {
+                Set(ref _searchKeywords, value);
+            }
+        }
+
+        private BindableCollection<SearchResult> _suggestions = new BindableCollection<SearchResult>();
+
+        public BindableCollection<SearchResult> Suggestions
+        {
+            get => _suggestions;
+            set => Set(ref _suggestions, value);
         }
 
         public string Name
@@ -140,6 +175,8 @@ namespace Kimera.ViewModels.Dialogs
 
         public GameMetadataEditorViewModel(GameMetadata metadata)
         {
+            _selectedSearchService = SearchServices.FirstOrDefault();
+
             InitializeGameMetadata(metadata);
         }
 
@@ -163,6 +200,17 @@ namespace Kimera.ViewModels.Dialogs
             catch (Exception ex)
             {
                 Log.Error(ex, "An error occurred while loading the components data table.");
+            }
+        }
+
+        public async void RefreshSuggestions()
+        {
+            if (_selectedSearchService != null)
+            {
+                List<SearchResult> results = await _selectedSearchService.GetSearchResultsAsync(_searchKeywords);
+
+                Suggestions.Clear();
+                Suggestions.AddRange(results);
             }
         }
 
