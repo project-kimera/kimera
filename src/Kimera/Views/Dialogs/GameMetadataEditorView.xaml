@@ -36,9 +36,9 @@
         <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
@@ -47,36 +47,39 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    
                     <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10 10 10 10">
-                        <ComboBox materialDesign:HintAssist.Hint="Search Service"
+                        <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                            <Grid>
+                                <ComboBox Style="{StaticResource MaterialDesignDataGridComboBox}" Margin="8 4 8 4" materialDesign:HintAssist.Hint="Search Service"
                                   ItemsSource="{Binding SearchServices}" DisplayMemberPath="ServiceName" SelectedItem="{Binding SelectedSearchService, Mode=TwoWay}"/>
+                            </Grid>
+                        </materialDesign:ColorZone>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                        <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 8 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" x:Name="SearchTextBox"  Margin="0 0 0 0"
-                             materialDesign:HintAssist.Hint="Search Keywords" materialDesign:HintAssist.IsFloating="False"
-                             Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <i:Interaction.Triggers>
-                                    <i:KeyTrigger Key="Return">
-                                        <caliburn:ActionMessage MethodName="Search" />
-                                    </i:KeyTrigger>
-                                </i:Interaction.Triggers>
-                            </TextBox>
+                                <TextBox Grid.Column="0" Margin="8 0 0 0"
+                                         materialDesign:HintAssist.Hint="Search..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
+                                         BorderThickness="0" MinWidth="200" VerticalAlignment="Center"
+                                         Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Triggers>
+                                        <i:KeyTrigger Key="Return">
+                                            <caliburn:ActionMessage MethodName="Search" />
+                                        </i:KeyTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
 
-                            <Button Grid.Column="1" Style="{StaticResource KimeraContentButton}"
-                                caliburn:Message.Attach="Search()">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 0 0">
-                                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Search"/>
-                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Margin="4 0 0 0" Text="Search"/>
-                                </StackPanel>
-                            </Button>
-                            
-                            
-                        </Grid>
+                                <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}"
+                                        caliburn:Message.Attach="Search()">
+                                    <materialDesign:PackIcon Kind="Search" Opacity=".56" Margin="8 0 0 0" />
+                                </Button>
+                            </Grid>
+                        </materialDesign:ColorZone>
                     </StackPanel>
 
                     <ProgressBar Grid.Row="1" Style="{StaticResource MaterialDesignCircularProgressBar}"
@@ -84,7 +87,9 @@
                                  materialDesign:TransitionAssist.DisableTransitions="True" IsIndeterminate="True"
                                  Visibility="{Binding IsWorking, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-                    <ListBox Grid.Row="1" ItemsSource="{Binding Suggestions}" SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}" Visibility="{Binding IsWorking, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding Suggestions}" SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}"
+                             Visibility="{Binding IsWorking, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="40" Margin="10 0 10 0">
@@ -106,7 +111,7 @@
                     </ListBox>
                 </Grid>
 
-                <GridSplitter Grid.Column="1" Width="1" ShowsPreview="True"/>
+                <GridSplitter Grid.Column="1" Width="1" ShowsPreview="True" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
 
                 <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Visible">
                     <StackPanel Orientation="Vertical" Margin="20 10 20 20">
