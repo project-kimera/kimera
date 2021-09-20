@@ -58,9 +58,6 @@ namespace Kimera.Services
                 }
 
                 // Add categories.
-                Category allCategory = await App.DatabaseContext.GetCategoryAsync(Settings.GUID_ALL_CATEGORY);
-                await App.DatabaseContext.AddCategorySubscriptionAsync(allCategory, game);
-
                 if (targetCategories == null || targetCategories.Count == 0)
                 {
                     targetCategories = new List<Category>();
@@ -68,10 +65,7 @@ namespace Kimera.Services
 
                 foreach (Category category in targetCategories)
                 {
-                    if (category.SystemId != Settings.GUID_ALL_CATEGORY && category.SystemId != Settings.GUID_FAVORITE_CATEGORY)
-                    {
-                        await App.DatabaseContext.AddCategorySubscriptionAsync(category, game);
-                    }
+                    await App.DatabaseContext.AddCategorySubscriptionAsync(category, game);
                 }
 
                 return new TaskRecord(TaskRecordType.Success, "The game has registered successfully.");
@@ -144,7 +138,7 @@ namespace Kimera.Services
             }
             finally
             {
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid);
             }
         }
 
@@ -205,7 +199,7 @@ namespace Kimera.Services
             }
             finally
             {
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid);
             }
         }
 
@@ -347,19 +341,11 @@ namespace Kimera.Services
                 return;
             }
 
-            CategorySubscription subscription = await App.DatabaseContext.CategorySubscriptions.Where(c => c.Game == gameGuid && c.Category == Settings.GUID_FAVORITE_CATEGORY).FirstOrDefaultAsync();
-
-            if (subscription == null)
+            if (!game.IsFavorite)
             {
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                 {
-                    CategorySubscription newSubscription = new CategorySubscription();
-                    newSubscription.Category = Settings.GUID_FAVORITE_CATEGORY;
-                    newSubscription.CategoryNavigation = await App.DatabaseContext.GetCategoryAsync(Settings.GUID_FAVORITE_CATEGORY).ConfigureAwait(false);
-                    newSubscription.Game = game.SystemId;
-                    newSubscription.GameNavigation = game;
-
-                    await App.DatabaseContext.CategorySubscriptions.AddAsync(newSubscription).ConfigureAwait(false);
+                    game.IsFavorite = true;
 
                     await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -375,7 +361,7 @@ namespace Kimera.Services
                     using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync().ConfigureAwait(false))
                     {
 
-                        App.DatabaseContext.CategorySubscriptions.Remove(subscription);
+                        game.IsFavorite = false;
 
                         await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -396,7 +382,7 @@ namespace Kimera.Services
                 return;
             }
 
-            CategorySubscription subscription = await App.DatabaseContext.CategorySubscriptions.Where(c => c.Game == gameGuid && c.Category != Settings.GUID_ALL_CATEGORY && c.Category != Settings.GUID_FAVORITE_CATEGORY).FirstOrDefaultAsync();
+            CategorySubscription subscription = await App.DatabaseContext.CategorySubscriptions.Where(c => c.Game == gameGuid).FirstOrDefaultAsync();
 
             if (subscription == null)
             {
@@ -425,7 +411,7 @@ namespace Kimera.Services
                     }
 
                     await _libraryService.UpdateCategoriesAsync();
-                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
                 }
             }
             else
@@ -451,7 +437,7 @@ namespace Kimera.Services
                     }
 
                     await _libraryService.UpdateCategoriesAsync();
-                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
                 }
             }
         }
@@ -520,7 +506,7 @@ namespace Kimera.Services
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
             }
         }
 
@@ -551,7 +537,7 @@ namespace Kimera.Services
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategory).ConfigureAwait(false);
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
             }
         }
 

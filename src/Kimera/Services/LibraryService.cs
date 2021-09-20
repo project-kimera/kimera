@@ -1,11 +1,15 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Entities;
+using Kimera.Data.Extensions;
+using Kimera.ViewModels.Dialogs;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Kimera.Services
 {
@@ -24,14 +28,14 @@ namespace Kimera.Services
             }
         }
 
-        private Guid _selectedCategory;
+        private Guid _selectedCategoryGuid;
 
-        public Guid SelectedCategory
+        public Guid SelectedCategoryGuid
         {
-            get => _selectedCategory;
+            get => _selectedCategoryGuid;
             set
             {
-                Set(ref _selectedCategory, value);
+                Set(ref _selectedCategoryGuid, value);
             }
         }
 
@@ -44,6 +48,14 @@ namespace Kimera.Services
             {
                 Set(ref _games, value);
             }
+        }
+
+        private BindableCollection<Game> _filteredGames = new BindableCollection<Game>();
+
+        public BindableCollection<Game> FilteredGames
+        {
+            get => _filteredGames;
+            set => Set(ref _filteredGames, value);
         }
 
         #endregion
@@ -59,8 +71,8 @@ namespace Kimera.Services
         {
             // Wait for database context.
             await UpdateCategoriesAsync();
-            await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY);
-            await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY);
+            await UpdateSelectedCategoryAsync(Categories.FirstOrDefault().SystemId);
+            await UpdateGamesAsync(Categories.FirstOrDefault().SystemId);
 
             App.DatabaseContext.Categories.Local.CollectionChanged += OnCategoriesLocalCollectionChanged;
             App.DatabaseContext.CategorySubscriptions.Local.CollectionChanged += OnCategorySubscriptionsLocalCollectionChanged;
@@ -71,6 +83,43 @@ namespace Kimera.Services
         #endregion
 
         #region ::Methods::
+
+        public async Task ShowAllGamesAsync()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                _selectedCategoryGuid = Guid.Empty;
+
+                List<Game> games = App.DatabaseContext.Games.ToList();
+
+                Games = new BindableCollection<Game>(games);
+            });
+
+            await task;
+        }
+
+        public async Task ShowFavoriteGamesAsync()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                _selectedCategoryGuid = Guid.Empty;
+
+                List<Game> games = App.DatabaseContext.Games.ToList();
+                List<Game> result = new List<Game>();
+
+                foreach (Game game in games)
+                {
+                    if (game.IsFavorite)
+                    {
+                        result.Add(game);
+                    }
+                }
+
+                Games = new BindableCollection<Game>(result);
+            });
+
+            await task;
+        }
 
         public async void ChangeCategory(Guid categoryGuid)
         {
@@ -88,10 +137,7 @@ namespace Kimera.Services
 
                 foreach (Category category in result)
                 {
-                    if (category.SystemId != Settings.GUID_ALL_CATEGORY && category.SystemId != Settings.GUID_FAVORITE_CATEGORY)
-                    {
-                        _categories.Add(category);
-                    }
+                    _categories.Add(category);
                 }
 
                 NotifyOfPropertyChange(() => Categories);
@@ -119,12 +165,11 @@ namespace Kimera.Services
         {
             try
             {
-                Category category = App.DatabaseContext.Categories.Where(c => c.SystemId == categoryGuid).First();
+                Category category = App.DatabaseContext.Categories.Where(c => c.SystemId == categoryGuid).FirstOrDefault();
 
                 if (category != null)
                 {
-                    SelectedCategory = categoryGuid;
-                    NotifyOfPropertyChange(() => SelectedCategory);
+                    SelectedCategoryGuid = category.SystemId;
 
                     return true;
                 }
@@ -223,10 +268,10 @@ namespace Kimera.Services
                                 });
                             }
 
-                            if (targetCategory.SystemId == _selectedCategory)
+                            if (targetCategory.SystemId == _selectedCategoryGuid)
                             {
-                                await UpdateSelectedCategoryAsync(Settings.GUID_ALL_CATEGORY).ConfigureAwait(false);
-                                await UpdateGamesAsync(Settings.GUID_ALL_CATEGORY).ConfigureAwait(false);
+                                await UpdateSelectedCategoryAsync(Categories.FirstOrDefault().SystemId).ConfigureAwait(false);
+                                await UpdateGamesAsync(Categories.FirstOrDefault().SystemId).ConfigureAwait(false);
                             }
                         }
                     }
@@ -252,7 +297,7 @@ namespace Kimera.Services
                     {
                         if (subscription != null)
                         {
-                            if (subscription.Category == _selectedCategory)
+                            if (subscription.Category == _selectedCategoryGuid)
                             {
                                 App.Current.Dispatcher.Invoke(() =>
                                 {
@@ -270,7 +315,7 @@ namespace Kimera.Services
                     {
                         if (subscription != null)
                         {
-                            if (subscription.Category == _selectedCategory)
+                            if (subscription.Category == _selectedCategoryGuid)
                             {
                                 Game targetGame = _games.Single(s => s.SystemId == subscription.Game);
 

@@ -63,6 +63,9 @@ namespace Kimera
             // Dialogs
             _container
                 .PerRequest<SettingsViewModel>()
+                .PerRequest<SortingEditorViewModel>()
+                .PerRequest<FilterEditorViewModel>()
+                .PerRequest<CategoryEditorViewModel>()
                 .PerRequest<CategoryNameEditorViewModel>()
                 .PerRequest<CategorySelectorViewModel>()
                 .PerRequest<StringEditorViewModel>()

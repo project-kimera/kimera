@@ -16,10 +16,6 @@ namespace Kimera
 
         public readonly static string SettingsFilePath = @"data\settings.json";
 
-        public readonly static Guid GUID_ALL_CATEGORY = Guid.Parse("B34641DF-A149-4670-BB27-D0A9696B3E3F");
-
-        public readonly static Guid GUID_FAVORITE_CATEGORY = Guid.Parse("DD297C4A-3CC4-4E67-8E5F-512B02B5AF61");
-
         #region ::System Settings::
 
         [JsonIgnore]

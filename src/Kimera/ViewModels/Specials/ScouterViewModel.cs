@@ -150,10 +150,6 @@ namespace Kimera.ViewModels.Specials
             await App.DatabaseContext.Games.LoadAsync().ConfigureAwait(false);
             await App.DatabaseContext.GameMetadatas.LoadAsync().ConfigureAwait(false);
             await App.DatabaseContext.PackageMetadatas.LoadAsync().ConfigureAwait(false);
-
-            // Ensure default categories created.
-            await App.DatabaseContext.EnsureCategoryCreatedAsync(Settings.GUID_ALL_CATEGORY, "ALL").ConfigureAwait(false);
-            await App.DatabaseContext.EnsureCategoryCreatedAsync(Settings.GUID_FAVORITE_CATEGORY, "FAVORITE").ConfigureAwait(false);
         }
 
         private async Task InitializeServicesAsync()
