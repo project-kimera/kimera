@@ -411,7 +411,15 @@ namespace Kimera.Services
                     }
 
                     await _libraryService.UpdateCategoriesAsync();
-                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+
+                    if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                    {
+                        await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        await _libraryService.ShowAllGamesAsync();
+                    }
                 }
             }
             else
@@ -436,8 +444,14 @@ namespace Kimera.Services
                         await transaction.CommitAsync().ConfigureAwait(false);
                     }
 
-                    await _libraryService.UpdateCategoriesAsync();
-                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                    if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                    {
+                        await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        await _libraryService.ShowAllGamesAsync();
+                    }
                 }
             }
         }
@@ -506,7 +520,14 @@ namespace Kimera.Services
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                {
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                }
+                else
+                {
+                    await _libraryService.ShowAllGamesAsync();
+                }
             }
         }
 
@@ -537,7 +558,14 @@ namespace Kimera.Services
                     await transaction.CommitAsync().ConfigureAwait(false);
                 }
 
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                {
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                }
+                else
+                {
+                    await _libraryService.ShowAllGamesAsync();
+                }
             }
         }
 

@@ -7,7 +7,7 @@ using System.Windows.Data;
 namespace Kimera.Converters
 {
     [ValueConversion(typeof(Guid), typeof(string))]
-    public class CategoryGuidToNameConverter : IValueConverter
+    public class CategoryGuidToDetailsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,11 +17,13 @@ namespace Kimera.Converters
 
             if (category != null)
             {
-                return category.Name;
+                string details = $"{(string)App.Current.Resources["CONV_CGTODETAILS_PREFIX"]} : {category.Name} ({category.CategorySubscriptions.Count})";
+                return details;
             }
             else
             {
-                return "NULL";
+                string details = $"{(string)App.Current.Resources["CONV_CGTODETAILS_PREFIX"]}";
+                return details;
             }
         }
 

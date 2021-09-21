@@ -71,8 +71,7 @@ namespace Kimera.Services
         {
             // Wait for database context.
             await UpdateCategoriesAsync();
-            await UpdateSelectedCategoryAsync(Categories.FirstOrDefault().SystemId);
-            await UpdateGamesAsync(Categories.FirstOrDefault().SystemId);
+            await ShowAllGamesAsync();
 
             App.DatabaseContext.Categories.Local.CollectionChanged += OnCategoriesLocalCollectionChanged;
             App.DatabaseContext.CategorySubscriptions.Local.CollectionChanged += OnCategorySubscriptionsLocalCollectionChanged;
@@ -88,7 +87,7 @@ namespace Kimera.Services
         {
             var task = Task.Factory.StartNew(() =>
             {
-                _selectedCategoryGuid = Guid.Empty;
+                SelectedCategoryGuid = Guid.Empty;
 
                 List<Game> games = App.DatabaseContext.Games.ToList();
 
@@ -102,7 +101,7 @@ namespace Kimera.Services
         {
             var task = Task.Factory.StartNew(() =>
             {
-                _selectedCategoryGuid = Guid.Empty;
+                SelectedCategoryGuid = Guid.Empty;
 
                 List<Game> games = App.DatabaseContext.Games.ToList();
                 List<Game> result = new List<Game>();
@@ -268,11 +267,7 @@ namespace Kimera.Services
                                 });
                             }
 
-                            if (targetCategory.SystemId == _selectedCategoryGuid)
-                            {
-                                await UpdateSelectedCategoryAsync(Categories.FirstOrDefault().SystemId).ConfigureAwait(false);
-                                await UpdateGamesAsync(Categories.FirstOrDefault().SystemId).ConfigureAwait(false);
-                            }
+                            await ShowAllGamesAsync();
                         }
                     }
 

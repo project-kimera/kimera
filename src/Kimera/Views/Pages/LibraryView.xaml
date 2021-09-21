@@ -38,7 +38,7 @@
                     <StackPanel Orientation="Horizontal" Margin="6 0 6 0">
                         <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
-                                       Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategoryGuid, Converter={StaticResource CategoryGuidToNameConverter}, StringFormat='카테고리 : {0}'}" />
+                                   Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategoryGuid, Converter={StaticResource CategoryGuidToDetailsConverter}}" />
                     </StackPanel>
                 </Button>
 

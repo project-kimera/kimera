@@ -218,6 +218,9 @@
     <system:String x:Key="SVC_GAME_ADD_FAVORITE_MSG">게임이 즐겨찾기에 추가되었습니다.</system:String>
     <system:String x:Key="SVC_GAME_REMOVE_FAVORITE_CHECKER_MSG">이 게임을 즐겨찾기에서 삭제하시겠습니까?</system:String>
 
+    <!--Converter : CategoryGuidToDetailsConverter-->
+    <system:String x:Key="CONV_CGTODETAILS_PREFIX">카테고리</system:String>
+
     <!--Converter : PackageStatusToTextConverter-->
     <system:String x:Key="CONV_PSTOTEXT_NEED_PROCESSING_MSG">추가 작업 필요</system:String>
     <system:String x:Key="CONV_PSTOTEXT_COMPRESSED_MSG">압축 상태</system:String>

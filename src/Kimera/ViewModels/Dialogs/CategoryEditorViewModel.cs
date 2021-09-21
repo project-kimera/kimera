@@ -104,7 +104,15 @@ namespace Kimera.ViewModels.Dialogs
                             await App.DatabaseContext.SaveChangesAsync().ConfigureAwait(false);
 
                             await _libraryService.UpdateCategoriesAsync().ConfigureAwait(false);
-                            await _libraryService.UpdateSelectedCategoryAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+
+                            if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                            {
+                                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                            }
+                            else
+                            {
+                                await _libraryService.ShowAllGamesAsync();
+                            }
 
                             await transaction.CommitAsync().ConfigureAwait(false);
                         }
