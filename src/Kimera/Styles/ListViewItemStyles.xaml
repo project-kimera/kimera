@@ -20,11 +20,10 @@
             
             <MenuItem.Icon>
                 <Ellipse VerticalAlignment="Center" Width="10" Height="10" Fill="{Binding PackageStatus, Converter={StaticResource PackageStatusToBrushConverter}}"/>
-
             </MenuItem.Icon>
             
             <MenuItem.Header>
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" MaxWidth="300">
                     <TextBlock Foreground="{DynamicResource KimeraForeground}" Margin="0 0 0 0"
                                FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
                                Text="{Binding GameMetadataNavigation.Name}" />
@@ -46,7 +45,23 @@
             </i:Interaction.Triggers>
         </MenuItem>
 
-        <MenuItem Icon="{materialDesign:PackIcon Kind=Favorite}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_FAVORITE}">
+        <MenuItem Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_FAVORITE}">
+            <MenuItem.Icon>
+                <materialDesign:PackIcon Kind="Favorite">
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Setter Property="Foreground" Value="{DynamicResource KimeraForeground}"/>
+                            
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                                    <Setter Property="Foreground" Value="{DynamicResource KimeraFavorite}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
+            </MenuItem.Icon>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <caliburn:ActionMessage MethodName="ChangeFavoriteState">

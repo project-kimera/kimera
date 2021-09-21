@@ -17,10 +17,12 @@
             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
                        TextTrimming="CharacterEllipsis" Text="{Binding Caption}"/>
 
-            <ComboBox Margin="0 6 0 0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <ComboBox Margin="0 6 0 0" ItemsSource="{Binding Categories}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCategory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      materialDesign:HintAssist.Hint="{StaticResource VIEW_CATEGORYENAMEEDITOR_SELECTED_CATEGORY_HINT}"/>
 
             <TextBox Foreground="{StaticResource KimeraForeground}" Margin="0 6 0 0 "
                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                     materialDesign:HintAssist.Hint="{StaticResource VIEW_CATEGORYENAMEEDITOR_CATEGORY_NAME_HINT}"
                      Text="{Binding Text , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             <StackPanel Orientation="Horizontal" Margin="0 10 0 0" HorizontalAlignment="Right">

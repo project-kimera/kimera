@@ -142,12 +142,15 @@
     <!--View : CategoryNameEditorView-->
     <system:String x:Key="VIEW_CATEGORYNAMEEDITOR_TITLE">카테고리 이름 변경</system:String>
     <system:String x:Key="VIEW_CATEGORYENAMEEDITOR_CAPTION">카테고리를 선택한 후 이름을 변경해주세요.</system:String>
+    <system:String x:Key="VIEW_CATEGORYENAMEEDITOR_SELECTED_CATEGORY_HINT">카테고리</system:String>
+    <system:String x:Key="VIEW_CATEGORYENAMEEDITOR_CATEGORY_NAME_HINT">카테고리 이름</system:String>
 
     <!--View : CategorySelectorView-->
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_TITLE">카테고리 삭제</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_REMOVE_CATEGORY_CAPTION">삭제할 카테고리를 선택해주세요.</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_TITLE">카테고리 이동</system:String>
     <system:String x:Key="VIEW_CATEGORYSELECTOR_MOVE_GAME_CATEGORY_CAPTION">이동할 카테고리를 선택해주세요. (현재 카테고리 : {0})</system:String>
+    <system:String x:Key="VIEW_CATEGORYSELECTOR_SELECTED_CATEGORY_HINT">카테고리</system:String>
 
     <!--View : GameMetadataEditorView-->
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집하기</system:String>

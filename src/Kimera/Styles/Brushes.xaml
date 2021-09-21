@@ -59,4 +59,7 @@
 
     <Color x:Key="KimeraAccentColor">#FF2962FF</Color>
     <SolidColorBrush x:Key="KimeraAccent" Color="{StaticResource KimeraAccentColor}" />
+
+    <Color x:Key="KimeraFavoriteColor">#fff03434</Color>
+    <SolidColorBrush x:Key="KimeraFavorite" Color="{StaticResource KimeraFavoriteColor}" />
 </ResourceDictionary>

@@ -169,8 +169,6 @@ namespace Kimera.Services
                     //await archive.IsValidPasswordAsync();
                 }
 
-
-
                 // Sets the package status to playable.
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
                 {
@@ -199,7 +197,14 @@ namespace Kimera.Services
             }
             finally
             {
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid);
+                if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                {
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                }
+                else
+                {
+                    await _libraryService.ShowAllGamesAsync();
+                }
             }
         }
 
@@ -368,6 +373,15 @@ namespace Kimera.Services
                         await transaction.CommitAsync().ConfigureAwait(false);
                     }
                 }
+            }
+
+            if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+            {
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+            }
+            else
+            {
+                await _libraryService.ShowAllGamesAsync();
             }
         }
 
