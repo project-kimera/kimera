@@ -17,7 +17,7 @@ namespace Kimera.Converters
 
             if (category != null)
             {
-                string details = $"{(string)App.Current.Resources["CONV_CGTODETAILS_PREFIX"]} : {category.Name} ({category.CategorySubscriptions.Count})";
+                string details = $"{(string)App.Current.Resources["CONV_CGTODETAILS_PREFIX"]} : {category.Name}";
                 return details;
             }
             else

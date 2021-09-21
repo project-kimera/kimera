@@ -81,8 +81,6 @@ namespace Kimera.Services
         {
             try
             {
-                await RemoveGameResourcesInternalAsync(game);
-
                 using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
                 {
                     // Remove category subscriptions.
@@ -100,14 +98,16 @@ namespace Kimera.Services
                     }
 
                     // Remove datas.
-                    App.DatabaseContext.Games.Remove(game);
                     App.DatabaseContext.GameMetadatas.Remove(game.GameMetadataNavigation);
                     App.DatabaseContext.PackageMetadatas.Remove(game.PackageMetadataNavigation);
+                    App.DatabaseContext.Games.Remove(game);
 
                     await App.DatabaseContext.SaveChangesAsync();
 
                     await transaction.CommitAsync();
                 }
+
+                await RemoveGameResourcesInternalAsync(game);
 
                 return new TaskRecord(TaskRecordType.Success, "The game has removed successfully.");
             }
@@ -138,7 +138,14 @@ namespace Kimera.Services
             }
             finally
             {
-                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid);
+                if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+                {
+                    await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+                }
+                else
+                {
+                    await _libraryService.ShowAllGamesAsync();
+                }
             }
         }
 
