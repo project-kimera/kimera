@@ -54,7 +54,14 @@ namespace Kimera.ViewModels.Pages
 
         public async void RefreshGames()
         {
-            await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid);
+            if (_libraryService.SelectedCategoryGuid != Guid.Empty)
+            {
+                await _libraryService.UpdateGamesAsync(_libraryService.SelectedCategoryGuid).ConfigureAwait(false);
+            }
+            else
+            {
+                await _libraryService.ShowAllGamesAsync();
+            }
         }
 
         public async void EditCategory()

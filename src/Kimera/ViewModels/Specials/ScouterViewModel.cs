@@ -156,7 +156,10 @@ namespace Kimera.ViewModels.Specials
         {
             var task = Task.Factory.StartNew(() =>
             {
-                AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
+                if (IoC.Get<Settings>().UseAntiDPIService)
+                {
+                    AntiDPIServiceProvider.InitializeService(Environment.CurrentDirectory);
+                }
 
                 MetadataServiceProvider.InitializeService();
 
