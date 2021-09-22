@@ -4,9 +4,86 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kimera.Views.Dialogs"
+        xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="SortingEditorView" Height="450" Width="800">
+        Style="{StaticResource KimeraFixedDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
+        Title="{StaticResource VIEW_SORTINGEDITOR_TITLE}"
+        WindowStartupLocation="CenterScreen"
+        Width="400" Height="500">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 0 0 0" Kind="Sort" />
+
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Opacity=".90" Text="{StaticResource VIEW_SORTINGEDITOR_CAPTION1}" />
+                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Opacity=".50" Text="{StaticResource VIEW_SORTINGEDITOR_CAPTION2}" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="10 8 10 8" Text="정렬 기준" />
+
+                    <ScrollViewer Grid.Row="1">
+                        <WrapPanel Orientation="Horizontal">
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="제목" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="제작자" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="평점" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="플레이 시간" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="최근 실행 시각" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="등록 일시" />
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="10 8 10 8" Text="정렬 순서" />
+
+                    <ScrollViewer Grid.Row="1">
+                        <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingOrder" Content="오름차순" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingOrder" Content="내림차순" />
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
+            <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}" Cursor="Hand"
+                            caliburn:Message.Attach="Confirm($view)"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

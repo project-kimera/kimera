@@ -44,11 +44,13 @@
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
-                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_SORTING_HINT}">
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_SORTING_HINT}"
+                        caliburn:Message.Attach="EditSorting()">
                     <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Sort"/>
                 </Button>
 
-                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_FILTER_HINT}">
+                <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_FILTER_HINT}"
+                        caliburn:Message.Attach="EditFilter()">
                     <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="FilterOutline"/>
                 </Button>
 

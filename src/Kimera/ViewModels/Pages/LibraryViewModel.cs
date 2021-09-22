@@ -71,14 +71,18 @@ namespace Kimera.ViewModels.Pages
             await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
         }
 
-        public void EditSorting()
+        public async void EditSorting()
         {
+            SortingEditorViewModel viewModel = new SortingEditorViewModel();
 
+            await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
         }
 
-        public void EditFilter()
+        public async void EditFilter()
         {
+            FilterEditorViewModel viewModel = new FilterEditorViewModel();
 
+            await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
         }
 
         public void ChangeToTileView()

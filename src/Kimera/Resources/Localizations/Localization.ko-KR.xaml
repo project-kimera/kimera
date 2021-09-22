@@ -51,6 +51,16 @@
     <system:String x:Key="VIEW_CATEGORYEDITOR_RENAME_HINT">이름 변경</system:String>
     <system:String x:Key="VIEW_CATEGORYEDITOR_REMOVE_HINT">삭제</system:String>
 
+    <!--View : SortingEditorView-->
+    <system:String x:Key="VIEW_SORTINGEDITOR_TITLE">정렬</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION1">정렬 기준과 순서를 바꿔보세요.</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION2">게임이 정해진 방법에 따라 정렬됩니다.</system:String>
+
+    <!--View : FilterEditorView-->
+    <system:String x:Key="VIEW_FILTEREDITOR_TITLE">필터</system:String>
+    <system:String x:Key="VIEW_FILTEREDITOR_CAPTION1">필터를 선택해보세요.</system:String>
+    <system:String x:Key="VIEW_FILTEREDITOR_CAPTION2">지정한 기준과 일치하는 게임만 표시됩니다.</system:String>
+
     <!--View : StatisticsView-->
 
     <!--View : SearcherView-->
