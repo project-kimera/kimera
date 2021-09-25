@@ -8,8 +8,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" 
-        Style="{StaticResource KimeraSizableDialogWindow}"
-        Foreground="{StaticResource KimeraForeground}"
+        Style="{DynamicResource KimeraSizableDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_GAMEREGISTER_TITLE}"
         WindowStartupLocation="CenterScreen"
         Height="800" Width="1200">
@@ -43,8 +43,8 @@
                     <RowDefinition Height="100"/>
                 </Grid.RowDefinitions>
 
-                <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="1"
-                      GridLinesVisibility="All" VerticalGridLinesBrush="{StaticResource KimeraDividerLight}" HorizontalGridLinesBrush="{StaticResource KimeraDividerLight}"
+                <DataGrid Grid.Row="0" BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="1"
+                      GridLinesVisibility="All" VerticalGridLinesBrush="{DynamicResource KimeraDividerLight}" HorizontalGridLinesBrush="{DynamicResource KimeraDividerLight}"
                       Margin="10 10 10 0" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="All"
                       materialDesign:DataGridAssist.ColumnHeaderPadding="24 16 24 16"
                       VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible"
@@ -114,22 +114,22 @@
                     <StackPanel Orientation="Horizontal" Margin="10 0 0 0" HorizontalAlignment="Right">
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_SINGLE_HINT}"
                             caliburn:Message.Attach="AddFiles()">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
                         </Button>
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_ADD_CHUNK_HINT}"
                             caliburn:Message.Attach="AddChunk()">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ArchiveAddOutline"/>
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ArchiveAddOutline"/>
                         </Button>
 
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_GAMEREGISTER_REMOVE_REG_HINT}"
                             caliburn:Message.Attach="Remove()">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                         </Button>
                     </StackPanel>
                 </Grid>
 
-                <Border Grid.Row="2" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="0 1 0 0">
+                <Border Grid.Row="2" BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 1 0 0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="140"/>
@@ -143,8 +143,8 @@
                         </Grid>
 
                         <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0 0 40 0" VerticalAlignment="Center">
-                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Text="Wait..." />
-                            <ProgressBar Background="{StaticResource KimeraProgressBarBackground}" BorderThickness="0" Margin="0 8 0 0" Height="8"
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Text="Wait..." />
+                            <ProgressBar Background="{DynamicResource KimeraProgressBarBackground}" BorderThickness="0" Margin="0 8 0 0" Height="8"
                                          materialDesign:TransitionAssist.DisableTransitions="True"
                                          Value="25" />
                         </StackPanel>
@@ -155,7 +155,7 @@
 
         <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
                             caliburn:Message.Attach="Cancel()"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_COMPLETE}"
                             caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>

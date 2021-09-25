@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Style="{StaticResource KimeraFixedDialogWindow}"
+        Style="{DynamicResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_FILTEREDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
@@ -47,7 +47,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="10 8 10 8" Text="검색" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="검색" />
 
                     <StackPanel Grid.Row="1" Orientation="Vertical">
                         <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 8 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
@@ -83,7 +83,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{StaticResource KimeraForegroundLight}" Margin="10 8 10 8" Text="필터" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="필터" />
 
                     <ScrollViewer Grid.Row="1">
                         <WrapPanel Orientation="Horizontal">

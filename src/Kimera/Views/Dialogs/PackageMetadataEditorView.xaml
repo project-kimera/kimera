@@ -7,8 +7,8 @@
         xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Style="{StaticResource KimeraSizableDialogWindow}"
-        Foreground="{StaticResource KimeraForeground}"
+        Style="{DynamicResource KimeraSizableDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_PACKAGEMETADATAEDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
         Height="650" Width="900">
@@ -47,7 +47,7 @@
                         <RowDefinition Height="44"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="0" BorderBrush="{StaticResource KimeraDivider}" BorderThickness="1"
+                    <DataGrid Grid.Row="0" BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="1"
                           Margin="20 10 20 00" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="All"
                           ItemsSource="{Binding Components}" SelectedItem="{Binding SelectedComponent}">
                         <DataGrid.Columns>
@@ -72,16 +72,16 @@
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 0 20 0" HorizontalAlignment="Right">
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ADD_HINT}"
                             caliburn:Message.Attach="AddComponent()">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
                         </Button>
                         <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 0 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_PACKAGEMETADATAEDITOR_REMOVE_HINT}"
                             caliburn:Message.Attach="RemoveComponent()" Cursor="Hand">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                         </Button>
                     </StackPanel>
                 </Grid>
 
-                <GridSplitter Grid.Row="1" Background="{StaticResource KimeraDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"
+                <GridSplitter Grid.Row="1" Background="{DynamicResource KimeraDivider}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="1"
                       ShowsPreview="True"/>
 
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
@@ -129,7 +129,7 @@
 
         <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
                         Visibility="{Binding IsRegistered, Converter={StaticResource BooleanToVisibilityConverter}}"
                             caliburn:Message.Attach="Cancel()"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}" Cursor="Hand"

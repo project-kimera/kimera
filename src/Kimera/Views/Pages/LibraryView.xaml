@@ -28,16 +28,16 @@
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <Button x:Name="RefreshGames" Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_REFRESH_HINT}"
                         caliburn:Message.Attach="RefreshGames()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Refresh"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Refresh"/>
                 </Button>
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
-                <Button Style="{StaticResource KimeraContentButton}" Margin="4 0 4 0"
+                <Button Style="{DynamicResource KimeraContentButton}" Margin="4 0 4 0"
                         caliburn:Message.Attach="EditCategory()">
                     <StackPanel Orientation="Horizontal" Margin="6 0 6 0">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
-                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="CategoryOutline"/>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                    Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.SelectedCategoryGuid, Converter={StaticResource CategoryGuidToDetailsConverter}}" />
                     </StackPanel>
                 </Button>
@@ -46,31 +46,31 @@
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_SORTING_HINT}"
                         caliburn:Message.Attach="EditSorting()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Sort"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Sort"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_FILTER_HINT}"
                         caliburn:Message.Attach="EditFilter()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="FilterOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="FilterOutline"/>
                 </Button>
 
                 <Rectangle Fill="{DynamicResource MaterialDesignDivider}" VerticalAlignment="Stretch" Width="2" Height="20"/>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_TILEVIEW_HINT}"
                         caliburn:Message.Attach="ChangeToTileView()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewModuleOutline"/>
                 </Button>
 
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="0 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_ICONVIEW_HINT}"
                         caliburn:Message.Attach="ChangeToIconView()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="ViewComfyOutline"/>
                 </Button>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_LIBRARY_SORTING_HINT}"
                         caliburn:Message.Attach="NavigateToGameRegister()">
-                    <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
+                    <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Add"/>
                 </Button>
             </StackPanel>
         </Grid>

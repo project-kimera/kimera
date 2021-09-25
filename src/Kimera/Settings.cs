@@ -31,6 +31,11 @@ namespace Kimera
 
         #region ::General::
 
+        /// <summary>
+        /// Gets or sets the value whether the dark theme is used or not.
+        /// </summary>
+        public bool UseDarkTheme { get; set; } = false;
+
         #endregion
 
         #region ::Game::
@@ -73,6 +78,7 @@ namespace Kimera
 
         public void Set(Settings settings)
         {
+            UseDarkTheme = settings.UseDarkTheme;
             WorkDirectory = settings.WorkDirectory;
             MasterKeys = settings.MasterKeys;
             UseAutoRemover = settings.UseAutoRemover;

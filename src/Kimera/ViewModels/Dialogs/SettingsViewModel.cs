@@ -21,6 +21,16 @@ namespace Kimera.ViewModels.Dialogs
 
         private bool _useAutoStarter = false;
 
+        public bool UseDarkTheme
+        {
+            get => _settings.UseDarkTheme;
+            set
+            {
+                _settings.UseDarkTheme = value;
+                NotifyOfPropertyChange("UseDarkTheme");
+            }
+        }
+        
         public bool UseAutoStarter
         {
             get => _useAutoStarter;

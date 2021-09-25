@@ -10,7 +10,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Foreground="{StaticResource KimeraForeground}"
+      Foreground="{DynamicResource KimeraForeground}"
       Title="GuardView">
     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 64"
                 Visibility="{Binding IsEncrypted, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -24,7 +24,7 @@
         </StackPanel>
 
         <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
-                   Foreground="{StaticResource KimeraForegroundLight}"
+                   Foreground="{DynamicResource KimeraForegroundLight}"
                    HorizontalAlignment="Center" Margin="0 10 0 0"
                    FontWeight="Light" Text="{Binding Message}" />
 
@@ -41,16 +41,16 @@
             </PasswordBox>
 
             <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                    BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                    BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
                     Margin="4 0 0 0" Height="50"
                     caliburn:Message.Attach="Submit()" Cursor="Hand">
                 <materialDesign:PackIcon Width="12" Height="12" Kind="Send"/>
             </Button>
         </StackPanel>
 
-        <Button Style="{StaticResource KimeraContentButton}" Margin="0 10 0 0" HorizontalAlignment="Stretch"
+        <Button Style="{DynamicResource KimeraContentButton}" Margin="0 10 0 0" HorizontalAlignment="Stretch"
                 caliburn:Message.Attach="Reset()">
-            <TextBlock Foreground="{StaticResource KimeraForegroundUltraLight}" HorizontalAlignment="Center" Margin="0 10 0 10"
+            <TextBlock Foreground="{DynamicResource KimeraForegroundUltraLight}" HorizontalAlignment="Center" Margin="0 10 0 10"
                        Text="{StaticResource VIEW_GUARD_RESET_APPLICATION_CAPTION}"/>
         </Button>
     </StackPanel>

@@ -7,8 +7,8 @@
         xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Style="{StaticResource KimeraSizableDialogWindow}"
-        Foreground="{StaticResource KimeraForeground}"
+        Style="{DynamicResource KimeraSizableDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_SETTINGS_TITLE}"
         WindowStartupLocation="CenterScreen"
         Height="600" Width="900">
@@ -33,32 +33,40 @@
         </Grid>
 
         <Border Grid.Row="1"  BorderBrush="{DynamicResource KimeraDivider}" BorderThickness="0 1 0 0">
-            <TabControl Style="{StaticResource KimeraVerticalTabControl}" Margin="0">
-                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_GENERAL}">
+            <TabControl Style="{DynamicResource KimeraVerticalTabControl}" Margin="0">
+                <TabItem Style="{DynamicResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_GENERAL}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_STARTUP_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_STARTUP_CAPTION}">
                                 <StackPanel Orientation="Vertical">
-                                    <CheckBox IsChecked="{Binding UseAutoStarter, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_AUTOSTARTER}"/>
+                                    <CheckBox IsChecked="{Binding UseAutoStarter, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_USEAUTOSTARTER}"/>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_THEME_CAPTION}">
+                                <StackPanel Orientation="Vertical">
+                                    <CheckBox IsChecked="{Binding UseDarkTheme, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_USEDARKTHEME}"/>
+                                    
+                                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 8 0 0"  TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_THEME_NOTICE}" />
                                 </StackPanel>
                             </GroupBox>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_SECURITY}">
+                <TabItem Style="{DynamicResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_SECURITY}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_CRYPTO_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_CRYPTO_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                            BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                                            BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
                                             HorizontalAlignment="Left"
                                             Content="{StaticResource VIEW_SETTINGS_CHANGE_PASSWORD}"
                                             caliburn:Message.Attach="EncryptDatabase()"/>
                                     
                                     <Button Style="{StaticResource MaterialDesignOutlinedButton}"
-                                            BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                                            BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
                                             HorizontalAlignment="Left" Margin="0 10 0 0"
                                             Content="{StaticResource VIEW_SETTINGS_DECRYPT}"
                                             caliburn:Message.Attach="DecryptDatabase()"/>
@@ -70,10 +78,10 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_GAME}">
+                <TabItem Style="{DynamicResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_GAME}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_WORKDIR_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_WORKDIR_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
@@ -82,12 +90,12 @@
                                         </Grid.ColumnDefinitions>
                                         
                                         <TextBox Grid.Column="0" Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 0 0 0" VerticalAlignment="Top"
-                                         materialDesign:HintAssist.Background="{StaticResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
+                                         materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
                                          materialDesign:HintAssist.Hint="{StaticResource VIEW_SETTINGS_WORKDIR_CAPTION}"
                                          Text="{Binding WorkDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                         <Button Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedButton}"
-                                                BorderBrush="{StaticResource KimeraForegroundLight}" Foreground="{StaticResource KimeraForegroundLight}"
+                                                BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
                                                 Margin="8 0 0 0" Height="50"
                                                 Content="{StaticResource VIEW_COMMON_EXPLORE}"
                                                 caliburn:Message.Attach="ExploreWorkDirectory()"/>
@@ -95,22 +103,22 @@
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_MASTERKEYS_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_MASTERKEYS_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 0 0 0" VerticalAlignment="Top"
-                                         materialDesign:HintAssist.Background="{StaticResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
+                                         materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
                                          materialDesign:HintAssist.Hint="{StaticResource VIEW_SETTINGS_MASTERKEYS_CAPTION}"
                                          Text="{Binding MasterKeys, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 8 0 0"  TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_MASTERKEYS_NOTICE}" />
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 0" Header="{StaticResource VIEW_SETTINGS_AUTOREMOVER_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 0" Header="{StaticResource VIEW_SETTINGS_AUTOREMOVER_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <CheckBox IsChecked="{Binding UseAutoRemover, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_AUTOREMOVER_USE}"/>
 
                                     <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="0 10 0 0" VerticalAlignment="Top"
-                                         materialDesign:HintAssist.Background="{StaticResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
+                                         materialDesign:HintAssist.Background="{DynamicResource KimeraBackground}" materialDesign:TransitionAssist.DisableTransitions="True"
                                          materialDesign:TextFieldAssist.SuffixText="{StaticResource VIEW_SETTINGS_AUTOREMOVER_UNIT}"
                                          materialDesign:HintAssist.Hint="{StaticResource VIEW_SETTINGS_AUTOREMOVER_INTERVAL}"
                                          IsEnabled="{Binding UseAutoRemover, UpdateSourceTrigger=PropertyChanged}"
@@ -121,10 +129,10 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_NETWORK}">
+                <TabItem Style="{DynamicResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_NETWORK}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_ANTIDPI_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_ANTIDPI_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <CheckBox IsChecked="{Binding UseAntiDPIService, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_ANTIDPI_USE}"/>
                                 </StackPanel>
@@ -133,18 +141,18 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem Style="{StaticResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_INFORMATION}">
+                <TabItem Style="{DynamicResource KimeraVerticalTabItem}" Header="{StaticResource VIEW_SETTINGS_INFORMATION}">
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
                         <StackPanel Orientation="Vertical" Margin="20">
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_VERSION_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_VERSION_CAPTION}">
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" TextWrapping="Wrap" Text="{Binding VersionString}" />
                             </GroupBox>
 
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_COPYRIGHT_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_COPYRIGHT_CAPTION}">
                                 <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_COPYRIGHT}" />
                             </GroupBox>
 
-                            <GroupBox Style="{StaticResource KimeraSettingsGroupBox}" Margin="0 0 0 0" Header="{StaticResource VIEW_SETTINGS_OPENSOURCES_CAPTION}">
+                            <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 0" Header="{StaticResource VIEW_SETTINGS_OPENSOURCES_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_OPENSOURCES}" />
                                     <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 4 0 0" Content="{StaticResource VIEW_SETTINGS_OPENSOURCES_CAPTION}"

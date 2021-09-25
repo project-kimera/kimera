@@ -111,7 +111,12 @@
     <system:String x:Key="VIEW_SETTINGS_INFORMATION">정보</system:String>
 
     <system:String x:Key="VIEW_SETTINGS_STARTUP_CAPTION">시작</system:String>
-    <system:String x:Key="VIEW_SETTINGS_AUTOSTARTER">윈도우 시작 시 프로그램 자동 실행</system:String>
+    <system:String x:Key="VIEW_SETTINGS_USEAUTOSTARTER">윈도우 시작 시 프로그램 자동 실행</system:String>
+    
+    <system:String x:Key="VIEW_SETTINGS_THEME_CAPTION">테마</system:String>
+    <system:String x:Key="VIEW_SETTINGS_USEDARKTHEME">다크 테마 사용</system:String>
+    <system:String x:Key="VIEW_SETTINGS_THEME_NOTICE">※ 변경된 테마는 다음 실행 시부터 적용됩니다.</system:String>
+
 
     <system:String x:Key="VIEW_SETTINGS_CRYPTO_CAPTION">데이터베이스 암호화</system:String>
     <system:String x:Key="VIEW_SETTINGS_CHANGE_PASSWORD">비밀번호 등록 / 변경</system:String>
@@ -166,6 +171,8 @@
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_TITLE">게임 메타데이터 편집하기</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION1">게임 메타데이터를 편집해보세요.</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CAPTION2">외부에 노출되는 게임의 정보가 변경됩니다.</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_SEARCH_SERVICES_HINT">검색 서비스</system:String>
+    <system:String x:Key="VIEW_GAMEMETADATAEDITOR_SEARCH_KEYWORDS_HINT">검색</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_NAME_HEADER">이름</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_DESC_HEADER">설명</system:String>
     <system:String x:Key="VIEW_GAMEMETADATAEDITOR_CREATOR_HEADER">제작자</system:String>

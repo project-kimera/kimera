@@ -128,7 +128,7 @@
 
     <!--Tile View-->
     <DataTemplate x:Key="TileViewItemTemplate" DataType="dataEntities:Game">
-        <Button Style="{StaticResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{StaticResource LibraryContextMenu}"
+        <Button Style="{DynamicResource KimeraViewButton}" Margin="0 0 0 10" ContextMenu="{DynamicResource LibraryContextMenu}"
                 Tag="{Binding DataContext.GameService, ElementName=GameItems}"
                 Cursor="Hand"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">

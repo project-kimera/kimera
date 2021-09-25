@@ -25,13 +25,13 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="PART_Track" CornerRadius="2" BorderThickness="1"
-                                BorderBrush="{StaticResource KimeraDivider}"
-                                Background="{StaticResource KimeraDivider}">
+                                BorderBrush="{DynamicResource KimeraDivider}"
+                                Background="{DynamicResource KimeraDivider}">
                         </Border>
 
                         <Border BorderThickness="1" x:Name="PART_Indicator"
-                                HorizontalAlignment="Left" Background="{StaticResource KimeraAccent}"
-                                BorderBrush="{StaticResource KimeraAccent}">
+                                HorizontalAlignment="Left" Background="{DynamicResource KimeraAccent}"
+                                BorderBrush="{DynamicResource KimeraAccent}">
                             <Border.Style>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="2,0,0,2"/>
@@ -48,6 +48,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource KimeraAccent}" />
+        <Setter Property="Foreground" Value="{DynamicResource KimeraAccent}" />
     </Style>
 </ResourceDictionary>

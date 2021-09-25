@@ -7,8 +7,8 @@
         xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Style="{StaticResource KimeraSizableDialogWindow}"
-        Foreground="{StaticResource KimeraForeground}"
+        Style="{DynamicResource KimeraSizableDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_GAMEMETADATAEDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
         Width="900" Height="650">
@@ -51,7 +51,7 @@
                     <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10 10 10 10">
                         <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
                             <Grid>
-                                <ComboBox Style="{StaticResource MaterialDesignDataGridComboBox}" Margin="8 4 8 4" materialDesign:HintAssist.Hint="Search Service"
+                                <ComboBox Style="{StaticResource MaterialDesignDataGridComboBox}" Margin="8 4 8 4" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SEARCH_SERVICES_HINT}"
                                   ItemsSource="{Binding SearchServices}" DisplayMemberPath="ServiceName" SelectedItem="{Binding SelectedSearchService, Mode=TwoWay}"/>
                             </Grid>
                         </materialDesign:ColorZone>
@@ -64,7 +64,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBox Grid.Column="0" Margin="8 0 0 0"
-                                         materialDesign:HintAssist.Hint="Search..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
+                                         materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SEARCH_KEYWORDS_HINT}" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
                                          BorderThickness="0" MinWidth="200" VerticalAlignment="Center"
                                          Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
@@ -102,7 +102,7 @@
                                            Source="{Binding ThumbnailUrl, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}"/>
 
                                     <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="10 0 0 0">
-                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Foreground="{StaticResource KimeraForegroundUltraLight}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding ProductCode}"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Foreground="{DynamicResource KimeraForegroundUltraLight}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding ProductCode}"/>
                                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
                                     </StackPanel>
                                 </Grid>
@@ -120,7 +120,7 @@
                                 <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" />
                             <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_NAME_HEADER}" materialDesign:ValidationAssist.Background="Transparent"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True">
@@ -220,7 +220,7 @@
                         <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
                            Text="{DynamicResource VIEW_GAMEMETADATAEDITOR_COMMA_SEP_NOTICE}" />
 
-                        <Separator Background="{StaticResource KimeraDivider}" Margin="0 20 0 20"/>
+                        <Separator Background="{DynamicResource KimeraDivider}" Margin="0 20 0 20"/>
 
                         <Grid Margin="0 0 0 0">
                             <Grid.ColumnDefinitions>
@@ -275,7 +275,7 @@
 
         <Grid Grid.Row="4" Background="{DynamicResource MaterialDesignToolBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
                         Visibility="{Binding IsRegistered, Converter={StaticResource BooleanToVisibilityConverter}}"
                             caliburn:Message.Attach="Cancel()"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"

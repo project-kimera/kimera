@@ -8,8 +8,8 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Style="{StaticResource KimeraFixedDialogWindow}"
-        Foreground="{StaticResource KimeraForeground}"
+        Style="{DynamicResource KimeraFixedDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_CATEGORYEDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
         Height="600" Width="400">
@@ -48,32 +48,32 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource KimeraContentButton}" Height="40"
+                    <Button Grid.Column="0" Style="{DynamicResource KimeraContentButton}" Height="40"
                             caliburn:Message.Attach="ShowAllGames()">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Home"/>
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Home"/>
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_CATEGORYEDITOR_ALL_HEADER}" />
                         </StackPanel>
                     </Button>
 
-                    <Button Grid.Column="1" Style="{StaticResource KimeraContentButton}" Height="40"
-                            caliburn:Message.Attach="ShowFavoriteGames()">
+                    <Button Grid.Column="1" Style="{DynamicResource KimeraContentButton}" Height="40"
+                            caliburn:Message.Attach="ShowFavoriteGames()" Cursor="Hand">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Favorite"/>
-                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                            <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Favorite"/>
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_CATEGORYEDITOR_FAVORITE_HEADER}" />
                         </StackPanel>
                     </Button>
                 </Grid>
 
-                <Border Grid.Row="1" Background="{StaticResource KimeraDivider}" BorderBrush="{StaticResource KimeraDivider}" Margin="10 10 10 0" CornerRadius="4" BorderThickness="1">
+                <Border Grid.Row="1" BorderBrush="{DynamicResource KimeraDivider}" Margin="10 10 10 0" CornerRadius="4" BorderThickness="1">
                     <Grid>
                         <ScrollViewer VerticalScrollBarVisibility="Visible">
                             <ItemsControl x:Name="CategoryItems" ItemsSource="{Binding LibraryService.Categories}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{StaticResource KimeraForeground}"
+                                        <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForeground}"
                                                         HorizontalContentAlignment="Left" Height="40"
                                                         caliburn:Action.TargetWithoutContext="{Binding DataContext.LibraryService, ElementName=CategoryItems}">
                                             <i:Interaction.Triggers>
@@ -86,10 +86,10 @@
 
                                             <StackPanel Orientation="Horizontal" Margin="0 8 0 8" HorizontalAlignment="Left">
                                                 <materialDesign:PackIcon HorizontalAlignment="Left" VerticalAlignment="Center" Kind="FolderOutline" />
-                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                                            Margin="8 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                            Text="{Binding Path=Name}" />
-                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{StaticResource KimeraForegroundLight}"
+                                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                                            Margin="4 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                            FontWeight="Bold"
                                                            Text="{Binding Path=CategorySubscriptions.Count, StringFormat='({0})'}" />
@@ -105,17 +105,17 @@
                 <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_CATEGORYEDITOR_ADD_HINT}"
                                     caliburn:Message.Attach="AddCategory()">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Plus"/>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Plus"/>
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_CATEGORYEDITOR_RENAME_HINT}"
                                     caliburn:Message.Attach="RenameCategory()">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Rename"/>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Rename"/>
                     </Button>
 
                     <Button Style="{StaticResource MaterialDesignIconButton}" Margin="6 0 6 0" Width="32" Height="32" ToolTip="{StaticResource VIEW_CATEGORYEDITOR_REMOVE_HINT}"
                                     caliburn:Message.Attach="RemoveCategory()">
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
+                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" Width="18" Height="18" Kind="Remove"/>
                     </Button>
                 </StackPanel>
             </Grid>

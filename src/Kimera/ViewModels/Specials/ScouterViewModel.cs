@@ -5,6 +5,8 @@ using Kimera.IO;
 using Kimera.Network;
 using Kimera.Utilities;
 using Kimera.ViewModels.Pages;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Serilog;
@@ -18,6 +20,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Kimera.ViewModels.Specials
 {
