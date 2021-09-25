@@ -9,4 +9,4 @@
 ## Links
  * [Download](https://github.com/project-kimera/kimera/releases)
  * [Documents](https://github.com/project-kimera/kimera/tree/main/docs)
- * [GitHub Issues](https://github.com/project-kimera/kimera/issues)
+ * [Issues](https://github.com/project-kimera/kimera/issues)
