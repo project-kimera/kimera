@@ -1,25 +1,23 @@
-name: .NET Core Desktop
+name: Release
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+env:
+  solution: src\Kimera.sln
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  kimeraVersion: '1.0.0'
+  kimeraDataVersion: '1.0.0'
+  kimeraIOVersion: '1.0.0'
+  kimeraNetworkVersion: '1.0.0'
 
 jobs:
-
   build:
-
-    strategy:
-      matrix:
-        configuration: [Release]
-
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
-    env:
-      Solution_Name: src\Kimera.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Binary_Directory: src\Kimera\bin\Release\net5.0-windows                         # Replace with your solution name, i.e. MyWpfApp.sln.
+    if: ${{ github.repository == 'project-kimera/kimera' }}
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
@@ -27,25 +25,28 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install the .NET Core workload
-    - name: Install .NET Core
+    - name: Install .NET 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: "5.0.x"
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.solution }}
 
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
+    - name: Build x86
+      run: dotnet build ${{ env.solution }} --configuration ${{ env.buildConfiguration }} --no-restore -p:Platform="x86" -p:KimeraVersion=${{ env.kimeraVersion }}.${{ github.run_number }} -p:KimeraDataVersion=${{ env.kimeraDataVersion }}.${{ github.run_number }} -p:KimeraIOVersion=${{ env.kimeraIOVersion }}.${{ github.run_number }} -p:KimeraNetworkVersion=${{ env.kimeraNetworkVersion }}.${{ github.run_number }} -p:TreatWarningsAsErrors=True
+      
+    - name: Build x64
+      run: dotnet build ${{ env.solution }} --configuration ${{ env.buildConfiguration }} --no-restore -p:Platform="x64" -p:KimeraVersion=${{ env.kimeraVersion }}.${{ github.run_number }} -p:KimeraDataVersion=${{ env.kimeraDataVersion }}.${{ github.run_number }} -p:KimeraIOVersion=${{ env.kimeraIOVersion }}.${{ github.run_number }} -p:KimeraNetworkVersion=${{ env.kimeraNetworkVersion }}.${{ github.run_number }} -p:TreatWarningsAsErrors=True
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Upload build artifacts
+    #- name: Test
+    #  run: dotnet test ${{ env.solution }} --configuration ${{ env.buildConfiguration }} --no-build --verbosity detailed --blame-crash
+      
+    - name: Upload distribution files
       uses: actions/upload-artifact@v2
       with:
-        name: MSIX Package
-        path: ${{ env.Binary_Directory }}
+        name: DemoApp-${{ github.run_number }}
+        path: "MainDemo.Wpf/bin/${{ env.buildConfiguration }}"
+
+    - name: Publish to NuGet.org
+      run: dotnet nuget push ${{ github.workspace }}\*.nupkg --source https://api.nuget.org/v3/index.json -k ${{ secrets.PAT }} --skip-duplicate

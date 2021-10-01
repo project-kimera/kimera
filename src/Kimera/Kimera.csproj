@@ -4,6 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+
+	<KimeraVersion Condition="$(KimeraVersion) == '' Or $(KimeraVersion) == '*Undefined*'">1.0.0.0</KimeraVersion>
+
+	<AssemblyTitle>Kimera</AssemblyTitle>
+	<Product>Kimera</Product>
+    <Description>Kimera is a portable game manager.</Description>
+    <Copyright>Copyright ⓒ 2021 Kimera Contributors</Copyright>
+	<Version>$(KimeraVersion)</Version>
+	<FileVersion>$(KimeraVersion)</FileVersion>
+	<AssemblyVersion>$(KimeraVersion)</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

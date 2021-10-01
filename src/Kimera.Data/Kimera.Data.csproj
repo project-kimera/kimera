@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
+
+	<KimeraDataVersion Condition="$(KimeraDataVersion) == '' Or $(KimeraDataVersion) == '*Undefined*'">1.0.0.0</KimeraDataVersion>
+
+	<AssemblyTitle>Kimera.Data</AssemblyTitle>
+	<Product>Kimera</Product>
+    <Description>Kimera Database Service Provider</Description>
+    <Copyright>Copyright ⓒ 2021 Kimera Contributors</Copyright>
+	<Version>$(KimeraDataVersion)</Version>
+	<FileVersion>$(KimeraDataVersion)</FileVersion>
+	<AssemblyVersion>$(KimeraDataVersion)</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

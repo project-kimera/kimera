@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
+  
+	<KimeraNetworkVersion Condition="$(KimeraNetworkVersion) == '' Or $(KimeraNetworkVersion) == '*Undefined*'">1.0.0.0</KimeraNetworkVersion>
+
+	<AssemblyTitle>Kimera.Network</AssemblyTitle>
+	<Product>Kimera</Product>
+	<Description>Kimera Network Service Provider</Description>
+	<Copyright>Copyright ⓒ 2021 Kimera Contributors</Copyright>
+	<Version>$(KimeraNetworkVersion)</Version>
+	<FileVersion>$(KimeraNetworkVersion)</FileVersion>
+	<AssemblyVersion>$(KimeraNetworkVersion)</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

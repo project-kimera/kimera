@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
+
+	<KimeraIOVersion Condition="$(KimeraIOVersion) == '' Or $(KimeraIOVersion) == '*Undefined*'">1.0.0.0</KimeraIOVersion>
+
+	<AssemblyTitle>Kimera.IO</AssemblyTitle>
+	<Product>Kimera</Product>
+	<Description>Kimera IO Service Provider</Description>
+	<Copyright>Copyright ⓒ 2021 Kimera Contributors</Copyright>
+	<Version>$(KimeraIOVersion)</Version>
+	<FileVersion>$(KimeraIOVersion)</FileVersion>
+	<AssemblyVersion>$(KimeraIOVersion)</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
