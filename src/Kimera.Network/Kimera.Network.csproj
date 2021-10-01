@@ -12,6 +12,7 @@
 	<Version>$(KimeraNetworkVersion)</Version>
 	<FileVersion>$(KimeraNetworkVersion)</FileVersion>
 	<AssemblyVersion>$(KimeraNetworkVersion)</AssemblyVersion>
+	<Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

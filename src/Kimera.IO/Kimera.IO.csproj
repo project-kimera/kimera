@@ -12,6 +12,7 @@
 	<Version>$(KimeraIOVersion)</Version>
 	<FileVersion>$(KimeraIOVersion)</FileVersion>
 	<AssemblyVersion>$(KimeraIOVersion)</AssemblyVersion>
+	<Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

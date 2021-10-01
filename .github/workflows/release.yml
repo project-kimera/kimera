@@ -6,7 +6,7 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 env:
-  solution: src\Kimera.sln
+  solution: src/Kimera.sln
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   kimeraVersion: '1.0.0'
@@ -42,11 +42,14 @@ jobs:
     #- name: Test
     #  run: dotnet test ${{ env.solution }} --configuration ${{ env.buildConfiguration }} --no-build --verbosity detailed --blame-crash
       
-    - name: Upload distribution files
+    - name: Upload x86 distribution files
       uses: actions/upload-artifact@v2
       with:
-        name: DemoApp-${{ github.run_number }}
-        path: "MainDemo.Wpf/bin/${{ env.buildConfiguration }}"
-
-    - name: Publish to NuGet.org
-      run: dotnet nuget push ${{ github.workspace }}\*.nupkg --source https://api.nuget.org/v3/index.json -k ${{ secrets.PAT }} --skip-duplicate
+        name: Kimera v${{ env.kimeraVersion }} x86(i386)
+        path: "src/Kimera/bin/x86/Release/net5.0-windows"
+        
+    - name: Upload x64 distribution files
+      uses: actions/upload-artifact@v2
+      with:
+        name: Kimera v${{ env.kimeraVersion }} x64(AMD64)
+        path: "src/Kimera/bin/x64/Release/net5.0-windows"
