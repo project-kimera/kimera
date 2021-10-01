@@ -9,10 +9,10 @@ env:
   solution: src/Kimera.sln
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  kimeraVersion: '1.0.0'
-  kimeraDataVersion: '1.0.0'
-  kimeraIOVersion: '1.0.0'
-  kimeraNetworkVersion: '1.0.0'
+  kimeraVersion: '0.8.0'
+  kimeraDataVersion: '0.8.0'
+  kimeraIOVersion: '0.8.0'
+  kimeraNetworkVersion: '0.8.0'
 
 jobs:
   build:
