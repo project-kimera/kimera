@@ -3,9 +3,9 @@
   <br>
 </p>
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/project-kimera/kimera/Release?logo=github&style=flat-square)
-![GitHub all releases](https://img.shields.io/github/downloads/project-kimera/kimera/total?style=flat-square)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/project-kimera/kimera?include_prereleases&style=flat-square)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/project-kimera/kimera/Release?logo=github&style=flat-square)](https://github.com/project-kimera/kimera/actions)
+[![GitHub all releases](https://img.shields.io/github/downloads/project-kimera/kimera/total?style=flat-square)](https://github.com/project-kimera/kimera/releases/latest)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/project-kimera/kimera?include_prereleases&style=flat-square)](https://github.com/project-kimera/kimera/releases)
 
 ## Links
  * [Download](https://github.com/project-kimera/kimera/releases)
