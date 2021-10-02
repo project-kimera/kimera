@@ -215,7 +215,7 @@ namespace Kimera.ViewModels.Dialogs
 
         public void ShowOpenSources()
         {
-            WebHelper.OpenUrl("https://github.com/project-kimera/kimera/blob/main/OPENSOURCES.md");
+            WebHelper.OpenUrl("https://github.com/project-kimera/kimera/blob/main/docs/OPENSOURCES.md");
         }
     }
 }
