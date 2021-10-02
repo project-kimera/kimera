@@ -12,13 +12,7 @@
 name: "CodeQL Analyze"
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main ]
-  schedule:
-    - cron: '42 2 * * 5'
+  workflow_dispatch:
     
 env:
   solution: src/Kimera.sln
@@ -55,18 +49,8 @@ jobs:
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
         
     # Build the application.
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
-
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
-
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
-
-    - run: |
-        dotnet build ${{ env.solution }} -p:TreatWarningsAsErrors=True
+    - name: Build
+      run: dotnet build ${{ env.solution }} -p:TreatWarningsAsErrors=True
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
