@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
 	<KimeraIOVersion Condition="$(KimeraIOVersion) == '' Or $(KimeraIOVersion) == '*Undefined*'">1.0.0.0</KimeraIOVersion>
 
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Squid-Box.SevenZipSharp" Version="1.4.0.345" />
+    <PackageReference Include="Squid-Box.SevenZipSharp" Version="1.5.0.366" />
   </ItemGroup>
 
 </Project>

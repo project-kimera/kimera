@@ -127,7 +127,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}">
+        <Grid Grid.Row="2" Background="{DynamicResource KimeraDialogCommandBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
                         Visibility="{Binding IsRegistered, Converter={StaticResource BooleanToVisibilityConverter}}"

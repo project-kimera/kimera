@@ -46,7 +46,7 @@
                             <GroupBox Style="{DynamicResource KimeraSettingsGroupBox}" Margin="0 0 0 20" Header="{StaticResource VIEW_SETTINGS_THEME_CAPTION}">
                                 <StackPanel Orientation="Vertical">
                                     <CheckBox IsChecked="{Binding UseDarkTheme, Mode=TwoWay}" Content="{StaticResource VIEW_SETTINGS_USEDARKTHEME}"/>
-                                    
+
                                     <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 8 0 0"  TextWrapping="Wrap" Text="{StaticResource VIEW_SETTINGS_THEME_NOTICE}" />
                                 </StackPanel>
                             </GroupBox>

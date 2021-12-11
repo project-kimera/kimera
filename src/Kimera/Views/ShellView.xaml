@@ -31,7 +31,7 @@
                 <Image Grid.Column="0" Margin="16 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="32" Height="32" Source="{StaticResource KimeraLogo}"/>
 
                 <!--Search Bar-->
-                <Button x:Name="NavigateToSearcher" Grid.Column="1" Style="{DynamicResource KimeraContentButton}" Background="{DynamicResource KimeraDivider}"
+                <Button x:Name="NavigateToSearcher" Grid.Column="1" Style="{DynamicResource KimeraContentButton}" Background="{DynamicResource KimeraSearchBoxBackground}"
                         Margin="16 0 0 0" Height="34" VerticalAlignment="Center" VerticalContentAlignment="Center"
                         WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid >
@@ -40,7 +40,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="10 0 0 0" VerticalAlignment="Center" Text="{StaticResource VIEW_SHELL_SEARCHBOX_HINT}"/>
+                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 0 0 0" VerticalAlignment="Center" Opacity=".56"  Text="{StaticResource VIEW_SHELL_SEARCHBOX_HINT}"/>
 
                         <materialDesign:PackIcon Grid.Column="1" Foreground="{DynamicResource KimeraForegroundLight}" Margin="8 0 8 0" VerticalAlignment="Center" Kind="Search" Opacity=".56" />
                     </Grid>

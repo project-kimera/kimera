@@ -32,10 +32,14 @@
 
     <Color x:Key="KimeraBackgroundColor">#FF212121</Color>
     <SolidColorBrush x:Key="KimeraBackground" Color="{DynamicResource KimeraBackgroundColor}" />
+    <Color x:Key="KimeraSearchBoxBackgroundColor">#FF303030</Color>
+    <SolidColorBrush x:Key="KimeraSearchBoxBackground" Color="{DynamicResource KimeraSearchBoxBackgroundColor}" />
     <Color x:Key="KimeraPopupBoxBackgroundColor">#FF303030</Color>
     <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="{DynamicResource KimeraPopupBoxBackgroundColor}" />
     <Color x:Key="KimeraProgressBarBackgroundColor">#FF303030</Color>
     <SolidColorBrush x:Key="KimeraProgressBarBackground" Color="{DynamicResource KimeraProgressBarBackgroundColor}" />
+    <Color x:Key="KimeraDialogCommandBarBackgroundColor">#FF303030</Color>
+    <SolidColorBrush x:Key="KimeraDialogCommandBarBackground" Color="{DynamicResource KimeraDialogCommandBarBackgroundColor}" />
 
     <Color x:Key="KimeraButtonHoverColor">#FF292929</Color>
     <SolidColorBrush x:Key="KimeraButtonHover" Color="{DynamicResource KimeraButtonHoverColor}" />
