@@ -15,7 +15,7 @@
                         <BulletDecorator.Bullet>
                             <Grid Width="20" Height="20">
                                 <Ellipse x:Name="Border" Fill="Transparent" Stroke="Transparent" StrokeThickness="1"/>
-                                <materialDesign:PackIcon x:Name="CheckMark" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12"
+                                <materialDesign:PackIcon x:Name="CheckMark" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12"
                                                          Visibility="Collapsed" Kind="CheckBold"/>
                             </Grid>
                         </BulletDecorator.Bullet>
@@ -132,7 +132,7 @@
                         <BulletDecorator.Bullet>
                             <Grid Width="20" Height="20">
                                 <Rectangle x:Name="Border" Fill="Transparent" Stroke="Transparent" StrokeThickness="1" RadiusX="4" RadiusY="4" />
-                                <materialDesign:PackIcon x:Name="CheckMark" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12"
+                                <materialDesign:PackIcon x:Name="CheckMark" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Width="12" Height="12"
                                                          Visibility="Collapsed" Kind="CheckBold"/>
                             </Grid>
                         </BulletDecorator.Bullet>

@@ -14,7 +14,7 @@
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
-    
+
     <LinearGradientBrush x:Key="KimeraFadeGradient">
         <LinearGradientBrush.StartPoint>
             <Point X="0" Y="0" />
@@ -32,10 +32,14 @@
 
     <Color x:Key="KimeraBackgroundColor">#FFfafafa</Color>
     <SolidColorBrush x:Key="KimeraBackground" Color="{DynamicResource KimeraBackgroundColor}" />
+    <Color x:Key="KimeraSearchBoxBackgroundColor">#ffeeeeee</Color>
+    <SolidColorBrush x:Key="KimeraSearchBoxBackground" Color="{DynamicResource KimeraSearchBoxBackgroundColor}" />
     <Color x:Key="KimeraPopupBoxBackgroundColor">#FFF5F5F5</Color>
     <SolidColorBrush x:Key="KimeraPopupBoxBackground" Color="{DynamicResource KimeraPopupBoxBackgroundColor}" />
     <Color x:Key="KimeraProgressBarBackgroundColor">#1F000000</Color>
     <SolidColorBrush x:Key="KimeraProgressBarBackground" Color="{DynamicResource KimeraProgressBarBackgroundColor}" />
+    <Color x:Key="KimeraDialogCommandBarBackgroundColor">#ffeeeeee</Color>
+    <SolidColorBrush x:Key="KimeraDialogCommandBarBackground" Color="{DynamicResource KimeraDialogCommandBarBackgroundColor}" />
 
     <Color x:Key="KimeraButtonHoverColor">#FFDeDeDe</Color>
     <SolidColorBrush x:Key="KimeraButtonHover" Color="{DynamicResource KimeraButtonHoverColor}" />

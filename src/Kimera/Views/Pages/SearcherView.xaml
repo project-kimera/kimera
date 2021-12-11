@@ -36,7 +36,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1" Background="{DynamicResource KimeraDivider}">
+        <Grid Grid.Row="1" Background="{DynamicResource KimeraPopupBoxBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="10"/>
