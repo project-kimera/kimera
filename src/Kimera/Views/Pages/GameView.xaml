@@ -104,18 +104,36 @@
                                 <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="10" Text="{StaticResource VIEW_GAME_START}" />
                             </Button>
 
-                            <Button Style="{StaticResource MaterialDesignIconForegroundButton}" Foreground="{DynamicResource KimeraForegroundLight}"
-                                    Margin="10 0 10 0" Width="36" Height="36"
-                                    caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Click">
-                                        <caliburn:ActionMessage MethodName="CallPackageMetadataEditor">
-                                            <caliburn:Parameter Value="{Binding Game.SystemId}"/>
-                                        </caliburn:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <materialDesign:PackIcon Width="16" Height="16" Kind="Settings" />
-                            </Button>
+                            <materialDesign:PopupBox Margin="26 0 16 0" Padding="0" Height="32"
+                                                     PlacementMode="BottomAndAlignLeftEdges">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="16" Height="16" Kind="Settings"/>
+                                    </StackPanel>
+                                </materialDesign:PopupBox.ToggleContent>
+
+                                <StackPanel Orientation="Vertical" caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
+                                    <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_GM}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <caliburn:ActionMessage MethodName="CallGameMetadataEditor">
+                                                    <caliburn:Parameter Value="{Binding Game.SystemId}"/>
+                                                </caliburn:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </MenuItem>
+
+                                    <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_PM}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <caliburn:ActionMessage MethodName="CallPackageMetadataEditor">
+                                                    <caliburn:Parameter Value="{Binding Game.SystemId}"/>
+                                                </caliburn:ActionMessage>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </MenuItem>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
                         </StackPanel>
 
                         <Separator Background="{DynamicResource KimeraDivider}" Margin="0 20 0 20"/>

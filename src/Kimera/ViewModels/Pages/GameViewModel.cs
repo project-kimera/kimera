@@ -16,7 +16,7 @@ namespace Kimera.ViewModels.Pages
 {
     public class GameViewModel : Screen
     {
-        #region ::Aasfeqwt::
+        #region ::Variables::
 
         private GameService _gameService = IoC.Get<GameService>();
 

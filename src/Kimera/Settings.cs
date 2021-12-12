@@ -34,7 +34,7 @@ namespace Kimera
         /// <summary>
         /// Gets or sets the value whether the dark theme is used or not.
         /// </summary>
-        public bool UseDarkTheme { get; set; } = false;
+        public bool UseDarkTheme { get; set; } = true;
 
         #endregion
 
