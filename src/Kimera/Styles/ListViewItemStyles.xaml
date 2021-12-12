@@ -133,7 +133,7 @@
                 Cursor="Hand"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
+                <i:EventTrigger EventName="Click">
                     <caliburn:ActionMessage MethodName="ViewGame">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>
@@ -150,12 +150,7 @@
                        Source="{Binding GameMetadataNavigation.ThumbnailUri, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}" Stretch="UniformToFill"/>
 
                 <Grid Grid.Row="1" Margin="10 6 10 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                         <TextBlock Foreground="{DynamicResource KimeraForeground}"
                                FontSize="13" FontWeight="DemiBold" TextTrimming="CharacterEllipsis"
                                Text="{Binding GameMetadataNavigation.Name}" />
@@ -167,17 +162,6 @@
                                        Text="{Binding PackageStatus, Converter={StaticResource PackageStatusToTextConverter}}" />
                         </StackPanel>
                     </StackPanel>
-
-                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignIconForegroundButton}" Margin="4 0 0 0" Width="30" Height="30" VerticalAlignment="Center">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <caliburn:ActionMessage MethodName="StartGame">
-                                    <caliburn:Parameter Value="{Binding SystemId}"/>
-                                </caliburn:ActionMessage>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <materialDesign:PackIcon Foreground="{StaticResource KimeraForegroundLight}" Width="18" Height="18" Kind="Play" />
-                    </Button>
                 </Grid>
             </Grid>
         </Button>
@@ -190,7 +174,7 @@
                 Cursor="Hand"
                 caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameItems}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
+                <i:EventTrigger EventName="Click">
                     <caliburn:ActionMessage MethodName="ViewGame">
                         <caliburn:Parameter Value="{Binding SystemId}"/>
                     </caliburn:ActionMessage>

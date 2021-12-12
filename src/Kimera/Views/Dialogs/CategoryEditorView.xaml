@@ -54,6 +54,8 @@
                             <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Home"/>
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_CATEGORYEDITOR_ALL_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.AllCount, StringFormat=({0})}" />
                         </StackPanel>
                     </Button>
 
@@ -63,6 +65,8 @@
                             <materialDesign:PackIcon Foreground="{DynamicResource KimeraForegroundLight}" VerticalAlignment="Center" Width="18" Height="18" Kind="Favorite"/>
                             <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
                                            Margin="6 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{StaticResource VIEW_CATEGORYEDITOR_FAVORITE_HEADER}" />
+                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                           Margin="4 0 0 0" VerticalAlignment="Center" FontWeight="Bold" Text="{Binding LibraryService.FavoriteCount, StringFormat=({0})}" />
                         </StackPanel>
                     </Button>
                 </Grid>

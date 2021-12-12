@@ -50,6 +50,16 @@ namespace Kimera.Services
             }
         }
 
+        public int AllCount
+        {
+            get => _games.Count;
+        }
+
+        public int FavoriteCount
+        {
+            get => _games.Where(g => g.IsFavorite == true).Count();
+        }
+
         private BindableCollection<Game> _filteredGames = new BindableCollection<Game>();
 
         public BindableCollection<Game> FilteredGames
