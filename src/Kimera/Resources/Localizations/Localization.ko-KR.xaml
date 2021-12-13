@@ -70,6 +70,8 @@
     <system:String x:Key="VIEW_FILTEREDITOR_TITLE">필터</system:String>
     <system:String x:Key="VIEW_FILTEREDITOR_CAPTION1">필터를 선택해보세요.</system:String>
     <system:String x:Key="VIEW_FILTEREDITOR_CAPTION2">지정한 기준과 일치하는 게임만 표시됩니다.</system:String>
+    <system:String x:Key="VIEW_FILTEREDITOR_CAPTION_SEARCH">검색</system:String>
+    <system:String x:Key="VIEW_FILTEREDITOR_CAPTION_FILTERS">필터</system:String>
 
     <!--View : StatisticsView-->
 
@@ -226,16 +228,21 @@
     <!--ViewModel : SingleFileRegisterViewModel-->
     <system:String x:Key="VM_SINGLEREGISTER_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
 
-    <!--ViewModel : GameMetadataEditorView-->
+    <!--ViewModel : FilterEditorViewModel-->
+    <system:String x:Key="VM_FILTEREDITOR_ALREADY_USING_MSG">이미 추가되어 있는 필터입니다.</system:String>
+    <system:String x:Key="VM_FILTEREDITOR_INVALID_FILTER_MSG">사용할 수 없는 필터입니다. 필터 명을 정확히 입력했는지 확인해주세요.</system:String>
+    <system:String x:Key="VM_FILTEREDITOR_FILTER_NOT_EXIST_MSG">필터가 존재하지 않습니다.</system:String>
+
+    <!--ViewModel : GameMetadataEditorViewModel-->
     <system:String x:Key="VM_GAMEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
 
-    <!--ViewModel : PackageMetadataEditorView-->
+    <!--ViewModel : PackageMetadataEditorViewModel-->
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_COMP_COUNT_MSG">Single 형식의 패키지에서는 오직 하나의 컴포넌트만을 필요로 합니다.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG">현재 패키지 형식에서는 진입점을 비워둘 수 없습니다.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG">Single 형식의 패키지에서는 인덱스가 0인 메인 컴포넌트 하나가 반드시 필요합니다.</system:String>
 
-    <!--ViewModel : SettingsView-->
+    <!--ViewModel : SettingsViewModel-->
     <system:String x:Key="VM_SETTINGS_CRYPTO_TASK_HAS_FAILED_MSG">데이터베이스 작업에 실패했습니다.</system:String>
     <system:String x:Key="VM_SETTINGS_CRYPTO_WRONG_PASSWORD_MSG">잘못된 비밀번호입니다.</system:String>
     <system:String x:Key="VM_SETTINGS_ENCRYPTED_MSG">데이터베이스가 성공적으로 암호화되었습니다.</system:String>

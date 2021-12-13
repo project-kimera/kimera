@@ -95,7 +95,8 @@ namespace Kimera.Services
             var task = Task.Factory.StartNew(() =>
             {
                 List<Game> result = null;
-                result = _sortingService.SortGames(_games);
+                result = _filteringService.FilterGames(_games);
+                result = _sortingService.SortGames(result);
 
                 _games = new BindableCollection<Game>(result);
                 NotifyOfPropertyChange(() => Games);

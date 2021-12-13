@@ -7,12 +7,13 @@
         xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:wpftk="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
         mc:Ignorable="d"
         Style="{DynamicResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
         Title="{StaticResource VIEW_FILTEREDITOR_TITLE}"
         WindowStartupLocation="CenterScreen"
-        Width="600" Height="500">
+        Width="500" Height="700">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -47,10 +48,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="검색" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="{DynamicResource VIEW_FILTEREDITOR_CAPTION_SEARCH}" />
 
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 8 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <materialDesign:ColorZone x:Name="SearchBox" Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 8 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -60,20 +61,40 @@
                                 <TextBox Grid.Column="0" Margin="8 0 0 0"
                                          materialDesign:HintAssist.Hint="Search..." materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
                                          BorderThickness="0" MinWidth="200" VerticalAlignment="Center"
-                                         Text="{Binding SearchKeywords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                         Text="{Binding SearchKeyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         caliburn:Message.Attach="[Event TextChanged] = [Action OnTextChanged()]">
                                     <i:Interaction.Triggers>
                                         <i:KeyTrigger Key="Return">
-                                            <caliburn:ActionMessage MethodName="Search" />
+                                            <caliburn:ActionMessage MethodName="AddFilter" />
                                         </i:KeyTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
 
                                 <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}"
-                                        caliburn:Message.Attach="Search()">
+                                        caliburn:Message.Attach="AddFilter()">
                                     <materialDesign:PackIcon Kind="Search" Opacity=".56" Margin="8 0 0 0" />
                                 </Button>
                             </Grid>
                         </materialDesign:ColorZone>
+
+                        <Popup HorizontalAlignment="Stretch" Height="100" StaysOpen="False" Placement="Bottom" PlacementTarget="{Binding ElementName=SearchBox}" IsOpen="{Binding IsSuggestionsOpen, Mode=TwoWay}">
+                            <ListBox Background="{DynamicResource KimeraPopupBoxBackground}" Width="{Binding ElementName=SearchBox, Path=ActualWidth}" Height="100" ItemsSource="{Binding Suggestions, Mode=TwoWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Width="16" Height="16" VerticalAlignment="Center" Opacity=".80" Kind="TagOutline" />
+                                            <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="6 0 0 0" VerticalAlignment="Center" Opacity=".80" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Popup>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 8 0 0">
+                            <RadioButton Margin="10 0 0 0" Content="AND" IsChecked="{Binding Method, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=And}"/>
+                            <RadioButton Margin="10 0 0 0" Content="OR" IsChecked="{Binding Method, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Or}"/>
+                            <RadioButton Margin="10 0 0 0" Content="NOT" IsChecked="{Binding Method, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Not}"/>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 
@@ -83,18 +104,37 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="필터" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="{DynamicResource VIEW_FILTEREDITOR_CAPTION_FILTERS}" />
 
-                    <ScrollViewer Grid.Row="1">
-                        <WrapPanel Orientation="Horizontal">
-                            <materialDesign:Chip IconBackground="{DynamicResource PrimaryHueDarkBrush}" IconForeground="{DynamicResource PrimaryHueDarkForegroundBrush}" IsDeletable="True"
-                                                 Content="Twitter" >
-                                <materialDesign:Chip.Icon>
-                                    <materialDesign:PackIcon Kind="Twitter" />
-                                </materialDesign:Chip.Icon>
-                            </materialDesign:Chip>
-                        </WrapPanel>
-                    </ScrollViewer>
+                    <wpftk:VirtualizingItemsControl
+                            Grid.Row="1" Margin="0 8 0 0"
+                            ItemsSource="{Binding SelectedFilters}"
+                            VirtualizingPanel.CacheLengthUnit="Item"
+                            VirtualizingPanel.CacheLength="1,1"
+                            VirtualizingPanel.ScrollUnit="Pixel"
+                            VirtualizingPanel.VirtualizationMode="Standard"
+                            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Chip Margin="0 0 0 8" IsDeletable="True" Content="{Binding}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="DeleteClick">
+                                            <caliburn:ActionMessage MethodName="RemoveFilter">
+                                                <caliburn:Parameter Value="{Binding}" />
+                                            </caliburn:ActionMessage>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </materialDesign:Chip>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </wpftk:VirtualizingItemsControl>
                 </Grid>
             </Grid>
         </Border>
@@ -102,7 +142,7 @@
         <Grid Grid.Row="2" Background="{DynamicResource KimeraDialogCommandBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}" Cursor="Hand"
-                            caliburn:Message.Attach="Confirm($view)"/>
+                            caliburn:Message.Attach="Confirm()"/>
             </StackPanel>
         </Grid>
     </Grid>
