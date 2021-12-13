@@ -79,29 +79,7 @@ namespace Kimera
 
         protected override async void OnStartup(object sender, StartupEventArgs e)
         {
-            var task = Task.Factory.StartNew(() =>
-            {
-                if (File.Exists(Settings.SettingsFilePath))
-                {
-                    string json = TextFileManager.ReadTextFile(Settings.SettingsFilePath, Encoding.UTF8);
-
-                    var settings = JsonConvert.DeserializeObject<Settings>(json);
-
-                    IoC.Get<Settings>().Set(settings);
-                }
-            });
-
-            await task;
-
             await DisplayRootViewForAsync(typeof(ShellViewModel));
-        }
-
-        protected override void OnExit(object sender, EventArgs e)
-        {
-            var settings = IoC.Get<Settings>();
-            string json = JsonConvert.SerializeObject(settings);
-
-            TextFileManager.WriteTextFile(Settings.SettingsFilePath, json, Encoding.UTF8);
         }
 
         protected override object GetInstance(Type service, string key)

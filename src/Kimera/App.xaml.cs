@@ -1,18 +1,22 @@
 ﻿using Caliburn.Micro;
 using Kimera.Data.Contexts;
 using Kimera.Data.Extensions;
+using Kimera.IO;
 using Kimera.Network;
 using Kimera.Utilities;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,9 +55,29 @@ namespace Kimera
                 return;
             }
 
+            LoadSettings();
             LoadStyles();
 
             base.OnStartup(e);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            SaveSettings();
+
+            base.OnExit(e);
+        }
+
+        private void LoadSettings()
+        {
+            if (File.Exists(Settings.SettingsFilePath))
+            {
+                string json = TextFileManager.ReadTextFile(Settings.SettingsFilePath, Encoding.UTF8);
+
+                var settings = JsonConvert.DeserializeObject<Settings>(json);
+
+                IoC.Get<Settings>().Set(settings);
+            }
         }
 
         private void LoadStyles()
@@ -110,6 +134,14 @@ namespace Kimera
             ResourceDictionary windowDict = new ResourceDictionary();
             windowDict.Source = new Uri(@"../Styles/WindowStyles.xaml", UriKind.Relative);
             App.Current.Resources.MergedDictionaries.Add(windowDict);
+        }
+
+        private void SaveSettings()
+        {
+            var settings = IoC.Get<Settings>();
+            string json = JsonConvert.SerializeObject(settings);
+
+            TextFileManager.WriteTextFile(Settings.SettingsFilePath, json, Encoding.UTF8);
         }
     }
 }
