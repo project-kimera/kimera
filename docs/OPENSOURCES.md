@@ -4,7 +4,7 @@ Copyright ⓒ 2021 Kimera Contributors
 This document describes the licenses of third-party open source software used in this project.
 
 # Kimera
- ## Kimera, Kimera.Data, Kimera.IO, Kimera,Network
+ ## Kimera, Kimera.Data, Kimera.IO, Kimera.Network
  * MIT License
  * Copyright ⓒ 2021 Kimera Contributors
  
@@ -20,10 +20,6 @@ This document describes the licenses of third-party open source software used in
  ## Material Design In Xaml Toolkit
  * MIT License
  * Copyright (c) James Willock,  Mulholland Software and Contributors
- 
- ## Material Design Extensions
- * MIT License
- * Copyright (c) 2017-2020 Philipp Spiegel
  
  ## Entity Framework Core
  * Apache License 2.0
