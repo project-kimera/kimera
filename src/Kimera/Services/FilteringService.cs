@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Kimera.Entities;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Kimera.Services
 {
     public class FilteringService : PropertyChangedBase
     {
+
         #region ::Constructors::
 
         public FilteringService()
@@ -19,7 +21,6 @@ namespace Kimera.Services
 
         private async void InitializeService()
         {
-
             Log.Information("The filtering service has been initialized.");
         }
 

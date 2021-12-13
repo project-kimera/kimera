@@ -55,6 +55,16 @@
     <system:String x:Key="VIEW_SORTINGEDITOR_TITLE">정렬</system:String>
     <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION1">정렬 기준과 순서를 바꿔보세요.</system:String>
     <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION2">게임이 정해진 방법에 따라 정렬됩니다.</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION_CRITERIA">정렬 기준</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_TITLE">제목</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_CREATOR">제작자</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_SCORE">평점</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_PLAYTIME">플레이 시간</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_FIRSTTIME">등록 시각</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CRITERION_LASTTIME">마지막 플레이 시각</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_CAPTION_ORDER">정렬 순서</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_ORDER_ASCENDING">오름차순</system:String>
+    <system:String x:Key="VIEW_SORTINGEDITOR_ORDER_DESCENDING">내림차순</system:String>
 
     <!--View : FilterEditorView-->
     <system:String x:Key="VIEW_FILTEREDITOR_TITLE">필터</system:String>

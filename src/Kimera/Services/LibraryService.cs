@@ -17,6 +17,10 @@ namespace Kimera.Services
     {
         #region ::Variables & Properties::
 
+        private SortingService _sortingService = IoC.Get<SortingService>();
+
+        private FilteringService _filteringService = IoC.Get<FilteringService>();
+
         private BindableCollection<Category> _categories = new BindableCollection<Category>();
 
         public BindableCollection<Category> Categories
@@ -46,7 +50,8 @@ namespace Kimera.Services
             get => _games;
             set
             {
-                Set(ref _games, value);
+                _games = value;
+                SortAndFilterAsync().GetAwaiter();
             }
         }
 
@@ -58,14 +63,6 @@ namespace Kimera.Services
         public int FavoriteCount
         {
             get => _games.Where(g => g.IsFavorite == true).Count();
-        }
-
-        private BindableCollection<Game> _filteredGames = new BindableCollection<Game>();
-
-        public BindableCollection<Game> FilteredGames
-        {
-            get => _filteredGames;
-            set => Set(ref _filteredGames, value);
         }
 
         #endregion
@@ -92,6 +89,20 @@ namespace Kimera.Services
         #endregion
 
         #region ::Methods::
+
+        public async Task SortAndFilterAsync()
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                List<Game> result = null;
+                result = _sortingService.SortGames(_games);
+
+                _games = new BindableCollection<Game>(result);
+                NotifyOfPropertyChange(() => Games);
+            });
+
+            await task;
+        }
 
         public async Task ShowAllGamesAsync()
         {
@@ -208,15 +219,7 @@ namespace Kimera.Services
                 List<CategorySubscription> subscriptions = App.DatabaseContext.CategorySubscriptions.Where(c => c.Category == categoryGuid).ToList();
 
                 var result = subscriptions.Select(s => s.GameNavigation);
-
-                _games.Clear();
-
-                foreach (Game game in result)
-                {
-                    _games.Add(game);
-                }
-
-                NotifyOfPropertyChange(() => Games);
+                Games = new BindableCollection<Game>(result);
             }
             catch (Exception ex)
             {
@@ -312,7 +315,7 @@ namespace Kimera.Services
                         }
                     }
 
-                    NotifyOfPropertyChange(() => Games);
+                    SortAndFilterAsync().GetAwaiter();
                 }
                 else if (e.Action == NotifyCollectionChangedAction.Remove)
                 {
@@ -335,7 +338,7 @@ namespace Kimera.Services
                         }
                     }
 
-                    NotifyOfPropertyChange(() => Games);
+                    SortAndFilterAsync().GetAwaiter();
                 }
                 else if (e.Action == NotifyCollectionChangedAction.Reset)
                 {

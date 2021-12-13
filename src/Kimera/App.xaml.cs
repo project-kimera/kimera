@@ -51,12 +51,12 @@ namespace Kimera
                 return;
             }
 
-            LoadResources();
+            LoadStyles();
 
             base.OnStartup(e);
         }
 
-        private void LoadResources()
+        private void LoadStyles()
         {
             bool useDarkTheme = IoC.Get<Settings>().UseDarkTheme;
 

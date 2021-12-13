@@ -3,6 +3,7 @@
                     xmlns:converters="clr-namespace:Kimera.Converters">
     <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     <converters:CategoryGuidToDetailsConverter x:Key="CategoryGuidToDetailsConverter"/>
+    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
     <converters:IntegerToTimeStringConverter x:Key="IntegerToTimeStringConverter"/>
     <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>

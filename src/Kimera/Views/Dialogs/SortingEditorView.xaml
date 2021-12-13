@@ -47,16 +47,28 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="정렬 기준" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="{StaticResource VIEW_SORTINGEDITOR_CAPTION_CRITERIA}" />
 
                     <ScrollViewer Grid.Row="1">
                         <WrapPanel Orientation="Horizontal">
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="제목" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="제작자" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="평점" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="플레이 시간" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="최근 실행 시각" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingCriteria" Content="등록 일시" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_TITLE}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Title}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_CREATOR}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Creator}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_SCORE}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Score}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_PLAYTIME}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=PlayTime}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_FIRSTTIME}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=FirstTime}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingCriteria" Content="{StaticResource VIEW_SORTINGEDITOR_CRITERION_LASTTIME}"
+                                         IsChecked="{Binding Criterion, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=LastTime}"/>
                         </WrapPanel>
                     </ScrollViewer>
                 </Grid>
@@ -67,12 +79,16 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="정렬 순서" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="10 8 10 8" Text="{StaticResource VIEW_SORTINGEDITOR_CAPTION_ORDER}" />
 
                     <ScrollViewer Grid.Row="1">
                         <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingOrder" Content="오름차순" />
-                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}" GroupName="SortingOrder" Content="내림차순" />
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingOrder" Content="{StaticResource VIEW_SORTINGEDITOR_ORDER_ASCENDING}"
+                                         IsChecked="{Binding Order, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Ascending}"/>
+                            <RadioButton Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineRadioButton}"
+                                         GroupName="SortingOrder" Content="{StaticResource VIEW_SORTINGEDITOR_ORDER_DESCENDING}"
+                                         IsChecked="{Binding Order, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Descending}"/>
                         </WrapPanel>
                     </ScrollViewer>
                 </Grid>
@@ -82,7 +98,7 @@
         <Grid Grid.Row="2" Background="{DynamicResource KimeraDialogCommandBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}" Cursor="Hand"
-                            caliburn:Message.Attach="Confirm($view)"/>
+                            caliburn:Message.Attach="Confirm()"/>
             </StackPanel>
         </Grid>
     </Grid>

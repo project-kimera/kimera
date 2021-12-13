@@ -51,6 +51,8 @@ namespace Kimera
                 .Singleton<Settings>()
                 .Singleton<TaskService>()
                 .Singleton<GameService>()
+                .Singleton<SortingService>()
+                .Singleton<FilteringService>()
                 .Singleton<LibraryService>();
 
             // Pages
