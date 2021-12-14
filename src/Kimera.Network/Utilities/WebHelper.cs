@@ -50,6 +50,9 @@ namespace Kimera.Network.Utilities
         {
             try
             {
+                _httpClient.DefaultRequestHeaders.Connection.Clear();
+                _httpClient.DefaultRequestHeaders.Connection.Add("close");
+
                 using (var response = await _httpClient.GetAsync(url))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
@@ -74,6 +77,9 @@ namespace Kimera.Network.Utilities
         {
             try
             {
+                _httpClient.DefaultRequestHeaders.Connection.Clear();
+                _httpClient.DefaultRequestHeaders.Connection.Add("close");
+
                 using (var response = await _httpClient.GetAsync(url))
                 {
                     if (response.StatusCode == HttpStatusCode.OK)

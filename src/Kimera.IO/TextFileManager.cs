@@ -94,5 +94,20 @@ namespace Kimera.IO
             // you may wish to return null instead of defaulting to ASCII
             return Encoding.ASCII;
         }
+
+        /// <summary>
+        /// Remove the BOM from a text.
+        /// </summary>
+        /// <param name="text">A text to remove BOM.</param>
+        /// <returns>BOM-removed text</returns>
+        public static string RemoveBOM(string text)
+        {
+            string UTF8ByteOrderMark = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+
+            if (text.StartsWith(UTF8ByteOrderMark, StringComparison.OrdinalIgnoreCase))
+                text = text.Remove(0, UTF8ByteOrderMark.Length);
+
+            return text.Replace("\0", "");
+        }
     }
 }

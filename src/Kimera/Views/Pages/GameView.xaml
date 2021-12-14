@@ -113,7 +113,7 @@
                                 </materialDesign:PopupBox.ToggleContent>
 
                                 <StackPanel Orientation="Vertical" caliburn:Action.TargetWithoutContext="{Binding DataContext.GameService, ElementName=GameViewInternal}">
-                                    <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_GM}">
+                                    <MenuItem Icon="{materialDesign:PackIcon Kind=NoteEditOutline}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_GM}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <caliburn:ActionMessage MethodName="CallGameMetadataEditor">
@@ -123,7 +123,7 @@
                                         </i:Interaction.Triggers>
                                     </MenuItem>
 
-                                    <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEdit}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_PM}">
+                                    <MenuItem Icon="{materialDesign:PackIcon Kind=PuzzleEditOutline}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_EDIT_PM}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <caliburn:ActionMessage MethodName="CallPackageMetadataEditor">

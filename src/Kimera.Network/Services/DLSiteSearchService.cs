@@ -1,4 +1,5 @@
-﻿using Kimera.Network.Entities;
+﻿using Kimera.IO;
+using Kimera.Network.Entities;
 using Kimera.Network.Services.Interfaces;
 using Kimera.Network.Utilities;
 using Newtonsoft.Json.Linq;
@@ -31,6 +32,8 @@ namespace Kimera.Network.Services
                 string searchApiUrl = WebHelper.GetLocalizedApiUrl(SearchApiUrl);
                 string encodedKeyword = HttpUtility.UrlEncode(keyword);
                 string searchApiResponse = await WebHelper.GetResponseAsync(string.Format(searchApiUrl, encodedKeyword));
+                searchApiResponse = TextFileManager.RemoveBOM(searchApiResponse);
+                TextFileManager.WriteTextFile(@"E:\test.txt", searchApiResponse, Encoding.UTF8);
 
                 JArray array = JArray.Parse(searchApiResponse);
 
