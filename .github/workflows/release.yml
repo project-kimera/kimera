@@ -9,10 +9,10 @@ env:
   solution: src/Kimera.sln
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  kimeraVersion: '0.8.0'
-  kimeraDataVersion: '0.8.0'
-  kimeraIOVersion: '0.8.0'
-  kimeraNetworkVersion: '0.8.0'
+  kimeraVersion: '0.8.72'
+  kimeraDataVersion: '0.8.72'
+  kimeraIOVersion: '0.8.72'
+  kimeraNetworkVersion: '0.8.72'
 
 jobs:
   build:
@@ -25,10 +25,10 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install .NET 5
+    - name: Install .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: "5.0.x"
+        dotnet-version: "6.0.x"
 
     - name: Restore dependencies
       run: dotnet restore ${{ env.solution }}
@@ -46,10 +46,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Kimera v${{ env.kimeraVersion }} x86(i386)
-        path: "src/Kimera/bin/x86/Release/net5.0-windows"
+        path: "src/Kimera/bin/x86/Release/net6.0-windows"
         
     - name: Upload x64 distribution files
       uses: actions/upload-artifact@v2
       with:
         name: Kimera v${{ env.kimeraVersion }} x64(AMD64)
-        path: "src/Kimera/bin/x64/Release/net5.0-windows"
+        path: "src/Kimera/bin/x64/Release/net6.0-windows"
