@@ -27,6 +27,14 @@ namespace Kimera.Services
 
         private LibraryService _libraryService = IoC.Get<LibraryService>();
 
+        private Guid _runningGameGuid = Guid.Empty;
+
+        public Guid RunningGameGuid
+        {
+            get => _runningGameGuid;
+            set => Set(ref _runningGameGuid, value);
+        }
+
         private bool _isRunning = false;
 
         public bool IsRunning
@@ -39,7 +47,14 @@ namespace Kimera.Services
 
         #region ::Methods::
 
-        public async Task<TaskRecord> AddGameInternalAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, List<Category> targetCategories)
+        /// <summary>
+        /// Add a game with metadatas to database. (Non-observable, Non-cancellable)
+        /// </summary>
+        /// <param name="gameMetadata">GameMetadata of the game.</param>
+        /// <param name="packageMetadata">PackageMetadata of the game.</param>
+        /// <param name="targetCategory">A category where the game is.</param>
+        /// <returns>A task record</returns>
+        public async Task<TaskRecord> AddGameInternalAsync(GameMetadata gameMetadata, PackageMetadata packageMetadata, Category targetCategory)
         {
             try
             {
@@ -58,25 +73,25 @@ namespace Kimera.Services
                 }
 
                 // Add categories.
-                if (targetCategories == null || targetCategories.Count == 0)
+                if (targetCategory != null)
                 {
-                    targetCategories = new List<Category>();
+                    await App.DatabaseContext.AddCategorySubscriptionAsync(targetCategory, game);
                 }
 
-                foreach (Category category in targetCategories)
-                {
-                    await App.DatabaseContext.AddCategorySubscriptionAsync(category, game);
-                }
-
-                return new TaskRecord(TaskRecordType.Success, "The game has registered successfully.");
+                return new TaskRecord(Entities.TaskStatus.Success, "The game has registered successfully.");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "An exception occurred while registering the game.");
-                return new TaskRecord(TaskRecordType.Exception, $"An exception occurred while registering the game.\r\n{ex.Message}\r\n{ex.StackTrace}");
+                return new TaskRecord(Entities.TaskStatus.Exception, $"An exception occurred while registering the game.\r\n{ex.Message}\r\n{ex.StackTrace}");
             }
         }
 
+        /// <summary>
+        /// Remove game from database. (Non-observable, Non-cancellable)
+        /// </summary>
+        /// <param name="game">A game to remove.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> RemoveGameInternalAsync(Game game)
         {
             try
@@ -107,17 +122,20 @@ namespace Kimera.Services
                     await transaction.CommitAsync();
                 }
 
-                await RemoveGameResourcesInternalAsync(game);
-
-                return new TaskRecord(TaskRecordType.Success, "The game has removed successfully.");
+                return new TaskRecord(Entities.TaskStatus.Success, "The game has removed successfully.");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "An exception occurred while removing the game.");
-                return new TaskRecord(TaskRecordType.Exception, $"An exception occurred while removing the game.\r\n{ex.Message}\r\n{ex.StackTrace}");
+                return new TaskRecord(Entities.TaskStatus.Exception, $"An exception occurred while removing the game.\r\n{ex.Message}\r\n{ex.StackTrace}");
             }
         }
 
+        /// <summary>
+        /// Remove game resources from file system. (Observable, Cancellable)
+        /// </summary>
+        /// <param name="game">A game to remove.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Game game)
         {
             try
@@ -129,12 +147,12 @@ namespace Kimera.Services
 
                 }
 
-                return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+                return new TaskRecord(Entities.TaskStatus.Success, "The game resources have removed successfully.");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "An exception occurred while removing the game resources.");
-                return new TaskRecord(TaskRecordType.Exception, $"An exception occurred while removing the game resources.\r\n{ex.Message}\r\n{ex.StackTrace}");
+                return new TaskRecord(Entities.TaskStatus.Exception, $"An exception occurred while removing the game resources.\r\n{ex.Message}\r\n{ex.StackTrace}");
             }
             finally
             {
@@ -149,6 +167,11 @@ namespace Kimera.Services
             }
         }
 
+        /// <summary>
+        /// Validate metadatas of a game. (Non-observable, Non-cancellable)
+        /// </summary>
+        /// <param name="game">A game to validate.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> ValidateMetadataInternalAsync(Game game)
         {
             try
@@ -168,7 +191,7 @@ namespace Kimera.Services
                         }
 
                         Log.Warning($"The component does not found. ({component.FilePath})");
-                        return new TaskRecord(TaskRecordType.Failure, $"The component does not found. ({component.FilePath})");
+                        return new TaskRecord(Entities.TaskStatus.Failure, $"The component does not found. ({component.FilePath})");
                     }
 
                     // Checks component password.
@@ -185,7 +208,7 @@ namespace Kimera.Services
 
                     await transaction.CommitAsync();
 
-                    return new TaskRecord(TaskRecordType.Success, "The metadata is valid.");
+                    return new TaskRecord(Entities.TaskStatus.Success, "The metadata is valid.");
                 }
             }
             catch (Exception ex)
@@ -199,7 +222,7 @@ namespace Kimera.Services
                     await transaction.CommitAsync();
 
                     Log.Error(ex, "An exception has occurred while validating the metadata.");
-                    return new TaskRecord(TaskRecordType.Exception, "An exception has occurred while validating the metadata.");
+                    return new TaskRecord(Entities.TaskStatus.Exception, "An exception has occurred while validating the metadata.");
                 }
             }
             finally
@@ -215,6 +238,11 @@ namespace Kimera.Services
             }
         }
 
+        /// <summary>
+        /// Validate game resources. (Non-observable, Non-cancellable)
+        /// </summary>
+        /// <param name="game">A game to validate.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> ValidateResourcesInternalAsync(Game game)
         {
             string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
@@ -224,7 +252,7 @@ namespace Kimera.Services
             {
                 if (!File.Exists(game.PackageMetadataNavigation.EntryPointFilePath))
                 {
-                    return new TaskRecord(TaskRecordType.Failure, "The entry point does not found.");
+                    return new TaskRecord(Entities.TaskStatus.Failure, "The entry point does not found.");
                 }
             }
             else
@@ -233,13 +261,19 @@ namespace Kimera.Services
 
                 if (!File.Exists(entryPoint))
                 {
-                    return new TaskRecord(TaskRecordType.Failure, "The entry point does not found.");
+                    return new TaskRecord(Entities.TaskStatus.Failure, "The entry point does not found.");
                 }
             }         
 
-            return new TaskRecord(TaskRecordType.Success, "The game resources are valid.");
+            return new TaskRecord(Entities.TaskStatus.Success, "The game resources are valid.");
         }
 
+        /// <summary>
+        /// Decompress components of a game. (Observable, Cancellable)
+        /// </summary>
+        /// <param name="game">A game to decompress.</param>
+        /// <param name="ignorePackageStatus">If it is true, task will ignore package status during work.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> DecompressComponentsInternalAsync(Game game, bool ignorePackageStatus = false)
         {
             if (game.PackageStatus == PackageStatus.Compressed || ignorePackageStatus)
@@ -251,7 +285,7 @@ namespace Kimera.Services
 
                     if (mainComponent == null)
                     {
-                        return new TaskRecord(TaskRecordType.Failure, $"The main component does not found.");
+                        return new TaskRecord(Entities.TaskStatus.Failure, $"The main component does not found.");
                     }
 
                     ArchiveFileManager archive = new ArchiveFileManager(mainComponent.FilePath);
@@ -262,7 +296,7 @@ namespace Kimera.Services
                     }
                     catch
                     {
-                        return new TaskRecord(TaskRecordType.Failure, $"The main component is not a valid archive file.");
+                        return new TaskRecord(Entities.TaskStatus.Failure, $"The main component is not a valid archive file.");
                     }
                 }
 
@@ -277,39 +311,49 @@ namespace Kimera.Services
                 }
             }
 
-            return new TaskRecord(TaskRecordType.Success, "The components have decompressed successfully.");
+            return new TaskRecord(Entities.TaskStatus.Success, "The components have decompressed successfully.");
         }
 
+        /// <summary>
+        /// Run game process. (Non-observable, Cancellable)
+        /// </summary>
+        /// <param name="game">A game to run.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> RunProcessInternalAsync(Game game)
         {
 
-            return new TaskRecord(TaskRecordType.Success, "The game resources have removed successfully.");
+            return new TaskRecord(Entities.TaskStatus.Success, "The game resources have removed successfully.");
         }
 
+        /// <summary>
+        /// Process some necessary tasks and Run a game. (Observable, Cancellable)
+        /// </summary>
+        /// <param name="game">A game to start.</param>
+        /// <returns>A task record</returns>
         public async Task<TaskRecord> StartGameInternalAsync(Game game)
         {
             TaskRecord metadataValidationResult = await ValidateMetadataInternalAsync(game);
 
-            if (metadataValidationResult.Type != TaskRecordType.Success)
+            if (metadataValidationResult.Type != Entities.TaskStatus.Success)
             {
                 return metadataValidationResult;
             }
 
             TaskRecord resourcesValidationResult = await ValidateResourcesInternalAsync(game);
 
-            if (resourcesValidationResult.Type != TaskRecordType.Success)
+            if (resourcesValidationResult.Type != Entities.TaskStatus.Success)
             {
                 return resourcesValidationResult;
             }
 
             TaskRecord decompressionResult = await DecompressComponentsInternalAsync(game);
 
-            if (decompressionResult.Type != TaskRecordType.Success)
+            if (decompressionResult.Type != Entities.TaskStatus.Success)
             {
                 return decompressionResult;
             }
 
-            return new TaskRecord(TaskRecordType.Success, "The game has started successfully.");
+            return new TaskRecord(Entities.TaskStatus.Success, "The game has started successfully.");
         }
 
         #endregion
@@ -329,17 +373,18 @@ namespace Kimera.Services
 
             TaskRecord result = await StartGameInternalAsync(game);
 
-            if (result.Type != TaskRecordType.Success)
+            if (result.Type != Entities.TaskStatus.Success)
             {
                 Log.Warning($"Failed to start the game. ({gameGuid})");
-                MessageBox.Show($"Failed to start the game. ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format((string)App.Current.Resources["SVC_GAME_FAILED_TO_START_MSG"], result.Message), "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-
-
-            MessageBox.Show($"SUCCESS ({gameGuid})\r\n{result.Message}", "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
+            if (result.Type == Entities.TaskStatus.Success)
+            {
+                RunningGameGuid = gameGuid;
+                IsRunning = true;
+            }
         }
 
         public async void ChangeFavoriteState(Guid gameGuid)
@@ -477,11 +522,6 @@ namespace Kimera.Services
             }
         }
 
-        public void RemoveGameResources(Guid gameGuid)
-        {
-
-        }
-
         public async void RemoveGame(Guid gameGuid)
         {
             Game game = await App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefaultAsync();
@@ -493,7 +533,25 @@ namespace Kimera.Services
                 return;
             }
 
-            await RemoveGameInternalAsync(game);
+            if (MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_DATA_CHECK_MSG"], "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                await RemoveGameInternalAsync(game);
+            }
+            else
+            {
+                return;
+            }
+
+            if (MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_RESOURCES_CHECK_MSG"], "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                await RemoveGameResourcesInternalAsync(game);
+            }
+            else
+            {
+                return;
+            }
+
+            MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_SUCCESS_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public async void ViewGame(Guid gameGuid)

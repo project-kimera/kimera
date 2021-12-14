@@ -1,6 +1,6 @@
 ﻿namespace Kimera.Entities
 {
-    public enum TaskRecordType
+    public enum TaskStatus
     {
         Working,
         Canceled,

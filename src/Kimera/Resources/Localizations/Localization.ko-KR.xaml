@@ -251,9 +251,13 @@
     
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_FAILED_TO_START_MSG">오류가 발생하여 게임을 실행하지 못했습니다. ({0})</system:String>
     <system:String x:Key="SVC_GAME_CATEGORY_NONE">없음</system:String>
     <system:String x:Key="SVC_GAME_ADD_FAVORITE_MSG">게임이 즐겨찾기에 추가되었습니다.</system:String>
     <system:String x:Key="SVC_GAME_REMOVE_FAVORITE_CHECKER_MSG">이 게임을 즐겨찾기에서 삭제하시겠습니까?</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_DATA_CHECK_MSG">정말 이 게임을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_RESOURCES_CHECK_MSG">이 게임의 리소스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_SUCCESS_MSG">게임을 성공적으로 삭제했습니다!</system:String>
 
     <!--Converter : CategoryGuidToDetailsConverter-->
     <system:String x:Key="CONV_CGTODETAILS_PREFIX">카테고리</system:String>

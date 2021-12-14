@@ -47,11 +47,12 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    
                     <StackPanel Grid.Row="0" Orientation="Vertical" Margin="10 10 10 10">
                         <materialDesign:ColorZone Mode="Standard" Height="40" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1" Margin="0 0 0 0" materialDesign:ShadowAssist.ShadowDepth="Depth1">
                             <Grid>
-                                <ComboBox Style="{StaticResource MaterialDesignDataGridComboBox}" Margin="8 4 8 4" VerticalAlignment="Center" materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SEARCH_SERVICES_HINT}"
+                                <ComboBox Margin="8 4 8 4" VerticalAlignment="Center"
+                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                          materialDesign:HintAssist.Hint="{StaticResource VIEW_GAMEMETADATAEDITOR_SEARCH_SERVICES_HINT}"
                                   ItemsSource="{Binding SearchServices}" DisplayMemberPath="ServiceName" SelectedItem="{Binding SelectedSearchService, Mode=TwoWay}"/>
                             </Grid>
                         </materialDesign:ColorZone>

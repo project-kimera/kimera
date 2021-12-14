@@ -49,7 +49,6 @@ namespace Kimera
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
                 .Singleton<Settings>()
-                .Singleton<TaskService>()
                 .Singleton<GameService>()
                 .Singleton<SortingService>()
                 .Singleton<FilteringService>()
