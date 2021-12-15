@@ -1,0 +1,71 @@
+﻿<Window x:Class="Kimera.Views.Dialogs.ArchiveFileExplorerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kimera.Views.Dialogs"
+        xmlns:caliburn="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Style="{DynamicResource KimeraFixedDialogWindow}"
+        Foreground="{DynamicResource KimeraForeground}"
+        Title="{StaticResource VIEW_ARCHIVEFILEEXPLORER_TITLE}"
+        WindowStartupLocation="CenterScreen"
+        Width="800" Height="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="10 10 10 10" VerticalAlignment="Center"
+                             materialDesign:HintAssist.Hint="{DynamicResource VIEW_ARCHIVEFILEEXPLORER_PATH_HINT}"/>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <ListBox Grid.Row="1"
+                             ItemsSource="{Binding Suggestions}" SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}"
+                             Visibility="{Binding IsWorking, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="40" Margin="10 0 10 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"
+                                           Source="{Binding ThumbnailUrl, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}"/>
+
+                                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="10 0 0 0">
+                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Foreground="{DynamicResource KimeraForegroundUltraLight}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding ProductCode}"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Background="{DynamicResource KimeraDialogCommandBarBackground}">
+            <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
+                        Visibility="{Binding IsRegistered, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            caliburn:Message.Attach="Cancel()"/>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
+                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
