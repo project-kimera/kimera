@@ -165,6 +165,8 @@
     <system:String x:Key="VIEW_PASSWORDEDITOR_ENCRYPT_DATABASE_CAPTION">암호화에 사용할 비밀번호를 입력해주세요.</system:String>
     <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_TITLE">데이터베이스 암호화 해제</system:String>
     <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_DATABASE_CAPTION">현재 사용중인 비밀번호를 입력해주세요.</system:String>
+    <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_ARCHIVE_TITLE">압축파일 암호화 해제</system:String>
+    <system:String x:Key="VIEW_PASSWORDEDITOR_DECRYPT_ARCHIVE_CAPTION">압축파일의 비밀번호를 입력해주세요.</system:String>
 
     <!--View : CategoryNameEditorView-->
     <system:String x:Key="VIEW_CATEGORYNAMEEDITOR_TITLE">카테고리 이름 변경</system:String>
@@ -213,14 +215,15 @@
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER">패키지 형식</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_HEADER">진입점(EP)</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ADVANCED_CAPTION">고급 설정</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER">실행 파일</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER">실행 파일 경로</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER">명령줄 인수</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_NEC_WARN_NOTICE">※ 패키지 진입점과 실행 파일을 지정하지 않을 경우에는 실행이 불가능합니다.</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에는 '%Variables%' 형식을 통해 환경변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 실행 파일 경로와 명령줄 인수에는 '%Variables%' 형식을 통해 환경변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
 
     <!--View : ArchiveFileExplorerView-->
-    <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_TITLE">압축 파일 탐색기</system:String>
-    <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_PATH_HINT">경로</system:String>
+    <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_EP_TITLE">진입점 지정하기</system:String>
+    <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_EP_CAPTION">게임 시작 시 실행할 파일을 선택하세요.</system:String>
+    <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_PATH_CAPTION">경로</system:String>
 
     <!--ViewModel : GuardViewModel-->
     <system:String x:Key="VM_GUARD_RESET_APP_EXCEPTION_MSG">알 수 없는 오류가 발생하여 애플리케이션을 초기화하지 못했습니다.</system:String>
@@ -246,8 +249,13 @@
     <!--ViewModel : PackageMetadataEditorViewModel-->
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_MD_MSG">메타데이터가 유효하지 않습니다. 각 값들을 형식에 맞게 수정해주세요.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_COMP_COUNT_MSG">Single 형식의 패키지에서는 오직 하나의 컴포넌트만을 필요로 합니다.</system:String>
-    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG">현재 패키지 형식에서는 진입점을 비워둘 수 없습니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_NULL_EP_MSG">진입점은 비워둘 수 없습니다.</system:String>
+    <system:String x:Key="VM_PACKAGEMETADATAEDITOR_NULL_EXE_MSG">실행 파일 경로를 비워둘 수 없습니다.</system:String>
     <system:String x:Key="VM_PACKAGEMETADATAEDITOR_MAIN_COMP_NOT_EXISTS_MSG">Single 형식의 패키지에서는 인덱스가 0인 메인 컴포넌트 하나가 반드시 필요합니다.</system:String>
+
+    <!--ViewModel : ArchiveFileExplorerViewModel-->
+    <system:String x:Key="VM_ARCHIVEFILEEXPLORER_INVALID_PW_MSG">비밀번호가 일치하지 않습니다. 다시 입력해주세요.</system:String>
+    <system:String x:Key="VM_ARCHIVEFILEEXPLORER_EXCEPTION_MSG">압축파일을 탐색하던 중 알 수 없는 오류가 발생했습니다. {0}</system:String>
 
     <!--ViewModel : SettingsViewModel-->
     <system:String x:Key="VM_SETTINGS_CRYPTO_TASK_HAS_FAILED_MSG">데이터베이스 작업에 실패했습니다.</system:String>

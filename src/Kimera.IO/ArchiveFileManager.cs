@@ -71,6 +71,41 @@ namespace Kimera.IO
             }
         }
 
+        public List<string> GetFiles(List<string> targetExtensions, string password = null)
+        {
+            try
+            {
+                using (SevenZipExtractor extractor = new SevenZipExtractor(_filePath, password))
+                {
+                    IEnumerable<string> result = extractor.ArchiveFileNames;
+
+                    if (targetExtensions == null || targetExtensions.Count == 0)
+                    {
+                        return result.ToList();
+                    }
+                    else
+                    {
+                        result = result.Where(p => targetExtensions.Contains(Path.GetExtension(p), StringComparer.OrdinalIgnoreCase));
+                        return result.ToList();
+                    }
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<string>> GetFilesAsync(List<string> targetExtensions, string password = null)
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                return GetFiles(targetExtensions, password);
+            });
+
+            return await task.ConfigureAwait(false);
+        }
+
         public List<string> GetEntryPoints(List<string> targetFileNames, string password = null)
         {
             try

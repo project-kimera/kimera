@@ -10,61 +10,78 @@
         mc:Ignorable="d"
         Style="{DynamicResource KimeraFixedDialogWindow}"
         Foreground="{DynamicResource KimeraForeground}"
-        Title="{StaticResource VIEW_ARCHIVEFILEEXPLORER_TITLE}"
+        Title="{Binding Title}"
         WindowStartupLocation="CenterScreen"
         Width="800" Height="600">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Foreground="{DynamicResource KimeraForegroundLight}" Margin="20 0 20 0"
+                   TextTrimming="CharacterEllipsis" Text="{Binding Caption}"/>
 
-                <Grid Grid.Row="0">
-                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}" Margin="10 10 10 10" VerticalAlignment="Center"
-                             materialDesign:HintAssist.Hint="{DynamicResource VIEW_ARCHIVEFILEEXPLORER_PATH_HINT}"/>
-                </Grid>
+        <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 0 0 1">
+            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="20 10 20 20" BorderThickness="1" CornerRadius="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Grid Grid.Column="1">
-                    <ListBox Grid.Row="1"
-                             ItemsSource="{Binding Suggestions}" SelectedItem="{Binding SelectedSuggestion, Mode=TwoWay}"
-                             Visibility="{Binding IsWorking, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="40" Margin="10 0 10 0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" RenderOptions.BitmapScalingMode="HighQuality" Stretch="UniformToFill"
-                                           Source="{Binding ThumbnailUrl, TargetNullValue={StaticResource ImagePlaceholder}, FallbackValue={StaticResource ImagePlaceholder}}"/>
-
-                                    <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="10 0 0 0">
-                                        <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Foreground="{DynamicResource KimeraForegroundUltraLight}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding ProductCode}"/>
-                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Name}"/>
+                        <ListBox Grid.Column="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                 ItemsSource="{Binding Components}" SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon VerticalAlignment="Center" Width="16" Height="16" Kind="ZipBoxOutline"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding FilePath}" />
                                     </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <GridSplitter Grid.Column="1" Width="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" ShowsPreview="True" />
+
+                        <ListBox Grid.Column="2"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                 ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile, Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon VerticalAlignment="Center" Width="16" Height="16" Kind="FileOutline"/>
+                                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="4 0 0 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+
+                    <Border Grid.Row="1" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0 1 0 0">
+                        <TextBox Margin="8 4 8 4" IsReadOnly="True" materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                 materialDesign:HintAssist.Hint="{DynamicResource VIEW_ARCHIVEFILEEXPLORER_PATH_CAPTION}"
+                                 Text="{Binding SelectedFile, Mode=TwoWay}"/>
+                    </Border>
                 </Grid>
-            </Grid>
+            </Border>
         </Border>
 
-        <Grid Grid.Row="1" Background="{DynamicResource KimeraDialogCommandBarBackground}">
+        <Grid Grid.Row="2" Background="{DynamicResource KimeraDialogCommandBarBackground}">
             <StackPanel Orientation="Horizontal" Margin="0 0 16 0" VerticalAlignment="Center" HorizontalAlignment="Right">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource KimeraForegroundLight}" Content="{StaticResource VIEW_COMMON_CANCEL}" Cursor="Hand"
-                        Visibility="{Binding IsRegistered, Converter={StaticResource BooleanToVisibilityConverter}}"
                             caliburn:Message.Attach="Cancel()"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource VIEW_COMMON_CONFIRM}"
-                            caliburn:Message.Attach="Confirm($view)" Cursor="Hand"/>
+                            caliburn:Message.Attach="Confirm()" Cursor="Hand"/>
             </StackPanel>
         </Grid>
     </Grid>

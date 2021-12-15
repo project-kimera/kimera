@@ -104,11 +104,17 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="120"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}" />
                                     <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding EntryPointFilePath, Mode=TwoWay}"/>
+                                    <Button Grid.Column="2" Style="{StaticResource MaterialDesignOutlinedButton}"
+                                                BorderBrush="{DynamicResource KimeraForegroundLight}" Foreground="{DynamicResource KimeraForegroundLight}"
+                                                Margin="8 0 0 0" Width="50"
+                                                Content="{StaticResource VIEW_COMMON_EXPLORE}"
+                                                caliburn:Message.Attach="ExploreEntryPoint()"/>
                                 </Grid>
                             </StackPanel>
                         </Expander>
@@ -125,7 +131,7 @@
                                     <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}" />
                                     <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
-                                     Text="{Binding CommandLineArguments, Mode=TwoWay}"/>
+                                     Text="{Binding ExecutableFilePath, Mode=TwoWay}"/>
                                 </Grid>
                                 
                                 <Grid Margin="0 6 0 0">

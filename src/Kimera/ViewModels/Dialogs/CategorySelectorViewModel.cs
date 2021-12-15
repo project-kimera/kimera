@@ -41,6 +41,7 @@ namespace Kimera.ViewModels.Dialogs
             get => _selectedCategory;
             set => Set(ref _selectedCategory, value);
         }
+
         public async void Cancel()
         {
             await TryCloseAsync(false);

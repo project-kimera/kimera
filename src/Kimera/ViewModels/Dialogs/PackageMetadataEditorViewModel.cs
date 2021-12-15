@@ -67,6 +67,16 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
+        public string ExecutableFilePath
+        {
+            get => _metadata.ExecutableFilePath;
+            set
+            {
+                _metadata.ExecutableFilePath = value;
+                NotifyOfPropertyChange("ExecutableFilePath");
+            }
+        }
+
         public string CommandLineArguments
         {
             get => _metadata.CommandLineArguments;
@@ -118,6 +128,25 @@ namespace Kimera.ViewModels.Dialogs
             Components.Remove(SelectedComponent);
         }
 
+        public async void ExploreEntryPoint()
+        {
+            List<string> exts = new List<string>();
+            exts.Add(".exe");
+
+            ArchiveFileExplorerViewModel viewModel = new ArchiveFileExplorerViewModel();
+            viewModel.Title = (string)App.Current.Resources["VIEW_ARCHIVEFILEEXPLORER_EP_TITLE"];
+            viewModel.Caption = string.Format((string)App.Current.Resources["VIEW_ARCHIVEFILEEXPLORER_EP_CAPTION"]);
+            viewModel.Extensions = exts;
+            viewModel.Components = _components;
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == true)
+            {
+                EntryPointFilePath = @".\" + viewModel.SelectedFile;
+            }
+        }
+
         public async void Cancel()
         {
             await TryCloseAsync(false);
@@ -147,7 +176,14 @@ namespace Kimera.ViewModels.Dialogs
 
             if (string.IsNullOrEmpty(EntryPointFilePath))
             {
-                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_INVALID_PKGTYPE_FOR_NULL_EP_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_NULL_EP_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning("The entry point is null.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(ExecutableFilePath))
+            {
+                MessageBox.Show((string)App.Current.Resources["VM_PACKAGEMETADATAEDITOR_NULL_EXE_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
                 Log.Warning("The entry point is null.");
                 return;
             }
