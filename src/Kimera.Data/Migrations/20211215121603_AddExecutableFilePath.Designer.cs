@@ -3,6 +3,7 @@ using System;
 using Kimera.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kimera.Data.Migrations
 {
     [DbContext(typeof(KimeraContext))]
-    partial class KimeraContextModelSnapshot : ModelSnapshot
+    [Migration("20211215121603_AddExecutableFilePath")]
+    partial class AddExecutableFilePath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.1");

@@ -30,9 +30,14 @@ namespace Kimera.Data.Entities
         public PackageType Type { get; set; }
 
         /// <summary>
-        /// The entry point file path of the package. <para/>If the package type is not <see cref="PackageType.Executable"/>, it uses relative path.
+        /// The entry point file path of the package. It uses relative path.
         /// </summary>
         public string EntryPointFilePath { get; set; }
+
+        /// <summary>
+        /// The executable file path of the package.
+        /// </summary>
+        public string ExecutableFilePath { get; set; }
 
         /// <summary>
         /// The commandline used to start the game.
