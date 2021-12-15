@@ -85,43 +85,66 @@
                       ShowsPreview="True"/>
 
                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible">
-                    <StackPanel Orientation="Vertical" Margin="20">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}" />
-                            <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}"
+                    <StackPanel Orientation="Vertical" Margin="20 10 20 10">
+                        <Expander HorizontalAlignment="Stretch" IsExpanded="True"
+                                  materialDesign:ExpanderAssist.HeaderFontSize="14"
+                                  materialDesign:ExpanderAssist.HorizontalHeaderPadding="0 16 0 8" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_GENERAL_CAPTION}">
+                            <StackPanel Orientation="Vertical" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}" />
+                                    <ComboBox Grid.Column="1" Margin="0 6 0 0" materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER}"
                               ItemsSource="{Binding Source={StaticResource PackageTypeItems}}" SelectedItem="{Binding PackageType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </Grid>
+                                </Grid>
 
-                        <Grid Margin="0 6 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}" />
-                            <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}"
+                                <Grid Margin="0 6 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}" />
+                                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding EntryPointFilePath, Mode=TwoWay}"/>
-                        </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Expander>
 
-                        <Grid Margin="0 6 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}" />
-                            <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}"
+                        <Expander HorizontalAlignment="Stretch" IsExpanded="True"
+                                  materialDesign:ExpanderAssist.HeaderFontSize="14"
+                                  materialDesign:ExpanderAssist.HorizontalHeaderPadding="0 16 0 8" Header="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ADVANCED_CAPTION}">
+                            <StackPanel Orientation="Vertical" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}" />
+                                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
                                      Text="{Binding CommandLineArguments, Mode=TwoWay}"/>
-                        </Grid>
+                                </Grid>
+                                
+                                <Grid Margin="0 6 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}" />
+                                    <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER}"
+                                     materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
+                                     Text="{Binding CommandLineArguments, Mode=TwoWay}"/>
+                                </Grid>
 
-                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
-                               Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE}" />
-                        <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 6 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 10 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
+                               Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_NEC_WARN_NOTICE}" />
+                                <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}" Margin="0 6 0 0" VerticalAlignment="Center" Opacity=".68" TextWrapping="WrapWithOverflow"
                                Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE}" />
+                            </StackPanel>
+                        </Expander>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

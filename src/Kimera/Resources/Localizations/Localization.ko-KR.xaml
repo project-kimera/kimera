@@ -209,11 +209,14 @@
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PASSWORD_HEADER">비밀번호</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ADD_HINT">추가</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_REMOVE_HINT">제거</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_GENERAL_CAPTION">일반 설정</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER">패키지 형식</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_HEADER">진입점(EP)</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ADVANCED_CAPTION">고급 설정</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER">실행 파일</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER">명령줄 인수</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_WARN_NOTICE">※ 진입점을 지정하지 않을 경우에는 실행이 불가능합니다.</system:String>
-    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에는 시스템 환경변수와 '$' 기호를 이용한 변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_NEC_WARN_NOTICE">※ 패키지 진입점과 실행 파일을 지정하지 않을 경우에는 실행이 불가능합니다.</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_VAR_NOTICE">※ 진입점과 명령줄 인수에는 '%Variables%' 형식을 통해 환경변수를 사용할 수 있습니다. 사용 가능한 변수의 목록은 도움말 문서를 참고해주세요.</system:String>
 
     <!--View : ArchiveFileExplorerView-->
     <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_TITLE">압축 파일 탐색기</system:String>
