@@ -67,6 +67,28 @@ namespace Kimera.ViewModels.Dialogs
             }
         }
 
+        private List<Tuple<string, string, string>> _presets = new List<Tuple<string, string, string>>();
+
+        public List<Tuple<string, string, string>> Presets
+        {
+            get => _presets;
+            set => Set(ref _presets, value);
+        }
+
+        private Tuple<string, string, string> _selectedPreset = new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
+
+        public Tuple<string, string, string> SelectedPreset
+        {
+            get => _selectedPreset;
+            set
+            {
+                Set(ref _selectedPreset, value);
+                ExecutableFilePath = value.Item2;
+                CommandLineArguments = value.Item3;
+            }
+        }
+
+
         public string ExecutableFilePath
         {
             get => _metadata.ExecutableFilePath;
@@ -90,6 +112,7 @@ namespace Kimera.ViewModels.Dialogs
         public PackageMetadataEditorViewModel(PackageMetadata metadata)
         {
             InitializePackageMetadata(metadata);
+            InitializePresets();
         }
 
         private void InitializePackageMetadata(PackageMetadata metadata)
@@ -116,6 +139,13 @@ namespace Kimera.ViewModels.Dialogs
             {
                 Log.Error(ex, "An error occurred while loading the package metadata.");
             }
+        }
+
+        private void InitializePresets()
+        {
+            Presets.Add(new Tuple<string, string, string>("Default", "%actualpath%", ""));
+            Presets.Add(new Tuple<string, string, string>("Locale Emulator", "LEProc.exe", "-run %actualpath%"));
+            Presets.Add(new Tuple<string, string, string>("Locale Emulator (Administrator)", "LEProc.exe", "-runas [GUID] %actualpath%"));
         }
 
         public void AddComponent()

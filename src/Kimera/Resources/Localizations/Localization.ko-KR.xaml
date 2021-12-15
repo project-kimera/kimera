@@ -215,6 +215,7 @@
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PKGTYPE_HEADER">패키지 형식</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EP_HEADER">진입점(EP)</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ADVANCED_CAPTION">고급 설정</system:String>
+    <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_PRESET_HEADER">프리셋</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER">실행 파일 경로</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_ARGS_HEADER">명령줄 인수</system:String>
     <system:String x:Key="VIEW_PACKAGEMETADATAEDITOR_NEC_WARN_NOTICE">※ 패키지 진입점과 실행 파일을 지정하지 않을 경우에는 실행이 불가능합니다.</system:String>

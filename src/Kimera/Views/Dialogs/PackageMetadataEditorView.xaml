@@ -128,6 +128,17 @@
                                         <ColumnDefinition Width="120"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PRESET_HEADER}" />
+                                    <ComboBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_PRESET_HEADER}"
+                                              materialDesign:TransitionAssist.DisableTransitions="True"
+                                              ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset, Mode=TwoWay}" DisplayMemberPath="Item1"/>
+                                </Grid>
+
+                                <Grid Margin="0 6 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Style="{StaticResource MaterialDesignCaptionTextBlock}" VerticalAlignment="Center" Opacity=".68" Text="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}" />
                                     <TextBox Grid.Column="1" Margin="0 6 0 0 " materialDesign:HintAssist.Hint="{StaticResource VIEW_PACKAGEMETADATAEDITOR_EXE_HEADER}"
                                      materialDesign:TextFieldAssist.HasClearButton="True" materialDesign:TransitionAssist.DisableTransitions="True"
