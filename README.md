@@ -15,5 +15,5 @@
 
 ## Links
  * [Download](https://github.com/project-kimera/kimera/releases)
- * [Documents](https://github.com/project-kimera/kimera/tree/main/docs)
+ * [Documents](https://github.com/project-kimera/kimera/tree/main/docs) ([Variable Guide](https://github.com/project-kimera/kimera/blob/main/docs/VARS.md), [Contribution Guide](https://github.com/project-kimera/kimera/blob/main/docs/CONTRIBUTION_GUIDE.md), [Opensources](https://github.com/project-kimera/kimera/blob/main/docs/OPENSOURCES.md))
  * [Issues](https://github.com/project-kimera/kimera/issues)
