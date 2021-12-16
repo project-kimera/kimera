@@ -44,9 +44,6 @@ namespace Kimera.ViewModels.Specials
             await InitializeLoggerAsync();
             Log.Information("The logger has been initialized.");
 
-            await InitializeEnvironmentVariablesAsync();
-            Log.Information("The environment variables has been initialized.");
-
             await InitializeLocalizationAsync();
             Log.Information("The language resources has been initialized.");
 
@@ -92,21 +89,6 @@ namespace Kimera.ViewModels.Specials
                         Log.Logger = log;
                     }
                 });
-            });
-
-            await task;
-        }
-
-        private async Task InitializeEnvironmentVariablesAsync()
-        {
-            var task = Task.Factory.StartNew(() =>
-            {
-                var variables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine);
-
-                foreach (DictionaryEntry entry in variables)
-                {
-                    Settings.EnvironmentVariables.Add((string)entry.Key, (string)entry.Value);
-                }
             });
 
             await task;

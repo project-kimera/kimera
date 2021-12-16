@@ -143,9 +143,9 @@ namespace Kimera.ViewModels.Dialogs
 
         private void InitializePresets()
         {
-            Presets.Add(new Tuple<string, string, string>("Default", "%actualpath%", ""));
-            Presets.Add(new Tuple<string, string, string>("Locale Emulator", "LEProc.exe", "-run %actualpath%"));
-            Presets.Add(new Tuple<string, string, string>("Locale Emulator (Administrator)", "LEProc.exe", "-runas [GUID] %actualpath%"));
+            Presets.Add(new Tuple<string, string, string>("Default", "%ActualEntryPointPath%", ""));
+            Presets.Add(new Tuple<string, string, string>("Locale Emulator", "LEProc.exe", "-run %ActualEntryPointPath%"));
+            Presets.Add(new Tuple<string, string, string>("Locale Emulator (Administrator)", "LEProc.exe", "-runas [GUID] %ActualEntryPointPath%"));
         }
 
         public void AddComponent()
@@ -173,7 +173,7 @@ namespace Kimera.ViewModels.Dialogs
 
             if (dialogResult == true)
             {
-                EntryPointFilePath = @".\" + viewModel.SelectedFile;
+                EntryPointFilePath = viewModel.SelectedFile;
             }
         }
 

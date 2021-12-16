@@ -140,7 +140,8 @@ namespace Kimera.Services
         {
             try
             {
-                string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
+                VariableBuilder builder = new VariableBuilder(game);
+                string gameDirectory = builder.GetGameDirectory();
 
                 if (Directory.Exists(gameDirectory))
                 {
@@ -245,8 +246,9 @@ namespace Kimera.Services
         /// <returns>A task record</returns>
         public async Task<TaskRecord> ValidateResourcesInternalAsync(Game game)
         {
-            string gameDirectory = VariableBuilder.GetGameDirectory(game.SystemId);
-            
+            VariableBuilder builder = new VariableBuilder(game);
+            string gameDirectory = builder.GetGameDirectory();
+
             // Checks the entry point.
             if (Path.IsPathRooted(game.PackageMetadataNavigation.EntryPointFilePath))
             {

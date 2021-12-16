@@ -72,7 +72,7 @@ namespace Kimera
         {
             if (File.Exists(Settings.SettingsFilePath))
             {
-                string json = TextFileManager.ReadTextFile(Settings.SettingsFilePath, Encoding.UTF8);
+                string json = TextManager.ReadTextFile(Settings.SettingsFilePath, Encoding.UTF8);
 
                 var settings = JsonConvert.DeserializeObject<Settings>(json);
 
@@ -141,7 +141,7 @@ namespace Kimera
             var settings = IoC.Get<Settings>();
             string json = JsonConvert.SerializeObject(settings);
 
-            TextFileManager.WriteTextFile(Settings.SettingsFilePath, json, Encoding.UTF8);
+            TextManager.WriteTextFile(Settings.SettingsFilePath, json, Encoding.UTF8);
         }
     }
 }

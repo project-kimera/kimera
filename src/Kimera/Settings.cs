@@ -16,13 +16,6 @@ namespace Kimera
 
         public readonly static string SettingsFilePath = @"data\settings.json";
 
-        #region ::System Settings::
-
-        [JsonIgnore]
-        public static Dictionary<string, string> EnvironmentVariables { get; set; } = new Dictionary<string, string>();
-
-        #endregion
-
         #region ::Application Settings::
 
 

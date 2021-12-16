@@ -28,7 +28,7 @@ namespace Kimera.Network.Services
             {
                 string url = WebHelper.GetLocalizedApiUrl(URL_DLSITE_PRODUCT_INFO_API);
                 string response = await WebHelper.GetResponseAsync(string.Format(url, productCode));
-                response = TextFileManager.RemoveBOM(response);
+                response = TextManager.RemoveBOM(response);
 
                 JArray array = JArray.Parse(response);
 
@@ -53,7 +53,7 @@ namespace Kimera.Network.Services
             {
                 string productInfoApiUrl = WebHelper.GetLocalizedApiUrl(URL_DLSITE_SHORT_PRODUCT_INFO_API);
                 string response = await WebHelper.GetResponseAsync(string.Format(productInfoApiUrl, productCode));
-                response = TextFileManager.RemoveBOM(response);
+                response = TextManager.RemoveBOM(response);
 
                 JObject workImage = JObject.Parse(response);
                 string imageUrl = workImage[productCode.ToUpper()]["work_image"].ToString();
@@ -79,7 +79,7 @@ namespace Kimera.Network.Services
             {
                 string url = WebHelper.GetLocalizedApiUrl(URL_DLSITE_PRODUCT_INFO_API);
                 string response = await WebHelper.GetResponseAsync(string.Format(url, productCode));
-                response = TextFileManager.RemoveBOM(response);
+                response = TextManager.RemoveBOM(response);
 
                 JArray array = JArray.Parse(response);
 

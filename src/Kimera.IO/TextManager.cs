@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Kimera.IO
 {
     /// <summary>
-    /// Provides functions related to file I/O.
+    /// Provides functions related to text I/O.
     /// </summary>
-    public static class TextFileManager
+    public static class TextManager
     {
         /// <summary>
         /// Writes a text file in the specified path.
@@ -108,6 +108,61 @@ namespace Kimera.IO
                 text = text.Remove(0, UTF8ByteOrderMark.Length);
 
             return text.Replace("\0", "");
+        }
+
+        private static void Resize(ref string[] array)
+        {
+            int i = array.Length;
+            Array.Resize(ref array, i + 1);
+            array[i] = null;
+        }
+
+        /// <summary>
+        /// Parse a text in the middle of start and end.
+        /// </summary>
+        /// <param name="text">A text to parse.</param>
+        /// <param name="start">Start</param>
+        /// <param name="end">End</param>
+        /// <returns>Result</returns>
+        public static string ParseText(this string text, string start, string end)
+        {
+            string result = string.Empty;
+            result = text.Substring(text.IndexOf(start) + start.Length);
+            result = result.Substring(0, result.IndexOf(end));
+            return result;
+        }
+
+        /// <summary>
+        /// Parse texts in the middle of start and end.
+        /// </summary>
+        /// <param name="text">A text to parse.</param>
+        /// <param name="start">Start</param>
+        /// <param name="end">End</param>
+        /// <returns>Result</returns>
+        public static string[] ParseTexts(this string text, string start, string end)
+        {
+            string source = text;
+            string[] result = { null };
+            int Count = 0;
+
+            while (source.IndexOf(start) > -1)
+            {
+                Resize(ref result);
+
+                source = source.Substring(source.IndexOf(start) + start.Length);
+
+                if (source.IndexOf(end) != -1)
+                {
+                    result[Count] = source.Substring(0, source.IndexOf(end));
+                }
+                else
+                {
+                    return result;
+                }
+
+                Count++;
+            }
+            return result;
         }
     }
 }
