@@ -105,6 +105,16 @@
 
         <Separator/>
 
+        <MenuItem Icon="{materialDesign:PackIcon Kind=DeleteSweep}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_REMOVE_RES}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <caliburn:ActionMessage MethodName="RemoveGameResources">
+                        <caliburn:Parameter Value="{Binding SystemId}"/>
+                    </caliburn:ActionMessage>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </MenuItem>
+
         <MenuItem Icon="{materialDesign:PackIcon Kind=Delete}" Header="{DynamicResource VIEW_LIBRARY_CONTEXTMENU_REMOVE_GM}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">

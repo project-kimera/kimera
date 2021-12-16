@@ -136,12 +136,15 @@ namespace Kimera.Services
         /// </summary>
         /// <param name="game">A game to remove.</param>
         /// <returns>A task record</returns>
-        public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Game game)
+        public async Task<TaskRecord> RemoveGameResourcesInternalAsync(Game game, IProgress<double> progress, IProgress<string> progressCaption, CancellationToken cancellationToken)
         {
             try
             {
                 VariableBuilder builder = new VariableBuilder(game);
                 string gameDirectory = builder.GetGameDirectory();
+
+                progress.Report(0.0);
+                progressCaption.Report("");
 
                 if (Directory.Exists(gameDirectory))
                 {
@@ -301,7 +304,6 @@ namespace Kimera.Services
                         return new TaskRecord(Entities.TaskStatus.Failure, $"The main component is not a valid archive file.");
                     }
                 }
-
 
                 // If the package type is chunk
                 foreach (Component component in game.PackageMetadataNavigation.Components)
@@ -524,6 +526,11 @@ namespace Kimera.Services
             }
         }
 
+        public void RemoveGameResources(Guid gameGuid)
+        {
+
+        }
+
         public async void RemoveGame(Guid gameGuid)
         {
             Game game = await App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefaultAsync();
@@ -546,7 +553,7 @@ namespace Kimera.Services
 
             if (MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_RESOURCES_CHECK_MSG"], "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
-                await RemoveGameResourcesInternalAsync(game);
+                //await RemoveGameResourcesInternalAsync(game);
             }
             else
             {
