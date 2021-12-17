@@ -19,8 +19,9 @@ namespace Kimera.IO
         /// </summary>
         /// <param name="targetPath">Directory to index.</param>
         /// <param name="extensions">The extensions of the files to index. If the value is null, index all files.</param>
+        /// <param name="cancellationToken">A token to cancel task.</param>
         /// <returns>Indexed file list</returns>
-        public static List<string> GetFiles(string targetPath, List<string> extensions = null)
+        public static List<string> GetFiles(string targetPath, List<string> extensions, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(targetPath))
             {
@@ -40,6 +41,11 @@ namespace Kimera.IO
                 // Index files in current directory.
                 foreach (FileInfo file in dir.GetFiles())
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return null;
+                    }
+
                     if (file.IsReadOnly)
                     {
                         continue;
@@ -61,7 +67,12 @@ namespace Kimera.IO
                 // Re-index files in sub-directory.
                 foreach (DirectoryInfo subdir in dir.GetDirectories())
                 {
-                    files.AddRange(GetFiles(subdir.FullName, extensions));
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return null;
+                    }
+
+                    files.AddRange(GetFiles(subdir.FullName, extensions, cancellationToken));
                 }
 
                 return files;
@@ -70,6 +81,23 @@ namespace Kimera.IO
             {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Index all files that exist within the directory.
+        /// </summary>
+        /// <param name="targetPath">Directory to index.</param>
+        /// <param name="extensions">The extensions of the files to index. If the value is null, index all files.</param>
+        /// <param name="cancellationToken">A token to cancel task.</param>
+        /// <returns>Indexed file list</returns>
+        public static async Task<List<string>> GetFilesAsync(string targetPath, List<string> extensions, CancellationToken cancellationToken)
+        {
+            var task = Task.Factory.StartNew(() =>
+            {
+                return GetFiles(targetPath, extensions, cancellationToken);
+            });
+
+            return await task.ConfigureAwait(false);
         }
 
         /// <summary>

@@ -144,14 +144,68 @@ namespace Kimera.Services
                 string gameDirectory = builder.GetGameDirectory();
 
                 progress.Report(0.0);
-                progressCaption.Report("");
+                progressCaption.Report((string)App.Current.Resources["SVC_GAME_INIT_MSG"]);
 
-                if (Directory.Exists(gameDirectory))
+                if (cancellationToken.IsCancellationRequested)
                 {
-
+                    return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
                 }
 
-                return new TaskRecord(Entities.TaskStatus.Success, "The game resources have removed successfully.");
+                // Check inputted directory.
+                if (Directory.Exists(gameDirectory))
+                {
+                    progressCaption.Report((string)App.Current.Resources["SVC_GAME_INDEXING_MSG"]);
+
+                    List<string> files = await IndexingHelper.GetFilesAsync(gameDirectory, null, cancellationToken);
+
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
+                    }
+
+                    for (int i = 0; i<files.Count; i++)
+                    {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
+                        }
+
+                        int currentProgress = (i + 1) / files.Count * 100;
+
+                        progress.Report(currentProgress);
+                        progressCaption.Report(string.Format((string)App.Current.Resources["SVC_GAME_REMOVING_MSG"], $"{i+1}/{files.Count}"));
+
+                        try
+                        {
+                            File.Delete(files[i]);
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
+                    Directory.Delete(gameDirectory);
+
+                    progress.Report(100.0);
+                    progressCaption.Report((string)App.Current.Resources["SVC_GAME_COMPLETED_MSG"]);
+
+                    // Change the package status.
+                    using (var transaction = await App.DatabaseContext.Database.BeginTransactionAsync())
+                    {
+                        game.PackageStatus = PackageStatus.Compressed;
+
+                        await App.DatabaseContext.SaveChangesAsync();
+
+                        await transaction.CommitAsync();
+                    }
+
+                    return new TaskRecord(Entities.TaskStatus.Success, "The game resources have removed successfully.");
+                }
+                else
+                {
+                    return new TaskRecord(Entities.TaskStatus.Failure, "The game directory does not exist.");
+                }
             }
             catch (Exception ex)
             {
@@ -279,7 +333,7 @@ namespace Kimera.Services
         /// <param name="game">A game to decompress.</param>
         /// <param name="ignorePackageStatus">If it is true, task will ignore package status during work.</param>
         /// <returns>A task record</returns>
-        public async Task<TaskRecord> DecompressComponentsInternalAsync(Game game, bool ignorePackageStatus = false)
+        public async Task<TaskRecord> DecompressComponentsInternalAsync(Game game, bool ignorePackageStatus, IProgress<double> progress, IProgress<string> progressCaption, CancellationToken cancellationToken)
         {
             if (game.PackageStatus == PackageStatus.Compressed || ignorePackageStatus)
             {
@@ -323,7 +377,7 @@ namespace Kimera.Services
         /// </summary>
         /// <param name="game">A game to run.</param>
         /// <returns>A task record</returns>
-        public async Task<TaskRecord> RunProcessInternalAsync(Game game)
+        public async Task<TaskRecord> RunProcessInternalAsync(Game game, CancellationToken cancellationToken)
         {
 
             return new TaskRecord(Entities.TaskStatus.Success, "The game resources have removed successfully.");
@@ -334,14 +388,29 @@ namespace Kimera.Services
         /// </summary>
         /// <param name="game">A game to start.</param>
         /// <returns>A task record</returns>
-        public async Task<TaskRecord> StartGameInternalAsync(Game game)
+        public async Task<TaskRecord> StartGameInternalAsync(Game game, IProgress<double> progress, IProgress<string> progressCaption, CancellationToken cancellationToken)
         {
+            // Validate metadatas.
+            progress.Report(0.0);
+            progressCaption.Report((string)App.Current.Resources["SVC_GAME_VALIDATING_MD_MSG"]);
+
             TaskRecord metadataValidationResult = await ValidateMetadataInternalAsync(game);
 
             if (metadataValidationResult.Type != Entities.TaskStatus.Success)
             {
                 return metadataValidationResult;
             }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
+            }
+
+            progress.Report(100.0);
+
+            // Validate resources.
+            progress.Report(0.0);
+            progressCaption.Report((string)App.Current.Resources["SVC_GAME_VALIDATING_RES_MSG"]);
 
             TaskRecord resourcesValidationResult = await ValidateResourcesInternalAsync(game);
 
@@ -350,12 +419,35 @@ namespace Kimera.Services
                 return resourcesValidationResult;
             }
 
-            TaskRecord decompressionResult = await DecompressComponentsInternalAsync(game);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
+            }
+
+            progress.Report(100.0);
+
+            // Decompress resources.
+            progress.Report(0.0);
+            progressCaption.Report((string)App.Current.Resources["SVC_GAME_DECOMPRESSING_MSG"]);
+
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            Progress<string> decompressingProgressCaption = new Progress<string>(value => progressCaption.Report(value));
+            Progress<double> decompressingProgress = new Progress<double>(value => progress.Report(value));
+
+            TaskRecord decompressionResult = await DecompressComponentsInternalAsync(game, true, decompressingProgress, decompressingProgressCaption, tokenSource.Token);
 
             if (decompressionResult.Type != Entities.TaskStatus.Success)
             {
                 return decompressionResult;
             }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return new TaskRecord(Entities.TaskStatus.Canceled, "The task is cancelled.");
+            }
+
+            progress.Report(100.0);
+            progressCaption.Report((string)App.Current.Resources["SVC_GAME_COMPLETED_MSG"]);
 
             return new TaskRecord(Entities.TaskStatus.Success, "The game has started successfully.");
         }
@@ -375,19 +467,48 @@ namespace Kimera.Services
                 return;
             }
 
-            TaskRecord result = await StartGameInternalAsync(game);
+            // Set a progress viewer.
+            ProgressViewerViewModel viewModel = new ProgressViewerViewModel();
+            viewModel.Title = (string)App.Current.Resources["VIEW_PROGRESSVIEWER_START_TITLE"];
+            viewModel.Caption = (string)App.Current.Resources["SVC_GAME_INIT_MSG"];
+            viewModel.Progress = 0.0;
 
-            if (result.Type != Entities.TaskStatus.Success)
+            // Start a task.
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            Progress<string> progressCaption = new Progress<string>(value => viewModel.Caption = value);
+            Progress<double> progress = new Progress<double>(value => viewModel.Progress = value);
+
+            TaskRecord result = await StartGameInternalAsync(game, progress, progressCaption, tokenSource.Token);
+
+            bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+            if (dialogResult == false)
             {
-                Log.Warning($"Failed to start the game. ({gameGuid})");
-                MessageBox.Show(string.Format((string)App.Current.Resources["SVC_GAME_FAILED_TO_START_MSG"], result.Message), "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                if (result == null)
+                {
+                    tokenSource.Cancel();
+                }
             }
 
             if (result.Type == Entities.TaskStatus.Success)
             {
                 RunningGameGuid = gameGuid;
                 IsRunning = true;
+
+                viewModel.Confirm();
+            }
+            else if (result.Type != Entities.TaskStatus.Canceled)
+            {
+                RunningGameGuid = Guid.NewGuid();
+                IsRunning = false;
+            }
+            else
+            {
+                viewModel.Confirm();
+
+                Log.Warning($"Failed to start the game. ({gameGuid})");
+                MessageBox.Show(string.Format((string)App.Current.Resources["SVC_GAME_FAILED_TO_START_MSG"], result.Message), "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
@@ -526,9 +647,59 @@ namespace Kimera.Services
             }
         }
 
-        public void RemoveGameResources(Guid gameGuid)
+        public async void RemoveGameResources(Guid gameGuid)
         {
+            Game game = await App.DatabaseContext.Games.Where(g => g.SystemId == gameGuid).FirstOrDefaultAsync();
 
+            if (game == null)
+            {
+                Log.Warning($"The game does not found. ({gameGuid})");
+                MessageBox.Show((string)App.Current.Resources["SVC_GAME_GAME_NOT_FOUND_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_RESOURCES_CHECK_MSG"], "Kimera", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                ProgressViewerViewModel viewModel = new ProgressViewerViewModel();
+                viewModel.Title = (string)App.Current.Resources["VIEW_PROGRESSVIEWER_REMOVE_RES_TITLE"];
+                viewModel.Caption = (string)App.Current.Resources["SVC_GAME_INIT_MSG"];
+                viewModel.Progress = 0.0;
+
+                // Start a task.
+                CancellationTokenSource tokenSource = new CancellationTokenSource();
+                Progress<string> progressCaption = new Progress<string>(value => viewModel.Caption = value);
+                Progress<double> progress = new Progress<double>(value => viewModel.Progress = value);
+
+                TaskRecord result = await RemoveGameResourcesInternalAsync(game, progress, progressCaption, tokenSource.Token);
+
+                bool? dialogResult = await IoC.Get<IWindowManager>().ShowDialogAsync(viewModel).ConfigureAwait(false);
+
+                if (dialogResult == false)
+                {
+                    if (result == null)
+                    {
+                        tokenSource.Cancel();
+                        return;
+                    }
+                }
+
+                if (result.Type == Entities.TaskStatus.Success)
+                {
+                    MessageBox.Show((string)App.Current.Resources["SVC_GAME_REMOVE_RES_SUCCESS_MSG"], "Kimera", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    viewModel.Confirm();
+
+                    Log.Warning($"Failed to remove the game resources. ({gameGuid})");
+                    MessageBox.Show(string.Format((string)App.Current.Resources["SVC_GAME_FAILED_TO_REMOVE_MSG"], result.Message), "Kimera", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+            else
+            {
+                return;
+            }
         }
 
         public async void RemoveGame(Guid gameGuid)

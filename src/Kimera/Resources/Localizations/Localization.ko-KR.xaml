@@ -226,6 +226,10 @@
     <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_EP_CAPTION">게임 시작 시 실행할 파일을 선택하세요.</system:String>
     <system:String x:Key="VIEW_ARCHIVEFILEEXPLORER_PATH_CAPTION">경로</system:String>
 
+    <!--View : ProgressViewerView-->
+    <system:String x:Key="VIEW_PROGRESSVIEWER_START_TITLE">게임 실행하기</system:String>
+    <system:String x:Key="VIEW_PROGRESSVIEWER_REMOVE_RES_TITLE">게임 리소스 삭제하기</system:String>
+
     <!--ViewModel : GuardViewModel-->
     <system:String x:Key="VM_GUARD_RESET_APP_EXCEPTION_MSG">알 수 없는 오류가 발생하여 애플리케이션을 초기화하지 못했습니다.</system:String>
     <system:String x:Key="VM_GUARD_RESET_APP_UNMATCHED_MSG">코드가 일치하지 않습니다. 다시 시도해주십시오.</system:String>
@@ -267,13 +271,23 @@
     
     <!--Service : GameService-->
     <system:String x:Key="SVC_GAME_GAME_NOT_FOUND_MSG">게임 정보를 찾을 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_INIT_MSG">초기화 중...</system:String>
+    <system:String x:Key="SVC_GAME_INDEXING_MSG">색인 중...</system:String>
+    <system:String x:Key="SVC_GAME_REMOVING_MSG">제거 중... ({0})</system:String>
+    <system:String x:Key="SVC_GAME_VALIDATING_MD_MSG">메타데이터 유효성 검사 중...</system:String>
+    <system:String x:Key="SVC_GAME_VALIDATING_RES_MSG">리소스 유효성 검사 중...</system:String>
+    <system:String x:Key="SVC_GAME_DECOMPRESSING_MSG">압축 해제 중...</system:String>
+    <system:String x:Key="SVC_GAME_COMPLETED_MSG">완료</system:String>
+
     <system:String x:Key="SVC_GAME_FAILED_TO_START_MSG">오류가 발생하여 게임을 실행하지 못했습니다. ({0})</system:String>
+    <system:String x:Key="SVC_GAME_FAILED_TO_REMOVE_MSG">오류가 발생하여 삭제 작업이 중단되었습니다. ({0})</system:String>
     <system:String x:Key="SVC_GAME_CATEGORY_NONE">없음</system:String>
     <system:String x:Key="SVC_GAME_ADD_FAVORITE_MSG">게임이 즐겨찾기에 추가되었습니다.</system:String>
     <system:String x:Key="SVC_GAME_REMOVE_FAVORITE_CHECKER_MSG">이 게임을 즐겨찾기에서 삭제하시겠습니까?</system:String>
-    <system:String x:Key="SVC_GAME_REMOVE_DATA_CHECK_MSG">정말 이 게임을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_DATA_CHECK_MSG">이 게임을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
     <system:String x:Key="SVC_GAME_REMOVE_RESOURCES_CHECK_MSG">이 게임의 리소스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</system:String>
     <system:String x:Key="SVC_GAME_REMOVE_SUCCESS_MSG">게임을 성공적으로 삭제했습니다!</system:String>
+    <system:String x:Key="SVC_GAME_REMOVE_RES_SUCCESS_MSG">게임 리소스를 성공적으로 삭제했습니다!</system:String>
 
     <!--Converter : CategoryGuidToDetailsConverter-->
     <system:String x:Key="CONV_CGTODETAILS_PREFIX">카테고리</system:String>
